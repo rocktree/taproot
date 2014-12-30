@@ -14,7 +14,7 @@ class SiteUser < ActiveRecord::Base
 
   # ------------------------------------------ Associations
 
-  belongs_to :site, :touch => true
-  belongs_to :user, :touch => true
+  belongs_to :site, touch: true
+  belongs_to :user, touch: true
 
 end
