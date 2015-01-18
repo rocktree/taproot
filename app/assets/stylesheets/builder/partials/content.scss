@@ -1,6 +1,6 @@
 #content {
 
-  > .page-title {
+  .page-title {
     margin: 0 0 10px 0;
     padding: 0 0 10px 0;
     border-bottom: 1px solid $color-light-darker;
@@ -23,7 +23,7 @@
   }
 
   section.data-table {
-    margin: 25px 0 0 0;
+    margin: 0;
     article {
       position: relative;
       padding: 20px 15px;

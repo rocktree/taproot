@@ -6,8 +6,11 @@
   <%= new_page_children_links %>
 <% end %>
 
-<%= data_table(current_page_children_paginated, 'page') %>
+<section id="page-content">
+  <%= data_table(current_page_children_paginated, 'page') %>
+  <%= paginate_links(
+    current_page_children_paginated, 'builder/pages', 'show'
+  ) %>
+</section>
 
-<%= paginate_links(
-  current_page_children_paginated, 'builder/pages', 'show'
-) %>
+<%= sidebar %>

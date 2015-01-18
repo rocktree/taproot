@@ -5,9 +5,9 @@
 # 
 # This file is storing for all your site-specific configuration.
 # 
-# The values here are loaded into a nested OpenStruct, available from the
-# SiteSetting class, per environment. For example, if you have a config like
-# this:
+# The values here are loaded into a nested OpenStruct, available via the 
+# site_settings helper method, per environment. For example, if you have a 
+# config like this:
 # 
 # development: &default
 #   social:
@@ -15,7 +15,7 @@
 # 
 # Then you would get "https://www.facebook.com/I_Am_Awesome" by running:
 # 
-#     SiteSettings.social.facebook
+#     site_settings.social.facebook
 # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 #

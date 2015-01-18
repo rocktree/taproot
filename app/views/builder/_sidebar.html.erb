@@ -1,5 +1,1 @@
-<%= content_tag(:section, builder_site_nav, :class => 'site-nav') %>
-
-<% unless builder_site_subnav.nil? %>
-  <%= content_tag(:section, builder_site_subnav, :class => 'sub-nav') %>
-<% end %>
+<%= builder_site_subnav unless builder_site_subnav.nil? %>

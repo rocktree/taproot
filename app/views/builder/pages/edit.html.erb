@@ -1,9 +1,9 @@
 <%= current_page_breadcrumbs %>
 
 <%= builder_page_title("Edit #{current_page.title}") do %>
-  <%#= link_to current_page_type.title,  builder_route([current_page_type], :show], 
-    :class => 'back' %>
   <%= new_page_children_links("New (Nested)") %>
 <% end %>
 
-<%= render 'form' %>
+<%= content_tag(:section, render('form'), :id => 'page-content') %>
+
+<%= sidebar %>

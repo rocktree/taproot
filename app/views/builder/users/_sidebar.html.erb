@@ -1,0 +1,10 @@
+<ul>
+  <h3>All Users</h3>
+  <% all_site_users.each do |user| %>
+    <%= content_tag(
+      :li,
+      link_to(user.display_name, builder_route([user], :edit)),
+      :class => (request.path == builder_route([user], :edit)) ? 'active' : nil
+    ) %>
+  <% end %>
+</ul>

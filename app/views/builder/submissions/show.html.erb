@@ -6,7 +6,7 @@
   ) %>
 <% end %>
 
-<section class="form-submission">
+<section class="form-submission" id="page-content">
   <dl>
     <% current_form_submission.field_data.each do |k,v| %>
       <%= content_tag(:dt, k.humanize.titleize) %>
@@ -14,3 +14,5 @@
     <% end %>
   </dl>
 </section>
+
+<%= sidebar('builder/forms/sidebar') %>

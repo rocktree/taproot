@@ -8,6 +8,10 @@ module RenderingHelper
     end
   end
 
+  def subtitle(subtitle)
+    content_tag(:p, subtitle, :class => 'subtitle')
+  end
+
   def data_table(collection, partial = nil)
     content_tag(:section, :class => 'data-table') do
       if partial.nil?
@@ -22,7 +26,7 @@ module RenderingHelper
     content_tag(:ul, :class => 'tabs') do
       o = ''
       tabs.each do |t| 
-        label = t.upcase.gsub(/\-/, ' ')
+        label = t.gsub(/\-/, ' ').titleize
         o += content_tag(:li, link_to(label, '#', :data => { 
           :section => t.downcase } ))
       end

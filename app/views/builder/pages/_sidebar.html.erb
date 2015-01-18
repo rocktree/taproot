@@ -1,0 +1,41 @@
+<ul>
+  <h3>Root-level Pages</h3>
+  <% site_nav_pages.each do |page| %>
+    <%= content_tag(
+      :li,
+      link_to(
+        page.slug.gsub(/\_/, ' ').titleize, 
+        builder_route([page], :show)
+      ),
+      :class => (
+        (
+          request.path.include?(builder_route([page], :show)) || 
+          page == current_page_parent
+        ) && 
+        controller_name == 'pages'
+      ) ? ' active' : nil
+    ) %>
+  <% end %>
+</ul>
+
+<% if site_floating_root_pages.size > 0 %>
+  <ul>
+    <h3>Floating Pages (not in nav)</h3>
+    <% site_floating_root_pages.each do |page| %>
+      <%= content_tag(
+        :li,
+        link_to(
+          page.slug.gsub(/\_/, ' ').titleize, 
+          builder_route([page], :show)
+        ),
+        :class => (
+          (
+            request.path.include?(builder_route([page], :show)) || 
+            page == current_page_parent
+          ) && 
+          controller_name == 'pages'
+        ) ? ' active' : nil
+      ) %>
+    <% end %>
+  </ul>
+<% end %>

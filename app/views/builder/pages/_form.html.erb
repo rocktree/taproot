@@ -13,7 +13,9 @@
         :collection => current_page_type.templates, 
         :selected => current_page.template.blank? ? current_page_type.templates.first : current_page.template 
       ) %>
-      <%= f.input :position unless current_page_parent %>
+      <% if !current_page_parent || current_page_type.order_by == 'position' %>
+        <%= f.input :position %>
+      <% end %>
     </div>
     <%= f.input :description %>
     <div class="body-buttons input">

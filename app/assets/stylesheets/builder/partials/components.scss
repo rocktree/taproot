@@ -20,6 +20,12 @@ p.note {
   margin-top: 0;
 }
 
+p.subtitle {
+  margin: 5px 0 10px 0;
+  font-size: 15px;
+  color: $color-dark-light;
+}
+
 .avatar-container {
   display: inline-block;
   width: 42px;

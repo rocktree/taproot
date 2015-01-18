@@ -1,14 +1,22 @@
-<%= builder_page_title('New User') %>
-
-<%= simple_form_for [:builder, current_site, @user] do |f| %>
-
-  <section class="form">
-    <%= f.input :name %>
-    <%= f.input :email %>
-    <%= f.input :password %>
-    <%= f.input :password_confirmation %>
-  </section>
-
-  <%= f.submit %>
+<%= builder_page_title('New User') do %>
+  <%= subtitle("Create a new user. Creating a user here will give them access 
+  to this site.") %>
 <% end %>
 
+<section id="page-content">
+
+  <%= simple_form_for [:builder, current_site, @user] do |f| %>
+
+    <section class="form">
+      <%= f.input :name %>
+      <%= f.input :email %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+    </section>
+
+    <%= f.submit %>
+  <% end %>
+
+</section>
+
+<%= sidebar %>

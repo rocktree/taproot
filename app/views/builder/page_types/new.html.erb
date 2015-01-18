@@ -1,2 +1,3 @@
 <%= builder_page_title('New Page Type') %>
-<%= render 'form' %>
+<%= content_tag(:section, render('form'), :id => 'page-content') %>
+<%= sidebar %>

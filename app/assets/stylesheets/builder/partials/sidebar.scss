@@ -1,99 +1,41 @@
-aside#sidebar {
-  position: relative;
-  z-index: 99;
-  font-size: 0;
+aside#page-sidebar {
 
-  .site-nav {
-    display: inline-block;
-    width: 50px;
-    height: 100%;
-    background: $color-primary;
-    ul {
-      @include clear-list;
-      width: 100%;
-      li {
-        position: relative;
-        &.active {
-          a {
-            span, i {
-              color: $color-light;
-            }
-          }
-        }
+  h3 {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    color: $color-dark-light;
+    margin: 10px 0;
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid $color-light-darker;
+  }
+  ul {
+    @include clear-list;
+    width: 100%;
+    margin-top: 10px;
+    li {
+      position: relative;
+      &.active {
         a {
-          display: block;
-          padding: 10px 10px;
-          @include transition-all;
-          text-align: center;
+          color: $color-light;
+          background: $color-primary;
           &:hover {
-            background: $color-primary-light;
-          }
-          span, i {
-            line-height: 23px;
-            font-size: 20px;
-            vertical-align: middle;
-            @include transition-all;
-            color: $color-dark;
-          }
-          span {
-            margin: 0 10px 0 15px;
-            font-size: 13px;
-            font-weight: 600;
+            color: $color-light;
+            background: $color-primary;
           }
         }
       }
-    }
-  }
-  .sub-nav {
-    display: inline-block;
-    width: 200px;
-    height: 100%;
-    background: $color-light-dark;
-    h3 {
-      font-size: 14px;
-      line-height: 14px;
-      margin: 10px 15px 0 15px;
-      padding: 15px 0 5px 0;
-      // border-top: 1px solid $color-light-darkest;
-      font-style: italic;
-      font-weight: 200;
-    }
-    ul {
-      @include clear-list;
-      width: 100%;
-      li {
-        position: relative;
-        &.active {
-          &:after {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            margin-top: -9px;
-            content: '';
-            width: 0;
-            height: 0;
-            border-right: solid 10px $color-light;
-            border-top: solid 8px transparent;
-            border-bottom: solid 8px transparent;
-          }
-          a {
-            span, i {
-              color: $color-light;
-            }
-          }
-        }
-        a {
-          display: block;
-          padding: 10px 15px;
-          vertical-align: middle;
-          line-height: 23px;
-          font-size: 13px;
-          font-weight: 600;
-          @include transition-all;
-          color: $color-dark;
-          &:hover {
-            background: $color-light-darkest;
-          }
+      a {
+        display: block;
+        padding: 7px 10px;
+        line-height: 23px;
+        font-size: 13px;
+        font-weight: 400;
+        border-radius: 3px;
+        @include transition-all;
+        color: $color-dark-lightest;
+        &:hover {
+          background: $color-light-dark;
         }
       }
     }

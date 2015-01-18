@@ -1,0 +1,12 @@
+<ul>
+  <h3>All Forms</h3>
+  <% site_forms.each do |form| %>
+    <%= content_tag(
+      :li,
+      link_to(form.slug.gsub(/\_/, ' ').titleize, builder_route([form], :edit)),
+      :class => (
+        request.path.include?(builder_route([form], :show))
+      ) ? 'active' : nil
+    ) %>
+  <% end %>
+</ul>

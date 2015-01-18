@@ -73,9 +73,10 @@ form {
       position: absolute;
       top: 0;
       right: 0;
+      margin: 0;
       font-size: 14px;
       line-height: 14px;
-      color: $color-danger;
+      color: $color-light;
       @include transition(none);
       &.dont-delete {
         color: $color-primary;
@@ -85,23 +86,38 @@ form {
 
   ul.tabs {
     @include clear-list;
-    margin: 20px 0 10px 0;
-    border-bottom: 1px solid $color-light-darker;
+    display: inline-block;
+    margin: 10px 0 15px 0;
+    border-radius: 3px;
+    border: 1px solid $color-light-darker;
+    overflow: hidden;
+    // border-bottom: 1px solid $color-light-darker;
     li {
       display: inline-block;
+      &:last-child a {
+        border: none;
+      }
       a {
         display: inline-block;
         padding: 7.5px 15px;
-        border-bottom: 3px solid transparent;
+        border-right: 1px solid $color-light-darker;
         color: $color-grey;
-        &:hover, &.active {
-          border-bottom-color: $color-primary;
+        &.active {
+          background: $color-primary;
+          color: $color-light;
+        }
+        &:hover {
+          background: $color-light-dark;
+          &.active {
+            background: $color-primary;
+          }
+          &.to-delete {
+            background: $color-danger;
+          }
         }
         &.to-delete {
-          color: $color-danger;
-          &:hover, &.active {
-            border-bottom-color: $color-danger;
-          }
+          color: $color-light;
+          background: $color-danger;
         }
       }
     }

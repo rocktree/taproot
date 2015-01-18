@@ -6,4 +6,6 @@
   ) %>
 <% end %>
 
-<%= render 'form' %>
+<%= content_tag(:section, render('form'), :id => 'page-content') %>
+
+<%= sidebar %>

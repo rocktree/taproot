@@ -74,4 +74,8 @@ module ViewerHelper
     slug.gsub(/\_/, ' ').humanize.titleize
   end
 
+  def site_settings
+    @site_settings ||= current_site.settings
+  end
+
 end

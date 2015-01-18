@@ -2,4 +2,4 @@
   <%= link_to('New Site',  new_builder_site_path, :class => 'new') %>
 <% end %>
 
-<%= data_table(my_sites, 'site') %>
+<%= content_tag(:section, data_table(my_sites, 'site'), :id => 'page-content') %>

@@ -39,6 +39,14 @@ class TaprootProject
     create_symlinks
   end
 
+  def remove_files
+    verify_site
+    if Dir.exists?(project_dir)
+      FileUtils.rm_r(project_dir)
+    end
+    remove_bad_symlinks
+  end
+
   private
 
     # ------------------------------------------ Individual Actions
@@ -122,14 +130,6 @@ class TaprootProject
 
     def create_parent_directories(path)
       FileUtils.mkdir_p(path.split('/')[0..-2].join('/'))
-    end
-
-    def remove_files
-      verify_site
-      if Dir.exists?(project_dir)
-        FileUtils.rm_r(project_dir)
-      end
-      remove_bad_symlinks
     end
 
     def remove_bad_symlinks

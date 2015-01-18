@@ -28,11 +28,11 @@
     <div id="container">
       <%= content_tag(:header, render('header')) %>
       <%= content_tag(
-        :aside, 
-        render('sidebar'), 
-        :id => 'sidebar'
-      ) if @options['sidebar'] %>
-      <%= content_tag(:div, yield, :id => 'content') %>
+        :section, builder_site_nav, :id => 'builder-site-nav'
+      ) if current_site && current_site.id %>
+      <div id="content">
+        <%= yield %>
+      </div>
     </div>
 
     <%= javascript_include_tag 'builder/application' %>

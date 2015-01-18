@@ -1,0 +1,42 @@
+#builder-site-nav {
+  position: relative;
+  width: 100%;
+  z-index: 999;
+  margin: 0;
+  background: $color-light-dark;
+  border-bottom: 1px solid $color-light-darkest;
+  ul {
+    @include clear-list;
+    width: 100%;
+    li {
+      position: relative;
+      display: inline-block;
+      width: 16.666%;
+      &.active {
+        a {
+          border-bottom-color: $color-primary;
+          color: $color-primary;
+          font-weight: 700;
+          &:hover {
+            border-bottom-color: $color-primary;
+            color: $color-primary;
+          }
+        }
+      }
+      a {
+        display: inline-block;
+        padding: 10px 10px;
+        @include transition(none);
+        text-align: center;
+        width: 100%;
+        color: $color-dark-lightest;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid transparent;
+        &:hover {
+          border-bottom-color: $color-light-darkest;
+          // color: $color-light-darkest;
+        }
+      }
+    }
+  }
+}

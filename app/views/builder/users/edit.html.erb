@@ -1,29 +1,37 @@
-<%= builder_page_title("Edit #{@user.display_name}") do %>
+<%= builder_page_title(@user.display_name) do %>
   <%= link_to(
     'New User', 
     builder_route([all_site_users], :new), 
     :class => 'new' 
   ) %>
+  <%= subtitle("You may edit this user's attributes. This will change their 
+  account throughout the app.") %>
 <% end %>
 
-<%= simple_form_for [:builder, current_site, @user] do |f| %>
+<section id="page-content">
 
-  <% if current_user.admin? %>
-    <section class="form">
-      <%= f.input :name %>
-      <%= f.input :email %>
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
-    </section>
+  <%= simple_form_for [:builder, current_site, @user] do |f| %>
+
+    <% if current_user.admin? %>
+      <section class="form">
+        <%= f.input :name %>
+        <%= f.input :email %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+      </section>
+    <% end %>
+
+    <%= f.submit %>
+    <%= link_to(
+      "Remove User From Project", 
+      builder_route([@user], :show), 
+      :class => 'button-color-2 margin-left-medium',
+      :method => :delete,
+      :data => { :confirm => 'Are you sure you want to remove this user?' } 
+    ) unless @user.admin? || is_current_user? %>
+
   <% end %>
 
-  <%= f.submit %>
-  <%= link_to(
-    "Remove User From Project", 
-    builder_route([@user], :show), 
-    :class => 'button-color-2 margin-left-medium',
-    :method => :delete,
-    :data => { :confirm => 'Are you sure you want to remove this user?' } 
-  ) unless @user.admin? || is_current_user? %>
+</section>
 
-<% end %>
+<%= sidebar %>

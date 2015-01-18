@@ -1,24 +1,30 @@
 pages:
   icon: files
+  label: Pages
   path: builder_site_path
   controllers: ['pages']
+page_types:
+  icon: wrench
+  label: Page Types
+  path: builder_site_page_types_path
+  controllers: ['page_types']
 library:
   icon: stack-play
+  label: Media Library
   path: builder_site_documents_path
   controllers: ['images']
 forms:
   icon: clipboard3
+  label: Forms
   path: builder_site_forms_path
   controllers: ['forms', 'submissions']
-page_types:
-  icon: wrench
-  path: builder_site_page_types_path
-  controllers: ['page_types']
 users:
   icon: user2
+  label: Users
   path: builder_site_users_path
   controllers: ['users']
 settings:
   icon: cog3
+  label: Settings
   path: edit_builder_site_path
   controllers: []

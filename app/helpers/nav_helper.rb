@@ -20,11 +20,7 @@ module NavHelper
         items += content_tag(
           :li,
           :class => builder_nav_active?(item, path, attrs.controllers) ? 'active' : nil
-        ) do
-          link_to(path) do
-            content_tag(:i, nil, :class => "icon-#{attrs.icon}")
-          end
-        end
+        ) { link_to(attrs.label, path) }
       end
       items.html_safe
     end
@@ -39,136 +35,8 @@ module NavHelper
     end
   end
 
-  def builder_site_subnav
-    @builder_site_subnav ||= begin
-      begin
-        items = send("builder_#{@builder_nav_active_item}_subnav")
-      rescue
-        return nil
-      end
-
-      o = builder_site_subnav_list(items)
-
-      if @builder_nav_active_item == 'pages' && site_floating_root_pages.size > 0
-        o += content_tag(:h3, 'Not In Nav')
-        items = builder_pages_subnav(site_floating_root_pages)
-        o += builder_site_subnav_list(items)
-      end
-
-      o.html_safe
-    end
-  end
-
-  def builder_site_subnav_list(items)
-    content_tag(:ul) do
-      o = ''
-      items.each do |attrs|
-        o += content_tag(:li, :class => attrs.classes) do
-          m = attrs.request_type.blank? ? :get : attrs.request_type.to_sym
-          if attrs.confirm.blank?
-            link_to(attrs.label.upcase, attrs.path, :method => m)
-          else
-            link_to(
-              attrs.label.upcase, 
-              attrs.path, 
-              :method => m,
-              :data => { :confirm => attrs.confirm }
-            )
-          end
-        end
-      end
-      o.html_safe
-    end
-  end
-
-  def builder_pages_subnav(pages = site_nav_pages)
-    items = []
-    pages.each do |page|
-      items << {
-        'label' => page.slug.gsub(/\_/, ' '),
-        'path' => builder_route([page], :show),
-        'classes' => (
-          request.path.include?(
-            builder_route([page], :show)
-          ) || page == current_page_parent) && controller_name == 'pages' ? ' active' : nil
-      }.to_ostruct
-    end
-    items
-  end
-
-  def builder_library_subnav
-    items = [
-      {
-        'label' => 'All Files',
-        'path' => builder_route([site_files], :index),
-        'classes' => 'active'
-      }.to_ostruct
-    ]
-  end
-
-  def builder_forms_subnav
-    items = []
-    site_forms.each do |form|
-      items << {
-        'label' => form.slug.gsub(/\_/, ' '),
-        'path' => builder_route([form], :show),
-        'classes' => (
-          request.path.include?(builder_route([form], :show)) ? ' active' : nil
-        )
-      }.to_ostruct
-    end
-    items
-  end
-
-  def builder_page_types_subnav
-    items = []
-    site_page_types.each do |page_type|
-      path = builder_route([page_type], :edit)
-      item = {
-        'label' => page_type.title,
-        'path' => path,
-        'classes' => ''
-      }
-      if request.path == builder_route([page_type], :edit)
-        item['classes'] = 'active'
-      end
-      items << item.to_ostruct
-    end
-    items
-  end
-
-  def builder_users_subnav
-    items = []
-    all_site_users.each do |user|
-      path = builder_route([user], :edit)
-      item = {
-        'label' => user.display_name,
-        'path' => path,
-        'classes' => ''
-      }
-      if request.path == builder_route([user], :edit)
-        item['classes'] = 'active'
-      end
-      items << item.to_ostruct
-    end
-    items
-  end
-
-  def builder_settings_subnav
-    items = []
-    read_nav_config('builder_settings_subnav').each do |item, attrs|
-      if attrs.env.nil? || Rails.env.send("#{attrs.env}?")
-        item = {
-          'label' => attrs.label,
-          'path' => send(attrs.path, current_site),
-          'classes' => attrs.classes,
-          'request_type' => attrs.request_type, 
-        }
-        item['confirm'] = attrs.confirm unless attrs.confirm.nil?
-        items << item.to_ostruct
-      end
-    end
-    items
+  def sidebar(partial = 'sidebar')
+    content_tag(:aside, :id => 'page-sidebar') { render(:partial => partial) }
   end
 
 end

@@ -27,7 +27,7 @@ class Builder::PagesController < BuilderController
     if current_page.save!
       # save_files
       redirect_to(
-        builder_route([current_page], :show), 
+        builder_route([current_page], :edit), 
         :notice => t(
           'notices.created', 
           :item => controller_name.humanize.titleize
@@ -42,7 +42,7 @@ class Builder::PagesController < BuilderController
     process_files
     if current_page.update(update_params)
       # save_files
-      redirect_to(builder_route([current_page], :show),
+      redirect_to(builder_route([current_page], :edit),
         :notice => t(
           'notices.updated', 
           :item => controller_name.humanize.titleize

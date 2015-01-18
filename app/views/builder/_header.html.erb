@@ -2,7 +2,7 @@
   <div class="site-title">
     <%= content_tag(:h1) {
       link_to(
-        "#{current_site.title} (#{current_site.url})", 
+        current_site.title, 
         builder_site_path(current_site)
       )
     } if current_site.id %>
