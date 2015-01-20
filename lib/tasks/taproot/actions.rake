@@ -1,6 +1,6 @@
 namespace :taproot do
 
-  desc 'Update Taproot repo on v0-stable'
+  desc 'Update Taproot repo on current branch'
   task :update => :environment do
     TaprootAction.new.update_repo
   end
@@ -28,6 +28,16 @@ namespace :taproot do
   desc 'Precompile assets and reload server'
   task :reload => :environment do
     TaprootAction.new.reload
+  end
+
+  desc 'Stop sidekiq server (production)'
+  task :stop_sidekiq => :environment do
+    TaprootAction.new.stop_sidekiq
+  end
+
+  desc 'Start sidekiq server (production)'
+  task :start_sidekiq => :environment do
+    TaprootAction.new.start_sidekiq
   end
 
   desc 'Restart sidekiq server (production)'
