@@ -37,11 +37,6 @@ development: &default
     access_key_id:      ''                  # amazon s3 api key
     secret_access_key:  ''                  # amazon s3 secret
     bucket:             ''                  # amazon s3 bucket name (in us standard region)
-  git:
-    protocol:           https               # http(s)
-    url:                ''                  # git host url without protocol
-    username:           ''                  # your git app username
-    password:           ''                  # your git app password
   dragonfly:
     secret:             ''                  # some random hash
   api:
