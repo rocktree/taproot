@@ -21,7 +21,6 @@ class TaprootAction
       precompile_assets
       clean_assets
       restart
-      restart_sidekiq
     end
   end
 
@@ -30,7 +29,6 @@ class TaprootAction
       precompile_assets
       clean_assets
       restart
-      restart_sidekiq
     end
   end
 
@@ -51,6 +49,17 @@ class TaprootAction
     start_sidekiq
   end
 
+  def start_sidekiq
+    system("cd #{Rails.root}; bundle exec sidekiq -d -L log/sidekiq.log -q mailer,5 -q default -e production")
+  end
+
+  def stop_sidekiq
+    pid = `ps -ef | grep sidekiq | grep -v grep | awk '{print $2}'`
+    unless pid.blank?
+      system("kill -9 #{pid}")
+    end
+  end
+
   private
 
     # ------------------------------------------ Rails Server
@@ -65,19 +74,6 @@ class TaprootAction
 
     def restart
       system("service #{@service} restart")
-    end
-
-    # ------------------------------------------ Sidekiq
-
-    def start_sidekiq
-      system("cd #{Rails.root}; bundle exec sidekiq -d -L log/sidekiq.log -q mailer,5 -q default -e production")
-    end
-
-    def stop_sidekiq
-      pid = `ps -ef | grep sidekiq | grep -v grep | awk '{print $2}'`
-      unless pid.blank?
-        system("kill -9 #{pid}")
-      end
     end
 
     # ------------------------------------------ Assets
@@ -103,8 +99,9 @@ class TaprootAction
     # ------------------------------------------ Git
 
     def pull
-      branch = 'v0-stable'
-      system("cd #{Rails.root}; git checkout #{branch}")
+      branch = 'v1-stable'
+      system("cd #{Rails.root}; git fetch")
+      system("cd #{Rails.root}; git checkout origin/#{branch}")
       system("cd #{Rails.root}; git pull origin #{branch}")
     end
 
