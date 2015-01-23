@@ -54,7 +54,7 @@ class Site < ActiveRecord::Base
 
   validates_uniqueness_of :title
 
-  validates_format_of :title, :with => /\A[A-Z][A-Za-z\ ]+\z/
+  validates_format_of :title, :with => /\A[A-Za-z][A-Za-z\ ]+\z/
 
   # ------------------------------------------ Callbacks
 
