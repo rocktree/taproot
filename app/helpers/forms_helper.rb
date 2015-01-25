@@ -12,7 +12,7 @@ module FormsHelper
   end
 
   def current_form_submissions
-    @current_form_submissions ||= current_form.submissions.desc
+    @current_form_submissions ||= current_form.submissions.desc.page(params[:page]).per(10)
   end
 
   def current_form_submission

@@ -13,7 +13,9 @@
 
 <section id="page-content">
   <% if current_form_submissions.size > 0 %>
+    <%= paginate(current_form_submissions) %>
     <%= data_table(current_form_submissions, 'submission') %>
+    <%= paginate(current_form_submissions) %>
   <% else %>
     <%= content_tag(
       :section, 
