@@ -12,7 +12,7 @@ module FormsHelper
   end
 
   def current_form_submissions
-    @current_form_submissions ||= current_form.submissions
+    @current_form_submissions ||= current_form.submissions.desc
   end
 
   def current_form_submission
