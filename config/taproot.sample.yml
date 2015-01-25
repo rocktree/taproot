@@ -52,6 +52,11 @@ development: &default
     address:            smtp.gmail.com      # smtp address
     port:               587                 # smtp port
     default_from:       ''                  # address from which to send notifications
+  notifications:
+    errors:
+      email_prefix:     "[Taproot ERROR] "  # prefix to email subject
+      sender:           ''                  # display name and email address for email
+      recipient:        ''                  # who to send error notifications to
 
 test:
   <<: *default

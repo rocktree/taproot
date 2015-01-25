@@ -24,6 +24,10 @@ class FormSubmission < ActiveRecord::Base
 
   belongs_to :form
 
+  # ------------------------------------------ Scopes
+
+  scope :desc, -> { order('created_at desc') }
+
   # ------------------------------------------ Callbacks
 
   after_create :send_response

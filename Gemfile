@@ -61,13 +61,20 @@ group :console do
 end
 
 group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'dbsync'
 end
 
 group :production do
   gem 'rack-cache', :require => 'rack/cache'
+end
+
+# ------------------------------------------ Errors
+
+gem 'exception_notification'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # ------------------------------------------ Development/Test

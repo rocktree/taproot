@@ -3,7 +3,7 @@
   <% site_forms.each do |form| %>
     <%= content_tag(
       :li,
-      link_to(form.slug.gsub(/\_/, ' ').titleize, builder_route([form], :edit)),
+      link_to(form.slug.gsub(/\_/, ' ').titleize, builder_route([form], :show)),
       :class => (
         request.path.include?(builder_route([form], :show))
       ) ? 'active' : nil
