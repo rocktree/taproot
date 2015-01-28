@@ -44,6 +44,12 @@ development: &default
   remote:
     url:                ''                  # the url of your production app (e.g. cms.example.com)
     db_backup_file:     ''                  # reference to remote backup using ssh
+
+test:
+  <<: *default
+
+production:
+  <<: *default
   mailer:
     sendgrid:           false               # use sendgrid for sending emails?
     user_name:          ''                  # email username
@@ -57,9 +63,3 @@ development: &default
       email_prefix:     "[Taproot ERROR] "  # prefix to email subject
       sender:           ''                  # display name and email address for email
       recipient:        ''                  # who to send error notifications to
-
-test:
-  <<: *default
-
-production:
-  <<: *default
