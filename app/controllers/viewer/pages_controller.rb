@@ -1,6 +1,6 @@
 class Viewer::PagesController < ViewerController
 
-  # caches_page :index, :show
+  before_filter :cors_check
 
   def home
     @current_page = current_site.home_page
@@ -28,6 +28,13 @@ class Viewer::PagesController < ViewerController
       else
         @layout = "viewer/#{current_site.slug}"
       end
+    end
+
+    def cors_check
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+      headers['Access-Control-Request-Method'] = '*'
+      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     end
 
 end
