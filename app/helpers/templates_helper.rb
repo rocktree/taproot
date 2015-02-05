@@ -1,13 +1,17 @@
-module PageTypesHelper
+module TemplatesHelper
 
   def site_page_types
     @site_page_types ||= current_site.page_types.alpha
   end
 
-  def current_page_type
-    @current_page_type ||= begin
-      p = params[:page_type_slug] || params[:slug]
-      current_site.page_types.find_by_slug(p)
+  def current_template
+    @current_template ||= begin
+      if current_page.nil?
+        p = params[:template_slug] || params[:slug]
+        current_site.templates.find_by_slug(p)
+      else
+        current_page.template
+      end
     end
   end
 
@@ -15,19 +19,11 @@ module PageTypesHelper
     site_page_types.size > 0
   end
 
-  def page_type_children
-    @page_type_children ||= begin
-      children = current_page_type.children.reject(&:blank?)
-      current_site.page_types.where(:slug => children)
+  def template_children
+    @template_children ||= begin
+      children = current_template.children.reject(&:blank?)
+      current_site.templates.where(:slug => children)
     end
-  end
-
-  def page_type_groups
-    @page_type_groups ||= current_page_type.groups
-  end
-
-  def page_type_tabs
-    @page_type_tabs ||= page_type_groups.collect(&:slug)
   end
 
   def page_type_field_options

@@ -21,12 +21,10 @@ module PagesHelper
       if controller_name == 'pages' || controller_name == 'editor'
         p = params[:page_slug] || params[:slug]
         page = current_site.pages.find_by_slug(p)
-        if page.nil?
-          nil
-        else
-          @current_page_type = page.page_type
-          page
-        end
+        return nil if page.nil?
+        page
+      else
+        nil
       end
     end
   end
@@ -118,12 +116,12 @@ module PagesHelper
   def new_page_children_links(prefix = "New")
     @new_page_children_links ||= begin
       output = ''
-      page_type_children.each do |page_type|
+      template_children.each do |template|
         output += link_to(
-          "#{prefix} #{page_type.label}", 
+          "#{prefix} #{template.label}", 
           new_builder_site_page_path(
             current_site, 
-            :page_type => page_type.slug,
+            :template => template.slug,
             :parent => current_page.slug
           ),
           :class => 'new'

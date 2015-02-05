@@ -10,14 +10,14 @@ class Builder::PagesController < BuilderController
 
   def show
     current_page
-    if page_type_children.size == 0 || current_page.children.size == 0
+    if template_children.size == 0 || current_page.children.size == 0
       redirect_to builder_route([current_page], :edit)
     end
   end
 
   def new
-    redirect_to current_site unless params[:page_type]
-    @current_page_type = current_site.page_types.find_by_slug(params[:page_type])
+    redirect_to current_site unless params[:template]
+    @current_template = current_site.templates.find_by_slug(params[:template])
     @current_page = Page.new
   end
 
@@ -70,11 +70,11 @@ class Builder::PagesController < BuilderController
   private
 
     def create_params
-      @current_page_type = current_site.page_types.find_by_id(
-        params[:page][:page_type_id]
+      @current_template = current_site.templates.find_by_id(
+        params[:page][:template_id]
       )
       fields = []
-      page_type_groups.each { |g| fields << g.fields }
+      template_groups.each { |g| fields << g.fields }
       fields = fields.flatten.uniq.collect(&:slug).map { |f| f.to_sym }
       params.require(:page).permit(
         :title,
@@ -89,13 +89,13 @@ class Builder::PagesController < BuilderController
         :show_in_nav,
         :field_data => fields
       ).merge(
-        :page_type => current_page_type,
+        :template => current_template,
       )
     end
 
     def update_params
       fields = []
-      page_type_groups.each { |g| fields << g.fields }
+      template_groups.each { |g| fields << g.fields }
       fields = fields.flatten.uniq.collect(&:slug).map { |f| f.to_sym }
       params.require(:page).permit(
         :title,

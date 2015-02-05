@@ -34,8 +34,6 @@ class Template < ActiveRecord::Base
   has_many :pages
   has_many :template_fields
 
-  accepts_nested_attributes_for :template_fields
-
   # ------------------------------------------ Scopes
 
   scope :alpha, -> { order('title asc') }
@@ -50,12 +48,6 @@ class Template < ActiveRecord::Base
 
   def remove_blank_groups
     groups.where("title = ''").destroy_all
-  end
-
-  # ------------------------------------------ Instance Methods
-
-  def templates
-    page_templates.split("\n").reject(&:blank?).map { |t| t.strip }
   end
 
 end

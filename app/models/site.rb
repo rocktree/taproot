@@ -97,4 +97,10 @@ class Site < ActiveRecord::Base
     secondary_urls.split("\n").collect(&:strip)
   end
 
+  # ------------------------------------------ Deprecated Methods
+
+  def page_types
+    templates
+  end
+
 end

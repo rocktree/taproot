@@ -8,7 +8,7 @@ class BuilderController < ActionController::Base
     RoutingHelper, 
     UsersHelper, 
     SitesHelper, 
-    PageTypesHelper, 
+    TemplatesHelper, 
     PagesHelper
   )
 

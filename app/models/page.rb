@@ -97,4 +97,10 @@ class Page < ActiveRecord::Base
     ['title','slug','position','created_at','updated_at']
   end
 
+  # ------------------------------------------ Deprecated Methods
+
+  def page_type
+    template
+  end
+
 end
