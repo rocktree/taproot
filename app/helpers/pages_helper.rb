@@ -91,12 +91,14 @@ module PagesHelper
           :li, 
           link_to('All Pages', builder_route([site_pages], :index))
         )
-        if has_ancestors?
-          current_page_ancestors.each do |a|
-            o += content_tag(
-              :li, 
-              link_to(a.title, builder_route([a], :show))
-            )
+        if current_page
+          if has_ancestors?
+            current_page_ancestors.each do |a|
+              o += content_tag(
+                :li, 
+                link_to(a.title, builder_route([a], :show))
+              )
+            end
           end
           o += content_tag(
             :li, 
