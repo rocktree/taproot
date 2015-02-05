@@ -54,7 +54,7 @@ module PagesHelper
   end
 
   def has_ancestors?
-    @has_ancestors ||= current_page_ancestors.size > 0
+    @has_ancestors ||= current_page && current_page_ancestors.size > 0
   end
 
   def current_page_children
@@ -85,10 +85,13 @@ module PagesHelper
   end
 
   def current_page_breadcrumbs
-    if has_ancestors?
-      content_tag(:nav, :class => 'breadcrumbs') do
-        content_tag(:ul) do
-          o = ''
+    content_tag(:nav, :class => 'breadcrumbs') do
+      content_tag(:ul) do
+        o = content_tag(
+          :li, 
+          link_to('All Pages', builder_route([site_pages], :index))
+        )
+        if has_ancestors?
           current_page_ancestors.each do |a|
             o += content_tag(
               :li, 

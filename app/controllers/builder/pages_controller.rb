@@ -1,11 +1,6 @@
 class Builder::PagesController < BuilderController
 
   def index
-    if site_root_pages.size > 0
-      redirect_to(builder_route([site_root_pages.first], :show))
-    else
-      redirect_to(builder_route([site_root_pages], :new))
-    end
   end
 
   def show

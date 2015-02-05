@@ -1,7 +1,7 @@
 pages:
   icon: files
   label: Pages
-  path: builder_site_path
+  path: builder_site_pages_path
   controllers: ['pages']
 page_types:
   icon: wrench

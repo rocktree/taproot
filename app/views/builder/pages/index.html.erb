@@ -1,0 +1,16 @@
+<%= current_page_breadcrumbs %>
+
+<%= builder_page_title("Pages") do %>
+  <%= subtitle("These are the root pages for your site. You can create a 
+  new root page, or drill down from here.") %>
+  <%#= link_to "Edit #{current_page.title}", builder_route([current_page], :edit), 
+    :class => 'edit' %>
+  <%#= new_page_children_links %>
+<% end %>
+
+<section id="page-content">
+  <%= data_table(site_root_pages, 'page') %>
+  <%#= paginate_links(
+    site_root_pages, 'builder/pages', 'index'
+  ) %>
+</section>
