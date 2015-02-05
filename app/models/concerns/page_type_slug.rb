@@ -25,7 +25,7 @@ module PageTypeSlug
   end
 
   def uniquify_slug(s)
-    dups = self.page_type.send(self.class.table_name).where(:slug => s) - [self]
+    dups = self.template.send(self.class.table_name).where(:slug => s) - [self]
     s = "#{slug}-#{self.id}" if dups.count > 0
     s
   end

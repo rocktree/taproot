@@ -2,22 +2,22 @@
 #
 # Table name: pages
 #
-#  id           :integer          not null, primary key
-#  page_type_id :integer
-#  title        :string(255)
-#  slug         :string(255)
-#  description  :text
-#  body         :text
-#  ancestry     :string(255)
-#  published    :boolean          default(FALSE)
-#  field_data   :text
-#  created_at   :datetime
-#  updated_at   :datetime
-#  position     :integer          default(0)
-#  template     :string(255)
-#  order        :string(255)
-#  show_in_nav  :boolean          default(TRUE)
-#  body_md      :text
+#  id          :integer          not null, primary key
+#  template_id :integer
+#  title       :string(255)
+#  slug        :string(255)
+#  description :text
+#  body        :text
+#  ancestry    :string(255)
+#  published   :boolean          default(FALSE)
+#  field_data  :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  position    :integer          default(0)
+#  template    :string(255)
+#  order       :string(255)
+#  show_in_nav :boolean          default(TRUE)
+#  body_md     :text
 #
 
 class Page < ActiveRecord::Base
@@ -34,9 +34,9 @@ class Page < ActiveRecord::Base
 
   # ------------------------------------------ Associations
 
-  belongs_to :page_type, :touch => true
+  belongs_to :template, :touch => true
 
-  has_one :site, :through => :page_type
+  has_one :site, :through => :template
 
   # ------------------------------------------ Scopes
 
@@ -55,7 +55,7 @@ class Page < ActiveRecord::Base
   after_save :cache_order_by
 
   def cache_order_by
-    order_by = self.page_type.order_by
+    order_by = self.template.order_by
     unless order_by.blank?
       update_columns(:order => self.send(order_by))
     end

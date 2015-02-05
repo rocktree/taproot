@@ -1,21 +1,21 @@
 # == Schema Information
 #
-# Table name: page_types
+# Table name: templates
 #
-#  id             :integer          not null, primary key
-#  site_id        :integer
-#  title          :string(255)
-#  slug           :string(255)
-#  description    :text
-#  created_at     :datetime
-#  updated_at     :datetime
-#  page_templates :text
-#  children       :text
-#  label          :string(255)
-#  order_by       :string(255)
+#  id          :integer          not null, primary key
+#  site_id     :integer
+#  title       :string(255)
+#  slug        :string(255)
+#  description :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  filename    :text
+#  children    :text
+#  label       :string(255)
+#  order_by    :string(255)
 #
 
-class PageType < ActiveRecord::Base
+class Template < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
@@ -32,11 +32,9 @@ class PageType < ActiveRecord::Base
   belongs_to :site, :touch => true
 
   has_many :pages
-  has_many :groups, :class_name => 'PageTypeFieldGroup', :dependent => :destroy
-  has_many :fields, :class_name => 'PageTypeField', :through => :groups
+  has_many :template_fields
 
-  accepts_nested_attributes_for :groups
-  accepts_nested_attributes_for :fields
+  accepts_nested_attributes_for :template_fields
 
   # ------------------------------------------ Scopes
 
