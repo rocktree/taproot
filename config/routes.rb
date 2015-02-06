@@ -48,7 +48,10 @@ Rails.application.routes.draw do
       end
 
       # Templates
-      resources :templates, :param => :slug, :except => [:show]
+      resources :templates, :param => :slug do
+        resources :template_fields, :controller => 'templates/fields', 
+          :param => :idx
+      end
 
       # Forms
       resources :forms, :param => :slug do

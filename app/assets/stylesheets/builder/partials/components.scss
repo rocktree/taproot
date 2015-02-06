@@ -129,3 +129,41 @@ a {
     padding: 25px;
   }
 }
+
+ul.tabs, ul.list-tabs {
+  @include clear-list;
+  display: inline-block;
+  margin: 10px 0 15px 0;
+  border-radius: 3px;
+  border: 1px solid $color-light-darker;
+  overflow: hidden;
+  li {
+    display: inline-block;
+    &:last-child a {
+      border: none;
+    }
+    a {
+      display: inline-block;
+      padding: 7.5px 15px;
+      border-right: 1px solid $color-light-darker;
+      color: $color-grey;
+      &.active {
+        background: $color-primary;
+        color: $color-light;
+      }
+      &:hover {
+        background: $color-light-dark;
+        &.active {
+          background: $color-primary;
+        }
+        &.to-delete {
+          background: $color-danger;
+        }
+      }
+      &.to-delete {
+        color: $color-light;
+        background: $color-danger;
+      }
+    }
+  }
+}

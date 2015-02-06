@@ -15,7 +15,13 @@ module TemplatesHelper
     end
   end
 
-  def has_page_type?
+  def current_template_fields
+    @current_template_fields ||= begin
+      current_template.template_fields
+    end
+  end  
+
+  def site_has_templates?
     site_templates.size > 0
   end
 
@@ -51,6 +57,22 @@ module TemplatesHelper
       ['Created','created_at'],
       ['Updated','updated_at'],
     ] + fields).uniq.sort
+  end
+
+  def current_template_tabs
+    t = current_template
+    f = current_template_fields
+    list_tabs([
+      {
+        :title => 'Details', 
+        :path => builder_route([t], :edit)
+      },
+      {
+        :title => 'Fields', 
+        :path => builder_route([t, f], :index), 
+        :controllers => ['fields']
+      }
+    ])
   end
 
 end
