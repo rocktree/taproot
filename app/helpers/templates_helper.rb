@@ -59,20 +59,25 @@ module TemplatesHelper
     ] + fields).uniq.sort
   end
 
-  def current_template_tabs
+  def current_template_actions
     t = current_template
     f = current_template_fields
-    list_tabs([
+    [
       {
-        :title => 'Details', 
+        :title => 'Template Details', 
         :path => builder_route([t], :edit)
       },
       {
-        :title => 'Fields', 
+        :title => 'Custom Fields', 
         :path => builder_route([t, f], :index), 
         :controllers => ['fields']
+      },
+      {
+        :title => 'Page Form', 
+        :path => '#', #builder_route([t, f], :index), 
+        # :controllers => ['fields']
       }
-    ])
+    ]
   end
 
 end

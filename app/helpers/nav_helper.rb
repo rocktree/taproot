@@ -39,4 +39,9 @@ module NavHelper
     content_tag(:aside, :id => 'page-sidebar') { render(:partial => partial) }
   end
 
+  def sidebar_item_active?(item)
+    (item[:controllers] && item[:controllers].include?(controller_name)) ||
+      request.path == item[:path] 
+  end
+
 end

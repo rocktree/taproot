@@ -4,7 +4,10 @@ class Builder::TemplatesController < BuilderController
   end
 
   def show
-    redirect_to builder_route([current_template, current_template_fields], :index)
+    redirect_to builder_route([current_template], :edit)
+  end
+
+  def edit
   end
 
 end

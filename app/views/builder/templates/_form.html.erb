@@ -1,0 +1,10 @@
+<%= simple_form_for [:builder, current_site, current_template] do |f| %>
+
+  <section class="form details">
+    <div class="half-row">
+      <%= f.input :title %>
+      <%= f.input :slug %>
+    </div>
+    <%= f.input :description %>
+  </section>
+<% end %>

@@ -1,0 +1,12 @@
+<ul>
+  <h3>Options</h3>
+  <% current_template_actions.each do |t| %>
+      <%= content_tag(:li, 
+        link_to(
+          t[:title], 
+          t[:path]
+        ),
+        :class => sidebar_item_active?(t) ? 'active' : nil
+      ) %>
+  <% end %>
+</ul>
