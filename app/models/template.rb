@@ -40,14 +40,6 @@ class Template < ActiveRecord::Base
 
   # ------------------------------------------ Validations
 
-  validates :title, :page_templates, :presence => true
-
-  # ------------------------------------------ Callbacks
-
-  after_save :remove_blank_groups
-
-  def remove_blank_groups
-    groups.where("title = ''").destroy_all
-  end
+  validates :title, :presence => true
 
 end

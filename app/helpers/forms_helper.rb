@@ -21,6 +21,14 @@ module FormsHelper
     end
   end
 
+  def redirect_field(f)
+    f.input(
+      :redirect_route, 
+      :as => :hidden, 
+      :input_html => { :value => params[:redirect_route] || request.path }
+    )
+  end
+
   def form_field_options
     [
       ['String', 'string'],

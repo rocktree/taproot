@@ -64,8 +64,13 @@ module TemplatesHelper
     f = current_template_fields
     [
       {
-        :title => 'Template Details', 
+        :title => 'Template Settings', 
         :path => builder_route([t], :edit)
+      },
+      {
+        :title => 'Developer Settings', 
+        :path => '#', #builder_route([t, f], :index), 
+        # :controllers => ['fields']
       },
       {
         :title => 'Custom Fields', 
@@ -74,6 +79,11 @@ module TemplatesHelper
       },
       {
         :title => 'Page Form', 
+        :path => '#', #builder_route([t, f], :index), 
+        # :controllers => ['fields']
+      },
+      {
+        :title => 'Developer Help', 
         :path => '#', #builder_route([t, f], :index), 
         # :controllers => ['fields']
       }

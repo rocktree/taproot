@@ -1,0 +1,17 @@
+<%= current_template_breadcrumbs %>
+
+<%= builder_page_title("#{current_template.title} Template Settings") do %>
+  <%= subtitle("These settings are arbitrary and affect nothing other than 
+  content shown in the builder.") %>
+<% end %>
+
+<section id="page-content">
+  <%= simple_form_for [:builder, current_site, current_template] do |f| %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= redirect_field(f) %>
+    <%= f.submit "Save Settings" %>
+  <% end %>
+</section>
+
+<%= sidebar %>
