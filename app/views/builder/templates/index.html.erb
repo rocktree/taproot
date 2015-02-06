@@ -1,0 +1,11 @@
+<%= builder_page_title("Templates") do %>
+  <%= link_to 'New Template', builder_route([site_templates], :new), 
+    :class => 'new' %>
+  <%= subtitle("Page templates define the fields available when creating a 
+  particular page. They also help you rigidly structure the relationship 
+  among pages on your site.") %>
+<% end %>
+
+<section id="page-content">
+  <%= data_table(site_templates, 'template') %>
+</section>

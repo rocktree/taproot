@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   namespace :builder, :path => '' do
     resources :sites, :param => :slug do
+
       # Site Actions
       post 'pull' => 'sites#pull', :as => :pull
       post 'import' => 'sites#import', :as => :import
@@ -40,19 +41,28 @@ Rails.application.routes.draw do
       post 'sync' => 'sites#sync', :as => :sync
       post 'symlink' => 'sites#symlink', :as => :symlink
 
-      resources :page_types, :param => :slug, :except => [:show]
+      # Pages
       resources :pages, :param => :slug do
         get 'edit/:editor' => 'pages/editor#edit', :as => :editor
         patch 'edit/:editor' => 'pages/editor#parse', :as => :parser
       end
+
+      # Templates
+      resources :templates, :param => :slug, :except => [:show]
+
+      # Forms
       resources :forms, :param => :slug do
         resources :submissions, :param => :idx, :only => [:show]
       end
+
+      # Files
       resources :documents, :path => :library, :param => :idx, 
         :except => [:show] do
           get 'crop' => 'documents/croppings#edit', :as => :cropper 
           patch 'crop' => 'documents/croppings#update', :as => :crop
       end
+
+      # Users
       resources :users, :except => [:show]
     end
   end

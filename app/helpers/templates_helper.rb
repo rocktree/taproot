@@ -1,7 +1,7 @@
 module TemplatesHelper
 
-  def site_page_types
-    @site_page_types ||= current_site.page_types.alpha
+  def site_templates
+    @site_templates ||= current_site.templates.alpha
   end
 
   def current_template
@@ -16,7 +16,7 @@ module TemplatesHelper
   end
 
   def has_page_type?
-    site_page_types.size > 0
+    site_templates.size > 0
   end
 
   def template_children

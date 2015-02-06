@@ -5,9 +5,9 @@ pages:
   controllers: ['pages']
 page_types:
   icon: wrench
-  label: Page Types
-  path: builder_site_page_types_path
-  controllers: ['page_types']
+  label: Templates
+  path: builder_site_templates_path
+  controllers: ['templates']
 library:
   icon: stack-play
   label: Media Library

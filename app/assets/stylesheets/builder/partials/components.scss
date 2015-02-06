@@ -21,8 +21,10 @@ p.note {
 }
 
 p.subtitle {
-  margin: 5px 0 10px 0;
+  max-width: 600px;
+  margin: 10px 0 10px 0;
   font-size: 15px;
+  line-height: 20px;
   color: $color-dark-light;
   font-style: italic;
 }
