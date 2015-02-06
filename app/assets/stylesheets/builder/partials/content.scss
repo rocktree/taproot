@@ -30,6 +30,40 @@
       text-align: left;
       border-bottom: 1px solid $color-light-darker;
       color: $color-grey;
+      &.arrow {
+        padding: 0;
+        @include transition-all;
+        &:hover {
+          background: $color-light-dark;
+          > a:after {
+            color: $color-1;
+          }
+          h4 {
+            color: $color-1;
+          }
+        }
+        > a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          padding: 20px 15px;
+          &:after {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            margin-top: -10px;
+            @include transition-all;
+            font-family: 'Icomoon-Ultimate';
+            font-size: 48px;
+            color: $color-light-dark;
+            content: "\e411";
+          }
+          h4 {
+            color: $color-dark-lighter;
+            @include transition-all;
+          }
+        }
+      }
       &.user {
         .admin {
           margin-left: 44px;
@@ -58,7 +92,7 @@
         }
       }
       h4 {
-        margin: 10px 0 0 0;
+        // margin: 10px 0 0 0;
         font-size: 22px;
         font-weight: 400;
         color: $color-grey;

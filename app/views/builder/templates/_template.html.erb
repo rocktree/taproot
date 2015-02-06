@@ -1,8 +1,6 @@
-<article class="template">
-  <%= content_tag(
-    :h4, 
-    link_to(template.title, builder_route([template], :edit)), 
-    :class => 'title'
-  ) %>
-  <%= simple_format(template.description) unless template.description.blank? %>
+<article class="template arrow">
+  <%= link_to(builder_route([template], :edit)) do %>
+    <%= content_tag(:h4, template.title, :class => 'title') %>
+    <%= simple_format(template.description) unless template.description.blank? %>
+  <% end %>
 </article>
