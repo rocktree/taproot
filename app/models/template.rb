@@ -2,17 +2,19 @@
 #
 # Table name: templates
 #
-#  id          :integer          not null, primary key
-#  site_id     :integer
-#  title       :string(255)
-#  slug        :string(255)
-#  description :text
-#  created_at  :datetime
-#  updated_at  :datetime
-#  filename    :text
-#  children    :text
-#  label       :string(255)
-#  order_by    :string(255)
+#  id              :integer          not null, primary key
+#  site_id         :integer
+#  title           :string(255)
+#  slug            :string(255)
+#  description     :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  parents         :text
+#  order_method    :string(255)
+#  order_direction :string(255)
+#  can_be_root     :boolean          default(FALSE)
+#  limit_pages     :boolean          default(FALSE)
+#  max_pages       :integer
 #
 
 class Template < ActiveRecord::Base
@@ -23,9 +25,7 @@ class Template < ActiveRecord::Base
 
   # ------------------------------------------ Attributes
 
-  attr_accessor :delete_group
-
-  serialize :children, Array
+  serialize :parents, Array
 
   # ------------------------------------------ Associations
 

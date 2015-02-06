@@ -49,7 +49,7 @@ module TemplatesHelper
 
   def order_by_fields
     fields = []
-    current_page_type.fields.each { |f| fields << [f.title, f.slug] }
+    current_template.template_fields.each { |f| fields << [f.title, f.slug] }
     ([
       ['Title','title'],
       ['URL','slug'],
@@ -60,17 +60,17 @@ module TemplatesHelper
   end
 
   def current_template_actions
+    s = current_site
     t = current_template
     f = current_template_fields
     [
       {
         :title => 'Template Settings', 
-        :path => builder_route([t], :edit)
+        :path => builder_site_template_settings_path(s, t)
       },
       {
         :title => 'Developer Settings', 
-        :path => '#', #builder_route([t, f], :index), 
-        # :controllers => ['fields']
+        :path => builder_site_template_dev_settings_path(s, t)
       },
       {
         :title => 'Custom Fields', 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205002659) do
+ActiveRecord::Schema.define(version: 20150206124931) do
 
   create_table "documents", force: true do |t|
     t.integer  "site_id"
@@ -143,10 +143,12 @@ ActiveRecord::Schema.define(version: 20150205002659) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "filename"
-    t.text     "children"
-    t.string   "label"
-    t.string   "order_by"
+    t.text     "parents"
+    t.string   "order_method"
+    t.string   "order_direction"
+    t.boolean  "can_be_root",     default: false
+    t.boolean  "limit_pages",     default: false
+    t.integer  "max_pages"
   end
 
   create_table "users", force: true do |t|
