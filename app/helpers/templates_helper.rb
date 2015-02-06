@@ -80,4 +80,29 @@ module TemplatesHelper
     ]
   end
 
+  def current_template_breadcrumbs
+    content_tag(:nav, :class => 'breadcrumbs') do
+      content_tag(:ul) do
+        o = content_tag(
+          :li, 
+          link_to('All Templates', builder_route([site_templates], :index))
+        )
+        if current_template
+          o += content_tag(
+            :li, 
+            link_to(
+              current_template.title, 
+              builder_route([current_template], :show)
+            )
+          )
+          o += content_tag(
+            :li, 
+            link_to(request.path.split('/').last.titleize, request.path)
+          )
+          o.html_safe
+        end
+      end
+    end
+  end
+
 end
