@@ -3,7 +3,7 @@
 <%= builder_page_title("Custom Fields") do %>
   <%= link_to(
     'New Form Section',
-    new_builder_site_template_group_path(current_site, current_template),
+    builder_route([current_template, current_template.groups], :new),
     :class => 'new'
   ) %>
   <%= subtitle("The fields here appear on the form when you create or edit a 

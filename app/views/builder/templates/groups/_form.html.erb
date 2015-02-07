@@ -1,0 +1,8 @@
+<%= simple_form_for(
+  [:builder, current_site, current_template, current_template_group]
+) do |f| %>
+  <%= f.input :title %>
+  <%= em_p("This is the label that will appear in the sidebar when a user is 
+  within a page using the #{current_template.title} template.") %>
+  <%= f.submit "Save Form Section" %>
+<% end %>

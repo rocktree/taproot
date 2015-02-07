@@ -19,7 +19,7 @@ class TemplateField < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  # include FieldSlug
+  include FieldSlug
 
   # ------------------------------------------ Associations
 

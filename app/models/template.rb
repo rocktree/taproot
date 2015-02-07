@@ -48,4 +48,10 @@ class Template < ActiveRecord::Base
 
   validates :title, :presence => true
 
+  # ------------------------------------------ Instance Methods
+
+  def template_groups
+    groups
+  end
+
 end

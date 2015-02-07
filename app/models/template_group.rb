@@ -15,7 +15,7 @@ class TemplateGroup < ActiveRecord::Base
 
 # ------------------------------------------ Plugins
 
-include SiteSlug
+include TemplateSlug
 
 # ------------------------------------------ Associations
 

@@ -15,9 +15,21 @@ module TemplatesHelper
     end
   end
 
+  def current_template_groups
+    @current_template_groups ||= begin
+      current_template.groups
+    end
+  end
+
+  def current_template_group
+    @current_template_group ||= begin
+      current_template_groups.select { |g| g.slug == params[:slug] }.first
+    end
+  end
+
   def current_template_fields
     @current_template_fields ||= begin
-      current_template.template_fields
+      current_template.fields
     end
   end  
 
@@ -49,7 +61,7 @@ module TemplatesHelper
 
   def order_by_fields
     fields = []
-    current_template.template_fields.each { |f| fields << [f.title, f.slug] }
+    current_template.fields.each { |f| fields << [f.title, f.slug] }
     ([
       ['Title','title'],
       ['URL','slug'],
@@ -73,8 +85,8 @@ module TemplatesHelper
       },
       {
         :title => 'Form Fields', 
-        :path => builder_site_template_fields_path(s, t), 
-        :controllers => ['fields']
+        :path => builder_route([t, t.fields], :index), 
+        :controllers => ['fields', 'groups']
       },
       {
         :title => 'Developer Help', 

@@ -45,7 +45,7 @@
 
   <%= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
     <section class="form tabbed">
-      <% current_template.template_fields.each do |field| %>
+      <% current_template.fields.each do |field| %>
         <% case field.data_type %>
         <% when 'date' %>
           <%= fd.input(
