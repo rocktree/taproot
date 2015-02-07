@@ -9,6 +9,7 @@
 #  description     :text
 #  created_at      :datetime
 #  updated_at      :datetime
+#  page_templates  :text
 #  parents         :text
 #  order_method    :string(255)
 #  order_direction :string(255)
@@ -36,6 +37,8 @@ class Template < ActiveRecord::Base
   belongs_to :site, :touch => true
 
   has_many :pages
+  has_many :groups, :class_name => 'TemplateGroup', :dependent => :destroy
+  has_many :fields, :class_name => 'TemplateField', :through => :groups
 
   # ------------------------------------------ Scopes
 

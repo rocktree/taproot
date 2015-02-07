@@ -124,6 +124,28 @@ ActiveRecord::Schema.define(version: 20150204232623) do
     t.text     "secondary_urls"
   end
 
+  create_table "template_fields", force: true do |t|
+    t.integer  "template_group_id"
+    t.string   "title"
+    t.string   "slug"
+    t.string   "data_type"
+    t.text     "options"
+    t.boolean  "required",          default: false
+    t.integer  "position",          default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "protected",         default: false
+  end
+
+  create_table "template_groups", force: true do |t|
+    t.integer  "template_id"
+    t.string   "title"
+    t.string   "slug"
+    t.integer  "position",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "templates", force: true do |t|
     t.integer  "site_id"
     t.string   "title"
@@ -131,6 +153,7 @@ ActiveRecord::Schema.define(version: 20150204232623) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "page_templates"
     t.text     "parents"
     t.string   "order_method"
     t.string   "order_direction"
