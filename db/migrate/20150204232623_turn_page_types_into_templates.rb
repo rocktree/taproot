@@ -1,32 +1,23 @@
 class TurnPageTypesIntoTemplates < ActiveRecord::Migration
   def up
-    PageTypeField.all.includes(:page_type).each do |field|
-      field.update_columns(:page_type_field_group_id => field.page_type.id)
-    end
-
-    PageType.all.includes(:fields).each do |page_type|
-      fields = page_type.fields
-      page_type.templates.each do |template|
-        if page_type.slug == template
-          page_type.update(:page_templates => template)
-        else
-          new_page_type = page_type.dup
-          new_page_type.title = template.titleize
-          new_page_type.slug = nil
-          new_page_type.page_templates = template
-          new_page_type.save!
-          fields.each do |field|
-            field = field.dup
-            field.page_type_field_group_id = new_page_type.id
-            field.save!
-          end
-        end
-      end
-    end
-
-    rename_column :page_type_fields, :page_type_field_group_id, :template_id
     drop_table :page_type_field_groups
+    drop_table :page_type_fields
+
+    rename_column :pages, :page_type_id, :template_id
+
     rename_table :page_types, :templates
-    rename_table :page_type_fields, :template_fields
+
+    remove_column :templates, :page_templates, :string
+    remove_column :templates, :label, :string
+
+    rename_column :templates, :children, :parents
+    rename_column :templates, :order_by, :order_method
+
+    add_column :templates, :order_direction, :string
+    add_column :templates, :can_be_root, :boolean, :default => false
+    add_column :templates, :limit_pages, :boolean, :default => false
+    add_column :templates, :max_pages, :integer
+    add_column :templates, :form_groups, :text
+    add_column :templates, :form_fields, :text
   end
 end

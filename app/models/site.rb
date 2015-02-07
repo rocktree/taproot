@@ -32,7 +32,6 @@ class Site < ActiveRecord::Base
   has_many :users, :through => :site_users
   has_many :templates, :dependent => :destroy
   has_many :pages, :through => :templates, :dependent => :destroy
-  has_many :template_fields, :through => :templates, :dependent => :destroy
   has_many :forms, :dependent => :destroy
   has_many :documents, :dependent => :destroy
   has_many :image_croppings

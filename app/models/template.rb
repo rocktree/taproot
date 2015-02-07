@@ -15,6 +15,8 @@
 #  can_be_root     :boolean          default(FALSE)
 #  limit_pages     :boolean          default(FALSE)
 #  max_pages       :integer
+#  form_groups     :text
+#  form_fields     :text
 #
 
 class Template < ActiveRecord::Base
@@ -26,13 +28,14 @@ class Template < ActiveRecord::Base
   # ------------------------------------------ Attributes
 
   serialize :parents, Array
+  serialize :form_groups, Array
+  serialize :form_fields, Array
 
   # ------------------------------------------ Associations
 
   belongs_to :site, :touch => true
 
   has_many :pages
-  has_many :template_fields
 
   # ------------------------------------------ Scopes
 

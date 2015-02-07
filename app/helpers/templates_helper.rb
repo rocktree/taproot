@@ -65,7 +65,7 @@ module TemplatesHelper
     f = current_template_fields
     [
       {
-        :title => 'Template Settings', 
+        :title => 'Display Settings', 
         :path => builder_site_template_settings_path(s, t)
       },
       {
@@ -73,7 +73,7 @@ module TemplatesHelper
         :path => builder_site_template_dev_settings_path(s, t)
       },
       {
-        :title => 'Custom Fields', 
+        :title => 'Form Fields', 
         :path => builder_route([t, f], :index), 
         :controllers => ['fields']
       },
