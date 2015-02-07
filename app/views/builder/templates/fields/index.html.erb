@@ -1,12 +1,17 @@
 <%= current_template_breadcrumbs %>
 
 <%= builder_page_title("Custom Fields") do %>
+  <%= link_to(
+    'New Form Section',
+    new_builder_site_template_group_path(current_site, current_template),
+    :class => 'new'
+  ) %>
   <%= subtitle("The fields here appear on the form when you create or edit a 
   page that uses the #{current_template.title} template.") %>
 <% end %>
 
 <section id="page-content">
-  <%= data_table(current_template_fields, 'field') %>
+  <%#= data_table(current_template_fields, 'field') %>
 </section>
 
 <%= sidebar('builder/templates/sidebar') %>

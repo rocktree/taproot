@@ -1,0 +1,13 @@
+<%= current_template_breadcrumbs %>
+
+<%= builder_page_title("New Form Section") do %>
+  <%= subtitle("Create a new section for the form shown when a page is created 
+  using the #{current_template.title} template.") %>
+<% end %>
+
+<section id="page-content">
+  <%= simple_form_for() do |f| %>
+  <% end %>
+</section>
+
+<%= sidebar('builder/templates/sidebar') %>
