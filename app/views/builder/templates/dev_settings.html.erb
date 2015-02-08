@@ -21,7 +21,7 @@
 
     <%= f.input :children, :label => 'Child Templates', :as => :check_boxes, 
       :value_method => :slug,
-      :collection => (site_templates - [current_template]).reject(&:blank?) %>
+      :collection => site_templates.reject(&:blank?) %>
     <%= em_p("Templates are restricted from being created only where you 
     allow them. This setting drives that permission. When you check a box here, 
     it allows a page with the selected template to be created under this 

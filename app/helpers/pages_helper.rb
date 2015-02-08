@@ -121,7 +121,7 @@ module PagesHelper
   def new_page_children_links(prefix = "New")
     @new_page_children_links ||= begin
       output = ''
-      template_children.each do |template|
+      template_children.select { |t| !t.maxed_out? }.each do |template|
         output += link_to(
           "#{prefix} #{template.title}", 
           new_builder_site_page_path(

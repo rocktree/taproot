@@ -107,7 +107,9 @@ class Template < ActiveRecord::Base
 
   def check_maxed_out
     if limit_pages? && pages.size >= max_pages
-      update_columns(:maxed_out => true)
+      update_columns(:maxed_out => true) if !maxed_out?
+    else
+      update_columns(:maxed_out => false) if maxed_out?
     end
   end
 
