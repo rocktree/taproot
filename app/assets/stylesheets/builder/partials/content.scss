@@ -67,6 +67,7 @@
             @include transition-all;
           }
           p {
+            max-width: 90%;
             margin: 5px 0 0 0;
             font-size: 14px;
             line-height: 20px;
