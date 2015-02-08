@@ -51,7 +51,7 @@ class Builder::TemplatesController < BuilderController
         :order_direction,
         :limit_pages,
         :max_pages,
-        :parents => [],
+        :children => [],
       )
     end
 

@@ -37,7 +37,7 @@ class TurnPageTypesIntoTemplates < ActiveRecord::Migration
     # remove_column :templates, :page_templates, :string
     remove_column :templates, :label, :string
 
-    rename_column :templates, :children, :parents
+    # rename_column :templates, :children, :parents
     rename_column :templates, :order_by, :order_method
 
     add_column :templates, :order_direction, :string

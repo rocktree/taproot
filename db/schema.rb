@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 20150204232623) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "page_templates"
-    t.text     "parents"
+    t.text     "children"
     t.string   "order_method"
     t.string   "order_direction"
     t.boolean  "can_be_root",     default: false
