@@ -17,7 +17,7 @@ module TemplatesHelper
 
   def current_template_groups
     @current_template_groups ||= begin
-      current_template.groups
+      current_template.groups.in_order.includes(:fields)
     end
   end
 

@@ -13,10 +13,21 @@ class Builder::Templates::GroupsController < BuilderController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if current_template_group.update(group_params)
+      redirect_to builder_route([t, t.fields], :index), :notice => 'Group saved!'
+    else
+      render 'edit'
+    end
+  end
+
   private
 
     def group_params
-      params.require(:template_group).permit(:title)
+      params.require(:template_group).permit(:title, :position)
         .merge(:template => current_template)
     end
 
