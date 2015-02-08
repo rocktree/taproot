@@ -37,8 +37,8 @@ class Template < ActiveRecord::Base
   belongs_to :site, :touch => true
 
   has_many :pages
-  has_many :groups, :class_name => 'TemplateGroup', :dependent => :destroy
-  has_many :fields, :class_name => 'TemplateField', :through => :groups
+  has_many :template_groups, :dependent => :destroy
+  has_many :template_fields, :through => :template_groups
 
   # ------------------------------------------ Scopes
 
@@ -50,8 +50,12 @@ class Template < ActiveRecord::Base
 
   # ------------------------------------------ Instance Methods
 
-  def template_groups
-    groups
+  def groups
+    template_groups
+  end
+
+  def fields
+    template_fields
   end
 
 end

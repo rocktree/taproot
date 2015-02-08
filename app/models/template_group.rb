@@ -13,36 +13,42 @@
 
 class TemplateGroup < ActiveRecord::Base
 
-# ------------------------------------------ Plugins
+  # ------------------------------------------ Plugins
 
-include TemplateSlug
+  include TemplateSlug
 
-# ------------------------------------------ Associations
+  # ------------------------------------------ Associations
 
-belongs_to :template, :touch => true
+  belongs_to :template, :touch => true
 
-has_one :site, :through => :template
+  has_one :site, :through => :template
 
-has_many :fields, :class_name => 'TemplateField', :dependent => :destroy
+  has_many :template_fields, :dependent => :destroy
 
-accepts_nested_attributes_for :fields
+  # accepts_nested_attributes_for :template_fields
 
-# ------------------------------------------ Scopes
+  # ------------------------------------------ Scopes
 
-scope :in_order, -> { order('position asc') }
+  scope :in_order, -> { order('position asc') }
 
-# ------------------------------------------ Callbacks
+  # ------------------------------------------ Callbacks
 
-before_save :set_position
+  before_save :set_position
 
-def set_position
-  self.position = 1 if self.position.blank?
-end
+  def set_position
+    self.position = 1 if self.position.blank?
+  end
 
-after_save :remove_blank_fields
+  after_save :remove_blank_fields
 
-def remove_blank_fields
-  fields.where("title = ''").destroy_all
-end
+  def remove_blank_fields
+    fields.where("title = ''").destroy_all
+  end
+
+  # ------------------------------------------ Instance Methods
+
+  def fields
+    template_fields
+  end
 
 end

@@ -2,8 +2,13 @@
 
 <%= builder_page_title("Custom Fields") do %>
   <%= link_to(
-    'New Form Section',
-    builder_route([current_template, current_template.groups], :new),
+    'New Section',
+    builder_route([current_template, current_template_groups], :new),
+    :class => 'new'
+  ) %>
+  <%= link_to(
+    'New Field',
+    builder_route([current_template, current_template_fields], :new),
     :class => 'new'
   ) %>
   <%= subtitle("The fields here appear on the form when you create or edit a 

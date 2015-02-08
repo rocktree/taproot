@@ -23,23 +23,27 @@ class TemplateField < ActiveRecord::Base
 
   # ------------------------------------------ Associations
 
-  belongs_to :group, :class_name => 'TemplateGroup', :touch => true
+  belongs_to :template_group, :touch => true
 
-  has_one :template, :through => :group
+  has_one :template, :through => :template_group
   has_one :site, :through => :page_type
 
   # ------------------------------------------ Scopes
 
   default_scope { order('position asc') }
 
-  # ------------------------------------------ Instance Methods
+  # ------------------------------------------ Validations
 
-  def group
-    page_type_field_group
-  end
+  validates :title, :template_group, :data_type, :presence => true
+
+  # ------------------------------------------ Instance Methods
 
   def option_values
     options.gsub(/\r/, '').split("\n") unless options.blank?
+  end
+
+  def group
+    template_group
   end
 
 end

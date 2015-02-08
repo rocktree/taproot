@@ -15,7 +15,7 @@ module FieldSlug
 
   def create_slug
     slug = clean_slug(self.title.downcase.gsub(/\&/, ' and '))
-    dups = self.template.fields.where(:slug => slug) - [self]
+    dups = self.group.fields.where(:slug => slug) - [self]
     slug = "#{slug}_#{self.id}" if dups.count > 0
     slug
   end

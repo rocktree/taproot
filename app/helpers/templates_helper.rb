@@ -17,7 +17,7 @@ module TemplatesHelper
 
   def current_template_groups
     @current_template_groups ||= begin
-      current_template.groups.in_order.includes(:fields)
+      current_template.groups.in_order.includes(:template_fields)
     end
   end
 
@@ -33,6 +33,12 @@ module TemplatesHelper
     end
   end  
 
+  def current_template_field
+    @current_template_field ||= begin
+      current_template_fields.select { |f| f.slug == params[:slug] }.first
+    end
+  end
+
   def site_has_templates?
     site_templates.size > 0
   end
@@ -44,7 +50,7 @@ module TemplatesHelper
     end
   end
 
-  def page_type_field_options
+  def template_field_options
     [
       ['String', 'string'],
       ['Text', 'text'],
@@ -111,10 +117,30 @@ module TemplatesHelper
               builder_route([current_template], :show)
             )
           )
-          o += content_tag(
-            :li, 
-            link_to(request.path.split('/').last.titleize, request.path)
-          )
+          if ['fields','groups'].include?(controller_name)
+            o += content_tag(
+              :li, 
+              link_to(
+                'Form Fields', 
+                builder_route(
+                  [current_template, current_template_fields], 
+                  :index
+                )
+              )
+            )
+            o += content_tag(
+              :li, 
+              link_to(
+                "#{action_name.titleize} #{controller_name.singularize.titleize}", 
+                request.path
+              )
+            ) unless action_name == 'index'
+          else
+            o += content_tag(
+              :li, 
+              link_to(request.path.split('/').last.titleize, request.path)
+            ) unless action_name == 'index'
+          end
           o.html_safe
         end
       end
