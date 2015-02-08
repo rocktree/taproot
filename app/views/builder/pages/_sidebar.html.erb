@@ -16,7 +16,7 @@
 <% end %>
 
 <ul>
-  <h3>Edit <%= current_page.title %></h3>
+  <%= content_tag(:h3, "#{current_page.title} Settings") %>
   <% current_template_groups.each do |group| %>
     <%= content_tag(
       :li,
