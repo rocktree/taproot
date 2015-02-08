@@ -48,6 +48,58 @@ class Template < ActiveRecord::Base
 
   validates :title, :presence => true
 
+  # ------------------------------------------ Callbacks
+
+  after_create :add_default_fields
+
+  def add_default_fields
+    group = self.groups.create!(:title => 'Details', :position => 0)
+    fields = [
+      {
+        :title => 'Title',
+        :slug => 'title',
+        :data_type => 'string',
+        :required => true,
+        :position => 1,
+        :protected => true
+      },
+      {
+        :title => 'Position',
+        :slug => 'position',
+        :data_type => 'integer',
+        :required => false,
+        :position => 2,
+        :protected => true
+      },
+      {
+        :title => 'Description',
+        :slug => 'description',
+        :data_type => 'text',
+        :required => false,
+        :position => 3,
+        :protected => true
+      },
+      {
+        :title => 'Body',
+        :slug => 'body',
+        :data_type => 'text',
+        :required => false,
+        :position => 4,
+        :protected => true
+      },
+      {
+        :title => 'Show In Nav',
+        :slug => 'show_in_nav',
+        :data_type => 'boolean',
+        :required => false,
+        :position => 5,
+        :protected => true
+      },
+    ].each do |field|
+      group.fields.create(field.merge(:template_group => group))
+    end
+  end
+
   # ------------------------------------------ Instance Methods
 
   def groups
