@@ -16,6 +16,17 @@ class Builder::Templates::FieldsController < BuilderController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if current_template_field.update(field_params)
+      redirect_to builder_route([t, t.fields], :index), :notice => 'Field saved!'
+    else
+      render 'edit'
+    end
+  end
+
   private
 
     def field_params

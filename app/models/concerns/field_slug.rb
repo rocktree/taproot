@@ -7,7 +7,7 @@ module FieldSlug
 
   def sluggify_slug
     unless title.blank?
-      s = create_slug
+      s = slug.blank? ? create_slug : clean_slug(slug)
       update_column(:slug, s) unless slug == s
       s
     end
@@ -21,7 +21,7 @@ module FieldSlug
   end
 
   def clean_slug(s)
-    clean_slug = s.gsub(/[^a-zA-Z0-9 \-]/, "") # remove all bad characters
+    clean_slug = s.gsub(/[^a-zA-Z0-9 \-\_]/, "") # remove all bad characters
     clean_slug.gsub!(/\ /, "_") # replace spaces with underscores
     clean_slug.gsub!(/\-+/, "_") # replace repeating underscores
     clean_slug
