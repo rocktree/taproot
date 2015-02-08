@@ -2,12 +2,12 @@ pages:
   icon: files
   label: Pages
   path: builder_site_pages_path
-  controllers: ['pages','groups','fields']
+  controllers: ['pages']
 page_types:
   icon: wrench
   label: Templates
   path: builder_site_templates_path
-  controllers: ['templates']
+  controllers: ['templates','groups','fields']
 library:
   icon: stack-play
   label: Media Library
