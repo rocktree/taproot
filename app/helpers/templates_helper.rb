@@ -31,12 +31,16 @@ module TemplatesHelper
     @current_template_fields ||= begin
       current_template.fields
     end
-  end  
+  end
 
   def current_template_field
     @current_template_field ||= begin
       current_template_fields.select { |f| f.slug == params[:slug] }.first
     end
+  end
+
+  def current_template_group_fields
+    @current_template_group_fields ||= current_template_group.fields
   end
 
   def site_has_templates?
@@ -82,17 +86,17 @@ module TemplatesHelper
     t = current_template
     [
       {
+        :title => 'Form Fields', 
+        :path => builder_route([t, t.fields], :index), 
+        :controllers => ['fields', 'groups']
+      },
+      {
         :title => 'Display Settings', 
         :path => builder_site_template_settings_path(s, t)
       },
       {
         :title => 'Developer Settings', 
         :path => builder_site_template_dev_settings_path(s, t)
-      },
-      {
-        :title => 'Form Fields', 
-        :path => builder_route([t, t.fields], :index), 
-        :controllers => ['fields', 'groups']
       },
       {
         :title => 'Developer Help', 
