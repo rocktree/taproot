@@ -43,7 +43,8 @@ class TurnPageTypesIntoTemplates < ActiveRecord::Migration
     add_column :templates, :order_direction, :string
     add_column :templates, :can_be_root, :boolean, :default => false
     add_column :templates, :limit_pages, :boolean, :default => false
-    add_column :templates, :max_pages, :integer
+    add_column :templates, :max_pages, :integer, :default => 0
+    add_column :templates, :maxed_out, :boolean, :default => false
     add_column :templates, :form_groups, :text
     add_column :templates, :form_fields, :text
   end

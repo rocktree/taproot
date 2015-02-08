@@ -144,4 +144,19 @@ module PagesHelper
     end
   end
 
+  def new_root_page_links
+    o = ''
+    site_templates.not_maxed_out.can_be_root.each do |template|
+      o += link_to(
+        "New #{template.title}", 
+        new_builder_site_page_path(
+          current_site, 
+          :template => template.slug
+        ),
+        :class => 'new'
+      )
+    end
+    o.html_safe
+  end
+
 end

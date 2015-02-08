@@ -40,7 +40,7 @@
 
     <div class="half-row">
       <%= f.input :limit_pages, :label => 'Limit pages?' %>
-      <%= f.input :max_pages %>
+      <%= f.input :max_pages, :as => :string %>
       <%= em_p("If you want, you can set a limit on the number of pages created 
       with this template. For example, you probably only want one 'Home' page.") %>
     </div>

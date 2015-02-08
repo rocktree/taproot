@@ -15,7 +15,8 @@
 #  order_direction :string(255)
 #  can_be_root     :boolean          default(FALSE)
 #  limit_pages     :boolean          default(FALSE)
-#  max_pages       :integer
+#  max_pages       :integer          default(0)
+#  maxed_out       :boolean          default(FALSE)
 #  form_groups     :text
 #  form_fields     :text
 #
@@ -43,6 +44,8 @@ class Template < ActiveRecord::Base
   # ------------------------------------------ Scopes
 
   scope :alpha, -> { order('title asc') }
+  scope :not_maxed_out, -> { where(:maxed_out => false) }
+  scope :can_be_root, -> { where(:can_be_root => true) }
 
   # ------------------------------------------ Validations
 
@@ -97,6 +100,14 @@ class Template < ActiveRecord::Base
       },
     ].each do |field|
       group.fields.create(field.merge(:template_group => group))
+    end
+  end
+
+  after_save :check_maxed_out
+
+  def check_maxed_out
+    if limit_pages? && pages.size >= max_pages
+      update_columns(:maxed_out => true)
     end
   end
 

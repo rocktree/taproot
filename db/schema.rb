@@ -159,7 +159,8 @@ ActiveRecord::Schema.define(version: 20150204232623) do
     t.string   "order_direction"
     t.boolean  "can_be_root",     default: false
     t.boolean  "limit_pages",     default: false
-    t.integer  "max_pages"
+    t.integer  "max_pages",       default: 0
+    t.boolean  "maxed_out",       default: false
     t.text     "form_groups"
     t.text     "form_fields"
   end
