@@ -16,7 +16,7 @@
 <% end %>
 
 <ul>
-  <%= content_tag(:h3, "Page Settings") %>
+  <%= content_tag(:h3, "Settings") %>
   <% current_template_groups.each do |group| %>
     <%= content_tag(
       :li,
@@ -33,3 +33,19 @@
     ) %>
   <% end %>  
 </ul>
+
+<% if current_page.id %>
+  <ul>
+    <h3>Actions</h3>
+    <%= content_tag(
+      :li,
+      link_to(
+        "Delete this Page", 
+        builder_route([current_page], :show), 
+        :method => :delete, 
+        # :class => 'delete',
+        :data => { :confirm => 'Are you sure?' }
+      ) 
+    ) %>
+  </ul>
+<% end %>

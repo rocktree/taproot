@@ -103,12 +103,5 @@
 
   <%= link_to "Save and Publish", '#', :class => 'save publish' %>
   <%= link_to "Save as Draft", '#', :class => 'save draft' %>
-  <%= link_to(
-    "Delete this Page", 
-    builder_route([current_page], :show), 
-    :method => :delete, 
-    :class => 'delete',
-    :data => { :confirm => 'Are you sure?' }
-  ) unless current_page.id.blank? %>
 
 <% end %>
