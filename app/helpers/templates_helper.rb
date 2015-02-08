@@ -113,7 +113,7 @@ module TemplatesHelper
           :li, 
           link_to('All Templates', builder_route([site_templates], :index))
         )
-        if current_template
+        if current_template.id
           o += content_tag(
             :li, 
             link_to(

@@ -1,0 +1,15 @@
+<%= current_template_breadcrumbs %>
+
+<%= builder_page_title("New Template") do %>
+  <%= subtitle("There is a lot to configure with a template, but let's just 
+  start with the basics.") %>
+<% end %>
+
+<section id="page-content" class="full-width">
+  <%= simple_form_for [:builder, current_site, current_template] do |f| %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= redirect_field(f) %>
+    <%= f.submit "Create Template" %>
+  <% end %>
+</section>

@@ -127,4 +127,8 @@ class Template < ActiveRecord::Base
     slug
   end
 
+  def deletable?
+    pages.size == 0 
+  end
+
 end

@@ -9,6 +9,22 @@ class Builder::TemplatesController < BuilderController
     )
   end
 
+  def new
+    @current_template = Template.new
+  end
+
+  def create
+    @current_template = Template.new(create_params)
+    if current_template.save
+      redirect_to(
+        builder_site_template_dev_settings_path(current_site, current_template), 
+        :notice => 'Template created! Now, add your developer settings.'
+      )
+    else
+      render 'new'
+    end
+  end
+
   def edit
     form = request.path.split('/').last
     if form == 'edit'
@@ -39,7 +55,19 @@ class Builder::TemplatesController < BuilderController
     end
   end
 
+  def destroy
+    if current_template.deletable?
+      current_template.destroy
+    end
+    redirect_to builder_route([site_templates], :index)
+  end
+
   private
+
+    def create_params
+      params.require(:template).permit(:title, :description)
+        .merge(:site => current_site)
+    end
 
     def update_params
       params.require(:template).permit(
