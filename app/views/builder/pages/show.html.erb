@@ -1,9 +1,9 @@
 <%= current_page_breadcrumbs %>
 
 <%= builder_page_title(current_page.title) do %>
-  <%= link_to "Edit #{current_page.title}", builder_route([current_page], :edit), 
-    :class => 'edit' %>
   <%= new_page_children_links %>
+  <%= subtitle("These are the pages underneath the #{current_page.title} page 
+  in your site. Click on a page to drill down deeper.") %>
 <% end %>
 
 <section id="page-content">

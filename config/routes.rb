@@ -43,8 +43,10 @@ Rails.application.routes.draw do
 
       # Pages
       resources :pages, :param => :slug do
+        get 'settings/:slug' => 'pages#edit', :as => :settings
         get 'edit/:editor' => 'pages/editor#edit', :as => :editor
         patch 'edit/:editor' => 'pages/editor#parse', :as => :parser
+        get 'children/:slug' => 'pages#children', :as => :children
       end
 
       # Templates

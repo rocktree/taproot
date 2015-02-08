@@ -7,7 +7,15 @@ class Builder::PagesController < BuilderController
     current_page
     if template_children.size == 0 || current_page.children.size == 0
       redirect_to builder_route([current_page], :edit)
+    else
+      redirect_to builder_site_page_children_path(
+        current_site, current_page, template_children.first
+      )
     end
+  end
+
+  def children
+    render 'show'
   end
 
   def new

@@ -1,41 +1,35 @@
-<ul>
-  <h3>Root-level Pages</h3>
-  <% site_nav_pages.each do |page| %>
-    <%= content_tag(
-      :li,
-      link_to(
-        page.slug.gsub(/\_/, ' ').titleize, 
-        builder_route([page], :show)
-      ),
-      :class => (
-        (
-          request.path.include?(builder_route([page], :show)) || 
-          page == current_page_parent
-        ) && 
-        controller_name == 'pages'
-      ) ? ' active' : nil
-    ) %>
-  <% end %>
-</ul>
-
-<% if site_floating_root_pages.size > 0 %>
+<% if template_children.size > 0 %>
   <ul>
-    <h3>Floating Pages (not in nav)</h3>
-    <% site_floating_root_pages.each do |page| %>
+    <%= content_tag(:h3, "#{current_page.title} Pages") %>
+    <% template_children.each do |template| %>
       <%= content_tag(
-        :li,
+        :li, 
         link_to(
-          page.slug.gsub(/\_/, ' ').titleize, 
-          builder_route([page], :show)
+          template.title.pluralize, 
+          builder_site_page_children_path(current_site, current_page, template)
         ),
-        :class => (
-          (
-            request.path.include?(builder_route([page], :show)) || 
-            page == current_page_parent
-          ) && 
-          controller_name == 'pages'
-        ) ? ' active' : nil
+        :class => (current_page.slug == params[:page_slug] && 
+          template.slug == params[:slug]) ? 'active' : nil
       ) %>
     <% end %>
   </ul>
 <% end %>
+
+<ul>
+  <h3>Edit <%= current_page.title %></h3>
+  <% current_template_groups.each do |group| %>
+    <%= content_tag(
+      :li,
+      link_to(
+        group.title, 
+        builder_site_page_settings_path(
+          current_site, 
+          current_page, 
+          group.slug
+        )
+      ),
+      :class => (current_page.slug == params[:page_slug] && 
+        group.slug == params[:slug]) ? 'active' : nil
+    ) %>
+  <% end %>  
+</ul>

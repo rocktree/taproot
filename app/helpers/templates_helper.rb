@@ -46,7 +46,7 @@ module TemplatesHelper
   def template_children
     @template_children ||= begin
       children = current_template.children.reject(&:blank?)
-      current_site.templates.where(:slug => children)
+      site_templates.select { |t| children.include?(t.slug) }
     end
   end
 

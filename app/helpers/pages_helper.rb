@@ -123,7 +123,7 @@ module PagesHelper
       output = ''
       template_children.each do |template|
         output += link_to(
-          "#{prefix} #{template.label}", 
+          "#{prefix} #{template.title}", 
           new_builder_site_page_path(
             current_site, 
             :template => template.slug,
