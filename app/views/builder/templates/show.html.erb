@@ -1,0 +1,51 @@
+<%= builder_page_title(current_template.title) do %>
+  <%= subtitle("Here's a snapshot of the #{current_template.title} template. 
+  Use this as a reference when accessing this template while developing your 
+  site.") %>
+<% end %>
+
+<section id="page-content" class="developer-help">
+
+  <div class="methods">
+    <h2>Rendering Views</h2>
+    <p>When a page createed from this template is rendered, taproot will look 
+    for a view file at:</p>
+    <%= content_tag(:pre, "app/views/viewer/#{current_site.slug}/#{current_template.filename}.html.erb") %>
+    <p>You should place the <%= content_tag(:code, 
+    "#{current_template.filename}.html.erb") %> file in your 
+    <code>templates</code> directory.</p>
+  </div>
+
+  <div class="structure">
+    <h2>Structure</h2>
+    <p>Here's a snapshot of how this template works within taproot:</p>
+    <ul>
+      <li>Pages <strong>CAN<%= ' NOT' unless current_template.can_be_root? %>
+      </strong> be created at the root level.</li>
+      <% if current_template.children.reject(&:blank?).size > 0 %>
+        <li>Pages using the following templates may be created underneath pages 
+        created with this template:
+          <ul>
+            <% template_children.each do |child| %>
+              <%= content_tag(:li) { content_tag(:em, child.title) } %>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+      <% if current_template.limit_pages? %>
+        <li>Only 
+        <%= content_tag(:strong, "#{current_template.max_pages} pages") %> 
+        may be created from this template.</li>
+        <li>You have <%= content_tag(
+          :strong, 
+          "#{current_template.max_pages - current_template.pages.size} pages"
+        ) %> remaining.</li>
+      <% else %>
+        <li>There is <strong>NO LIMIT</strong> on the number of pages created 
+        with this template.</li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<%= sidebar %>

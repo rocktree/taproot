@@ -33,6 +33,8 @@ class TemplateField < ActiveRecord::Base
 
   default_scope { order('position asc') }
 
+  scope :alpha, -> { reorder('title asc') }
+
   # ------------------------------------------ Validations
 
   validates :title, :template_group, :data_type, :presence => true

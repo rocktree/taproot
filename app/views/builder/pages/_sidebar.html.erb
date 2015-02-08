@@ -1,3 +1,14 @@
+<ul>
+  <%= content_tag(
+    :li, 
+    link_to(
+      'Developer Help', 
+      builder_route([current_page], :show)
+    ),
+    :class => request.path == builder_route([current_page], :show) ? 'active' : nil
+  ) %>
+</ul>
+
 <% if template_children.size > 0 %>
   <ul>
     <%= content_tag(:h3, "Sub-Pages") %>

@@ -218,4 +218,47 @@
       }
     }
   }
+
+  section.developer-help {
+    h2 {
+      margin: 20px 0 10px 0;
+      font-size: 24px;
+      font-weight: 400;
+      // color: $color-dark-lightest;
+    }
+    h3.code {
+      margin: 25px 0 15px 0;
+      font-size: 16px;
+      line-height: 16px;
+      > code {
+        font-size: 16px;
+        line-height: 16px;
+        padding: 0;
+        border: none;
+        font-weight: 600;
+      }
+    }
+    ul li, p {
+      font-size: 15px;
+      line-height: 24px;
+      vertical-align: top;
+      code {
+        font-size: inherit;
+      }
+      em, strong {
+        display: inline-block;
+        margin-top: -2.75px;
+      }
+    }
+    ul li {
+      margin: 5px 0 0 0;
+    }
+    pre {
+      display: block;
+      padding: 15px;
+      background: $color-light-dark;
+      border: 1px solid $color-light-darker;
+      white-space: pre-wrap;
+    }
+  }
 }
