@@ -22,7 +22,7 @@ class Builder::PagesController < BuilderController
 
   def new
     redirect_to current_site unless params[:template]
-    @current_template = current_site.templates.find_by_slug(params[:template])
+    @current_template = site_templates.find_by_slug(params[:template])
     @current_page = Page.new
   end
 
@@ -40,6 +40,14 @@ class Builder::PagesController < BuilderController
       )
     else
       render('new')
+    end
+  end
+
+  def edit
+    if current_template_group.nil?
+      redirect_to builder_site_page_settings_path(
+        current_site, current_page, current_template_groups.first
+      )
     end
   end
 
@@ -78,24 +86,8 @@ class Builder::PagesController < BuilderController
       @current_template = current_site.templates.find_by_id(
         params[:page][:template_id]
       )
-      fields = []
-      template_groups.each { |g| fields << g.fields }
-      fields = fields.flatten.uniq.collect(&:slug).map { |f| f.to_sym }
-      params.require(:page).permit(
-        :title,
-        :slug,  
-        :description, 
-        :body, 
-        :body_md,
-        :published,
-        :position,
-        :template,
-        :parent_id,
-        :show_in_nav,
-        :field_data => fields
-      ).merge(
-        :template => current_template,
-      )
+      params.require(:page).permit(:title,:description)
+        .merge(:template => current_template)
     end
 
     def update_params
