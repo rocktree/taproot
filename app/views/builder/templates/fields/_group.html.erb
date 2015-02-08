@@ -1,4 +1,4 @@
-<article class="group">
+<article class="template-group">
   <div class="links">
     <%= link_to 'Edit', builder_route([current_template, group], :edit), 
       :class => 'edit' %>
@@ -8,4 +8,3 @@
     <%= render :partial => 'field', :collection => group.fields %>
   </div>
 </article>
-
