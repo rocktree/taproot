@@ -123,4 +123,8 @@ class Template < ActiveRecord::Base
     template_fields
   end
 
+  def filename
+    slug
+  end
+
 end

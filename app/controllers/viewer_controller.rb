@@ -11,7 +11,8 @@ class ViewerController < ActionController::Base
     ErrorsHelper,
     UsersHelper,
     SitesHelper,
-    PagesHelper
+    PagesHelper,
+    TemplatesHelper
   )
 
   private

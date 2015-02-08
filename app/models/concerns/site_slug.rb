@@ -22,9 +22,10 @@ module SiteSlug
   end
 
   def clean_slug(s)
-    clean_slug = s.gsub(/[^a-zA-Z0-9 \-]/, "") # remove all bad characters
-    clean_slug.gsub!(/\ /, "-") # replace spaces with underscores
-    clean_slug.gsub!(/\-+/, "-") # replace repeating underscores
+    clean_slug = s.gsub(/[^a-zA-Z0-9 \-\_]/, "") # remove all bad characters
+    separator = self.class == Template ? '_' : '-'
+    clean_slug.gsub!(/\ /, separator) # replace spaces with underscores
+    clean_slug.gsub!(/#{separator}+/, separator) # replace repeating underscores
     clean_slug
   end
 

@@ -30,7 +30,7 @@ module PagesHelper
   end
 
   def current_page_template
-    @current_page_template ||= current_page.template
+    @current_page_template ||= current_template.filename
   end
 
   def current_page_template_class
