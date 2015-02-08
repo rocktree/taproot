@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20150204232623) do
     t.integer  "position",          default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "label"
     t.boolean  "protected",         default: false
   end
 

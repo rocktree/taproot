@@ -24,6 +24,9 @@ form {
       font-size: 14px;
       border-radius: 5px;
       color: $color-light-darkest;
+      &.disabled {
+        background: $color-light-dark;
+      }
       &:focus {
         color: $color-primary;
       }

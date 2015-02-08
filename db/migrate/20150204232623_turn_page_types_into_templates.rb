@@ -10,6 +10,7 @@ class TurnPageTypesIntoTemplates < ActiveRecord::Migration
 
     rename_column :template_fields, :page_type_field_group_id, :template_group_id
 
+    add_column :template_fields, :label, :string
     add_column :template_fields, :protected, :boolean, :default => false
 
     # Pages

@@ -1,51 +1,33 @@
 <%= simple_form_for [:builder, current_site, current_page] do |f| %>
 
-  <section class="form details">
-    <div class="half-row">
-      <%= f.input :title %>
-      <%= f.input :slug, :label => 'URL Segment' %>
-    </div>
-    <div class="half-row">
-      <% if !current_page_parent || current_template.order_by == 'position' %>
-        <%= f.input :position %>
-      <% end %>
-    </div>
-    <%= f.input :description %>
-    <div class="body-buttons input">
-      <label>Content / Body</label>
-      <% if current_page.slug %>
-        <%= link_to(
-          'Launch Rich Text Editor', 
-          builder_site_page_editor_path(current_site, current_page, 'wysiwyg'), 
-          :class => 'button wysiwyg' 
-        ) %>
-        <%= link_to(
-          'Launch Markdown Editor', 
-          builder_site_page_editor_path(current_site, current_page, 'markdown'), 
-          :class => 'button markdown' 
-        ) %>
-      <% else %>
-        <p>
-          <em>Save the page to edit the content (we wouldn't want you to lose 
-          your work!).</em>
-        </p>
-      <% end %>
-      <%= f.input :body_md, :as => :hidden, :wrapper => false %>
-      <%= f.input :body, :as => :hidden, :wrapper => false %>
-    </div>
-    <div class="half-row">
-      <%= f.input :show_in_nav, :label => "Show in navigation menus?" %>
-    </div>
-    <%= f.input :published, :as => :hidden, :wrapper => false %>
-    <%= f.input :template_id, :as => :hidden, :wrapper => false, 
-      :input_html => { :value => current_template.id } %>
-    <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => { 
-      :value => current_page_parent.id } unless current_page_parent.nil? %>
-  </section>
-
   <%= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
-    <section class="form tabbed">
-      <% current_template.fields.each do |field| %>
+    <% current_template_group.fields.each do |field| %>
+      <% if ['title','slug','position','description','show_in_nav'].include?(field.slug) %>
+        <%= f.input field.slug.to_sym, :label => field.label %>
+      <% elsif field.slug == 'body' %>
+        <div class="body-buttons input">
+          <label>Content / Body</label>
+          <% if current_page.slug %>
+            <%= link_to(
+              'Launch Rich Text Editor', 
+              builder_site_page_editor_path(current_site, current_page, 'wysiwyg'), 
+              :class => 'button wysiwyg'
+            ) %>
+            <%= link_to(
+              'Launch Markdown Editor', 
+              builder_site_page_editor_path(current_site, current_page, 'markdown'), 
+              :class => 'button markdown' 
+            ) %>
+          <% else %>
+            <p>
+              <em>Save the page to edit the content (we wouldn't want you to lose 
+              your work!).</em>
+            </p>
+          <% end %>
+          <%= f.input :body_md, :as => :hidden, :wrapper => false %>
+          <%= f.input :body, :as => :hidden, :wrapper => false %>
+        </div>
+      <% else %>
         <% case field.data_type %>
         <% when 'date' %>
           <%= fd.input(
@@ -66,9 +48,6 @@
             :required => field.required, 
             :label => field.title,
             :selected => current_page.field_data[field.slug],
-            # :input_html => { 
-            #   :value => current_page.field_data[field.slug.to_sym] 
-            # } 
           ) %>
         <% when 'check_boxes', 'radio_buttons' %>
           <%= fd.input(
@@ -77,10 +56,7 @@
             :collection => field.option_values,
             :required => field.required, 
             :label => field.title,
-            :checked => current_page.field_data[field.slug],
-            # :input_html => { 
-            #   :value => current_page.field_data[field.slug.to_sym] 
-            # } 
+            :checked => current_page.field_data[field.slug]
           ) %>
         <% when 'image', 'file' %>
           <div class="upload-field">
@@ -113,9 +89,17 @@
             } 
           ) %>
         <% end %>
-      <% end %>      
-    </section>
+      <% end %>
+    <% end %>
   <% end %>
+
+  <%= redirect_field(f) %>
+
+  <%= f.input :published, :as => :hidden, :wrapper => false %>
+    <%= f.input :template_id, :as => :hidden, :wrapper => false, 
+      :input_html => { :value => current_template.id } %>
+    <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => { 
+      :value => current_page_parent.id } unless current_page_parent.nil? %>
 
   <%= link_to "Save and Publish", '#', :class => 'save publish' %>
   <%= link_to "Save as Draft", '#', :class => 'save draft' %>

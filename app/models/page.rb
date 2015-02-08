@@ -55,7 +55,7 @@ class Page < ActiveRecord::Base
   after_save :cache_order_by
 
   def cache_order_by
-    order_by = self.template.order_by
+    order_by = self.template.order_method
     unless order_by.blank?
       update_columns(:order => self.send(order_by))
     end

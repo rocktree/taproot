@@ -1,7 +1,10 @@
 <%= current_page_breadcrumbs %>
 
-<%= builder_page_title("Edit #{current_page.title}") do %>
-  <%= new_page_children_links("New (Nested)") %>
+<%= builder_page_title("#{current_template_group.title} Settings: #{current_page.title}") do %>
+  <%= new_page_children_links %>
+  <%= subtitle("These are the #{current_template_group.title} settings for this 
+  page. You can jump to different settings sections using the menu in the 
+  sidebar.") %>
 <% end %>
 
 <%= content_tag(:section, render('form'), :id => 'page-content') %>

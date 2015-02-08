@@ -12,6 +12,7 @@
 #  position          :integer          default(0)
 #  created_at        :datetime
 #  updated_at        :datetime
+#  label             :string(255)
 #  protected         :boolean          default(FALSE)
 #
 
@@ -35,6 +36,14 @@ class TemplateField < ActiveRecord::Base
   # ------------------------------------------ Validations
 
   validates :title, :template_group, :data_type, :presence => true
+
+  # ------------------------------------------ Callbacks
+
+  before_save :verify_label
+
+  def verify_label
+    self.label = self.title if self.label.blank?
+  end
 
   # ------------------------------------------ Instance Methods
 

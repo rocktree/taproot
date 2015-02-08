@@ -35,6 +35,7 @@ class Builder::Templates::FieldsController < BuilderController
         :position,
         :template_group_id,
         :slug,
+        :label,
         :data_type,
         :options,
         :required,

@@ -1,6 +1,6 @@
 <% if template_children.size > 0 %>
   <ul>
-    <%= content_tag(:h3, "#{current_page.title} Pages") %>
+    <%= content_tag(:h3, "Sub-Pages") %>
     <% template_children.each do |template| %>
       <%= content_tag(
         :li, 
@@ -16,7 +16,7 @@
 <% end %>
 
 <ul>
-  <%= content_tag(:h3, "#{current_page.title} Settings") %>
+  <%= content_tag(:h3, "Page Settings") %>
   <% current_template_groups.each do |group| %>
     <%= content_tag(
       :li,

@@ -1,11 +1,14 @@
 <%= simple_form_for(
   [:builder, current_site, current_template, current_template_field]
 ) do |f| %>
+  <%= f.input :title %>
+  <%= em_p("The title is the arbitrary label you use to in the builder.") %>
   <div class="half-row">
-    <%= f.input :title %>
-    <%= f.input :slug, :label => 'Name' %>
-    <%= em_p("The title is the arbitrary label you use to in the builder, while 
-    the name is the actual name of the method used to retrieve the value.") %>
+    <%= f.input :label %>
+    <%= f.input :slug, :label => 'Name', 
+      :disabled => current_template_field.protected? ? true : false %>
+    <%= em_p("The lable is the label that appears on the form, while the name 
+    is the method by which you retrieve this field's value.") %>
     <%= em_p("The name will be automatically applied using a slug approach if 
     you leave this blank.") %>
   </div>

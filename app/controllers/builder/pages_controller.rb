@@ -47,7 +47,7 @@ class Builder::PagesController < BuilderController
     process_files
     if current_page.update(update_params)
       # save_files
-      redirect_to(builder_route([current_page], :edit),
+      redirect_to(redirect_route,
         :notice => t(
           'notices.updated', 
           :item => controller_name.humanize.titleize
@@ -99,10 +99,7 @@ class Builder::PagesController < BuilderController
     end
 
     def update_params
-      fields = []
-      template_groups.each { |g| fields << g.fields }
-      fields = fields.flatten.uniq.collect(&:slug).map { |f| f.to_sym }
-      params.require(:page).permit(
+      p = params.require(:page).permit(
         :title,
         :slug,  
         :description, 
@@ -112,9 +109,14 @@ class Builder::PagesController < BuilderController
         :position,
         :parent_id,
         :show_in_nav,
-        :template,
-        :field_data => fields
+        :template
       )
+      unless params[:page][:field_data].blank?
+        p = p.merge(
+          :field_data => current_page.field_data.merge(params[:page][:field_data])
+        )
+      end
+      p
     end
 
     def process_files
@@ -131,6 +133,10 @@ class Builder::PagesController < BuilderController
           end
         end
       end
+    end
+
+    def redirect_route
+      params[:page][:redirect_route]
     end
 
 end
