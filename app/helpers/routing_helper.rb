@@ -38,7 +38,7 @@ module RoutingHelper
 
   def viewer_home
     if ['localhost','cms.rocktree.us'].include?(request.host)
-      viewer_home_path
+      preview_home_path
     else
       send("#{current_site.slug.underscore}_home_path")
     end
@@ -46,7 +46,7 @@ module RoutingHelper
 
   def viewer_page(page_path)
     if request.host == TaprootSetting.site.url
-      viewer_page_path(:page_path => page_path)
+      preview_page_path(:page_path => page_path)
     else
       send("#{current_site.slug.underscore}_page_path", :page_path => page_path)
     end

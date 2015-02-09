@@ -76,6 +76,16 @@ Rails.application.routes.draw do
     end
   end
 
+  # ------------------------------------------ Viewer
+
+  scope 'preview' do
+    get '/' => 'previewer#dashboard', :as => :preview_dashboard
+    scope ':site_slug' do
+      get '/' => 'previewer#home', :as => :preview_home
+      get '/*page_path' => 'previewer#show', :as => :preview_page
+    end
+  end
+
   # ------------------------------------------ Domains
 
   if ActiveRecord::Base.connection.table_exists?('sites')
@@ -105,15 +115,6 @@ Rails.application.routes.draw do
       end
     end
 
-  end
-
-  # ------------------------------------------ Viewer
-
-  namespace :viewer, :path => '' do
-    scope '/preview/:site_slug' do
-      get '/' => 'pages#home', :as => :home
-      get '/*page_path' => 'pages#show', :as => :page
-    end
   end
 
   # ------------------------------------------ Home Page

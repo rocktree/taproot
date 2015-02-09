@@ -142,7 +142,7 @@
         // margin: 10px 0 0 0;
         font-size: 22px;
         font-weight: 400;
-        color: $color-grey;
+        // color: $color-grey;
         a {
           margin: 10px 0 0 0;
           font-size: 22px;
@@ -157,23 +157,19 @@
         position: absolute;
         top: 15px;
         right: 15px;
+        text-align: right;
         a {
-          margin-left: 7.5px;
-          font-size: 14px;
+          display: inline-block;
+          margin-left: 10px;
+          font-size: 13px;
+          color: $color-grey;
         }
-      }
-      .date {
-        float: right;
-        clear: right;
-        margin: 12px 0 0 0;
-        color: $color-grey;
-        font-size: 14px;
-      }
-      .delete {
-        float: right;
-        margin: 0;
-        font-size: 13px;
-        color: $color-grey;
+        div {
+          display: block;
+          margin: 10px 0 0 0;
+          font-size: 14px;
+          color: $color-grey;
+        }
       }
       .published, .draft {
         font-size: 14px;

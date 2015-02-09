@@ -51,7 +51,7 @@ p.subtitle {
 
 a {
   &.new, &.edit, &.back, &.delete, &.dont-delete, &.published, &.draft, &.crop, 
-  &.download, &.code, &.database, &.link {
+  &.download, &.code, &.database, &.link, &.build, &.preview {
     &:before {
       font-family: 'Icomoon-Ultimate';
       font-size: 10px;
@@ -72,6 +72,8 @@ a {
   &.code:before { content: "\e480"; }
   &.database:before { content: "\e138"; }
   &.link:before { content: "\e2c9"; }
+  &.build:before { content: "\e1e8"; }
+  &.preview:before { content: "\e2d9"; }
 
   &.button {
     @include rounded-button($color-primary, $color-primary-lighter);

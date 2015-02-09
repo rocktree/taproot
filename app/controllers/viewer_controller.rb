@@ -18,7 +18,9 @@ class ViewerController < ActionController::Base
   private
 
     def verify_site
-      not_found if current_site.nil?
+      if current_site.nil? && action_name != 'dashboard'
+        not_found
+      end
     end
 
 end
