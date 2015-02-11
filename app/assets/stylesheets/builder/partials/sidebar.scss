@@ -37,6 +37,24 @@ aside#page-sidebar {
         &:hover {
           background: $color-light-dark;
         }
+        &.delete {
+          font-weight: 600;
+          &:hover {
+            color: $color-danger;
+          }
+        }
+        &.publish {
+          font-weight: 600;
+          &:hover {
+            color: $color-success;
+          }
+        }
+        &.unpublish {
+          font-weight: 600;
+          &:hover {
+            color: $color-danger;
+          }
+        }
       }
     }
   }

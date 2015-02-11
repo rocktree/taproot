@@ -159,4 +159,18 @@ module PagesHelper
     o.html_safe
   end
 
+  def page_status(page)
+    if page.published
+      content_tag(:span, :class => 'page-status published') do
+        o = content_tag(:i, nil, :class => 'icon-checkmark-circle')
+        o += content_tag(:span, 'Published')
+      end
+    else
+      content_tag(:span, :class => 'page-status draft') do
+        o = content_tag(:i, nil, :class => 'icon-notification')
+        o += content_tag(:span, 'Draft')
+      end
+    end
+  end
+
 end

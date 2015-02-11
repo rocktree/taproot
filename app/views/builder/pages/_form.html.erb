@@ -95,13 +95,11 @@
 
   <%= redirect_field(f) %>
 
-  <%= f.input :published, :as => :hidden, :wrapper => false %>
-    <%= f.input :template_id, :as => :hidden, :wrapper => false, 
-      :input_html => { :value => current_template.id } %>
-    <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => { 
-      :value => current_page_parent.id } unless current_page_parent.nil? %>
+  <%= f.input :template_id, :as => :hidden, :wrapper => false, 
+    :input_html => { :value => current_template.id } %>
+  <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => { 
+    :value => current_page_parent.id } unless current_page_parent.nil? %>
 
-  <%= link_to "Save and Publish", '#', :class => 'save publish' %>
-  <%= link_to "Save as Draft", '#', :class => 'save draft' %>
+  <%= f.submit "Save Page" %>
 
 <% end %>

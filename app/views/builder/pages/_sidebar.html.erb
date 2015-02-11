@@ -48,13 +48,38 @@
 <% if current_page.id %>
   <ul>
     <h3>Actions</h3>
+    <% if current_page.published? %>
+      <%= content_tag(
+        :li,
+        link_to(
+          "Unpublish", 
+          builder_site_page_unpublish_path(current_site, current_page, 
+            :redirect_route => request.path),
+          :method => :post, 
+          :class => 'change-page-status unpublish',
+          :data => { :confirm => 'Are you sure?' }
+        ) 
+      ) %>
+    <% else %>
+      <%= content_tag(
+        :li,
+        link_to(
+          "Publish", 
+          builder_site_page_publish_path(current_site, current_page, 
+            :redirect_route => request.path),
+          :method => :post, 
+          :class => 'change-page-status publish',
+          :data => { :confirm => 'Are you sure?' }
+        ) 
+      ) %>
+    <% end %>
     <%= content_tag(
       :li,
       link_to(
-        "Delete this Page", 
+        "Delete", 
         builder_route([current_page], :show), 
         :method => :delete, 
-        # :class => 'delete',
+        :class => 'delete',
         :data => { :confirm => 'Are you sure?' }
       ) 
     ) %>

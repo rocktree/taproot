@@ -20,6 +20,14 @@
       font-weight: 400;
       @include transition-all;
     }
+    .page-status {
+      i {
+        font-size: 13px;
+      }
+      span {
+        font-size: 15px;
+      }
+    }
   }
 
   section.data-table {
@@ -39,9 +47,9 @@
             color: $color-1;
             right: 10px;
           }
-          h4 {
-            color: $color-1;
-          }
+          // h4 {
+          //   color: $color-1;
+          // }
         }
         > a {
           display: block;

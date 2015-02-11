@@ -47,6 +47,8 @@ Rails.application.routes.draw do
         get 'edit/:editor' => 'pages/editor#edit', :as => :editor
         patch 'edit/:editor' => 'pages/editor#parse', :as => :parser
         get 'children/:slug' => 'pages#children', :as => :children
+        post 'publish' => 'pages#publish', :as => :publish
+        post 'unpublish' => 'pages#unpublish', :as => :unpublish
       end
 
       # Templates

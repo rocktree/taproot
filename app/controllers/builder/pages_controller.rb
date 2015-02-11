@@ -4,16 +4,6 @@ class Builder::PagesController < BuilderController
   end
 
   def show
-    # current_page
-    # if template_children.size == 0 || current_page.children.size == 0
-    #   redirect_to builder_site_page_settings_path(
-    #     current_site, current_page, current_template_groups.first
-    #   )
-    # else
-    #   redirect_to builder_site_page_children_path(
-    #     current_site, current_page, template_children.first
-    #   )
-    # end
   end
 
   def children
@@ -63,6 +53,16 @@ class Builder::PagesController < BuilderController
     else
       render('edit')
     end
+  end
+
+  def publish
+    current_page.update(:published => true)
+    redirect_to(redirect_route, :notice => 'Page published!')
+  end
+
+  def unpublish
+    current_page.update(:published => false)
+    redirect_to(redirect_route, :notice => 'Page unpublished!')
   end
 
   def destroy
@@ -127,7 +127,11 @@ class Builder::PagesController < BuilderController
     end
 
     def redirect_route
-      params[:page][:redirect_route]
+      if params[:page]
+        params[:page][:redirect_route] || builder_site_pages(current_site)
+      else
+        params[:redirect_route] || builder_site_pages(current_site)
+      end
     end
 
 end

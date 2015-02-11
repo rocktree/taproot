@@ -1,6 +1,7 @@
 <article class="page arrow">
   <%= link_to(builder_route([page], :show)) do %>
     <%= content_tag(:h4, page.title, :class => 'title') %>
+    <%= page_status(page) %>
     <%= simple_format(page.description) unless page.description.blank? %>
   <% end %>
 </article>

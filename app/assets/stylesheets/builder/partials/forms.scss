@@ -103,6 +103,7 @@ form {
     a {
       clear: both;
       margin: 10px 0 0 0;
+      @include rounded-button($color-grey, $color-grey-darker);
     }
   }
 
@@ -123,13 +124,6 @@ form {
       content: '';
       margin-right: 0;
     }
-  }
-  a.save.publish {
-    @include rounded-button($color-primary, $color-primary-lighter);
-    margin-right: 10px;
-  }
-  a.save.draft {
-    @include rounded-button($color-dark-lightest, $color-dark-lighter);
   }
   a.delete {
     @include rounded-button($color-danger, $color-danger-dark);
