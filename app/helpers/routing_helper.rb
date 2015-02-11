@@ -37,7 +37,7 @@ module RoutingHelper
   end
 
   def viewer_home
-    if ['localhost','cms.rocktree.us'].include?(request.host)
+    if request.host == TaprootSetting.site.url
       preview_home_path
     else
       send("#{current_site.slug.underscore}_home_path")
