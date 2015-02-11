@@ -103,4 +103,8 @@ class Page < ActiveRecord::Base
     template
   end
 
+  def draft?
+    !published?
+  end
+
 end

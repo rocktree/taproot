@@ -1,7 +1,7 @@
 module PagesHelper
 
   def site_pages
-    @site_pages ||= current_site.pages
+    @site_pages ||= current_site.webpages
   end
 
   def site_root_pages
@@ -20,7 +20,7 @@ module PagesHelper
     @current_page ||= begin
       if controller_name == 'pages' || controller_name == 'editor'
         p = params[:page_slug] || params[:slug]
-        page = current_site.pages.find_by_slug(p)
+        page = current_site.webpages.find_by_slug(p)
         return nil if page.nil?
         page
       else

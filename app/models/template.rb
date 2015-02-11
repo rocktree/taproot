@@ -37,7 +37,7 @@ class Template < ActiveRecord::Base
 
   belongs_to :site, :touch => true
 
-  has_many :pages
+  has_many :webpages, :class_name => 'Page'
   has_many :template_groups, :dependent => :destroy
   has_many :template_fields, :through => :template_groups
 
@@ -129,6 +129,10 @@ class Template < ActiveRecord::Base
 
   def deletable?
     pages.size == 0 
+  end
+
+  def pages
+    Rails.env.production? ? webpages.published : webpages
   end
 
 end

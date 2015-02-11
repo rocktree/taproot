@@ -4,7 +4,11 @@ class Viewer::PagesController < ViewerController
 
   def home
     @current_page = current_site.home_page
-    show
+    if @current_page.nil? || (@current_page.draft? && Rails.env.production?)
+      not_found
+    else
+      show
+    end
   end
 
   def show
