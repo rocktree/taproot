@@ -1,16 +1,25 @@
-<%= current_page_breadcrumbs %>
-
 <%= builder_page_title(current_page.title) do %>
-  <%= link_to "Edit #{current_page.title}", builder_route([current_page], :edit), 
-    :class => 'edit' %>
-  <%= new_page_children_links %>
+  <%= content_tag(:div, page_status(current_page)) %>
+  <%= subtitle("Here's a snapshot of the #{current_page.title} page. 
+  Use this as a reference when accessing this template while developing your 
+  site.") %>
 <% end %>
 
-<section id="page-content">
-  <%= data_table(current_page_children_paginated, 'page') %>
-  <%= paginate_links(
-    current_page_children_paginated, 'builder/pages', 'show'
-  ) %>
+<section id="page-content" class="developer-help">
+
+  <div class="methods">
+    <h2>Attributes</h2>
+    <p>These are the methods available on this <code>Page</code> object, 
+    along with the results they would currently return. So, for example, if you 
+    wanted the title and your object was stored in a <code>current_page</code> 
+    variable, then you would call <code>current_page.title</code> to get 
+    <%= content_tag(:em, current_page.title) %></p>
+    <% current_template.fields.alpha.each do |field| %>
+      <%= content_tag(:h3, :class => 'code') { 
+        content_tag(:code, field.slug) } %>
+      <%= content_tag(:pre, current_page.send(field.slug)) %>
+    <% end %>
+  </div>
 </section>
 
 <%= sidebar %>

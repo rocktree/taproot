@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   namespace :builder, :path => '' do
     resources :sites, :param => :slug do
+
       # Site Actions
       post 'pull' => 'sites#pull', :as => :pull
       post 'import' => 'sites#import', :as => :import
@@ -40,20 +41,50 @@ Rails.application.routes.draw do
       post 'sync' => 'sites#sync', :as => :sync
       post 'symlink' => 'sites#symlink', :as => :symlink
 
-      resources :page_types, :param => :slug, :except => [:show]
+      # Pages
       resources :pages, :param => :slug do
+        get 'settings/:slug' => 'pages#edit', :as => :settings
         get 'edit/:editor' => 'pages/editor#edit', :as => :editor
         patch 'edit/:editor' => 'pages/editor#parse', :as => :parser
+        get 'children/:slug' => 'pages#children', :as => :children
+        post 'publish' => 'pages#publish', :as => :publish
+        post 'unpublish' => 'pages#unpublish', :as => :unpublish
       end
+
+      # Templates
+      get 'templates/:slug/settings' => 'templates#edit', :as => :template_settings
+      get 'templates/:slug/dev_settings' => 'templates#edit', :as => :template_dev_settings
+      resources :templates, :param => :slug do
+        resources :template_fields, :path => :fields, 
+          :controller => 'templates/fields', :param => :slug
+        resources :template_groups, :path => :groups, 
+          :controller => 'templates/groups', :param => :slug
+      end
+
+      # Forms
       resources :forms, :param => :slug do
         resources :submissions, :param => :idx, :only => [:show]
       end
+
+      # Files
       resources :documents, :path => :library, :param => :idx, 
         :except => [:show] do
           get 'crop' => 'documents/croppings#edit', :as => :cropper 
           patch 'crop' => 'documents/croppings#update', :as => :crop
       end
+
+      # Users
       resources :users, :except => [:show]
+    end
+  end
+
+  # ------------------------------------------ Viewer
+
+  scope 'preview' do
+    get '/' => 'previewer#dashboard', :as => :preview_dashboard
+    scope ':site_slug' do
+      get '/' => 'previewer#home', :as => :preview_home
+      get '/*page_path' => 'previewer#show', :as => :preview_page
     end
   end
 
@@ -86,15 +117,6 @@ Rails.application.routes.draw do
       end
     end
 
-  end
-
-  # ------------------------------------------ Viewer
-
-  namespace :viewer, :path => '' do
-    scope '/preview/:site_slug' do
-      get '/' => 'pages#home', :as => :home
-      get '/*page_path' => 'pages#show', :as => :page
-    end
   end
 
   # ------------------------------------------ Home Page

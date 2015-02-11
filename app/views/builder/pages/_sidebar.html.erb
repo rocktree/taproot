@@ -1,41 +1,87 @@
 <ul>
-  <h3>Root-level Pages</h3>
-  <% site_nav_pages.each do |page| %>
+  <%= content_tag(
+    :li, 
+    link_to(
+      'Developer Help', 
+      builder_route([current_page], :show)
+    ),
+    :class => request.path == builder_route([current_page], :show) ? 'active' : nil
+  ) %>
+</ul>
+
+<% if template_children.size > 0 %>
+  <ul>
+    <%= content_tag(:h3, "Sub-Pages") %>
+    <% template_children.each do |template| %>
+      <%= content_tag(
+        :li, 
+        link_to(
+          template.title.pluralize, 
+          builder_site_page_children_path(current_site, current_page, template)
+        ),
+        :class => (current_page.slug == params[:page_slug] && 
+          template.slug == params[:slug]) ? 'active' : nil
+      ) %>
+    <% end %>
+  </ul>
+<% end %>
+
+<ul>
+  <%= content_tag(:h3, "Settings") %>
+  <% current_template_groups.each do |group| %>
     <%= content_tag(
       :li,
       link_to(
-        page.slug.gsub(/\_/, ' ').titleize, 
-        builder_route([page], :show)
+        group.title, 
+        builder_site_page_settings_path(
+          current_site, 
+          current_page, 
+          group.slug
+        )
       ),
-      :class => (
-        (
-          request.path.include?(builder_route([page], :show)) || 
-          page == current_page_parent
-        ) && 
-        controller_name == 'pages'
-      ) ? ' active' : nil
+      :class => (current_page.slug == params[:page_slug] && 
+        group.slug == params[:slug]) ? 'active' : nil
     ) %>
-  <% end %>
+  <% end %>  
 </ul>
 
-<% if site_floating_root_pages.size > 0 %>
+<% if current_page.id %>
   <ul>
-    <h3>Floating Pages (not in nav)</h3>
-    <% site_floating_root_pages.each do |page| %>
+    <h3>Actions</h3>
+    <% if current_page.published? %>
       <%= content_tag(
         :li,
         link_to(
-          page.slug.gsub(/\_/, ' ').titleize, 
-          builder_route([page], :show)
-        ),
-        :class => (
-          (
-            request.path.include?(builder_route([page], :show)) || 
-            page == current_page_parent
-          ) && 
-          controller_name == 'pages'
-        ) ? ' active' : nil
+          "Unpublish", 
+          builder_site_page_unpublish_path(current_site, current_page, 
+            :redirect_route => request.path),
+          :method => :post, 
+          :class => 'change-page-status unpublish',
+          :data => { :confirm => 'Are you sure?' }
+        ) 
+      ) %>
+    <% else %>
+      <%= content_tag(
+        :li,
+        link_to(
+          "Publish", 
+          builder_site_page_publish_path(current_site, current_page, 
+            :redirect_route => request.path),
+          :method => :post, 
+          :class => 'change-page-status publish',
+          :data => { :confirm => 'Are you sure?' }
+        ) 
       ) %>
     <% end %>
+    <%= content_tag(
+      :li,
+      link_to(
+        "Delete", 
+        builder_route([current_page], :show), 
+        :method => :delete, 
+        :class => 'delete',
+        :data => { :confirm => 'Are you sure?' }
+      ) 
+    ) %>
   </ul>
 <% end %>

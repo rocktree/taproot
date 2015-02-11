@@ -1,0 +1,34 @@
+<%= simple_form_for(
+  [:builder, current_site, current_template, current_template_field]
+) do |f| %>
+  <%= f.input :title %>
+  <%= em_p("The title is the arbitrary label you use to in the builder.") %>
+  <div class="half-row">
+    <%= f.input :label %>
+    <%= f.input :slug, :label => 'Name', 
+      :disabled => current_template_field.protected? ? true : false %>
+    <%= em_p("The lable is the label that appears on the form, while the name 
+    is the method by which you retrieve this field's value.") %>
+    <%= em_p("The name will be automatically applied using a slug approach if 
+    you leave this blank.") %>
+  </div>
+  <div class="half-row">
+    <%= f.association :template_group, :label => 'Group', 
+      :collection => current_template_groups %>
+    <%= f.input :position, :as => :string %>
+    <%= em_p("Here you place the field in a group and give it a position within 
+    that group.") %>
+  </div>
+  <div class="half-row">
+    <%= f.input :data_type, :collection => template_field_options %>
+    <%= f.input :options %>
+    <%= em_p("The data type determines how the field is rendered in the page 
+    form. If you choose an data type that requires options, fill in the options 
+    you'd like displayed in the form.") %>
+    <%= em_p("Each option should be placed on its own line.") %>
+  </div>
+  <%= f.input :required %>
+  <%= em_p("Checking this box requires a user to enter data for this field for 
+  every page using this template.") %>
+  <%= f.submit "Save Form Field" %>
+<% end %>

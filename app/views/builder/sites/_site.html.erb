@@ -1,15 +1,32 @@
 <article class="site">
-  <%= link_to(
-    'Delete', 
-    builder_site_path(site), 
-    :class => 'delete', 
-    :method => :delete,
-    :data => { :confirm => 'Are you sure? This is going to permanently delete this site and its content.' } 
-  ) %>
-  <%= content_tag(
-    :time, 
-    "Updated #{time_ago_in_words(site.updated_at)} ago", 
-    :class => 'date'
-  ) %>
-  <%= content_tag(:h4, link_to(site.title, builder_site_path(site))) %>
+  <div class="links">
+    <%= link_to(
+      'Preview', 
+      preview_home_path(site), 
+      :class => 'preview',
+      :target => :blank
+    ) %>
+    <%= link_to(
+      'Build', 
+      builder_site_path(site), 
+      :class => 'build' 
+    ) if Rails.env.production? || (TaprootSetting.contributing.present? && 
+      TaprootSetting.contributing.to_bool == true) %>
+    <%= link_to(
+      'Delete', 
+      builder_site_path(site), 
+      :class => 'delete', 
+      :method => :delete,
+      :data => { 
+        :confirm => 'Are you sure? This is going to permanently delete this 
+        site and its content.' 
+      } 
+    ) %>
+    <%= content_tag(
+      :div, 
+      "Updated #{time_ago_in_words(site.updated_at)} ago", 
+      :class => 'date'
+    ) %>
+  </div>
+  <%= content_tag(:h4, site.title) %>
 </article>

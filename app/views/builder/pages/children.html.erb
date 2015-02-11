@@ -1,0 +1,16 @@
+<%= current_page_breadcrumbs %>
+
+<%= builder_page_title(current_page.title) do %>
+  <%= new_page_children_links %>
+  <%= subtitle("These are the pages underneath the #{current_page.title} page 
+  in your site. Click on a page to drill down deeper.") %>
+<% end %>
+
+<section id="page-content">
+  <%= data_table(current_page_children_paginated, 'page') %>
+  <%= paginate_links(
+    current_page_children_paginated, 'builder/pages', 'show'
+  ) %>
+</section>
+
+<%= sidebar %>

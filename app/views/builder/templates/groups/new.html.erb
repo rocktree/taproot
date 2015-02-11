@@ -1,0 +1,13 @@
+<%= current_template_breadcrumbs %>
+
+<%= builder_page_title("New Form Group") do %>
+  <%= subtitle("Create a new section for the form shown when a page is created 
+  using the #{current_template.title} template. Each grouping here will get its 
+  own menu item in the sidebar, like you see the 'Options' menu here.") %>
+<% end %>
+
+<section id="page-content">
+  <%= render 'form' %>
+</section>
+
+<%= sidebar('builder/templates/sidebar') %>

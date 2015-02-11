@@ -6,14 +6,7 @@ class Builder::SitesController < BuilderController
   end
 
   def show
-    if current_site.home_page_id.blank?
-      redirect_to(
-        route([current_site], :edit, 'builder'), 
-        :notice => 'Please set a home page and then you can play around!'
-      )
-    else
-      redirect_to route([current_site, current_site.home_page], :show, 'builder')
-    end
+    redirect_to builder_site_pages_path(current_site)
   end
 
   def new

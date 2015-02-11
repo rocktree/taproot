@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117232930) do
+ActiveRecord::Schema.define(version: 20150204232623) do
 
   create_table "documents", force: true do |t|
     t.integer  "site_id"
@@ -84,55 +84,21 @@ ActiveRecord::Schema.define(version: 20150117232930) do
     t.datetime "updated_at"
   end
 
-  create_table "page_type_field_groups", force: true do |t|
-    t.integer  "page_type_id"
-    t.string   "title"
-    t.string   "slug"
-    t.integer  "position",     default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "page_type_fields", force: true do |t|
-    t.integer  "page_type_field_group_id"
-    t.string   "title"
-    t.string   "slug"
-    t.string   "data_type"
-    t.text     "options"
-    t.boolean  "required",                 default: false
-    t.integer  "position",                 default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "page_types", force: true do |t|
-    t.integer  "site_id"
-    t.string   "title"
-    t.string   "slug"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "page_templates"
-    t.text     "children"
-    t.string   "label"
-    t.string   "order_by"
-  end
-
   create_table "pages", force: true do |t|
-    t.integer  "page_type_id"
+    t.integer  "template_id"
     t.string   "title"
     t.string   "slug"
     t.text     "description"
     t.text     "body"
     t.string   "ancestry"
-    t.boolean  "published",    default: false
+    t.boolean  "published",   default: false
     t.text     "field_data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",     default: 0
+    t.integer  "position",    default: 0
     t.string   "template"
     t.string   "order"
-    t.boolean  "show_in_nav",  default: true
+    t.boolean  "show_in_nav", default: true
     t.text     "body_md"
   end
 
@@ -156,6 +122,48 @@ ActiveRecord::Schema.define(version: 20150117232930) do
     t.integer  "home_page_id"
     t.string   "git_url"
     t.text     "secondary_urls"
+  end
+
+  create_table "template_fields", force: true do |t|
+    t.integer  "template_group_id"
+    t.string   "title"
+    t.string   "slug"
+    t.string   "data_type"
+    t.text     "options"
+    t.boolean  "required",          default: false
+    t.integer  "position",          default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "label"
+    t.boolean  "protected",         default: false
+  end
+
+  create_table "template_groups", force: true do |t|
+    t.integer  "template_id"
+    t.string   "title"
+    t.string   "slug"
+    t.integer  "position",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "templates", force: true do |t|
+    t.integer  "site_id"
+    t.string   "title"
+    t.string   "slug"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "page_templates"
+    t.text     "children"
+    t.string   "order_method"
+    t.string   "order_direction"
+    t.boolean  "can_be_root",     default: false
+    t.boolean  "limit_pages",     default: false
+    t.integer  "max_pages",       default: 0
+    t.boolean  "maxed_out",       default: false
+    t.text     "form_groups"
+    t.text     "form_fields"
   end
 
   create_table "users", force: true do |t|

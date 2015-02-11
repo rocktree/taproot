@@ -1,0 +1,12 @@
+<%= current_template_breadcrumbs %>
+
+<%= builder_page_title("Edit #{current_template_field.title}") do %>
+  <%= subtitle("Edit the attributes for the #{current_template_field.title} 
+  field.") %>
+<% end %>
+
+<section id="page-content">
+  <%= render 'form' %>
+</section>
+
+<%= sidebar('builder/templates/sidebar') %>

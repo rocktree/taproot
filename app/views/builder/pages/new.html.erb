@@ -1,3 +1,16 @@
-<%= builder_page_title("New #{current_page_type.label}") %>
-<%= content_tag(:section, render('form'), :id => 'page-content') %>
-<%= sidebar %>
+<%= builder_page_title("New #{current_template.title}") do %>
+  <%= subtitle("To create a new page, let's start with some simple information, 
+  and then we can move on to the other fields.") %>
+<% end %>
+
+<div id="page-content">
+  <%= simple_form_for([:builder, current_site, current_page]) do |f| %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :template_id, :as => :hidden, :wrapper => false, 
+      :input_html => { :value => current_template.id } %>
+    <%= em_p("The description is used within the builder, but it can also be 
+    used for SEO purposes, depending how you build your site.") %>
+    <%= f.submit "Create Page" %>
+  <% end %>
+</div>

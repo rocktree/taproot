@@ -24,6 +24,9 @@ form {
       font-size: 14px;
       border-radius: 5px;
       color: $color-light-darkest;
+      &.disabled {
+        background: $color-light-dark;
+      }
       &:focus {
         color: $color-primary;
       }
@@ -91,45 +94,6 @@ form {
     }
   }
 
-  ul.tabs {
-    @include clear-list;
-    display: inline-block;
-    margin: 10px 0 15px 0;
-    border-radius: 3px;
-    border: 1px solid $color-light-darker;
-    overflow: hidden;
-    // border-bottom: 1px solid $color-light-darker;
-    li {
-      display: inline-block;
-      &:last-child a {
-        border: none;
-      }
-      a {
-        display: inline-block;
-        padding: 7.5px 15px;
-        border-right: 1px solid $color-light-darker;
-        color: $color-grey;
-        &.active {
-          background: $color-primary;
-          color: $color-light;
-        }
-        &:hover {
-          background: $color-light-dark;
-          &.active {
-            background: $color-primary;
-          }
-          &.to-delete {
-            background: $color-danger;
-          }
-        }
-        &.to-delete {
-          color: $color-light;
-          background: $color-danger;
-        }
-      }
-    }
-  }
-
   div.upload-field {
     margin: 10px 0;
     img {
@@ -139,6 +103,7 @@ form {
     a {
       clear: both;
       margin: 10px 0 0 0;
+      @include rounded-button($color-grey, $color-grey-darker);
     }
   }
 
@@ -159,13 +124,6 @@ form {
       content: '';
       margin-right: 0;
     }
-  }
-  a.save.publish {
-    @include rounded-button($color-primary, $color-primary-lighter);
-    margin-right: 10px;
-  }
-  a.save.draft {
-    @include rounded-button($color-dark-lightest, $color-dark-lighter);
   }
   a.delete {
     @include rounded-button($color-danger, $color-danger-dark);

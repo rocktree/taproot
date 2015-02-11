@@ -1,14 +1,7 @@
-<article class="page">
-  <%= content_tag(
-    :h4, 
-    link_to(page.title, builder_route([page], :show)), 
-    :class => 'title'
-  ) %>
-  <%= simple_format(page.description) unless page.description.blank? %>
-  <div class="links">
-    <%#= link_to('Edit',  builder_route([page], :edit), :class => 'edit') %>
-    <%#= link_to('Delete',  builder_route([page], :show), 
-      :method => :delete, :class => 'delete', :data => { 
-        :confirm => 'Are you sure?' } ) %>
-  </div>
+<article class="page arrow">
+  <%= link_to(builder_route([page], :show)) do %>
+    <%= content_tag(:h4, page.title, :class => 'title') %>
+    <%= page_status(page) %>
+    <%= simple_format(page.description) unless page.description.blank? %>
+  <% end %>
 </article>

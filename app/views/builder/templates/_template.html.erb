@@ -1,0 +1,6 @@
+<article class="template arrow">
+  <%= link_to(builder_route([template], :show)) do %>
+    <%= content_tag(:h4, template.title, :class => 'title') %>
+    <%= simple_format(template.description) unless template.description.blank? %>
+  <% end %>
+</article>

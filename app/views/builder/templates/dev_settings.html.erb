@@ -1,0 +1,53 @@
+<%= current_template_breadcrumbs %>
+
+<%= builder_page_title("#{current_template.title} Developer Settings") do %>
+  <%= subtitle("These settings affect the way in which you write your viewer 
+  code and are able to access taproot content.") %>
+<% end %>
+
+<section id="page-content">
+  <%= simple_form_for [:builder, current_site, current_template] do |f| %>
+
+    <%= f.input :slug, :label => 'Template Filename' %>
+    <%= em_p("This is the name of the template file that will be rendered for 
+    each page created using this template.") %>
+    <%= em_p("Note: You don't want to include any file extensions here. We'll 
+    figure that out for you.") %>
+
+    <%= f.input :can_be_root, :label => 'Can have root pages?' %>
+    <%= em_p("You only want ceratin types of pages to be created at the root 
+    level of your site. For example, you probably would rather have 'Posts' 
+    nested under another template.") %>
+
+    <%= f.input :children, :label => 'Child Templates', :as => :check_boxes, 
+      :value_method => :slug,
+      :collection => site_templates.reject(&:blank?) %>
+    <%= em_p("Templates are restricted from being created only where you 
+    allow them. This setting drives that permission. When you check a box here, 
+    it allows a page with the selected template to be created under this 
+    page.") %>
+    <%= em_p("For example, if this is an 'Article' (or 'Post') template, you 
+    probably want to allow it to be created from a 'News' (or 'Posts') page.") %>
+
+    <div class="half-row">
+      <%= f.input :order_method, :as => :select, :collection => order_by_fields %>
+      <%= f.input :order_direction, :as => :select, 
+        :collection => ['asc','desc'] %>
+      <%= em_p("This determines the default order in which pages created from 
+      this template are ordered. It makes querying a little easier if this is 
+      predictable for this template.") %>
+    </div>
+
+    <div class="half-row">
+      <%= f.input :limit_pages, :label => 'Limit pages?' %>
+      <%= f.input :max_pages, :as => :string %>
+      <%= em_p("If you want, you can set a limit on the number of pages created 
+      with this template. For example, you probably only want one 'Home' page.") %>
+    </div>
+
+    <%= redirect_field(f) %>
+    <%= f.submit "Save Settings" %>
+  <% end %>
+</section>
+
+<%= sidebar %>

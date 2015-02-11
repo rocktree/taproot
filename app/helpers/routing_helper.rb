@@ -19,19 +19,16 @@ module RoutingHelper
       ts = t.singularize; s += "#{ts}_"
       item == items.last ? i += "#{t}_" : i += "#{ts}_"
     end
-    objs = items.reverse.drop(1).reverse
-    objs = objs.collect(&:to_param).join(',')
+    objs = objs = items.reverse.drop(1).reverse
     case action
     when :index
-      objs.empty? ? send("#{i}path") : send("#{i}path", objs)
+      objs.empty? ? send("#{i}path") : send("#{i}path", *objs)
     when :new
-      objs.empty? ? send("new_#{s}path") : send("new_#{s}path", objs)
+      objs.empty? ? send("new_#{s}path") : send("new_#{s}path", *objs)
     when :edit
-      objs.empty? ? send("edit_#{s}path", items.last.to_param) : 
-        send("edit_#{s}path", objs, items.last.to_param)
+      send("edit_#{s}path", *items)
     when :show
-      objs.empty? ? send("#{s}path", items.last.to_param) : 
-        send("#{s}path", objs, items.last.to_param)
+      send("#{s}path", *items)
     end
   end
 
@@ -41,7 +38,7 @@ module RoutingHelper
 
   def viewer_home
     if ['localhost','cms.rocktree.us'].include?(request.host)
-      viewer_home_path
+      preview_home_path
     else
       send("#{current_site.slug.underscore}_home_path")
     end
@@ -49,7 +46,7 @@ module RoutingHelper
 
   def viewer_page(page_path)
     if request.host == TaprootSetting.site.url
-      viewer_page_path(:page_path => page_path)
+      preview_page_path(:page_path => page_path)
     else
       send("#{current_site.slug.underscore}_page_path", :page_path => page_path)
     end

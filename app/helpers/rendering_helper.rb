@@ -22,6 +22,27 @@ module RenderingHelper
     end
   end
 
+  def list_tabs(tabs)
+    content_tag(:ul, :class => 'list-tabs') do
+      o = ''
+      tabs.each do |t| 
+        active = false
+        if (t[:controllers] && t[:controllers].include?(controller_name)) ||
+          request.path == t[:path]
+            active = true
+        end
+        o += content_tag(:li, 
+          link_to(
+            t[:title], 
+            t[:path], 
+            :class => active == true ? 'active' : nil
+          )
+        )
+      end
+      o.html_safe
+    end
+  end
+
   def form_tabs(tabs)
     content_tag(:ul, :class => 'tabs') do
       o = ''

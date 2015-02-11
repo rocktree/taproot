@@ -21,9 +21,12 @@ p.note {
 }
 
 p.subtitle {
-  margin: 5px 0 10px 0;
+  max-width: 600px;
+  margin: 10px 0 10px 0;
   font-size: 15px;
+  line-height: 20px;
   color: $color-dark-light;
+  font-style: italic;
 }
 
 .avatar-container {
@@ -48,7 +51,7 @@ p.subtitle {
 
 a {
   &.new, &.edit, &.back, &.delete, &.dont-delete, &.published, &.draft, &.crop, 
-  &.download, &.code, &.database, &.link {
+  &.download, &.code, &.database, &.link, &.build, &.preview, &.publish, &.unpublish {
     &:before {
       font-family: 'Icomoon-Ultimate';
       font-size: 10px;
@@ -69,6 +72,10 @@ a {
   &.code:before { content: "\e480"; }
   &.database:before { content: "\e138"; }
   &.link:before { content: "\e2c9"; }
+  &.build:before { content: "\e1e8"; }
+  &.preview:before { content: "\e2d9"; }
+  &.publish:before { content: "\e367"; }
+  &.unpublish:before { content: "\e357"; }
 
   &.button {
     @include rounded-button($color-primary, $color-primary-lighter);
@@ -124,5 +131,73 @@ a {
   }
   .ajax-page-content {
     padding: 25px;
+  }
+}
+
+ul.tabs, ul.list-tabs {
+  @include clear-list;
+  display: inline-block;
+  margin: 10px 0 15px 0;
+  border-radius: 3px;
+  border: 1px solid $color-light-darker;
+  overflow: hidden;
+  li {
+    display: inline-block;
+    &:last-child a {
+      border: none;
+    }
+    a {
+      display: inline-block;
+      padding: 7.5px 15px;
+      border-right: 1px solid $color-light-darker;
+      color: $color-grey;
+      &.active {
+        background: $color-primary;
+        color: $color-light;
+      }
+      &:hover {
+        background: $color-light-dark;
+        &.active {
+          background: $color-primary;
+        }
+        &.to-delete {
+          background: $color-danger;
+        }
+      }
+      &.to-delete {
+        color: $color-light;
+        background: $color-danger;
+      }
+    }
+  }
+}
+
+span.page-status {
+  display: inline-block;
+  margin: 5px 0 0 0;
+  // padding: 3px 3px;
+  // border-radius: 3px;
+  // background: $color-success;
+  &.draft {
+    // background: $color-danger;
+    span {
+      color: $color-danger;
+    }
+    i {
+      color: $color-danger;
+    }
+  }
+  span {
+    color: $color-success;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: none;
+  }
+  i {
+    display: inline-block;
+    margin-top: 2px;
+    color: $color-success;
+    font-size: 11px;
+    margin-right: 3px;
   }
 }

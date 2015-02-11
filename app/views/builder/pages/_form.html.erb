@@ -1,141 +1,105 @@
 <%= simple_form_for [:builder, current_site, current_page] do |f| %>
 
-  <%= form_tabs(['details'] + page_type_tabs) if page_type_tabs.size > 0 %>
-
-  <section class="form details <%= 'tabbed' if page_type_tabs.size > 0 %>">
-    <div class="half-row">
-      <%= f.input :title %>
-      <%= f.input :slug, :label => 'URL Segment' %>
-    </div>
-    <div class="half-row">
-      <%= f.input(
-        :template, 
-        :collection => current_page_type.templates, 
-        :selected => current_page.template.blank? ? current_page_type.templates.first : current_page.template 
-      ) %>
-      <% if !current_page_parent || current_page_type.order_by == 'position' %>
-        <%= f.input :position %>
-      <% end %>
-    </div>
-    <%= f.input :description %>
-    <div class="body-buttons input">
-      <label>Content / Body</label>
-      <% if current_page.slug %>
-        <%= link_to(
-          'Launch Rich Text Editor', 
-          builder_site_page_editor_path(current_site, current_page, 'wysiwyg'), 
-          :class => 'button wysiwyg' 
-        ) %>
-        <%= link_to(
-          'Launch Markdown Editor', 
-          builder_site_page_editor_path(current_site, current_page, 'markdown'), 
-          :class => 'button markdown' 
-        ) %>
-      <% else %>
-        <p>
-          <em>Save the page to edit the content (we wouldn't want you to lose 
-          your work!).</em>
-        </p>
-      <% end %>
-      <%= f.input :body_md, :as => :hidden, :wrapper => false %>
-      <%= f.input :body, :as => :hidden, :wrapper => false %>
-    </div>
-    <div class="half-row">
-      <%= f.input :show_in_nav, :label => "Show in navigation menus?" %>
-    </div>
-    <%= f.input :published, :as => :hidden, :wrapper => false %>
-    <%= f.input :page_type_id, :as => :hidden, :wrapper => false, 
-      :input_html => { :value => current_page_type.id } %>
-    <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => { 
-      :value => current_page_parent.id } unless current_page_parent.nil? %>
-  </section>
-
   <%= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
-    <% page_type_groups.each do |group| %>
-      <section class="form tabbed <%= group.slug %>">
-        <% group.fields.each do |field| %>
-          <% case field.data_type %>
-          <% when 'date' %>
-            <%= fd.input(
-              :"#{field.slug}", 
-              :as => :string, 
-              :required => field.required, 
-              :label => field.title,
-              :input_html => { 
-                :class => 'date-js', 
-                :value => current_page.field_data[field.slug.to_sym] 
-              } 
+    <% current_template_group.fields.each do |field| %>
+      <% if ['title','slug','position','description','show_in_nav'].include?(field.slug) %>
+        <%= f.input field.slug.to_sym, :label => field.label %>
+      <% elsif field.slug == 'body' %>
+        <div class="body-buttons input">
+          <label>Content / Body</label>
+          <% if current_page.slug %>
+            <%= link_to(
+              'Launch Rich Text Editor', 
+              builder_site_page_editor_path(current_site, current_page, 'wysiwyg'), 
+              :class => 'button wysiwyg'
             ) %>
-          <% when 'select' %>
-            <%= fd.input(
-              :"#{field.slug}", 
-              :as => :"#{field.data_type}", 
-              :collection => field.option_values,
-              :required => field.required, 
-              :label => field.title,
-              :selected => current_page.field_data[field.slug],
-              # :input_html => { 
-              #   :value => current_page.field_data[field.slug.to_sym] 
-              # } 
+            <%= link_to(
+              'Launch Markdown Editor', 
+              builder_site_page_editor_path(current_site, current_page, 'markdown'), 
+              :class => 'button markdown' 
             ) %>
-          <% when 'check_boxes', 'radio_buttons' %>
-            <%= fd.input(
-              :"#{field.slug}", 
-              :as => :"#{field.data_type}", 
-              :collection => field.option_values,
-              :required => field.required, 
-              :label => field.title,
-              :checked => current_page.field_data[field.slug],
-              # :input_html => { 
-              #   :value => current_page.field_data[field.slug.to_sym] 
-              # } 
-            ) %>
-          <% when 'image', 'file' %>
-            <div class="upload-field">
-              <%= fd.input(
-                :"rtfile_#{field.slug}", 
-                :as => :hidden, 
-                :required => field.required, 
-                :label => field.title,
-                :input_html => { 
-                  :value => current_page.field_data[field.slug]
-                } 
-              ) %>
-              <%= image_tag(
-                find_page_thumb(current_page.field_data[field.slug])
-              ) unless current_page.field_data[field.slug].blank? %>
-              <%= link_to(
-                "Add New #{field.title}", 
-                builder_site_documents_path(current_site, :select => true), 
-                :class => 'image-upload-trigger button' 
-              ) %>
-            </div>
           <% else %>
+            <p>
+              <em>Save the page to edit the content (we wouldn't want you to lose 
+              your work!).</em>
+            </p>
+          <% end %>
+          <%= f.input :body_md, :as => :hidden, :wrapper => false %>
+          <%= f.input :body, :as => :hidden, :wrapper => false %>
+        </div>
+      <% else %>
+        <% case field.data_type %>
+        <% when 'date' %>
+          <%= fd.input(
+            :"#{field.slug}", 
+            :as => :string, 
+            :required => field.required, 
+            :label => field.title,
+            :input_html => { 
+              :class => 'date-js', 
+              :value => current_page.field_data[field.slug.to_sym] 
+            } 
+          ) %>
+        <% when 'select' %>
+          <%= fd.input(
+            :"#{field.slug}", 
+            :as => :"#{field.data_type}", 
+            :collection => field.option_values,
+            :required => field.required, 
+            :label => field.title,
+            :selected => current_page.field_data[field.slug],
+          ) %>
+        <% when 'check_boxes', 'radio_buttons' %>
+          <%= fd.input(
+            :"#{field.slug}", 
+            :as => :"#{field.data_type}", 
+            :collection => field.option_values,
+            :required => field.required, 
+            :label => field.title,
+            :checked => current_page.field_data[field.slug]
+          ) %>
+        <% when 'image', 'file' %>
+          <div class="upload-field">
             <%= fd.input(
-              :"#{field.slug}", 
-              :as => :"#{field.data_type}", 
+              :"rtfile_#{field.slug}", 
+              :as => :hidden, 
               :required => field.required, 
               :label => field.title,
               :input_html => { 
-                :value => current_page.field_data[field.slug.to_sym] 
+                :value => current_page.field_data[field.slug]
               } 
             ) %>
-          <% end %>
-        <% end %>      
-      </section>
+            <%= image_tag(
+              find_page_thumb(current_page.field_data[field.slug])
+            ) unless current_page.field_data[field.slug].blank? %>
+            <%= link_to(
+              "Add New #{field.title}", 
+              builder_site_documents_path(current_site, :select => true), 
+              :class => 'image-upload-trigger button' 
+            ) %>
+          </div>
+        <% else %>
+          <%= fd.input(
+            :"#{field.slug}", 
+            :as => :"#{field.data_type}", 
+            :required => field.required, 
+            :label => field.title,
+            :input_html => { 
+              :value => current_page.field_data[field.slug.to_sym] 
+            } 
+          ) %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 
-  <%= link_to "Save and Publish", '#', :class => 'save publish' %>
-  <%= link_to "Save as Draft", '#', :class => 'save draft' %>
-  <%= link_to(
-    "Delete this Page", 
-    builder_route([current_page], :show), 
-    :method => :delete, 
-    :class => 'delete',
-    :data => { :confirm => 'Are you sure?' }
-  ) unless current_page.id.blank? %>
-  <%#= link_to "Cancel",  builder_route([current_page_type])[:show], 
-    :class => 'cancel', :data => { :confirm => 'Are you sure?' } %>
+  <%= redirect_field(f) %>
+
+  <%= f.input :template_id, :as => :hidden, :wrapper => false, 
+    :input_html => { :value => current_template.id } %>
+  <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => { 
+    :value => current_page_parent.id } unless current_page_parent.nil? %>
+
+  <%= f.submit "Save Page" %>
 
 <% end %>

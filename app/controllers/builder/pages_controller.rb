@@ -1,23 +1,17 @@
 class Builder::PagesController < BuilderController
 
   def index
-    if site_root_pages.size > 0
-      redirect_to(builder_route([site_root_pages.first], :show))
-    else
-      redirect_to(builder_route([site_root_pages], :new))
-    end
   end
 
   def show
-    current_page
-    if page_type_children.size == 0 || current_page.children.size == 0
-      redirect_to builder_route([current_page], :edit)
-    end
+  end
+
+  def children
   end
 
   def new
-    redirect_to current_site unless params[:page_type]
-    @current_page_type = current_site.page_types.find_by_slug(params[:page_type])
+    redirect_to current_site unless params[:template]
+    @current_template = site_templates.find_by_slug(params[:template])
     @current_page = Page.new
   end
 
@@ -38,11 +32,19 @@ class Builder::PagesController < BuilderController
     end
   end
 
+  def edit
+    if current_template_group.nil?
+      redirect_to builder_site_page_settings_path(
+        current_site, current_page, current_template_groups.first
+      )
+    end
+  end
+
   def update
     process_files
     if current_page.update(update_params)
       # save_files
-      redirect_to(builder_route([current_page], :edit),
+      redirect_to(redirect_route,
         :notice => t(
           'notices.updated', 
           :item => controller_name.humanize.titleize
@@ -51,6 +53,16 @@ class Builder::PagesController < BuilderController
     else
       render('edit')
     end
+  end
+
+  def publish
+    current_page.update(:published => true)
+    redirect_to(redirect_route, :notice => 'Page published!')
+  end
+
+  def unpublish
+    current_page.update(:published => false)
+    redirect_to(redirect_route, :notice => 'Page unpublished!')
   end
 
   def destroy
@@ -70,34 +82,15 @@ class Builder::PagesController < BuilderController
   private
 
     def create_params
-      @current_page_type = current_site.page_types.find_by_id(
-        params[:page][:page_type_id]
+      @current_template = current_site.templates.find_by_id(
+        params[:page][:template_id]
       )
-      fields = []
-      page_type_groups.each { |g| fields << g.fields }
-      fields = fields.flatten.uniq.collect(&:slug).map { |f| f.to_sym }
-      params.require(:page).permit(
-        :title,
-        :slug,  
-        :description, 
-        :body, 
-        :body_md,
-        :published,
-        :position,
-        :template,
-        :parent_id,
-        :show_in_nav,
-        :field_data => fields
-      ).merge(
-        :page_type => current_page_type,
-      )
+      params.require(:page).permit(:title,:description)
+        .merge(:template => current_template)
     end
 
     def update_params
-      fields = []
-      page_type_groups.each { |g| fields << g.fields }
-      fields = fields.flatten.uniq.collect(&:slug).map { |f| f.to_sym }
-      params.require(:page).permit(
+      p = params.require(:page).permit(
         :title,
         :slug,  
         :description, 
@@ -107,9 +100,14 @@ class Builder::PagesController < BuilderController
         :position,
         :parent_id,
         :show_in_nav,
-        :template,
-        :field_data => fields
+        :template
       )
+      unless params[:page][:field_data].blank?
+        p = p.merge(
+          :field_data => current_page.field_data.merge(params[:page][:field_data])
+        )
+      end
+      p
     end
 
     def process_files
@@ -125,6 +123,14 @@ class Builder::PagesController < BuilderController
             @files_to_save[clean_key] = value.to_i
           end
         end
+      end
+    end
+
+    def redirect_route
+      if params[:page]
+        params[:page][:redirect_route] || builder_site_pages(current_site)
+      else
+        params[:redirect_route] || builder_site_pages(current_site)
       end
     end
 

@@ -1,13 +1,13 @@
 pages:
   icon: files
   label: Pages
-  path: builder_site_path
+  path: builder_site_pages_path
   controllers: ['pages']
 page_types:
   icon: wrench
-  label: Page Types
-  path: builder_site_page_types_path
-  controllers: ['page_types']
+  label: Templates
+  path: builder_site_templates_path
+  controllers: ['templates','groups','fields']
 library:
   icon: stack-play
   label: Media Library
