@@ -17,8 +17,6 @@
 #  limit_pages     :boolean          default(FALSE)
 #  max_pages       :integer          default(0)
 #  maxed_out       :boolean          default(FALSE)
-#  form_groups     :text
-#  form_fields     :text
 #
 
 class Template < ActiveRecord::Base
@@ -30,8 +28,6 @@ class Template < ActiveRecord::Base
   # ------------------------------------------ Attributes
 
   serialize :children, Array
-  serialize :form_groups, Array
-  serialize :form_fields, Array
 
   # ------------------------------------------ Associations
 

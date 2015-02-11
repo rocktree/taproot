@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204232623) do
+ActiveRecord::Schema.define(version: 20150211123741) do
 
   create_table "documents", force: true do |t|
     t.integer  "site_id"
@@ -91,14 +91,14 @@ ActiveRecord::Schema.define(version: 20150204232623) do
     t.text     "description"
     t.text     "body"
     t.string   "ancestry"
-    t.boolean  "published",   default: false
+    t.boolean  "published",        default: false
     t.text     "field_data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",    default: 0
-    t.string   "template"
+    t.integer  "position",         default: 0
+    t.string   "old_template_ref"
     t.string   "order"
-    t.boolean  "show_in_nav", default: true
+    t.boolean  "show_in_nav",      default: true
     t.text     "body_md"
   end
 
@@ -162,8 +162,6 @@ ActiveRecord::Schema.define(version: 20150204232623) do
     t.boolean  "limit_pages",     default: false
     t.integer  "max_pages",       default: 0
     t.boolean  "maxed_out",       default: false
-    t.text     "form_groups"
-    t.text     "form_fields"
   end
 
   create_table "users", force: true do |t|
