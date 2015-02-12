@@ -12,7 +12,7 @@ class BuilderController < ActionController::Base
     PagesHelper
   )
 
-  before_filter :verify_env
+  before_filter :authenticate_user!
   before_filter :init_options
 
   def home
@@ -30,18 +30,6 @@ class BuilderController < ActionController::Base
         'sidebar' => true,
         'body_classes' => ''
       }
-    end
-
-    def verify_env
-      authenticate_user!
-      if !Rails.env.production? && request.path != builder_sites_path
-        if(
-          TaprootSetting.contributing.nil? || 
-          TaprootSetting.contributing.to_bool == false
-        )
-          redirect_to builder_sites_path
-        end
-      end
     end
 
 end
