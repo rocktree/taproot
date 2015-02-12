@@ -42,9 +42,9 @@ namespace :taproot do
         end
       end
 
-      Page.all.includes(:template).each do |page|
+      Page.all.includes(:template => [:site]).each do |page|
         t_slug = page.old_template_ref.gsub(/\-/, '_')
-        template = Template.find_by_slug(t_slug)
+        template = page.site.templates.find_by_slug(t_slug)
         unless template == page.template
           page.template = template
           page.save!
