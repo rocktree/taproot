@@ -8,17 +8,11 @@ Dragonfly.app.configure do
 
   url_format "/media/:job/:name"
 
-  if Rails.env.production?
-    datastore :s3,
-      :bucket_name          => TaprootSetting.aws.bucket,
-      :access_key_id        => TaprootSetting.aws.access_key_id,
-      :secret_access_key    => TaprootSetting.aws.secret_access_key,
-      :url_scheme           => 'https'
-  else
-    datastore :file,
-      :root_path => Rails.root.join('public/system/dragonfly', Rails.env),
-      :server_root => Rails.root.join('public')
-  end
+  datastore :s3,
+    :bucket_name          => TaprootSetting.aws.bucket,
+    :access_key_id        => TaprootSetting.aws.access_key_id,
+    :secret_access_key    => TaprootSetting.aws.secret_access_key,
+    :url_scheme           => 'https'
 
 end
 
