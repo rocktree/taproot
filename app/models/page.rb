@@ -45,6 +45,7 @@ class Page < ActiveRecord::Base
   scope :asc, -> { order('pages.order asc') }
   scope :desc, -> { order('pages.order desc') }
   scope :navigatable, -> { where(:show_in_nav => true) }
+  scope :alpha, -> { order('title asc') }
 
   # ------------------------------------------ Validations
 

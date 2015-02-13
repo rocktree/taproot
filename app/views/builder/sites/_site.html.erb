@@ -10,8 +10,7 @@
       'Build', 
       builder_site_path(site), 
       :class => 'build' 
-    ) if Rails.env.production? || (TaprootSetting.contributing.present? && 
-      TaprootSetting.contributing.to_bool == true) %>
+    ) %>
     <%= link_to(
       'Delete', 
       builder_site_path(site), 

@@ -20,11 +20,13 @@ namespace :taproot do
         )
 
         template.page_templates.split("\n").reject(&:blank?).each do |pt|
+          pt = pt.strip
           if pt == template.slug
             template.add_default_fields
           else
             new_template = template.dup
             new_template.slug = pt
+            new_template.title = pt.titleize
             new_template.save!
 
             template.template_groups.each do |group|
@@ -42,9 +44,9 @@ namespace :taproot do
         end
       end
 
-      Page.all.includes(:template).each do |page|
+      Page.all.includes(:template => [:site]).each do |page|
         t_slug = page.old_template_ref.gsub(/\-/, '_')
-        template = Template.find_by_slug(t_slug)
+        template = page.site.templates.find_by_slug(t_slug)
         unless template == page.template
           page.template = template
           page.save!

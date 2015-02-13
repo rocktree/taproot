@@ -14,7 +14,8 @@
   <%= content_tag(
     :li, 
     link_to('Delete Template', builder_route([current_template], :show), 
-      :method => :delete, :data => { :confirm => 'Are you sure?' })
+      :class => 'delete', :method => :delete, :data => { 
+      :confirm => 'Are you sure?' })
   ) %>
 </ul>
 <% end %>
