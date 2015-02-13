@@ -15,6 +15,16 @@ module TemplatesHelper
     end
   end
 
+  def current_template_pages
+    @current_template_pages ||= current_template.webpages.alpha
+  end
+
+  def current_template_pages_paginated
+    @current_template_pages_paginated ||= begin
+      Kaminari.paginate_array(current_template_pages).page(params[:page]).per(10)
+    end
+  end
+
   def current_template_groups
     @current_template_groups ||= begin
       current_template.groups.in_order.includes(:template_fields)
@@ -88,6 +98,10 @@ module TemplatesHelper
       {
         :title => 'Developer Help', 
         :path => builder_route([t], :show), 
+      },
+      {
+        :title => 'Pages', 
+        :path => builder_route([t, current_template_pages], :index), 
       },
       {
         :title => 'Form Fields', 

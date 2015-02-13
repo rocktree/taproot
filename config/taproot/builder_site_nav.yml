@@ -7,7 +7,7 @@ page_types:
   icon: wrench
   label: Templates
   path: builder_site_templates_path
-  controllers: ['templates','groups','fields']
+  controllers: ['templates','groups','fields','template_pages']
 library:
   icon: stack-play
   label: Media Library

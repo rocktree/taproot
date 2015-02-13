@@ -59,6 +59,8 @@ Rails.application.routes.draw do
           :controller => 'templates/fields', :param => :slug
         resources :template_groups, :path => :groups, 
           :controller => 'templates/groups', :param => :slug
+        resources :pages, :controller => 'templates/template_pages', 
+          :param => :slug, :only => [:index]
       end
 
       # Forms

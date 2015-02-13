@@ -1,0 +1,18 @@
+<%= builder_page_title("#{current_template.title} Pages") do %>
+  <%= subtitle("These are the pages using the #{current_template.title} 
+  template. Clicking on one of these will launch you to that page.") %>
+  <%= subtitle("Note: You can't delete this template while it has at least one 
+  page.") %>
+<% end %>
+
+<section id="page-content">
+  <% if current_template_pages.size > 0 %>
+    <%= data_table(current_template_pages_paginated, 'builder/pages/page') %>
+    <%= paginate(current_template_pages_paginated) %>
+  <% else %>
+    <p><em>No pages here yet. You have to <%= link_to 'go to the pages section', 
+      builder_route([current_template_pages], :index) %> to create pages.</em></p>
+  <% end %>
+</section>
+
+<%= sidebar 'builder/templates/sidebar' %>
