@@ -20,11 +20,13 @@ namespace :taproot do
         )
 
         template.page_templates.split("\n").reject(&:blank?).each do |pt|
+          pt = pt.strip
           if pt == template.slug
             template.add_default_fields
           else
             new_template = template.dup
             new_template.slug = pt
+            new_template.title = pt.titleize
             new_template.save!
 
             template.template_groups.each do |group|
