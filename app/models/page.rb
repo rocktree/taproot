@@ -24,7 +24,7 @@ class Page < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include PageTypeSlug
+  include SiteSlug
 
   has_ancestry
 
