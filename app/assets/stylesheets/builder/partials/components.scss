@@ -12,6 +12,22 @@ p.notice, p.alert {
   z-index: 99999;
 }
 
+p.warning {
+  color: $color-light;
+  border-radius: 3px;
+  em, strong, a {
+    display: inline-block;
+    margin-top: -3px;
+    color: $color-light;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+  a {
+    font-weight: 600;
+  }
+}
+
 p.alert {
   background: rgba($color-danger, 0.85);
 }

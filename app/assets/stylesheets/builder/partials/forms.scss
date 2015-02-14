@@ -5,6 +5,11 @@ form {
     display: inline-block;
     width: 100%;
     margin: 10px 0;
+    &.disabled {
+      label, label > abbr {
+        color: $color-light-darkest;
+      }
+    }
     label {
       text-transform: uppercase;
       color: $color-primary;

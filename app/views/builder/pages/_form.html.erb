@@ -3,8 +3,8 @@
   <%= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
     <% current_template_group.fields.each do |field| %>
       <% if ['title','slug','position','description','show_in_nav'].include?(field.slug) %>
-        <%= f.input field.slug.to_sym, :label => field.label %>
-      <% elsif field.slug == 'body' %>
+        <%= f.input(field.slug.to_sym, :label => field.label) unless field.hidden? %>
+      <% elsif field.slug == 'body' && !field.hidden? %>
         <div class="body-buttons input">
           <label>Content / Body</label>
           <% if current_page.slug %>
@@ -27,6 +27,16 @@
           <%= f.input :body_md, :as => :hidden, :wrapper => false %>
           <%= f.input :body, :as => :hidden, :wrapper => false %>
         </div>
+      <% elsif field.hidden? %>
+        <%= fd.input(
+          :"#{field.slug}", 
+          :as => :hidden, 
+          :required => field.required, 
+          :wrapper => false,
+          :input_html => { 
+            :value => current_page.field_data[field.slug.to_sym] 
+          } 
+        ) %>
       <% else %>
         <% case field.data_type %>
         <% when 'date' %>

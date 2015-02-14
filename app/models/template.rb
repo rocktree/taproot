@@ -60,7 +60,8 @@ class Template < ActiveRecord::Base
         :data_type => 'string',
         :required => true,
         :position => 1,
-        :protected => true
+        :protected => true,
+        :can_be_hidden => false
       },
       {
         :title => 'Slug',

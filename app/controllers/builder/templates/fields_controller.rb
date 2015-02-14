@@ -39,7 +39,8 @@ class Builder::Templates::FieldsController < BuilderController
         :data_type,
         :options,
         :required,
-        :position
+        :position,
+        :hidden
       )
     end
 
