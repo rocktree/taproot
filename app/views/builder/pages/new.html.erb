@@ -1,16 +1,118 @@
 <%= builder_page_title("New #{current_template.title}") do %>
-  <%= subtitle("To create a new page, let's start with some simple information, 
-  and then we can move on to the other fields.") %>
+  <%= subtitle("These are all the required fields for creating a new page with 
+  the #{current_template.title} template.") %>
 <% end %>
 
 <div id="page-content">
-  <%= simple_form_for([:builder, current_site, current_page]) do |f| %>
-    <%= f.input :title %>
-    <%= f.input :description %>
+
+  <%= simple_form_for [:builder, current_site, current_page] do |f| %>
+
+    <%= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
+      <% current_template.fields.each do |field| %>
+        <% if ['title'].include?(field.slug) %>
+          <%= f.input field.slug.to_sym, :label => field.label %>
+        <% elsif ['slug','position','description','show_in_nav']
+          .include?(field.slug) && field.required? %>
+          <%= f.input field.slug.to_sym, :label => field.label %>
+        <% elsif field.slug == 'body' && field.required? %>
+          <div class="body-buttons input">
+            <label>Content / Body</label>
+            <% if current_page.slug %>
+              <%= link_to(
+                'Launch Rich Text Editor', 
+                builder_site_page_editor_path(current_site, current_page, 'wysiwyg'), 
+                :class => 'button wysiwyg'
+              ) %>
+              <%= link_to(
+                'Launch Markdown Editor', 
+                builder_site_page_editor_path(current_site, current_page, 'markdown'), 
+                :class => 'button markdown' 
+              ) %>
+            <% else %>
+              <p>
+                <em>Save the page to edit the content (we wouldn't want you to lose 
+                your work!).</em>
+              </p>
+            <% end %>
+            <%= f.input :body_md, :as => :hidden, :wrapper => false %>
+            <%= f.input :body, :as => :hidden, :wrapper => false %>
+          </div>
+        <% elsif field.required? %>
+          <% case field.data_type %>
+          <% when 'date' %>
+            <%= fd.input(
+              :"#{field.slug}", 
+              :as => :string, 
+              :required => field.required, 
+              :label => field.title,
+              :input_html => { 
+                :class => 'date-js', 
+                :value => current_page.field_data[field.slug.to_sym] 
+              } 
+            ) %>
+          <% when 'select' %>
+            <%= fd.input(
+              :"#{field.slug}", 
+              :as => :"#{field.data_type}", 
+              :collection => field.option_values,
+              :required => field.required, 
+              :label => field.title,
+              :selected => current_page.field_data[field.slug],
+            ) %>
+          <% when 'check_boxes', 'radio_buttons' %>
+            <%= fd.input(
+              :"#{field.slug}", 
+              :as => :"#{field.data_type}", 
+              :collection => field.option_values,
+              :required => field.required, 
+              :label => field.title,
+              :checked => current_page.field_data[field.slug]
+            ) %>
+          <% when 'image', 'file' %>
+            <div class="upload-field">
+              <%= fd.input(
+                :"rtfile_#{field.slug}", 
+                :as => :hidden, 
+                :required => field.required, 
+                :label => field.title,
+                :input_html => { 
+                  :value => current_page.field_data[field.slug]
+                } 
+              ) %>
+              <%= image_tag(
+                find_page_thumb(current_page.field_data[field.slug])
+              ) unless current_page.field_data[field.slug].blank? %>
+              <%= link_to(
+                "Add New #{field.title}", 
+                builder_site_documents_path(current_site, :select => true), 
+                :class => 'image-upload-trigger button' 
+              ) %>
+            </div>
+          <% else %>
+            <%= fd.input(
+              :"#{field.slug}", 
+              :as => :"#{field.data_type}", 
+              :required => field.required, 
+              :label => field.title,
+              :input_html => { 
+                :value => current_page.field_data[field.slug.to_sym] 
+              } 
+            ) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= redirect_field(f) %>
+
     <%= f.input :template_id, :as => :hidden, :wrapper => false, 
       :input_html => { :value => current_template.id } %>
-    <%= em_p("The description is used within the builder, but it can also be 
-    used for SEO purposes, depending how you build your site.") %>
-    <%= f.submit "Create Page" %>
+    <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => { 
+      :value => current_page_parent.id } unless current_page_parent.nil? %>
+
+    <%= f.submit "Save Page" %>
+
   <% end %>
+
+
 </div>

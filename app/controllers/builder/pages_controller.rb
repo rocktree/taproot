@@ -85,8 +85,19 @@ class Builder::PagesController < BuilderController
       @current_template = current_site.templates.find_by_id(
         params[:page][:template_id]
       )
-      params.require(:page).permit(:title,:description)
-        .merge(:template => current_template)
+      p = params.require(:page).permit(
+        :title,
+        :slug,  
+        :description, 
+        :body, 
+        :body_md,
+        :published,
+        :position,
+        :parent_id,
+        :show_in_nav,
+        :template,
+        :field_data => []
+      ).merge(:template => current_template)
     end
 
     def update_params
