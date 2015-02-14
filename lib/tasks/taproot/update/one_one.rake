@@ -77,6 +77,22 @@ namespace :taproot do
       end
     end
 
+    task :one_one_slug_fix => :environment do
+      TemplateGroup.all.includes(:template_fields).each do |group|
+        if group.fields.select { |f| f.slug == 'title' }.size > 0
+          TemplateField.create!(
+            :title => 'Slug',
+            :slug => 'slug',
+            :data_type => 'string',
+            :required => false,
+            :position => 2,
+            :protected => true,
+            :template_group => group
+          )
+        end
+      end
+    end
+
     def connect(db)
       ActiveRecord::Base.establish_connection("#{db}_#{Rails.env}")
     end
