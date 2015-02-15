@@ -24,7 +24,7 @@ class Page < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include PageTypeSlug
+  include SiteSlug
 
   has_ancestry
 
@@ -62,6 +62,18 @@ class Page < ActiveRecord::Base
     end
   end
 
+  after_save :check_template_fields
+
+  def check_template_fields
+    fd = field_data
+    if missing_fields.size > 0
+      missing_fields.each do |field|
+        fd[field] = ''
+      end
+    end
+    update_columns(:field_data => fd)
+  end
+
   # ------------------------------------------ Instance Methods
 
   def respond_to_fields
@@ -90,6 +102,12 @@ class Page < ActiveRecord::Base
     rescue
       respond_to_fields.include?(method.to_s) ? true : false
     end
+  end
+
+  def missing_fields
+    template.fields.collect(&:slug) - 
+      ['title','description','body','show_in_nav','slug','position'] - 
+      field_data.keys
   end
 
   # ------------------------------------------ Class Methods

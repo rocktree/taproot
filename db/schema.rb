@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211123741) do
+ActiveRecord::Schema.define(version: 20150214155901) do
 
   create_table "documents", force: true do |t|
     t.integer  "site_id"
@@ -136,6 +136,8 @@ ActiveRecord::Schema.define(version: 20150211123741) do
     t.datetime "updated_at"
     t.string   "label"
     t.boolean  "protected",         default: false
+    t.boolean  "hidden",            default: false
+    t.boolean  "can_be_hidden",     default: true
   end
 
   create_table "template_groups", force: true do |t|

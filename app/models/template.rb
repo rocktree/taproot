@@ -60,6 +60,15 @@ class Template < ActiveRecord::Base
         :data_type => 'string',
         :required => true,
         :position => 1,
+        :protected => true,
+        :can_be_hidden => false
+      },
+      {
+        :title => 'Slug',
+        :slug => 'slug',
+        :data_type => 'string',
+        :required => false,
+        :position => 2,
         :protected => true
       },
       {
@@ -67,7 +76,7 @@ class Template < ActiveRecord::Base
         :slug => 'position',
         :data_type => 'integer',
         :required => false,
-        :position => 2,
+        :position => 3,
         :protected => true
       },
       {
@@ -75,7 +84,7 @@ class Template < ActiveRecord::Base
         :slug => 'description',
         :data_type => 'text',
         :required => false,
-        :position => 3,
+        :position => 4,
         :protected => true
       },
       {
@@ -83,7 +92,7 @@ class Template < ActiveRecord::Base
         :slug => 'body',
         :data_type => 'text',
         :required => false,
-        :position => 4,
+        :position => 5,
         :protected => true
       },
       {
@@ -91,7 +100,7 @@ class Template < ActiveRecord::Base
         :slug => 'show_in_nav',
         :data_type => 'boolean',
         :required => false,
-        :position => 5,
+        :position => 6,
         :protected => true
       },
     ].each do |field|

@@ -17,7 +17,11 @@
     <% current_template.fields.alpha.each do |field| %>
       <%= content_tag(:h3, :class => 'code') { 
         content_tag(:code, field.slug) } %>
-      <%= content_tag(:pre, current_page.send(field.slug)) %>
+        <% unless current_page.respond_to?(field.slug.to_sym) %>
+          <% current_page.save! %>
+          <% current_page.reload %>
+        <% end %>
+        <%= content_tag(:pre, current_page.send(field.slug)) %>
     <% end %>
   </div>
 </section>

@@ -54,5 +54,48 @@ namespace :taproot do
       end
     end
 
+    task :one_one_fixes => :environment do
+      # Old Data
+      connect("tmp_01")
+      data = {
+        :templates => Template.all.to_a,
+        :template_fields => TemplateField.all.to_a,
+        :template_groups => TemplateGroup.all.to_a
+      }
+      # Merge with new data
+      connect("tmp_02")
+      Template.skip_callback(:create, :after, :add_default_fields)
+      [Template, TemplateGroup, TemplateField].each do |model|
+        key = model.to_s.underscore.pluralize
+        new_items = model.all
+        data[key.to_sym].each do |old_item|
+          if new_items.select { |new_item| new_item.id == old_item.id }.first.nil?
+            model.create!(old_item.attributes.symbolize_keys)
+            puts "Created #{model.to_s.humanize}: #{old_item.id}"
+          end
+        end
+      end
+    end
+
+    task :one_one_slug_fix => :environment do
+      TemplateGroup.all.includes(:template_fields).each do |group|
+        if group.fields.select { |f| f.slug == 'title' }.size > 0
+          TemplateField.create!(
+            :title => 'Slug',
+            :slug => 'slug',
+            :data_type => 'string',
+            :required => false,
+            :position => 2,
+            :protected => true,
+            :template_group => group
+          )
+        end
+      end
+    end
+
+    def connect(db)
+      ActiveRecord::Base.establish_connection("#{db}_#{Rails.env}")
+    end
+
   end
 end

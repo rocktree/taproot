@@ -39,12 +39,6 @@ class TemplateGroup < ActiveRecord::Base
     self.position = 1 if self.position.blank?
   end
 
-  after_save :remove_blank_fields
-
-  def remove_blank_fields
-    fields.where("title = ''").destroy_all
-  end
-
   # ------------------------------------------ Instance Methods
 
   def fields

@@ -14,6 +14,8 @@
 #  updated_at        :datetime
 #  label             :string(255)
 #  protected         :boolean          default(FALSE)
+#  hidden            :boolean          default(FALSE)
+#  can_be_hidden     :boolean          default(TRUE)
 #
 
 class TemplateField < ActiveRecord::Base
@@ -38,6 +40,7 @@ class TemplateField < ActiveRecord::Base
   # ------------------------------------------ Validations
 
   validates :title, :template_group, :data_type, :presence => true
+  validate :required_and_hidden
 
   # ------------------------------------------ Callbacks
 
@@ -56,5 +59,13 @@ class TemplateField < ActiveRecord::Base
   def group
     template_group
   end
+
+  private
+
+    def required_and_hidden
+      if required? && hidden?
+        errors.add(:hidden, "can't be required AND hidden")
+      end
+    end
 
 end

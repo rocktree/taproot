@@ -17,13 +17,14 @@ module SiteSlug
     association = self.class.table_name.gsub(/^heartwood\_/, '')
     slug = clean_slug(self.title.downcase.gsub(/\&/, ' and '))
     dups = self.site.send(association).where(:slug => slug) - [self]
-    slug = "#{slug}-#{self.id}" if dups.count > 0
+    separator = (self.class == Template || self.class == Page) ? '_' : '-'
+    slug = "#{slug}#{separator}#{self.id}" if dups.count > 0
     slug
   end
 
   def clean_slug(s)
     clean_slug = s.gsub(/[^a-zA-Z0-9 \-\_]/, "") # remove all bad characters
-    separator = self.class == Template ? '_' : '-'
+    separator = (self.class == Template || self.class == Page) ? '_' : '-'
     clean_slug.gsub!(/\ /, separator) # replace spaces with underscores
     clean_slug.gsub!(/#{separator}+/, separator) # replace repeating underscores
     clean_slug
