@@ -1,10 +1,10 @@
 require 'fileutils'
 
-namespace :taproot do
+namespace :sapwood do
 
   namespace :project do
 
-    desc 'Create necessary symlinks for Taproot project'
+    desc 'Create necessary symlinks for Sapwood project'
     task :symlink, [:slug] => :environment do |t, args|
 
       # create references

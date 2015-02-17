@@ -17,11 +17,13 @@ namespace :rename do
       'config/initializers/session_store.rb',
     ]
     filenames.each do |filename|
-      text = File.read(filename)
-      File.open(filename, "w") do |file| 
-        file << text.gsub(/Roots/, args[:new_name])
+      if File.exists?(filename)
+        text = File.read(filename)
+        File.open(filename, "w") do |file| 
+          file << text.gsub(/Roots/, args[:new_name])
+        end
+        puts "CHECKED FILE >> #{filename}"
       end
-      puts "CHECKED FILE >> #{filename}"
     end
   end
 

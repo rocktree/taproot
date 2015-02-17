@@ -1,6 +1,6 @@
-config_file = File.join(Rails.root,'config','taproot.yml')
+config_file = File.join(Rails.root,'config','sapwood.yml')
 if File.exists?(config_file)
-  TaprootSetting = YAML.load_file(config_file)[Rails.env].to_ostruct
+  SapwoodSetting = YAML.load_file(config_file)[Rails.env].to_ostruct
 else
   raise "Can't find file: #{config_file}"
 end

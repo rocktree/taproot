@@ -1,7 +1,7 @@
 module NavHelper
 
   def read_nav_config(config)
-    file = "#{Rails.root}/config/taproot/#{config}.yml"
+    file = "#{Rails.root}/config/sapwood/#{config}.yml"
     return nil unless File.exists?(file)
     nav = {}
     YAML.load_file(file).each { |k,v| nav[k] = v.to_ostruct }

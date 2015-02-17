@@ -12,9 +12,9 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=/home/deploy/apps/taproot
-PID=/home/deploy/apps/taproot/tmp/pids/unicorn.pid
-CMD="cd /home/deploy/apps/taproot; bundle exec unicorn -D -c /home/deploy/apps/taproot/config/unicorn.rb -E production"
+APP_ROOT=/home/deploy/apps/sapwood
+PID=/home/deploy/apps/sapwood/tmp/pids/unicorn.pid
+CMD="cd /home/deploy/apps/sapwood; bundle exec unicorn -D -c /home/deploy/apps/sapwood/config/unicorn.rb -E production"
 AS_USER=deploy
 set -u
 

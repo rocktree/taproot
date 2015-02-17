@@ -1,15 +1,15 @@
-namespace :taproot do
+namespace :sapwood do
 
   namespace :db do
 
     desc 'Backup database'
     task :backup => :environment do
-      TaprootDatabase.new.backup
+      SapwoodDatabase.new.backup
     end
 
     desc 'Backup database'
     task :sync => :environment do
-      TaprootDatabase.new.sync
+      SapwoodDatabase.new.sync
     end
 
   end

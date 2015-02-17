@@ -1,17 +1,17 @@
 require 'fileutils'
 
-namespace :taproot do
+namespace :sapwood do
 
   namespace :project do
 
-    desc "Remove a Taproot project and its symlinks (doesn't delete project)"
+    desc "Remove a Sapwood project and its symlinks (doesn't delete project)"
     task :remove, [:slug] => :environment do |t, args|
 
       # create references
       # 
       slug = args.slug
       if slug.nil?
-        puts "Usage: bundle exec taproot:project:remove[SLUG]"
+        puts "Usage: bundle exec sapwood:project:remove[SLUG]"
         exit
       end
       underscore = "#{slug.underscore}"

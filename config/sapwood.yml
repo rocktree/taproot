@@ -1,0 +1,71 @@
+# 
+# Sapwood Settings
+# =================
+# 
+# This file is for storing your personal settings to make Sapwood work properly
+# for you.
+# 
+# Replace the values here with your config, then copy to: 
+# 
+#     config/sapwood.yml
+# 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+#
+# If you need to use any of the values here, you can get to them through the
+# SapwoodSetting class. For example, you can access your aws bucket name like
+# this:
+# 
+#     SapwoodSetting.aws.bucket
+# 
+# This file is not tracked by git, so these settings are only present in this
+# file on this machine.
+# 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+#
+development: &default
+  site:
+    title:              Sapwood
+    url:                localhost
+  design:
+    colors:
+      primary:          099B77
+      secondary:        34495E
+      dark:             363636
+      grey:             929E9E
+      light:            FFFFFF
+  aws:
+    access_key_id:      AKIAJRBL56IXBLIZDBKA
+    secret_access_key:  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
+    bucket:             rt-cms
+  git:
+    protocol:           http
+    url:                git.rocktree.us
+    username:           seancdavis
+    password:           eFLz9XBMqqPDTp7THdWq
+  dragonfly:
+    secret:             09195be7669c466300f9f7d29c812aa66555bb5dc290e225114c9195d1d8c9c4
+  api:
+    public_key:         47c0ce7c3eb496cfd39d57f555a48b00
+  remote:
+    url:                cms.rocktree.us
+    db_backup_file:     rt.cms:~/apps/sapwood/db/backups/rt_cms_production.sql
+  mailer:
+    sendgrid:           true
+    user_name:          seancdavis41
+    password:           rODYnTx-HMWq9lG_5aoB
+    domain:             rocktreedesign.com
+    address:            smtp.sendgrid.net
+    port:               587
+    default_from:       noreply@rocktree.us
+  notifications:
+    errors:
+      email_prefix:     "[Sapwood ERROR] "
+      sender:           "Tapbot <noreply@rocktree.us>"
+      recipient:        sean@rocktree.us
+
+
+test:
+  <<: *default
+
+production:
+  <<: *default

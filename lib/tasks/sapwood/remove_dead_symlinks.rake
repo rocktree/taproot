@@ -1,4 +1,4 @@
-namespace :taproot do
+namespace :sapwood do
 
   desc 'Remove all dead symlinks'
   task :remove_dead_symlinks do

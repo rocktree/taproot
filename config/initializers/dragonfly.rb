@@ -4,14 +4,14 @@ require 'dragonfly'
 Dragonfly.app.configure do
   plugin :imagemagick
 
-  secret TaprootSetting.dragonfly.secret
+  secret SapwoodSetting.dragonfly.secret
 
   url_format "/media/:job/:name"
 
   datastore :s3,
-    :bucket_name          => TaprootSetting.aws.bucket,
-    :access_key_id        => TaprootSetting.aws.access_key_id,
-    :secret_access_key    => TaprootSetting.aws.secret_access_key,
+    :bucket_name          => SapwoodSetting.aws.bucket,
+    :access_key_id        => SapwoodSetting.aws.access_key_id,
+    :secret_access_key    => SapwoodSetting.aws.secret_access_key,
     :url_scheme           => 'https'
 
 end

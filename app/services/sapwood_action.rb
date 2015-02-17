@@ -1,13 +1,13 @@
-# The actions contained within this file help control Taproot and its 
+# The actions contained within this file help control Sapwood and its 
 # services without needing to remember so many complicated commands.
 # 
 # WARNING: Many of the services here are long-running tasks, and others 
 # are tied into the Rails server itself. These should always be called 
 # from either a rake task or a background worker.
 # 
-class TaprootAction
+class SapwoodAction
 
-  def initialize(service = 'unicorn_taproot')
+  def initialize(service = 'unicorn_sapwood')
     @service = service
   end
 

@@ -1,4 +1,4 @@
-ActionMailer::Base.default_url_options = { :host => TaprootSetting.site.url }
+ActionMailer::Base.default_url_options = { :host => SapwoodSetting.site.url }
 
 if Rails.env.development?
   # use mailcatcher in development (http://mailcatcher.me/)
@@ -8,11 +8,11 @@ if Rails.env.development?
   }
 else
   ActionMailer::Base.smtp_settings = {
-    :user_name => TaprootSetting.mailer.user_name,
-    :password => TaprootSetting.mailer.password,
-    :domain => TaprootSetting.mailer.domain,
-    :address => TaprootSetting.mailer.address,
-    :port => TaprootSetting.mailer.port,
+    :user_name => SapwoodSetting.mailer.user_name,
+    :password => SapwoodSetting.mailer.password,
+    :domain => SapwoodSetting.mailer.domain,
+    :address => SapwoodSetting.mailer.address,
+    :port => SapwoodSetting.mailer.port,
     :authentication => :plain,
     :enable_starttls_auto => true
   }

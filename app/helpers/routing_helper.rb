@@ -37,7 +37,7 @@ module RoutingHelper
   end
 
   def viewer_home
-    if request.host == TaprootSetting.site.url
+    if request.host == SapwoodSetting.site.url
       preview_home_path
     else
       send("#{current_site.slug.underscore}_home_path")
@@ -45,7 +45,7 @@ module RoutingHelper
   end
 
   def viewer_page(page_path)
-    if request.host == TaprootSetting.site.url
+    if request.host == SapwoodSetting.site.url
       preview_page_path(:page_path => page_path)
     else
       send("#{current_site.slug.underscore}_page_path", :page_path => page_path)

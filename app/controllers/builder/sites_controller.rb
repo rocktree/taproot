@@ -17,7 +17,7 @@ class Builder::SitesController < BuilderController
     @current_site = Site.new(create_params)
     if current_site.save
       if params[:site][:new_repo].to_bool
-        create_taproot_project
+        create_sapwood_project
       end
       redirect_to(
         route([current_site], :edit, 'builder'), 
@@ -42,8 +42,8 @@ class Builder::SitesController < BuilderController
   end
 
   def destroy
-    taproot = TaprootProject.new(current_site)
-    taproot.remove_files
+    sapwood = SapwoodProject.new(current_site)
+    sapwood.remove_files
     current_site.destroy
     redirect_to(builder_sites_path, :notice => 'Site deleted successfully.')
   end
@@ -59,8 +59,8 @@ class Builder::SitesController < BuilderController
   end
 
   def import
-    taproot = TaprootProject.new(current_site)
-    taproot.import_site
+    sapwood = SapwoodProject.new(current_site)
+    sapwood.import_site
     redirect_to(
       route([current_site], :edit, 'builder'), 
       :notice => 'Repo imported successfully!'
@@ -68,7 +68,7 @@ class Builder::SitesController < BuilderController
   end
 
   def backup
-    TaprootDatabase.new.backup
+    SapwoodDatabase.new.backup
     redirect_to(
       route([current_site], :edit, 'builder'), 
       :notice => 'Database backed up successfully!'
@@ -76,10 +76,10 @@ class Builder::SitesController < BuilderController
   end
 
   def sync
-    remote_url = TaprootSetting.remote.url
-    key = TaprootSetting.api.public_key
+    remote_url = SapwoodSetting.remote.url
+    key = SapwoodSetting.api.public_key
     system("curl http://#{remote_url}/api/v1/database/dump?public_key=#{key}")
-    TaprootDatabase.new.sync
+    SapwoodDatabase.new.sync
     redirect_to(
       route([current_site], :edit, 'builder'), 
       :notice => 'Database synced successfully!'
@@ -87,7 +87,7 @@ class Builder::SitesController < BuilderController
   end
 
   def symlink
-    TaprootProject.new(current_site).update_symlinks
+    SapwoodProject.new(current_site).update_symlinks
     redirect_to(
       route([current_site], :edit, 'builder'), 
       :notice => 'Symlinked successfully!'
@@ -125,9 +125,9 @@ class Builder::SitesController < BuilderController
       end
     end
 
-    def create_taproot_project
-      taproot = TaprootProject.new(current_site)
-      taproot.create_site
+    def create_sapwood_project
+      sapwood = SapwoodProject.new(current_site)
+      sapwood.create_site
     end
 
 end

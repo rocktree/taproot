@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'csv'
 
-namespace :taproot do
+namespace :sapwood do
   namespace :db do
 
     desc 'Backup database to ruby hashes'

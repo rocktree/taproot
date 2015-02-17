@@ -1,21 +1,21 @@
 # 
-# Taproot Settings
+# Sapwood Settings
 # =================
 # 
-# This file is for storing your personal settings to make Taproot work properly
+# This file is for storing your personal settings to make Sapwood work properly
 # for you.
 # 
 # Replace the values here with your config, then copy to: 
 # 
-#     config/taproot.yml
+#     config/sapwood.yml
 # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 #
 # If you need to use any of the values here, you can get to them through the
-# TaprootSetting class. For example, you can access your aws bucket name like
+# SapwoodSetting class. For example, you can access your aws bucket name like
 # this:
 # 
-#     TaprootSetting.aws.bucket
+#     SapwoodSetting.aws.bucket
 # 
 # This file is not tracked by git, so these settings are only present in this
 # file on this machine.
@@ -24,7 +24,7 @@
 #
 development: &default
   site:
-    title:              Taproot             # default title for the site
+    title:              Sapwood             # default title for the site
     url:                ''                  # the url at which you will run this application
   design:
     colors:
@@ -60,6 +60,6 @@ production:
     default_from:       ''                  # address from which to send notifications
   notifications:
     errors:
-      email_prefix:     "[Taproot ERROR] "  # prefix to email subject
+      email_prefix:     "[Sapwood ERROR] "  # prefix to email subject
       sender:           ''                  # display name and email address for email
       recipient:        ''                  # who to send error notifications to

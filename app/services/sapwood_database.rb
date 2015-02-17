@@ -1,7 +1,7 @@
 require 'yaml'
 require 'fileutils'
 
-class TaprootDatabase
+class SapwoodDatabase
 
   def initialize
   end

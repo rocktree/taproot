@@ -1,17 +1,17 @@
 require 'fileutils'
 
-namespace :taproot do
+namespace :sapwood do
 
   namespace :project do
 
-    desc 'Create a new Taproot project'
+    desc 'Create a new Sapwood project'
     task :new => :environment do
 
       # setup task and ensure we have our arguments
       # 
       ARGV.each { |a| task a.to_sym do ; end }
       unless ARGV.size == 3
-        puts "Usage: bundle exec rake taproot:project:new [NAME] [REPO_URL]"
+        puts "Usage: bundle exec rake sapwood:project:new [NAME] [REPO_URL]"
         exit
       end
 
@@ -59,7 +59,7 @@ namespace :taproot do
 
       # create symlinks to project
       # 
-      Rake::Task["taproot:project:symlink"].invoke(site.slug)
+      Rake::Task["sapwood:project:symlink"].invoke(site.slug)
 
     end
 

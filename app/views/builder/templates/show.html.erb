@@ -8,7 +8,7 @@
 
   <div class="methods">
     <h2>Rendering Views</h2>
-    <p>When a page createed from this template is rendered, taproot will look 
+    <p>When a page createed from this template is rendered, sapwood will look 
     for a view file at:</p>
     <%= content_tag(:pre, "app/views/viewer/#{current_site.slug}/#{current_template.filename}.html.erb") %>
     <p>You should place the <%= content_tag(:code, 
@@ -18,7 +18,7 @@
 
   <div class="structure">
     <h2>Structure</h2>
-    <p>Here's a snapshot of how this template works within taproot:</p>
+    <p>Here's a snapshot of how this template works within sapwood:</p>
     <ul>
       <li>Pages <strong>CAN<%= ' NOT' unless current_template.can_be_root? %>
       </strong> be created at the root level.</li>

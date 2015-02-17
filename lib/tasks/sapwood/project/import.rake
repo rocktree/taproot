@@ -1,17 +1,17 @@
 require 'fileutils'
 
-namespace :taproot do
+namespace :sapwood do
 
   namespace :project do
 
-    desc 'Create an existing Taproot project'
+    desc 'Create an existing Sapwood project'
     task :import, [:slug] => :environment do |t, args|
       
       # setup task
       # 
       ARGV.each { |a| task a.to_sym do ; end }
       unless ARGV.size == 2
-        puts "Usage: bundle exec taproot:project:import [SLUG]"
+        puts "Usage: bundle exec sapwood:project:import [SLUG]"
         exit
       end
 
@@ -43,7 +43,7 @@ namespace :taproot do
 
       # symlink the dinkuses
       # 
-      Rake::Task["taproot:project:symlink"].invoke(slug)
+      Rake::Task["sapwood:project:symlink"].invoke(slug)
 
     end
 

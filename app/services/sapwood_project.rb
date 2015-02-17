@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'uri'
 
-class TaprootProject
+class SapwoodProject
 
   def initialize(site = nil)
     @site = site unless site.nil?
@@ -30,7 +30,7 @@ class TaprootProject
   # 
   def pull_site
     git_pull
-    TaprootAction.new.reload if Rails.env.production?
+    SapwoodAction.new.reload if Rails.env.production?
   end
 
   def update_symlinks

@@ -1,8 +1,8 @@
 if Rails.env.development?
 
   Dbsync.file_config = {
-    :remote => TaprootSetting.remote.db_backup_file,
-    :local  => TaprootDatabase.new.backup_file_copy
+    :remote => SapwoodSetting.remote.db_backup_file,
+    :local  => SapwoodDatabase.new.backup_file_copy
   }
 
 end

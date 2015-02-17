@@ -1,4 +1,4 @@
-namespace :taproot do
+namespace :sapwood do
   namespace :update do
 
     task :one_one => :environment do
