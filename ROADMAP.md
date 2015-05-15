@@ -12,42 +12,32 @@ To submit an idea, please [create an
 issue](https://github.com/seancdavis/sapwood/issues/new) and prepend it with
 `[request]`.
 
-v1.5: File Management & Developer Help (May/June 2015)
--------------
+v1.6: Setup & Theming (May/June 2015)
+----------
 
-#### File Attributes
+### UI Overhaul
 
-You will be able to capture and customize much more information about a file
-you upload.
+For the third time, Sapwood's UI is getting a complete overhaul. This one might
+just stick for a little longer. Taken from feedback from the first three
+designs, this combines a little of everything, while attempting to make sense
+out of so many navigation options.
 
-#### Cropper UI
+### Faster Resource Workflow
 
-The file cropper settings are tucked away and difficult to find. They will be
-moved to the media library, and the process of cropping will be made a little
-cleaner.
+You will be able to manage the resources themselves from within a page, instead
+of just on the resources page.
 
 ### Form Helpers
 
 We're going to replace form notes with helper tooltips. This should make forms
 much easier to digest and show you help items only if you need them.
 
-### Form Email Notifications
 
-Sometimes you need email notifications to be sent to a specific email address,
-dependent on the selection. This will give you that ability, but still work for
-just one email address.
-
-
-v1.6: Setup & Theming (May/June 2015)
+v1.7: Setup & Theming (July 2015)
 ----------
 
 *TBD: Aims to remove some of the duplication in setup and streamlines the
 writing code process.*
-
-v1.7: Editor App (June/July 2015)
-----------
-
-*TBD: Features to make editing a site simpler.*
 
 v2.0: Separating Functional Apps & Documentation (Late 2015)
 ----------
