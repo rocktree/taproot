@@ -26,6 +26,8 @@ class ResourceField < ActiveRecord::Base
 
   include ResourceTypeSlug
 
+  has_paper_trail
+
   # ------------------------------------------ Associations
 
   belongs_to :resource_type

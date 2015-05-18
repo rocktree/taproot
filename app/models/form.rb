@@ -27,6 +27,8 @@ class Form < ActiveRecord::Base
 
   include SiteSlug
 
+  has_paper_trail
+
   # ------------------------------------------ Associations
 
   belongs_to :site, :touch => true

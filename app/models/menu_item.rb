@@ -22,6 +22,8 @@ class MenuItem < ActiveRecord::Base
 
   has_ancestry
 
+  has_paper_trail
+
   # ------------------------------------------ Attributes
 
   attr_accessor :in_list

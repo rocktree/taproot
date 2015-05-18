@@ -25,6 +25,8 @@ class FormField < ActiveRecord::Base
 
   include FormSlug
 
+  has_paper_trail
+
   # ------------------------------------------ Associations
 
   belongs_to :form, :touch => true

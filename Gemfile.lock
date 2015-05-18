@@ -246,6 +246,9 @@ GEM
       rbvmomi
     orm_adapter (0.5.0)
     paint (0.9.0)
+    paper_trail (3.0.8)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     pg (0.18.1)
     pg_search (0.7.9)
       activerecord (>= 3.1)
@@ -534,6 +537,7 @@ DEPENDENCIES
   koala
   mailcatcher
   mysql2
+  paper_trail
   pg
   pg_search
   pickadate-rails

@@ -26,6 +26,8 @@ class TemplateField < ActiveRecord::Base
 
   include FieldSlug
 
+  has_paper_trail
+
   # ------------------------------------------ Associations
 
   belongs_to :template_group, :touch => true

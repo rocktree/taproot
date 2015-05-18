@@ -17,6 +17,8 @@ class Resource < ActiveRecord::Base
 
   include ResourceTypeSlug
 
+  has_paper_trail
+
   # ------------------------------------------ Attributes
 
   serialize :field_data, Hash

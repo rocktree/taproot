@@ -32,6 +32,8 @@ class Page < ActiveRecord::Base
 
   has_ancestry
 
+  has_paper_trail
+
   pg_search_scope(
     :search_content,
     :against => [:title, :body],

@@ -28,6 +28,8 @@ class Template < ActiveRecord::Base
 
   include SiteSlug
 
+  has_paper_trail
+
   # ------------------------------------------ Attributes
 
   attr_accessor :existing_template

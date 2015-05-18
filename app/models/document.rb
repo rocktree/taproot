@@ -19,6 +19,8 @@ class Document < ActiveRecord::Base
 
   dragonfly_accessor :document
 
+  has_paper_trail
+
   # ------------------------------------------ Attributes
 
   serialize :crop_data, Hash
