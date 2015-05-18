@@ -8,7 +8,7 @@ module NavHelper
   # ------------------------------------------ Drilldown Nav (right sidebar)
 
   def drilldown_nav(&block)
-    content_tag(:aside, :id => 'drilldown-nav') do
+    content_tag(:aside, :id => 'drilldown-nav', :class => 'sidebar') do
       content_tag(:nav) { content_tag(:ul) { capture(&block) } }
     end
   end

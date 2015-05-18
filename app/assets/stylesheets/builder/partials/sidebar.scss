@@ -1,58 +1,41 @@
-aside#page-sidebar {
-
-  h3 {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 600;
-    color: $color-dark-light;
-    margin: 10px 0;
-    padding: 5px 0 5px 0;
-    border-bottom: 1px solid $color-light-darker;
-  }
-  ul {
-    @include clear-list;
-    width: 100%;
-    margin-top: 10px;
-    li {
-      position: relative;
-      &.active {
-        a {
-          color: $color-light;
-          background: $color-primary;
-          &:hover {
-            color: $color-light;
-            background: $color-primary;
-          }
-        }
-      }
-      a {
+aside.sidebar {
+  nav {
+    ul {
+      float: none;
+      li {
         display: block;
-        padding: 7px 10px;
-        line-height: 23px;
-        font-size: 13px;
-        font-weight: 400;
-        border-radius: 3px;
-        @include transition-all;
-        color: $color-dark-lightest;
-        &:hover {
-          background: $color-light-dark;
-        }
-        &.delete {
-          font-weight: 600;
+        a {
+          display: block;
+          position: relative;
+          margin: 0;
+          padding: 15px 15px;
+          border-bottom: none;
           &:hover {
-            color: $color-danger;
+            background-color: $color-light-darker;
           }
-        }
-        &.publish {
-          font-weight: 600;
-          &:hover {
-            color: $color-success;
+          &:after {
+            font-family: 'Icomoon-Ultimate';
+            content: "\e3b1";
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            margin-top: -12px;
+            color: $color-dark;
           }
-        }
-        &.unpublish {
-          font-weight: 600;
-          &:hover {
-            color: $color-danger;
+          span {
+            display: block;
+            color: $color-dark;
+            &.title {
+              margin-bottom: 5px;
+              font-size: 18px;
+              line-height: 20px;
+              font-weight: 600;
+            }
+            &.slug {
+              color: darken($color-light-darkest, 15%);
+              font-size: 14px;
+              line-height: 18px;
+            }
           }
         }
       }

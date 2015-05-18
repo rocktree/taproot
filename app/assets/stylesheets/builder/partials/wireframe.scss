@@ -22,6 +22,7 @@ body {
       width: 250px;
       height: 100%;
       padding-top: 77px;
+      z-index: 999;
       &#current-nav {
         left: 0;
         background-color: $color-dark;
