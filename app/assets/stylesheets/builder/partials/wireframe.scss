@@ -6,9 +6,7 @@ body {
   #container {
     > header {
       width: 100%;
-      // padding: 10px 0;
       padding: 0;
-      background: $color-dark;
       z-index: 9999;
     }
     #content {

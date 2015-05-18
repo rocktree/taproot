@@ -38,12 +38,9 @@
 
     <div id="container">
       <%= content_tag(:header, render('header')) %>
-      <%= content_tag(
-        :section, builder_site_nav, :id => 'builder-site-nav'
-      ) if current_site && current_site.id %>
-      <div id="content">
-        <%= yield %>
-      </div>
+      <%= content_tag(:aside, current_nav, :id => 'current-nav') %>
+      <%= content_tag(:main, yield, :id => 'content') %>
+      <%= content_tag(:aside, drilldown_nav, :id => 'drilldown-nav') %>
     </div>
 
     <%= javascript_include_tag 'builder/application' %>

@@ -1,5 +1,15 @@
 module RenderingHelper
 
+  def current_view_title
+    if current_site
+      if current_site.id.present?
+        link_to(current_site.title, builder_site_path(current_site))
+      end
+    else
+      link_to('Dashboard', root_path)
+    end
+  end
+
   def builder_page_title(title, options = {}, &block)
     content_tag(:section, :class => "page-title #{options[:class]}") do
       o = content_tag(:h1, title)

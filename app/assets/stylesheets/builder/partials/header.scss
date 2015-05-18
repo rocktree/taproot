@@ -2,12 +2,15 @@
   position: relative;
   height: 62px;
   z-index: 9;
+  background: $color-primary;
 
   div.logo {
     display: inline-block;
+    width: 250px;
     margin: 0;
     padding: 15px 15px;
-    border-right: 1px solid $color-dark-lighter;
+    text-align: center;
+    background: $color-1-dark;
     h1 {
       display: inline-block;
       margin: 0;
@@ -45,43 +48,6 @@
         font-size: inherit;
         font-style: inherit;
         color: $color-light;
-        i {
-          font-size: 18px;
-          margin: 0 10px 0 0;
-          color: $color-light;
-        }
-      }
-    }
-    ul {
-      display: none;
-      @include clear-list;
-      position: absolute;
-      min-width: 200px;
-      padding: 15px 0;
-      top: 52px;
-      left: 40px;
-      background: $color-grey;
-      &.active {
-        display: block;
-      }
-      h2 {
-        margin: 0 15px 5px 15px;
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        line-height: 14px;
-        color: $color-light;
-      }
-      li {
-        a {
-          display: block;
-          padding: 10px 15px;
-          background: $color-grey;
-          color: $color-light;
-          &:hover {
-            background: $color-grey-darker;
-          }
-        }
       }
     }
   }
@@ -91,11 +57,8 @@
     right: 0;
     top: 9px;
     margin: 0 15px 0 0;
-    .name {
-      display: inline-block;
-      margin: 5px 10px 0 0;
-      color: $color-light;
-      font-weight: 400;
+    .avatar-container {
+      border-radius: 5px;
     }
     > a {
       padding: 5px;
@@ -104,32 +67,8 @@
         border: none;
         outline: none;
       }
-      &:hover {
-        i {
-          color: $color-light;
-        }
-      }
       i {
-        color: rgba($color-light, 0.65);
-      }
-    }
-    .user-menu {
-      @include clear-list;
-      display: none;
-      width: auto;
-      margin: 11px 0 0 0;
-      padding: 5px 5px;
-      background: $color-light-dark;
-      border: 1px solid $color-light-darker;
-      border-top: none;
-      li {
-        display: block;
-        a {
-          display: block;
-          padding: 7.5px 5px;
-          font-size: 14px;
-          font-weight: 400;
-        }
+        color: $color-light;
       }
     }
   }
