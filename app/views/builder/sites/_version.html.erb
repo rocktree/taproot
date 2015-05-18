@@ -1,0 +1,14 @@
+<article class="version">
+  <%= avatar(version_user(version), 84) %>
+  <span class="version-content">
+    <%= version_content(version) %>
+  </span>
+  <div class="notes">
+    <span class="date">
+      <%= "#{time_ago_in_words(version.created_at)} ago" %>
+    </span>
+    <span class="site">
+      <%= version_site_link(version) %>
+    </span>
+  </div>
+</article>

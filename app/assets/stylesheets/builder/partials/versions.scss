@@ -1,0 +1,43 @@
+article.version {
+  position: relative;
+  padding: 20px 0;
+  .version-content {
+    display: inline-block;
+    margin: 14px 0 0 10px;
+    font-size: 16px;
+    line-height: 18px;
+    vertical-align: top;
+    a, span {
+      font-weight: 600;
+      font-size: inherit;
+      line-height: inherit;
+      vertical-align: top;
+    }
+    a {
+      color: $color-1;
+    }
+  }
+  .notes {
+    position: absolute;
+    top: 18px;
+    right: 0;
+    span {
+      display: block;
+      text-align: right;
+    }
+    .date {
+      font-size: 14px;
+      line-height: 18px;
+      color: $color-light-darkest;
+    }
+    .site {
+      margin-top: 5px;
+      font-size: 16px;
+      line-height: 20px;
+      a {
+        font-weight: 400;
+        color: $color-1;
+      }
+    }
+  }
+}

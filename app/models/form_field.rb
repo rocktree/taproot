@@ -31,6 +31,8 @@ class FormField < ActiveRecord::Base
 
   belongs_to :form, :touch => true
 
+  has_one :site, :through => :form
+
   # ------------------------------------------ Scopes
 
   scope :in_position, -> { order('position asc') }
