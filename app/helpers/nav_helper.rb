@@ -1,18 +1,27 @@
 module NavHelper
 
+  # ------------------------------------------ Current Nav (left sidebar)
+
   def current_nav
   end
 
-  def drilldown_nav
+  # ------------------------------------------ Drilldown Nav (right sidebar)
+
+  def drilldown_nav(&block)
+    content_tag(:aside, :id => 'drilldown-nav') do
+      content_tag(:nav) { content_tag(:ul) { capture(&block) } }
+    end
   end
 
-  # def read_nav_config(config)
-  #   file = "#{Rails.root}/config/sapwood/#{config}.yml"
-  #   return nil unless File.exists?(file)
-  #   nav = {}
-  #   YAML.load_file(file).each { |k,v| nav[k] = v.to_ostruct }
-  #   nav
-  # end
+  # ------------------------------------------ Old Helpers
+
+  def read_nav_config(config)
+    file = "#{Rails.root}/config/sapwood/#{config}.yml"
+    return nil unless File.exists?(file)
+    nav = {}
+    YAML.load_file(file).each { |k,v| nav[k] = v.to_ostruct }
+    nav
+  end
 
   # def builder_site_nav_config
   #   read_nav_config('builder_site_nav')
@@ -48,17 +57,17 @@ module NavHelper
   #   end
   # end
 
-  # def sidebar(partial = 'sidebar')
-  #   content_tag(:aside, :id => 'page-sidebar') { render(:partial => partial) }
-  # end
+  def sidebar(partial = 'sidebar')
+    content_tag(:aside, :id => 'page-sidebar') { render(:partial => partial) }
+  end
 
-  # def sidebar_item_active?(item)
-  #   (item[:controllers] && item[:controllers].include?(controller_name)) ||
-  #     request.path == item[:path]
-  # end
+  def sidebar_item_active?(item)
+    (item[:controllers] && item[:controllers].include?(controller_name)) ||
+      request.path == item[:path]
+  end
 
-  # def tab_active?(item)
-  #   sidebar_item_active?(item)
-  # end
+  def tab_active?(item)
+    sidebar_item_active?(item)
+  end
 
 end

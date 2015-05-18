@@ -38,9 +38,10 @@
 
     <div id="container">
       <%= content_tag(:header, render('header')) %>
-      <%= content_tag(:aside, current_nav, :id => 'current-nav') %>
+      <%#= content_tag(:aside, current_nav, :id => 'current-nav') %>
+      <%= render :partial => 'nav' %>
       <%= content_tag(:main, yield, :id => 'content') %>
-      <%= content_tag(:aside, drilldown_nav, :id => 'drilldown-nav') %>
+      <%#= content_tag(:aside, drilldown_nav, :id => 'drilldown-nav') %>
     </div>
 
     <%= javascript_include_tag 'builder/application' %>

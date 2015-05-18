@@ -1,0 +1,10 @@
+<%= drilldown_nav do %>
+  <% my_sites.each do |site| %>
+    <li>
+      <%= link_to(builder_site_path(site)) do %>
+        <%= content_tag(:span, site.title, :class => 'title') %>
+        <%= content_tag(:span, site.slug, :class => 'slug') %>
+      <% end %>
+    </li>
+  <% end %>
+<% end %>

@@ -22,6 +22,8 @@ class Site < ActiveRecord::Base
 
   include Slug
 
+  has_paper_trail
+
   # ------------------------------------------ Attributes
 
   serialize :crop_settings, Hash
@@ -49,6 +51,7 @@ class Site < ActiveRecord::Base
 
   # ------------------------------------------ Scopes
 
+  scope :alpha, -> { order('title asc') }
   scope :last_updated, -> { order('updated_at desc') }
 
   # ------------------------------------------ Validations

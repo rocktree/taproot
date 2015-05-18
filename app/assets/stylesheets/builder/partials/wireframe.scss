@@ -11,46 +11,34 @@ body {
     }
     #content {
       position: relative;
-      max-width: 1000px;
+      width: 100%;
       margin: 25px auto;
+      padding: 0 25px;
       font-size: 0;
-      #page-content {
-        display: inline-block;
-        width: 75%;
-        vertical-align: top;
-        padding: 0 25px 0 0;
-        &.full-width, &.page.form, &.data-container {
-          width: 100%;
-          padding: 0;
-          &.with-sidebar {
-            width: 75%;
-          }
-        }
-        &.documents {
-          width: 100%;
-          padding: 0;
-          .images-container {
-            text-align: center;
-          }
-        }
+    }
+    aside {
+      position: fixed;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      padding-top: 77px;
+      &#current-nav {
+        left: 0;
+        background-color: $color-dark;
       }
-      #page-sidebar {
-        display: inline-block;
-        width: 25%;
-        padding: 0 0 0 25px;
-        vertical-align: top;
+      &#drilldown-nav {
+        right: 0;
+        background-color: $color-light-dark;
       }
     }
-  }
-}
-
-body.my-sites {
-  #container {
-    #content {
-      #page-content {
-        width: 100%;
-        padding: 0;
-      }
+    #current-nav + #content {
+      padding-left: 275px;
+    }
+    #drilldown-nav + #content {
+      padding-right: 275px;
+    }
+    #content:nth-child(4) {
+      padding: 0 275px;
     }
   }
 }

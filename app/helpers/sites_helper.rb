@@ -20,7 +20,7 @@ module SitesHelper
 
   def my_sites
     @my_sites ||= begin
-      admin? ? Site.last_updated : current_user.sites.last_updated
+      admin? ? Site.alpha : current_user.sites.alpha
     end
   end
 
