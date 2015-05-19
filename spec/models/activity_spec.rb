@@ -1,19 +1,19 @@
 # == Schema Information
 #
-# Table name: reference_caches
+# Table name: activities
 #
 #  id         :integer          not null, primary key
 #  item_type  :string(255)
 #  item_id    :integer
-#  site_title :string(255)
-#  site_path  :string(255)
 #  item_path  :string(255)
+#  site_id    :integer
+#  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-class ReferenceCache < ActiveRecord::Base
+require 'rails_helper'
 
-  belongs_to :item, :polymorphic => true
-
+RSpec.describe Activity, :type => :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

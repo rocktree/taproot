@@ -51,6 +51,7 @@ gem 'yaml_db'
 gem 'pg_search'
 gem 'geocoder'
 gem 'paper_trail'
+gem 'request_store'
 
 group :development do
   gem 'mailcatcher'

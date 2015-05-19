@@ -6,20 +6,26 @@ module ActivityLog
 
     has_paper_trail
 
-    after_save :cache_references
+    after_save :save_activity
 
-    has_one :reference_cache, :as => :item
+    has_many :activities, :as => :item
   end
 
-  def cache_references
-    ref = reference_cache
-    if ref.nil?
-      ref = ReferenceCache.create(:item => self)
-    end
+  def save_activity
+    site = self.site
+    Activity.create(
+      :item => self,
+      :site => self.site,
+      :item_path => builder_path_ref,
+      :user => RequestStore.store[:sapwood]
+    )
+    Activity.where(:item => self).update_all(:item_path => builder_path_ref)
+  end
+
+  def builder_path_ref
     case self.class.to_s
     when 'Site'
-      site = self
-      path = builder_site_path(site)
+      path = builder_site_path(self.site)
     when 'Page', 'Document', 'Form', 'Menu', 'Template', 'ResourceType'
       path = send("builder_site_#{self.class.table_name.singularize}_path",
                   self.site, self)
@@ -34,16 +40,6 @@ module ActivityLog
     when 'MenuItem'
       path = send("builder_site_menu_menu_item_path", self.site, menu, self)
     end
-    site = self.site if site.nil?
-    ref.update_columns(
-      :site_title => site.title,
-      :site_path => builder_site_path(site),
-      :item_path => path
-    )
-  end
-
-  def cache
-    reference_cache
   end
 
 end

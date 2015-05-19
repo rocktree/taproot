@@ -297,6 +297,7 @@ GEM
     redis (3.2.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
+    request_store (1.1.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     reverse_markdown (0.6.0)
@@ -546,6 +547,7 @@ DEPENDENCIES
   rails (= 4.1.0)
   rails-console-tweaks
   redcarpet
+  request_store
   reverse_markdown
   rspec-rails
   ruby-filemagic

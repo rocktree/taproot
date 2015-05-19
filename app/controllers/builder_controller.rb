@@ -18,6 +18,7 @@ class BuilderController < ActionController::Base
   before_filter :verify_site, :except => [:home]
   before_filter :init_options
   before_filter :builder_html_title
+  before_filter :request_store
 
   def home
     if has_sites? || admin?
@@ -47,6 +48,10 @@ class BuilderController < ActionController::Base
 
     def verify_admin
       not_found unless current_user.admin?
+    end
+
+    def request_store
+      RequestStore.store[:sapwood] = current_user
     end
 
 end

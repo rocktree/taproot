@@ -78,6 +78,10 @@ class Site < ActiveRecord::Base
 
   # ------------------------------------------ Instance Method
 
+  def site
+    self
+  end
+
   def croppers
     crop_settings
   end
