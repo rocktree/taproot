@@ -19,7 +19,7 @@ class ResourceType < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug
+  include SiteSlug, ActivityLog
 
   # ------------------------------------------ Associations
 

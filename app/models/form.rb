@@ -25,9 +25,7 @@ class Form < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug
-
-  has_paper_trail
+  include SiteSlug, ActivityLog
 
   # ------------------------------------------ Associations
 

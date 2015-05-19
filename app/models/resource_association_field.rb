@@ -24,11 +24,13 @@ class ResourceAssociationField < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include ResourceTypeSlug
+  include ResourceTypeSlug, ActivityLog
 
   # ------------------------------------------ Associations
 
   belongs_to :resource_type
+
+  has_one :site, :through => :resource_type
 
   # ------------------------------------------ Scopes
 

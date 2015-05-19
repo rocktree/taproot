@@ -20,9 +20,7 @@ class Site < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include Slug
-
-  has_paper_trail
+  include Slug, ActivityLog
 
   # ------------------------------------------ Attributes
 

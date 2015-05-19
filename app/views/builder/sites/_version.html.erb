@@ -8,7 +8,10 @@
       <%= "#{time_ago_in_words(version.created_at)} ago" %>
     </span>
     <span class="site">
-      <%= version_site_link(version) %>
+      <%= link_to(
+        version.item.cache.site_title,
+        version.item.cache.site_path
+      ) %>
     </span>
   </div>
 </article>

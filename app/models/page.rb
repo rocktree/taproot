@@ -28,11 +28,9 @@ class Page < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug, PgSearch
+  include SiteSlug, PgSearch, ActivityLog
 
   has_ancestry
-
-  has_paper_trail
 
   pg_search_scope(
     :search_content,

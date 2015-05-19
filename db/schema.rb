@@ -155,6 +155,16 @@ ActiveRecord::Schema.define(version: 20150716172341) do
 
   add_index "pages", ["ancestry"], name: "index_pages_on_ancestry", using: :btree
 
+  create_table "reference_caches", force: true do |t|
+    t.string   "item_type"
+    t.integer  "item_id"
+    t.string   "site_title"
+    t.string   "site_path"
+    t.string   "item_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "resource_association_fields", force: true do |t|
     t.integer  "resource_type_id"
     t.string   "title"

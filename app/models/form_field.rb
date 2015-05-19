@@ -23,9 +23,7 @@ class FormField < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include FormSlug
-
-  has_paper_trail
+  include FormSlug, ActivityLog
 
   # ------------------------------------------ Associations
 

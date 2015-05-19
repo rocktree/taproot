@@ -19,7 +19,7 @@ class Document < ActiveRecord::Base
 
   dragonfly_accessor :document
 
-  has_paper_trail
+  include ActivityLog
 
   # ------------------------------------------ Attributes
 
@@ -50,6 +50,10 @@ class Document < ActiveRecord::Base
 
   def to_param
     idx.to_s
+  end
+
+  def title
+    document.meta['name']
   end
 
   def create_idx

@@ -15,9 +15,7 @@ class Resource < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include ResourceTypeSlug
-
-  has_paper_trail
+  include ResourceTypeSlug, ActivityLog
 
   # ------------------------------------------ Attributes
 
@@ -26,6 +24,8 @@ class Resource < ActiveRecord::Base
   # ------------------------------------------ Associations
 
   belongs_to :resource_type
+
+  has_one :site, :through => :resource_type
 
   # ------------------------------------------ Validations
 

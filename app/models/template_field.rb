@@ -24,16 +24,14 @@ class TemplateField < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include FieldSlug
-
-  has_paper_trail
+  include FieldSlug, ActivityLog
 
   # ------------------------------------------ Associations
 
   belongs_to :template_group, :touch => true
 
   has_one :template, :through => :template_group
-  has_one :site, :through => :page_type
+  has_one :site, :through => :template
 
   # ------------------------------------------ Scopes
 

@@ -18,11 +18,9 @@ class MenuItem < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug
+  include SiteSlug, ActivityLog
 
   has_ancestry
-
-  has_paper_trail
 
   # ------------------------------------------ Attributes
 
