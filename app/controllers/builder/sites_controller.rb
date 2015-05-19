@@ -10,7 +10,6 @@ class Builder::SitesController < BuilderController
   end
 
   def show
-    redirect_to builder_site_pages_path(current_site)
   end
 
   def new
