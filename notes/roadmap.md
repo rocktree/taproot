@@ -1,16 +1,16 @@
 Roadmap
 =============
 
-For now, I'm going to keep the roadmap packaged with the project. The purpose
+This is the broad roadmap file for upcoming releases of Sapwood.  The purpose
 of this file is to keep from building out the nuances of each minor release in
 the issue tracker until they are going to be worked on.
 
-This document is in constant flux, and no feature mentioned is guaranteed to be
-included at any point, and the timing is simply an estimate.
+*This document is in constant flux, and no feature mentioned is guaranteed to
+be included at any point, and the timing is simply an estimate.*
 
 To submit an idea, please [create an
 issue](https://github.com/seancdavis/sapwood/issues/new) and prepend it with
-`[request]`.
+`[request]`. **Do not submit a pull request with a change to this document.**
 
 v1.6: Setup & Theming (May/June 2015)
 ----------
