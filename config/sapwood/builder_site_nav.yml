@@ -27,7 +27,7 @@ users:
 settings:
   icon: equalizer
   label: Settings
-  path: edit_builder_site_path
+  path: builder_site_site_settings_path
   controllers: []
   admin: true
 templates:
