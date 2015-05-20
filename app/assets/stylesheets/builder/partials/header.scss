@@ -1,3 +1,10 @@
+body.dashboard #container > header {
+  background-color: $color-dark-light;
+  div.logo {
+    background-color: $color-dark;
+  }
+}
+
 #container > header {
   position: relative;
   height: 62px;
