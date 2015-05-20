@@ -7,9 +7,11 @@ module NavHelper
 
   # ------------------------------------------ Drilldown Nav (right sidebar)
 
-  def drilldown_nav(&block)
+  def drilldown_nav(options = {}, &block)
     content_tag(:aside, :id => 'drilldown-nav', :class => 'sidebar') do
-      content_tag(:nav) { content_tag(:ul) { capture(&block) } }
+      content_tag(:nav, options[:nav_html]) do
+        content_tag(:ul) { capture(&block) }
+      end
     end
   end
 
@@ -23,9 +25,9 @@ module NavHelper
     nav
   end
 
-  # def builder_site_nav_config
-  #   read_nav_config('builder_site_nav')
-  # end
+  def builder_site_nav_config
+    read_nav_config('builder_site_nav')
+  end
 
   # def builder_site_nav
   #   content_tag(:ul, :class => current_user.admin? ? 'admin' : nil) do

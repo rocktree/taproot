@@ -1,5 +1,29 @@
 aside.sidebar {
   nav {
+
+    // ------------------------------- Left Icons
+
+    &.left-icons {
+      ul {
+        li {
+          a {
+            font-size: 16px;
+            line-height: 20px;
+            color: $color-dark-lightest;
+            &:before {
+              margin-right: 8px;
+              font-size: 14px;
+              line-height: 14px;
+            }
+            &:after {
+              content: none;
+            }
+          }
+        }
+      }
+    }
+
+    // ------------------------------- Default
     ul {
       float: none;
       li {

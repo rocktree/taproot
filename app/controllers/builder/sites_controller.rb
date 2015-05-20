@@ -4,9 +4,7 @@ class Builder::SitesController < BuilderController
   before_filter :verify_admin, :except => [:index, :show]
 
   def index
-    if !current_user.admin? && !has_multiple_sites?
-      redirect_to(builder_site_path(only_site))
-    end
+    redirect_to builder_dashboard_path
   end
 
   def show

@@ -3,28 +3,16 @@ pages:
   label: Pages
   path: builder_site_pages_path
   controllers: ['pages', 'documents', 'resources']
-templates:
-  icon: wrench
-  label: Templates
-  path: builder_site_templates_path
-  controllers: ['templates','groups','fields','template_pages']
-  admin: true
-menus:
-  icon: menu
-  label: Menus
-  path: builder_site_menus_path
-  controllers: ['menus','items']
-resources:
-  icon: wrench
-  label: Resources
-  path: builder_site_resource_types_path
-  controllers: ['resources', 'fields', 'association_fields', 'items']
-  admin: true
 library:
   icon: stack-play
   label: Media
   path: builder_site_documents_path
   controllers: ['images']
+menus:
+  icon: menu
+  label: Menus
+  path: builder_site_menus_path
+  controllers: ['menus','items']
 forms:
   icon: clipboard3
   label: Forms
@@ -37,8 +25,32 @@ users:
   controllers: ['users']
   admin: true
 settings:
-  icon: cog3
+  icon: equalizer
   label: Settings
+  path: edit_builder_site_path
+  controllers: []
+  admin: true
+templates:
+  icon: stack
+  label: Templates
+  path: builder_site_templates_path
+  controllers: ['templates','groups','fields','template_pages']
+  admin: true
+resources:
+  icon: folder
+  label: Resources
+  path: builder_site_resource_types_path
+  controllers: ['resources', 'fields', 'association_fields', 'items']
+  admin: true
+# errors:
+#   icon: notification
+#   label: Errors
+#   path: builder_site_errors_path
+#   controllers: ['errors']
+#   admin: true
+admin:
+  icon: cog3
+  label: Admin
   path: edit_builder_site_path
   controllers: []
   admin: true

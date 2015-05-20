@@ -32,7 +32,9 @@ Rails.application.routes.draw do
   # ------------------------------------------ Builder
 
   namespace :builder, :path => '' do
-    resources :sites, :param => :slug, :path_names => { :edit => :settings } do
+    get 'dashboard' => 'dashboard#index', :path => :sites, :as => :dashboard
+    resources :sites, :param => :slug, :except => [:index],
+              :path_names => { :edit => :settings } do
 
       # Site Settings
       get 'settings/croppers' => 'sites#croppers', :as => :cropper
