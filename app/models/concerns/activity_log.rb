@@ -6,7 +6,7 @@ module ActivityLog
 
     has_paper_trail
 
-    after_save :save_activity
+    after_commit :save_activity
 
     has_many :activities, :as => :item
   end
