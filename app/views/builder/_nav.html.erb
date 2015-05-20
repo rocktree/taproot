@@ -1,4 +1,5 @@
 <%= drilldown_nav do %>
+  <%= drilldown_nav_new('New Site', new_builder_site_path) if admin? %>
   <% my_sites.each do |site| %>
     <li>
       <%= link_to(builder_site_path(site)) do %>

@@ -70,13 +70,32 @@ aside.sidebar {
     }
   }
 
+  // ------------------------------- New Button
+
+  li.new-button {
+    a {
+      padding: 13px 15px;
+      color: $color-light;
+      background: $color-2;
+      &:hover {
+        background: $color-2;
+      }
+      &:before {
+        font-size: 14px;
+      }
+      &:after {
+        content: none;
+      }
+    }
+  }
+
   // ------------------------------- Back Button
 
   .back-button {
     position: fixed;
     width: 250px;
     bottom: 0;
-    padding: 15px 15px 15px 35px;
+    padding: 15px 15px 15px 40px;
     font-size: 18px;
     line-height: 18px;
     background: $color-dark-lightest;
