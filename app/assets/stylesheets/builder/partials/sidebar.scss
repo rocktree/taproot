@@ -1,5 +1,7 @@
 aside.sidebar {
+  overflow-y: scroll;
   nav {
+    padding-bottom: 50px;
 
     // ------------------------------- Left Icons
 
@@ -24,6 +26,7 @@ aside.sidebar {
     }
 
     // ------------------------------- Default
+
     ul {
       float: none;
       li {
@@ -64,5 +67,28 @@ aside.sidebar {
         }
       }
     }
+  }
+
+  // ------------------------------- Back Button
+
+  .back-button {
+    position: fixed;
+    width: 250px;
+    bottom: 0;
+    padding: 15px 15px 15px 35px;
+    font-size: 18px;
+    line-height: 18px;
+    background: $color-dark-lightest;
+    color: $color-light;
+    &:before {
+      font-family: 'Icomoon-Ultimate';
+      content: "\e3b3";
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      margin: -8px 10px 0 0;
+      // color: $color-dark;
+    }
+
   }
 }

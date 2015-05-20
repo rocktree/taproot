@@ -15,6 +15,10 @@ module NavHelper
     end
   end
 
+  def drilldown_nav_back(label, path)
+    link_to(label, path, :class => 'back-button')
+  end
+
   # ------------------------------------------ Old Helpers
 
   def read_nav_config(config)
@@ -23,10 +27,6 @@ module NavHelper
     nav = {}
     YAML.load_file(file).each { |k,v| nav[k] = v.to_ostruct }
     nav
-  end
-
-  def builder_site_nav_config
-    read_nav_config('builder_site_nav')
   end
 
   # def builder_site_nav

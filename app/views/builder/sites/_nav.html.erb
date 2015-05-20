@@ -1,5 +1,5 @@
 <%= drilldown_nav :nav_html => { :class => 'left-icons' } do %>
-  <% builder_site_nav_config.each do |name, data| %>
+  <% read_nav_config('builder_site_nav').each do |name, data| %>
     <li>
       <%= link_to(
         data['label'],
@@ -8,4 +8,5 @@
       ) %>
     </li>
   <% end %>
+  <%= drilldown_nav_back('Dashboard', builder_dashboard_path) %>
 <% end %>
