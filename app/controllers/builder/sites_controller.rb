@@ -10,25 +10,6 @@ class Builder::SitesController < BuilderController
   def show
   end
 
-  def new
-    @current_site = Site.new
-  end
-
-  def create
-    @current_site = Site.new(create_params)
-    if current_site.save
-      if params[:site][:new_repo].to_bool
-        create_sapwood_project
-      end
-      redirect_to(
-        route([current_site], :edit, 'builder'),
-        :notice => t('notices.created', :item => "Site")
-      )
-    else
-      render('new')
-    end
-  end
-
   def edit
     unless current_user.admin?
       redirect_to(builder_site_path(current_site))
@@ -36,7 +17,7 @@ class Builder::SitesController < BuilderController
   end
 
   def update
-    if current_site.update(update_params)
+    if current_site.update(site_params)
       redirect_to(
         route([current_site], :edit, 'builder'),
         :notice => t('notices.updated', :item => "Site")
@@ -53,7 +34,7 @@ class Builder::SitesController < BuilderController
   end
 
   def update_croppers
-    if current_site.update(update_params)
+    if current_site.update(site_params)
       redirect_to(
         builder_site_cropper_path(current_site),
         :notice => t('notices.updated', :item => "Site")
@@ -111,7 +92,7 @@ class Builder::SitesController < BuilderController
       not_found unless current_user.admin?
     end
 
-    def create_params
+    def site_params
       params.require(:site).permit(
         :title,
         :url,
@@ -127,10 +108,6 @@ class Builder::SitesController < BuilderController
           :height
         ]
       )
-    end
-
-    def update_params
-      create_params
     end
 
     def set_layout_options

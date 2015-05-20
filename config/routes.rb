@@ -31,9 +31,15 @@ Rails.application.routes.draw do
 
   # ------------------------------------------ Builder
 
+  # Dashboard Routes (helps keep new sites away from sites controller)
+  get 'sites' => 'builder/dashboard#index', :as => :builder_dashboard
+  get 'sites/new' => 'builder/dashboard#new', :as => :new_builder_site
+  post 'sites' => 'builder/dashboard#create', :as => :builder_sites
+
   namespace :builder, :path => '' do
-    get 'dashboard' => 'dashboard#index', :path => :sites, :as => :dashboard
-    resources :sites, :param => :slug, :except => [:index],
+
+    # Sites
+    resources :sites, :param => :slug, :except => [:index, :new, :create],
               :path_names => { :edit => :settings } do
 
       # Site Settings

@@ -59,4 +59,10 @@ module DocumentsHelper
     @site_image_croppings ||= current_site.image_croppings
   end
 
+  def library_attr
+    if current_site && current_site.id.present?
+      "data-library=#{builder_site_documents_path(current_site, :link => true)}"
+    end
+  end
+
 end

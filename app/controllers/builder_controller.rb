@@ -38,10 +38,7 @@ class BuilderController < ActionController::Base
     end
 
     def verify_site
-      if(
-        current_site.nil? &&
-        ![builder_sites_path, new_builder_site_path].include?(request.path)
-      )
+      if current_site.nil? && controller_name != 'dashboard'
         not_found
       end
     end

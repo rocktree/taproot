@@ -31,8 +31,7 @@
     <% end %>
   </head>
 
-  <body class="<%= @options['body_classes'] %>"
-    <%= "data-library=#{builder_site_documents_path(current_site, :link => true)}" if current_site %>>
+  <body class="<%= @options['body_classes'] %>" <%= library_attr %>>
 
     <%= render :partial => 'status' %>
 
