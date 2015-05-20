@@ -18,7 +18,8 @@ aside.sidebar {
               line-height: 14px;
             }
             &:after {
-              content: none;
+              margin-top: -10px;
+              color: inherit;
             }
           }
         }
