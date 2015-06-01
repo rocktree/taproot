@@ -25,4 +25,5 @@ en:
     created: "%{item} created successfully!"
     updated: "%{item} updated successfully!"
     deleted: "%{item} deleted successfully!"
+  default_template: https://github.com/seancdavis/sapwood-default-template.git
 

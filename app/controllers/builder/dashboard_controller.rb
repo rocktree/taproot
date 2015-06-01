@@ -14,11 +14,9 @@ class Builder::DashboardController < BuilderController
   def create
     @current_site = Site.new(create_params)
     if current_site.save
-      if params[:site][:new_repo].to_bool
-        create_sapwood_project
-      end
+      SapwoodProject.new(current_site).create_site
       redirect_to(
-        route([current_site], :edit, 'builder'),
+        route([current_site, site_pages], :index, 'builder'),
         :notice => t('notices.created', :item => "Site")
       )
     else
@@ -29,21 +27,9 @@ class Builder::DashboardController < BuilderController
   private
 
     def create_params
-      params.require(:site).permit(
-        :title,
-        :url,
-        :secondary_urls,
-        :description,
-        :home_page_id,
-        :git_url,
-        :image_croppings_attributes => [
-          :id,
-          :title,
-          :ratio,
-          :width,
-          :height
-        ]
-      )
+      params
+        .require(:site)
+        .permit(:title, :template_url, :url, :secondary_urls, :git_url)
     end
 
 end

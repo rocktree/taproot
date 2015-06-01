@@ -117,11 +117,6 @@ class Builder::SitesController < BuilderController
       end
     end
 
-    def create_sapwood_project
-      sapwood = SapwoodProject.new(current_site)
-      sapwood.create_site
-    end
-
     def builder_html_title
       @builder_html_title ||= begin
         case action_name

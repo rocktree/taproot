@@ -1,3 +1,25 @@
 <%= builder_page_title(my_sites_breadcrumbs, :class => 'breadcrumbs') %>
 
-<%= render 'builder/sites/form' %>
+<%= simple_form_for([:builder, current_site]) do |f| %>
+  <%= f.input :title %>
+  <div class="half-row">
+    <%= f.input :template_url, :as => :string, :label => 'Site Template',
+                :input_html => { :value => t('default_template') } %>
+    <%= f.input :git_url, :as => :string, :label => 'Remote Git Path (SSH)' %>
+  </div>
+  <div class="half-row">
+    <%= f.input :url, :as => :string, :label => 'Primary domain (no http://)' %>
+    <div class="input optional">
+      <%= f.input :secondary_urls, :label => 'Seconday domains (no http://)',
+                  :wrapper => false %>
+      <br>
+      <%= em_p(
+        "Note: Place each domain on a new line. Secondary domains redirect to
+        your primary domain."
+      ) %>
+    </div>
+  </div>
+
+  <%= f.submit %>
+
+<% end %>

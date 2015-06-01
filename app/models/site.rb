@@ -6,12 +6,12 @@
 #  title          :string(255)
 #  slug           :string(255)
 #  url            :string(255)
-#  description    :text
 #  created_at     :datetime
 #  updated_at     :datetime
 #  home_page_id   :integer
 #  git_url        :string(255)
 #  secondary_urls :text
+#  template_url   :string(255)
 #
 
 require 'active_support/inflector'
@@ -54,7 +54,7 @@ class Site < ActiveRecord::Base
 
   # ------------------------------------------ Validations
 
-  validates :title, :git_url, :presence => true
+  validates :title, :template_url, :git_url, :presence => true
 
   validates_uniqueness_of :title
 
@@ -74,6 +74,14 @@ class Site < ActiveRecord::Base
     if secondary_urls_changed? || url_changed?
       Rails.application.reload_routes!
     end
+  end
+
+  after_create :create_default_items
+
+  def create_default_items
+    template = Template.create!(:title => 'Home', :site => self)
+    home_page = Page.create(:title => 'Home', :template => template)
+    update_columns(:home_page_id => home_page.id)
   end
 
   # ------------------------------------------ Instance Method

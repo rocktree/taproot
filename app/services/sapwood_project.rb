@@ -11,10 +11,10 @@ class SapwoodProject
 
   def create_site
     verify_site
-    create_default_site_files
+    import_template
     remove_bad_symlinks
     create_symlinks
-    git_init
+    set_git_url
     git_push
   end
 
@@ -27,7 +27,7 @@ class SapwoodProject
 
   # WARNING: You can not run this task within an app request, as it
   # will attempt to restart the server.
-  # 
+  #
   def pull_site
     git_pull
     SapwoodAction.new.reload if Rails.env.production?
@@ -51,27 +51,28 @@ class SapwoodProject
 
     # ------------------------------------------ Individual Actions
 
-    def create_default_site_files
+    def import_template
       verify_site
-      FileUtils.cp_r(default_project_dir, project_dir)
+      verify_no_directory
+      system("cd #{projects_dir}; git clone #{template_url} #{project_slug}")
       Dir.glob("#{project_dir}/**/*", File::FNM_DOTMATCH).each do |file|
-        if File.file?(file)
-          content = File.read(file)
-          content = content.gsub(/default\-site/, project_slug)
-          content = content.gsub(/default\_site/, project_class_file)
-          content = content.gsub(/DefaultSite/, project_class)
-          File.open(file, 'w+') { |f| f << content }
+        path_arr = file.split('/')
+        unless path_arr.include?('.git') || path_arr.include?('middleman')
+          if File.file?(file)
+            content = File.read(file)
+            content = content.gsub(/\[site\]/, project_slug)
+            content = content.gsub(/\[\_site\]/, project_class_file)
+            content = content.gsub(/\[Site\]/, project_class)
+            File.open(file, 'w+') { |f| f << content }
+          end
         end
       end
+      system("cd #{project_dir}; git add .")
+      system("cd #{project_dir}; git commit -am \"import template\"")
     end
 
-    def git_init
-      verify_site
-      verify_directory
-      system("cd #{project_dir}; git init")
-      system("cd #{project_dir}; git remote add origin #{git_url}")
-      system("cd #{project_dir}; git add .")
-      system("cd #{project_dir}; git commit -am 'init commit'")
+    def set_git_url
+      system("cd #{project_dir}; git remote set-url origin #{git_url}")
     end
 
     def git_push
@@ -175,7 +176,7 @@ class SapwoodProject
     end
 
     def project_class_file
-      @site.class_file
+      @site.slug.gsub(/\-/, '_')
     end
 
     def project_class
@@ -184,6 +185,10 @@ class SapwoodProject
 
     def git_url
       @site.git_url
+    end
+
+    def template_url
+      @site.template_url
     end
 
 end
