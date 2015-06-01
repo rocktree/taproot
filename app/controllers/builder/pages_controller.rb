@@ -143,19 +143,24 @@ class Builder::PagesController < BuilderController
   end
 
   def destroy
-    current_template
-    parent_page = current_page.parent
-    current_page.destroy
-    if parent_page.nil?
-      path = builder_route([site_root_pages], :index)
+    if current_page == home_page
+      redirect_to builder_route([site_root_pages], :index),
+                  :alert => 'You may not delete the home page'
     else
-      path = builder_route([parent_page], :show)
+      current_template
+      parent_page = current_page.parent
+      current_page.destroy
+      if parent_page.nil?
+        path = builder_route([site_root_pages], :index)
+      else
+        path = builder_route([parent_page], :show)
+      end
+      current_template.save
+      redirect_to(
+        path,
+        :notice => t('notices.updated', :item => 'Page')
+      )
     end
-    current_template.save
-    redirect_to(
-      path,
-      :notice => t('notices.updated', :item => 'Page')
-    )
   end
 
   private
