@@ -10,13 +10,15 @@ module ActivitiesHelper
 
   def app_activities
     @activities = Activity.order('created_at desc')
-      .where('user_id IS NOT ?', nil).includes(:item, :site, :user).limit(20)
+      .where('user_id IS NOT ?', nil).includes(:item, :site, :user)
+      .limit(40).reject { |a| a.item.blank? }.first(20)
   end
 
   def site_activities
     @activities = Activity.order('created_at desc')
       .where('site_id = ? AND user_id IS NOT ?', current_site.id, nil)
-      .includes(:item, :site, :user).limit(20)
+      .includes(:item, :site, :user).limit(40).reject { |a| a.item.blank? }
+      .first(20)
   end
 
   def activity_content(activity)
