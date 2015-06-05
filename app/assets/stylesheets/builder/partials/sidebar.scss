@@ -66,25 +66,43 @@ aside.sidebar {
             }
           }
         }
-      }
-    }
-  }
 
-  // ------------------------------- New Button
+        // ------------------------------- New Button
 
-  li.new-button {
-    a {
-      padding: 13px 15px;
-      color: $color-light;
-      background: $color-2;
-      &:hover {
-        background: $color-2;
-      }
-      &:before {
-        font-size: 14px;
-      }
-      &:after {
-        content: none;
+        &.new-button {
+          a {
+            padding: 13px 15px;
+            color: $color-light;
+            background: $color-2;
+            &:hover {
+              background: $color-2;
+            }
+            &:before {
+              font-size: 14px;
+            }
+            &:after {
+              content: none;
+            }
+          }
+          &:nth-child(2) {
+            a {
+              background: darken($color-2, 7%);
+              &:hover { background: darken($color-2, 7%); }
+            }
+          }
+          &:nth-child(3) {
+            a {
+              background: darken($color-2, 14%);
+              &:hover { background: darken($color-2, 14%); }
+            }
+          }
+          &:nth-child(3) {
+            a {
+              background: darken($color-2, 21%);
+              &:hover { background: darken($color-2, 21%); }
+            }
+          }
+        }
       }
     }
   }

@@ -23,6 +23,25 @@ module NavHelper
     link_to(label, path, :class => 'back-button')
   end
 
+  def pages_drilldown_back_link
+    if current_page_parent
+      drilldown_nav_back(
+        current_page_parent.title,
+        builder_route([current_page_parent], :edit)
+      )
+    elsif current_page != home_page
+      drilldown_nav_back(
+        home_page.title,
+        builder_route([home_page], :edit)
+      )
+    else
+      drilldown_nav_back(
+        'Site Dashboard',
+        builder_site_path(current_site)
+      )
+    end
+  end
+
   # ------------------------------------------ Old Helpers
 
   def read_nav_config(config)

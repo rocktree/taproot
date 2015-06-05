@@ -232,40 +232,18 @@ module PagesHelper
 
   def new_page_children_links(prefix = "New")
     @new_page_children_links ||= begin
-      content_tag(:div, :class => 'new-buttons dropdown') do
-        children = template_children.not_maxed_out
-        if children.size > 0.9
-          o = link_to("New Page", '#', :class => 'new dropdown-trigger')
-          o += content_tag(:ul) do
-            o2 = ''
-            children.select { |t| !t.maxed_out? }.each do |template|
-              o2 += content_tag(
-                :li,
-                link_to(
-                  template.title,
-                  new_builder_site_page_path(
-                    current_site,
-                    :template => template.slug,
-                    :parent => current_page.slug
-                  )
-                )
-              )
-            end
-            o2.html_safe
-          end
-        elsif children.size > 0
-          template = children.first
-          link_to(
-            "#{prefix} #{template.title}",
-            new_builder_site_page_path(
-              current_site,
-              :template => template.slug,
-              :parent => current_page.slug
-            ),
-            :class => 'new button'
+      o = ''
+      template_children.not_maxed_out.each do |template|
+        o += drilldown_nav_new(
+          "#{prefix} #{template.title}",
+          new_builder_site_page_path(
+            current_site,
+            :template => template.slug,
+            :parent => current_page.slug
           )
-        end
+        )
       end
+      o.html_safe
     end
   end
 

@@ -1,0 +1,9 @@
+<%= drilldown_nav :nav_html => { :class => 'left-icons' } do %>
+  <%= new_page_children_links %>
+  <% @nav_pages.each do |page| %>
+    <li>
+      <%= link_to(page.title, builder_route([page], :edit)) %>
+    </li>
+  <% end %>
+  <%= pages_drilldown_back_link %>
+<% end unless params[:search] %>

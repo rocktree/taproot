@@ -1,56 +1,16 @@
 class Builder::PagesController < BuilderController
 
   before_filter :verify_current_page, :except => [:index, :new, :create]
+  before_filter :set_nav, :except => [:index]
   before_filter :verify_admin, :only => [:destroy]
 
   def index
-    # First, we find which set of pages we should start
-    # with, which depends on whether there is a search query
-    # or not.
     if params[:search] && params[:search][:q]
       q = params[:search][:q]
       @pages = current_site.pages.search_content(params[:search][:q]).to_a
+      @pages = Kaminari.paginate_array(@pages).page(params[:page]).per(10)
     else
-      @pages = site_root_pages
-    end
-    # If we have a published param, then we're good,
-    # otherwise we set it and get ready to redirect.
-    if params[:published]
-      if ['published','draft'].include?(params[:published])
-        @pages = @pages.select { |p| p.send("#{params[:published]}?") }
-      end
-    else
-      redirect = true
-      params[:published] = 'all'
-    end
-    # If we have a template param, then we're good,
-    # otherwise we set it and get ready to redirect.
-    if params[:template]
-      if params[:template] != 'all'
-        @pages = @pages.select { |p| p.template.slug == params[:template] }
-      end
-    else
-      redirect = true
-      params[:template] = 'all'
-    end
-    # We only redirect if we're missing parameters
-    if redirect
-      if q.nil?
-        redirect_to builder_site_pages_path(
-          current_site,
-          :published => params[:published],
-          :template => params[:template]
-        )
-      else
-        redirect_to builder_site_pages_path(
-          current_site,
-          :published => params[:published],
-          :template => params[:template],
-          :search => { :q => q }
-        )
-      end
-    else
-      @pages = Kaminari.paginate_array(@pages).page(params[:page]).per(15)
+      redirect_to builder_route([home_page], :edit)
     end
   end
 
@@ -247,6 +207,16 @@ class Builder::PagesController < BuilderController
         else
           current_page.title
         end
+      end
+    end
+
+    def set_nav
+      if current_page == home_page
+        @nav_pages = site_root_pages - [home_page]
+      elsif current_page_children.size > 0
+        @nav_pages = current_page_children
+      else
+        @nav_pages = []
       end
     end
 
