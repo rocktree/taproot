@@ -7,6 +7,7 @@
 </div>
 
 <div class="user">
+  <%= page_search_field if current_site && current_site.id.present? %>
   <%= icon_to('dashboard', root_path) %>
   <%= icon_to('cogs', '#') %>
   <%= icon_to('exit', destroy_user_session_path) %>

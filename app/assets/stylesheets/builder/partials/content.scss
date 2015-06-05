@@ -108,26 +108,6 @@
       font-weight: 400;
       @include transition-all;
     }
-    div.page-search-container {
-      float: right;
-      form {
-        display: block;
-        width: auto;
-        margin: 0;
-        div.input {
-          margin: 0;
-          input {
-            width: 150px;
-            margin: 0;
-            padding: 9px 10px;
-            @include transition(width 0.25s ease-in-out);
-            &:focus {
-              width: 300px;
-            }
-          }
-        }
-      }
-    }
     div.new-buttons {
       float: right;
       text-align: right;

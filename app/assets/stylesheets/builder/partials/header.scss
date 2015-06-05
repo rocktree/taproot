@@ -64,6 +64,26 @@ body.dashboard #container > header {
     right: 0;
     top: 9px;
     margin: 0 15px 0 0;
+    div.page-search-container {
+      display: inline-block;
+      margin: 5px 15px 0 0;
+      vertical-align: top;
+      form {
+        display: block;
+        width: auto;
+        margin: 0;
+        div.input {
+          margin: 0;
+          input {
+            width: 250px;
+            margin: 0;
+            padding: 7px 5px;
+            border: none;
+            outline: none;
+          }
+        }
+      }
+    }
     .avatar-container {
       border-radius: 5px;
     }
