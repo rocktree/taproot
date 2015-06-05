@@ -68,59 +68,62 @@
     }
   }
 
-  .page-title {
-    margin: 0 0 10px 0;
-    padding: 0 0 10px 0;
-    border-bottom: 1px solid $color-grey-lighter;
-    &.breadcrumbs {
-      h1 {
-        margin: 0 0 15px 0;
-        font-size: 28px;
-        line-height: 32px;
-      }
-    }
-    &.no-border {
-      border-bottom: none;
-    }
+  .current-page-header {
+    margin: 15px 0;
+    padding: 15px 0;
+    border-bottom: 1px solid $color-light-darkest;
     h1 {
-      display: inline-block;
       margin: 0;
+      font-size: 36px;
+      line-height: 36px;
       font-weight: 200;
-      color: $color-grey;
-      > a {
-        font-size: inherit;
-        line-height: inherit;
-        font-weight: 400;
-      }
-      a + span {
-        margin: 0 7px;
-        font-size: inherit;
-        color: $color-grey-lightest;
-      }
-    }
-    > a {
-      float: right;
-      margin: 35px 0 0 15px;
-      text-align: right;
-      vertical-align: bottom;
-      font-size: 14px;
-      line-height: 14px;
-      font-weight: 400;
-      @include transition-all;
-    }
-    div.new-buttons {
-      float: right;
-      text-align: right;
-    }
-    .new-buttons + .page-search-container {
-      margin-right: 15px;
-    }
-    .page-status {
-      i {
-        font-size: 13px;
-      }
+      color: $color-dark-lightest;
       span {
-        font-size: 15px;
+        margin-left: 15px;
+        vertical-align: bottom;
+        font-size: 16px;
+        line-height: 18px;
+        color: inherit;
+      }
+    }
+    .attributes {
+      margin: 25px 0 0 0;
+      a {
+        display: inline-block;
+        margin: 0 10px 0 0;
+        padding: 7px;
+        font-size: 13px;
+        line-height: 13px;
+        border-radius: 3px;
+        color: $color-light;
+        span {
+          color: inherit;
+          font-size: inherit;
+          line-height: inherit;
+          &.label {
+            font-weight: 400;
+          }
+          &:last-child {
+            margin-left: 5px;
+          }
+        }
+        &:before {
+          display: inline-block;
+          margin-top: 1px;
+          vertical-align: top;
+        }
+        &.published {
+          background: $color-success;
+        }
+        &.draft {
+          background: $color-danger;
+        }
+        &.template {
+          background: $color-secondary;
+        }
+        &.menu {
+          background: $color-dark;
+        }
       }
     }
   }

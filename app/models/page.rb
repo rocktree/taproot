@@ -200,4 +200,8 @@ class Page < ActiveRecord::Base
     !published?
   end
 
+  def status
+    published? ? 'published' : 'draft'
+  end
+
 end

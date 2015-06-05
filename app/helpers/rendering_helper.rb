@@ -18,6 +18,36 @@ module RenderingHelper
     end
   end
 
+  def builder_page_header
+    content_tag(:div, :class => 'current-page-header') do
+      o  = content_tag(:h1, :class => 'title') do
+         o2  = current_page.title
+         o2 += content_tag(:span, current_page.page_path)
+         o2.html_safe
+      end
+      o += content_tag(:div, :class => 'attributes') do
+        o2  = link_to(
+          '#',
+          :class => "status #{current_page.published? ? 'published' : 'draft'}"
+        ) do
+          o3  = content_tag(:span, 'Status:', :class => 'label')
+          o3 += content_tag(:span, current_page.status.titleize)
+        end
+        o2 += link_to(
+          builder_route([current_template], :edit),
+          :class => 'template'
+        ) do
+          o3  = content_tag(:span, 'Template:', :class => 'label')
+          o3 += content_tag(:span, current_template.title)
+        end
+        o2 += link_to('#', :class => 'menu disabled') do
+          o3  = content_tag(:span, 'Menu:', :class => 'label')
+          o3 += content_tag(:span, current_page.show_in_nav? ? 'Visible' : 'Hidden')
+        end
+      end
+    end
+  end
+
   def subtitle(subtitle)
     content_tag(:p, subtitle, :class => 'subtitle')
   end
