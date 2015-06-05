@@ -5,14 +5,17 @@ $site-header-height: 108px;
 body {
   #container {
     > header {
+      position: fixed;
       width: 100%;
+      top: 0;
+      left: 0;
       padding: 0;
       z-index: 9999;
     }
     #content {
       position: relative;
       width: 100%;
-      margin: 25px auto;
+      margin: 75px auto 25px auto;
       padding: 0 25px;
       font-size: 0;
     }
