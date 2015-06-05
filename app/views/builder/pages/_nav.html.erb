@@ -1,3 +1,23 @@
+<%= current_nav do %>
+  <%= current_nav_section('Content') do %>
+    <% current_template_groups.each do |group| %>
+      <%= content_tag(
+        :li,
+        link_to(
+          group.title,
+          builder_site_page_settings_path(
+            current_site,
+            current_page,
+            group.slug
+          ),
+          :class => (current_page.slug == params[:page_slug] &&
+            group.slug == params[:slug]) ? 'active' : nil
+        )
+      ) %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <%= drilldown_nav :nav_html => { :class => 'left-icons' } do %>
   <%= new_page_children_links %>
   <% @nav_pages.each do |page| %>

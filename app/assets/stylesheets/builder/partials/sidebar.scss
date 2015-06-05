@@ -130,3 +130,53 @@ aside.sidebar {
 
   }
 }
+
+aside#current-nav {
+  padding: 15px 0;
+  .nav-section {
+    margin: 10px 0;
+    padding: 15px 0;
+    border-bottom: 1px solid $color-dark;
+    &:last-child {
+      border-bottom: none;
+    }
+    .title {
+      margin: 0;
+      text-align: center;
+      font-size: 22px;
+      line-height: 28px;
+      color: $color-light;
+      text-transform: uppercase;
+    }
+    ul {
+      @include clear-list;
+      li {
+        display: block;
+        margin: 0;
+        padding: 0;
+        color: $color-light;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+        a {
+          display: block;
+          padding: 10px 15px;
+          color: inherit;
+          font-size: inherit;
+          font-weight: inherit;
+          line-height: inherit;
+          border-left: 3px solid transparent;
+          @include transition-all;
+          &:hover {
+            border-left-color: $color-primary;
+            background: $color-dark;
+          }
+          &.active {
+            border-left-color: $color-primary;
+            background: $color-dark;
+          }
+        }
+      }
+    }
+  }
+}

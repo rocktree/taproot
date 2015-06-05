@@ -2,7 +2,15 @@ module NavHelper
 
   # ------------------------------------------ Current Nav (left sidebar)
 
-  def current_nav
+  def current_nav(&block)
+    content_tag(:aside, capture(&block), :id => 'current-nav')
+  end
+
+  def current_nav_section(title, &block)
+    content_tag(:div, :class => 'nav-section') do
+      o  = content_tag(:h3, title, :class => 'title')
+      o += content_tag(:ul, capture(&block))
+    end
   end
 
   # ------------------------------------------ Drilldown Nav (right sidebar)
