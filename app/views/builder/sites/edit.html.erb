@@ -1,10 +1,26 @@
-<%= builder_page_title(
-  current_page_breadcrumbs,
-  :class => 'breadcrumbs no-border'
-) do %>
-  <%= render :partial => 'tabs' %>
-<% end %>
+<%= builder_page_title('Site Details') %>
 
-<%= content_tag(:section, render('form'), :id => 'page-content') %>
+<section id="page-content">
+  <%= simple_form_for([:builder, current_site]) do |f| %>
 
-<%= sidebar %>
+    <div class="half-row">
+      <%= f.input :title %>
+      <%= f.input :git_url, :as => :string, :label => 'Remote Git URL' %>
+    </div>
+    <div class="half-row">
+      <%= f.input :url, :as => :string, :label => 'Primary domain (no http://)' %>
+      <div class="input optional">
+        <%= f.input :secondary_urls, :label => 'Seconday domains (no http://)',
+                    :wrapper => false %>
+        <br>
+        <%= em_p(
+          "Note: Place each domain on a new line. Any domain here will redirect to
+          your primary domain."
+        ) %>
+      </div>
+    </div>
+
+    <%= f.submit %>
+  <% end %>
+
+</section>

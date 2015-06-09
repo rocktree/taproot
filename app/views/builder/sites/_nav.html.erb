@@ -9,4 +9,33 @@
     </li>
   <% end %>
   <%= drilldown_nav_back('Dashboard', builder_dashboard_path) %>
-<% end %>
+<% end if action_name == 'show' %>
+
+<%= current_nav do %>
+  <%= current_nav_section('Settings') do %>
+    <%= content_tag(
+      :li,
+      link_to(
+        'Site Details',
+        edit_builder_site_path(current_site),
+        :class => action_name == 'edit' ? 'active' : nil
+      )
+    ) %>
+  <% end %>
+  <%= current_nav_section('Actions') do %>
+    <% read_nav_config('builder_settings_subnav').each do |items, attrs| %>
+      <% if attrs.env.nil? || Rails.env.send("#{attrs.env}?") %>
+        <%= content_tag(
+          :li,
+          link_to(
+            attrs.label.titleize,
+            send(attrs.path, current_site),
+            :method => attrs.request_type.blank? ? :get : attrs.request_type.to_sym,
+            :data => attrs.confirm.blank? ? nil : { :confirm => attrs.confirm }
+          ),
+          :class => attrs.classes
+        ) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end unless action_name == 'show' %>

@@ -19,7 +19,7 @@ module RenderingHelper
   end
 
   def builder_page_header
-    content_tag(:div, :class => 'current-page-header') do
+    content_tag(:div, :class => 'current-page-header page-title') do
       o  = content_tag(:h1, :class => 'title') do
          o2  = current_page.title
          o2 += content_tag(:span, current_page.page_path)

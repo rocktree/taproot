@@ -68,7 +68,7 @@
     }
   }
 
-  .current-page-header {
+  .page-title {
     margin: 15px 0;
     padding: 15px 0;
     border-bottom: 1px solid $color-light-darkest;
@@ -78,6 +78,11 @@
       line-height: 36px;
       font-weight: 200;
       color: $color-dark-lightest;
+    }
+  }
+
+  .current-page-header {
+    h1 {
       span {
         margin-left: 15px;
         vertical-align: bottom;
