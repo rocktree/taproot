@@ -1,0 +1,9 @@
+<%= drilldown_nav do %>
+  <%= drilldown_nav_new('New User', builder_route([all_site_users], :new)) %>
+  <% all_site_users.each do |user| %>
+    <%= content_tag(
+      :li,
+      link_to(user.display_name, builder_route([user], :show))
+    ) %>
+  <% end %>
+<% end unless obj_exists?(@user) %>

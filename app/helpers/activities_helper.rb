@@ -22,19 +22,35 @@ module ActivitiesHelper
   def site_activities
     @activities = site_base_activities
       .includes(:item, :site, :user).limit(40).reject { |a| a.item.blank? }.first(20)
+      .sort_by(&:created_at).reverse
+  end
+
+  def users_activities
+    @activities = Activity.where(:user_id => all_site_users.collect(&:id))
+      .where(:item_type => 'User')
+      .includes(:item, :user).limit(40).reject { |a| a.item.blank? }
+      .first(20).sort_by(&:created_at).reverse
   end
 
   def custom_settings_activities
     @activities = site_base_activities
       .where(:item_type => 'SiteSetting')
       .includes(:item, :site, :user).limit(40).reject { |a| a.item.blank? }
-      .first(20)
+      .first(20).sort_by(&:created_at).reverse
+  end
+
+  def activity_path(activity)
+    if activity.item_type == 'User'
+      builder_route([activity.item], :show)
+    else
+      activity.item_path
+    end
   end
 
   def activity_content(activity)
     o  = content_tag(:span, "#{activity.user.display_name}", :class => 'user')
     o += " #{activity.action} #{activity.item_type.underscore.humanize.downcase} "
-    o += link_to("#{activity.item.title}", activity.item_path, :class => 'item')
+    o += link_to("#{activity.item.title}", activity_path(activity), :class => 'item')
   end
 
 end

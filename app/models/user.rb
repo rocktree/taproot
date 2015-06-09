@@ -24,6 +24,10 @@
 
 class User < ActiveRecord::Base
 
+  # ------------------------------------------ Plugins
+
+  include ActivityLog
+
   # ------------------------------------------ Devise
 
   devise :database_authenticatable, :recoverable, :trackable, :validatable
@@ -36,6 +40,7 @@ class User < ActiveRecord::Base
 
   has_many :site_users
   has_many :sites, :through => :site_users
+  has_many :activities
 
   # ------------------------------------------ Validations
 
@@ -45,6 +50,10 @@ class User < ActiveRecord::Base
 
   scope :admins, -> { where(:admin => true) }
   scope :alpha, -> { all.to_a.sort_by(&:last_name) }
+
+  # ------------------------------------------ Callbacks
+
+  after_save :save_activity
 
   # ------------------------------------------ Instance Methods
 
@@ -65,5 +74,21 @@ class User < ActiveRecord::Base
   def site_user?
     !admin?
   end
+
+  def title
+    display_name
+  end
+
+  private
+
+    def save_activity
+      Activity.create(
+        :item => self,
+        :site => nil,
+        :item_path => nil,
+        :user => RequestStore.store[:sapwood],
+        :action => self.new_record? ? 'created' : 'updated'
+      )
+    end
 
 end

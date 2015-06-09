@@ -4,17 +4,14 @@ class Builder::UsersController < BuilderController
   before_filter :verify_admin
 
   def index
-    @users = all_site_users
-    if params[:user_status] && params[:user_status] != 'all'
-      @users = @users.select { |t| t.send("#{params[:user_status]}?") }
-    elsif params[:user_status] != 'all'
-      redirect_to(
-        builder_site_users_path(current_site, :user_status => 'all')
-      )
-    end
   end
 
   def new
+  end
+
+  def show
+    @user = User.find_by_id(params[:id])
+    redirect_to builder_route([@user], :edit)
   end
 
   def create
