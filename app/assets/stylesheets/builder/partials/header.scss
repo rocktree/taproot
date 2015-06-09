@@ -55,6 +55,42 @@ body.dashboard #container > header {
         font-size: inherit;
         font-style: inherit;
         color: $color-light;
+        &.site-nav-trigger {
+          display: inline-block;
+          margin-left: 8px;
+          font-style: normal;
+        }
+      }
+    }
+    .site-nav {
+      display: none;
+      position: absolute;
+      top: 43px;
+      left: -19px;
+      min-width: 200px;
+      background: $color-light-dark;
+      &.active {
+        display: block;
+      }
+      ul {
+        @include clear-list;
+        li {
+          display: block;
+          a {
+            display: block;
+            padding: 8px 20px;
+            line-height: 1.25em;
+            @include transition-all;
+            color: $color-dark;
+            &:hover {
+              background: $color-light-darker;
+            }
+            &:before {
+              font-size: 14px;
+              margin-right: 5px;
+            }
+          }
+        }
       }
     }
   }

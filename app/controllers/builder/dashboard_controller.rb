@@ -1,10 +1,11 @@
 class Builder::DashboardController < BuilderController
 
+  before_filter :set_classes
+
   def index
     if !current_user.admin? && !has_multiple_sites?
       redirect_to(builder_site_path(only_site))
     end
-    @options['body_classes'] = 'dashboard'
   end
 
   def new
@@ -30,6 +31,10 @@ class Builder::DashboardController < BuilderController
       params
         .require(:site)
         .permit(:title, :template_url, :url, :secondary_urls, :git_url)
+    end
+
+    def set_classes
+      @options['body_classes'] = 'dashboard'
     end
 
 end

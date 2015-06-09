@@ -3,7 +3,26 @@
 </div>
 
 <div class="site-title">
-  <%= content_tag(:h2, current_view_title) %>
+  <%= content_tag(:h2) do %>
+    <%= current_view_title %>
+    <%= link_to('', '#', :class => 'icon-arrow-down site-nav-trigger') if
+      current_site && current_site.id.present? %>
+  <% end %>
+  <% if current_site && current_site.id.present? %>
+    <div class="site-nav">
+      <ul>
+        <% read_nav_config('builder_site_nav').each do |name, data| %>
+          <li>
+            <%= link_to(
+              data['label'],
+              send(data['path'], current_site),
+              :class => "icon-#{data['icon']}"
+            ) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
 
 <div class="user">
