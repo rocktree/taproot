@@ -14,4 +14,8 @@ module ApplicationHelper
     settings.select { |s| s.title == name }.first
   end
 
+  def obj_exists?(obj)
+    obj && obj.id.present?
+  end
+
 end

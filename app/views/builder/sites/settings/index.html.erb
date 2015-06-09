@@ -1,26 +1,5 @@
-<%= builder_page_title(
-  site_settings_breadcrumbs,
-  :class => 'breadcrumbs no-border'
-) do %>
-  <%= content_tag(
-    :div,
-    link_to(
-      'New Custom Setting',
-      new_builder_site_site_setting_path(current_site),
-      :class => 'new'
-    ),
-    :class => 'new-buttons dropdown'
-  ) %>
-  <%= render :partial => 'builder/sites/tabs' %>
-<% end %>
+<%= builder_page_title('Custom Settings') %>
 
 <section id="page-content" class="data-container with-sidebar">
-  <% if site_settings.size > 0 %>
-    <%= data_table(site_settings, 'setting') %>
-  <% else %>
-    <%= missing_content("No custom settings for this site. Maybe you should add
-    one!") %>
-  <% end %>
+  <%= render_activities('custom_settings', 'builder/sites/activity') %>
 </section>
-
-<%= sidebar('builder/sites/sidebar') %>

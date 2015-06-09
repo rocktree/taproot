@@ -14,9 +14,19 @@ module ActivitiesHelper
       .limit(40).reject { |a| a.item.blank? }.first(20)
   end
 
+  def site_base_activities
+    Activity.order('created_at desc')
+            .where('site_id = ? AND user_id IS NOT ?', current_site.id, nil)
+  end
+
   def site_activities
-    @activities = Activity.order('created_at desc')
-      .where('site_id = ? AND user_id IS NOT ?', current_site.id, nil)
+    @activities = site_base_activities
+      .includes(:item, :site, :user).limit(40).reject { |a| a.item.blank? }.first(20)
+  end
+
+  def custom_settings_activities
+    @activities = site_base_activities
+      .where(:item_type => 'SiteSetting')
       .includes(:item, :site, :user).limit(40).reject { |a| a.item.blank? }
       .first(20)
   end

@@ -1,12 +1,5 @@
-<%= builder_page_title(
-  site_settings_breadcrumbs,
-  :class => 'breadcrumbs no-border'
-) do %>
-  <%= render :partial => 'builder/sites/tabs' %>
-<% end %>
+<%= builder_page_title('New Site Setting') %>
 
 <section id="page-content">
   <%= render 'form' %>
 </section>
-
-<%= sidebar('builder/sites/sidebar') %>

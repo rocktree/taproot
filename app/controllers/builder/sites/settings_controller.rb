@@ -5,6 +5,12 @@ class Builder::Sites::SettingsController < BuilderController
   def index
   end
 
+  def show
+    redirect_to(
+      edit_builder_site_site_setting_path(current_site, current_setting)
+    )
+  end
+
   def new
     @current_setting = SiteSetting.new
   end

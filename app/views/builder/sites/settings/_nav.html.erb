@@ -1,0 +1,30 @@
+<%= current_nav do %>
+  <%= current_nav_section('Actions') do %>
+    <%= content_tag(
+      :li,
+      link_to(
+        'Delete',
+        builder_site_site_setting_path(current_site, current_setting),
+        :method => :delete,
+        :class => 'delete',
+        :data => { :confirm => 'Are you sure?' }
+      )
+    ) %>
+  <% end %>
+<% end if obj_exists?(current_setting) %>
+
+<%= drilldown_nav do %>
+  <%= drilldown_nav_new(
+    'New Setting',
+    new_builder_site_site_setting_path(current_site)
+  ) %>
+  <% site_settings.each do |setting| %>
+    <%= content_tag(
+      :li,
+      link_to(
+        setting.title,
+        builder_site_site_setting_path(current_site, setting)
+      )
+    ) %>
+  <% end %>
+<% end %>

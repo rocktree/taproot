@@ -15,7 +15,7 @@ class SiteSetting < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug
+  include SiteSlug, ActivityLog
 
   # ------------------------------------------ Associations
 
