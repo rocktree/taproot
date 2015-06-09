@@ -6,4 +6,5 @@
       link_to(user.display_name, builder_route([user], :show))
     ) %>
   <% end %>
+  <%= drilldown_nav_back('Site Dashboard', builder_site_path(current_site)) %>
 <% end unless obj_exists?(@user) %>
