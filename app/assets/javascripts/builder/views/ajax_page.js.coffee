@@ -8,6 +8,8 @@ class App.Views.AjaxPage extends Backbone.View
     guid = @guid()
     $('body').append(@template(klass: guid, id: options.klass))
     @page = $(".ajax-page.#{guid}").first()
+    $(document).on 'keyup', (e) =>
+      @closePage() if e.keyCode == 27
 
   loadContent: (title, content) ->
     $(@page).find('header > .title').html(title)
