@@ -12,13 +12,16 @@
     <div class="site-nav">
       <ul>
         <% read_nav_config('builder_site_nav').each do |name, data| %>
-          <li>
-            <%= link_to(
-              data['label'],
-              send(data['path'], current_site),
-              :class => "icon-#{data['icon']}"
-            ) %>
-          </li>
+          <% if (data['admin'].present? && data['admin'] == true && admin?) ||
+                data['admin'].blank? %>
+            <li>
+              <%= link_to(
+                data['label'],
+                send(data['path'], current_site),
+                :class => "icon-#{data['icon']}"
+              ) %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </div>

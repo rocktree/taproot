@@ -1,12 +1,15 @@
 <%= drilldown_nav :nav_html => { :class => 'left-icons' } do %>
   <% read_nav_config('builder_site_nav').each do |name, data| %>
-    <li>
-      <%= link_to(
-        data['label'],
-        send(data['path'], current_site),
-        :class => "icon-#{data['icon']}"
-      ) %>
-    </li>
+    <% if (data['admin'].present? && data['admin'] == true && admin?) ||
+          data['admin'].blank? %>
+      <li>
+        <%= link_to(
+          data['label'],
+          send(data['path'], current_site),
+          :class => "icon-#{data['icon']}"
+        ) %>
+      </li>
+    <% end %>
   <% end %>
   <%= drilldown_nav_back('Dashboard', builder_dashboard_path) %>
 <% end if action_name == 'show' %>
