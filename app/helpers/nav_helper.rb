@@ -23,8 +23,12 @@ module NavHelper
     end
   end
 
-  def drilldown_nav_new(label, path)
-    content_tag(:li, link_to(label, path, :class => 'new'), :class => 'new-button')
+  def drilldown_nav_new(label, path, klass = nil)
+    content_tag(
+      :li,
+      link_to(label, path, :class => "new #{klass}"),
+      :class => 'new-button'
+    )
   end
 
   def drilldown_nav_back(label, path)

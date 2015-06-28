@@ -1,0 +1,8 @@
+<%= current_nav do %>
+  <%= current_nav_section('Actions') do %>
+    <%= content_tag(
+      :li,
+      drilldown_nav_new('Upload File', '#', 'upload-trigger upload')
+    ) %>
+  <% end %>
+<% end %>
