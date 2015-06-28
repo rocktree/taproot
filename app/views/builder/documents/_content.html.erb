@@ -5,5 +5,7 @@
     <%= render 'form' %>
     <%= render 'progress' %>
   <% end if params[:select] %>
-  <%= render :partial => 'file', :collection => site_files %>
+  <%= paginate(paginated_site_files) %>
+  <%= render :partial => 'file', :collection => paginated_site_files %>
+  <%= paginate(paginated_site_files) %>
 </section>

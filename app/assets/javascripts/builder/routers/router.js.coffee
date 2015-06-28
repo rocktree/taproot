@@ -62,6 +62,7 @@ class App.Routers.Router extends Backbone.Router
     new App.Views.FileUploader
       slug: site_slug
     new App.Views.CropUrls
+    new App.Views.MediaPaginator
 
   templateFields: (site_slug, template_slug) ->
     new App.Views.FieldSorter

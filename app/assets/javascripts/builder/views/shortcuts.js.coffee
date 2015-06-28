@@ -23,3 +23,4 @@ class App.Views.Shortcuts extends Backbone.View
         @ajaxPage.loadContent('Media Library', data)
         @libraryTriggered = true
         new App.Views.CropUrls
+        new App.Views.MediaPaginator
