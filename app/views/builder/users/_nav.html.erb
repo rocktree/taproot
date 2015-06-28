@@ -1,3 +1,18 @@
+<%= current_nav do %>
+  <%= current_nav_section('Actions') do %>
+    <%= content_tag(
+      :li,
+      link_to(
+        'Remove User',
+        builder_route([@user], :show),
+        :method => :delete,
+        :class => 'delete',
+        :data => { :confirm => 'This will remove this user from this project. Are you sure?' }
+      )
+    ) %>
+  <% end %>
+<% end if obj_exists?(@user) && @user != current_user && @user.site_user? %>
+
 <%= drilldown_nav do %>
   <%= drilldown_nav_new('New User', builder_route([all_site_users], :new)) %>
   <% all_site_users.each do |user| %>
