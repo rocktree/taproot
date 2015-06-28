@@ -16,10 +16,12 @@
 <%= drilldown_nav do %>
   <%= drilldown_nav_new('New User', builder_route([all_site_users], :new)) %>
   <% all_site_users.each do |user| %>
-    <%= content_tag(
-      :li,
-      link_to(user.display_name, builder_route([user], :show))
-    ) %>
+    <li class="user">
+      <%= link_to(builder_route([user], :show)) do %>
+        <%= avatar(user, 64, user.admin? ? 'admin ' : '') %>
+        <span class="name"><%= user.display_name %></span>
+      <% end %>
+    </li>
   <% end %>
   <%= drilldown_nav_back('Site Dashboard', builder_site_path(current_site)) %>
 <% end unless obj_exists?(@user) %>

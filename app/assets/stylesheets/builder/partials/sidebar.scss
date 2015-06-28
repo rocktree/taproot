@@ -104,6 +104,32 @@ aside.sidebar {
             }
           }
         }
+
+        // ------------------------------- Users
+
+        &.user {
+          a {
+            div.avatar-container {
+              border-radius: 3px;
+              overflow: visible;
+              width: 32px;
+              height: 32px;
+              margin-right: 5px;
+              &:after {
+                width: 14px;
+                height: 14px;
+                line-height: 14px;
+                font-size: 10px;
+              }
+              img {
+                border-radius: 3px;
+              }
+            }
+            span {
+              display: inline-block;
+            }
+          }
+        }
       }
     }
   }
@@ -112,6 +138,7 @@ aside.sidebar {
 
   .back-button {
     position: fixed;
+    z-index: 999;
     width: 250px;
     bottom: 0;
     padding: 15px 15px 15px 40px;
