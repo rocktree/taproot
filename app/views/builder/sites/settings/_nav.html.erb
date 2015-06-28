@@ -14,18 +14,25 @@
 <% end if obj_exists?(current_setting) %>
 
 <%= drilldown_nav do %>
-  <%= drilldown_nav_new(
-    'New Setting',
-    new_builder_site_site_setting_path(current_site)
-  ) %>
-  <% site_settings.each do |setting| %>
-    <%= content_tag(
-      :li,
-      link_to(
-        setting.title,
-        builder_site_site_setting_path(current_site, setting)
-      )
+  <% if obj_exists?(current_setting) %>
+    <%= drilldown_nav_back(
+      'Site Settings',
+      builder_site_site_settings_path(current_site)
     ) %>
+  <% else %>
+    <%= drilldown_nav_new(
+      'New Setting',
+      new_builder_site_site_setting_path(current_site)
+    ) %>
+    <% site_settings.each do |setting| %>
+      <%= content_tag(
+        :li,
+        link_to(
+          setting.title,
+          builder_site_site_setting_path(current_site, setting)
+        )
+      ) %>
+    <% end %>
+    <%= drilldown_nav_back('Site Dashboard', builder_site_path(current_site)) %>
   <% end %>
-  <%= drilldown_nav_back('Site Dashboard', builder_site_path(current_site)) %>
-<% end unless obj_exists?(current_setting) %>
+<% end %>
