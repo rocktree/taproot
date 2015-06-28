@@ -51,10 +51,6 @@ class User < ActiveRecord::Base
   scope :admins, -> { where(:admin => true) }
   scope :alpha, -> { all.to_a.sort_by(&:last_name) }
 
-  # ------------------------------------------ Callbacks
-
-  after_save :save_activity
-
   # ------------------------------------------ Instance Methods
 
   def display_name
