@@ -1,0 +1,52 @@
+<%= current_nav do %>
+  <%= current_nav_section('Options') do %>
+    <%= content_tag(
+      :li,
+      link_to(
+        'View Menu',
+        builder_route([current_menu], :show),
+        :class => (controller_name == 'menus' &&
+          action_name == 'show') ? 'active view' : 'view'
+      )
+    ) %>
+    <%= content_tag(
+      :li,
+      link_to(
+        'Settings',
+        builder_route([current_menu], :edit),
+        :class => (controller_name == 'menus' &&
+          action_name == 'edit') ? 'active settings' : 'settings'
+      )
+    ) %>
+  <% end %>
+  <%= current_nav_section('Actions') do %>
+    <%= content_tag(
+      :li,
+      link_to(
+        'Delete Menu',
+        builder_route([current_menu], :show),
+        :method => :delete,
+        :class => 'delete',
+        :data => { :confirm => 'WARNING! This is a destructive action and could have adverse affects on your site. Are you sure?' }
+      )
+    ) %>
+  <% end %>
+<% end if obj_exists?(current_menu) %>
+
+<%= drilldown_nav do %>
+  <% if obj_exists?(current_menu) %>
+    <%= drilldown_nav_back(
+      'Site Menus',
+      builder_route([current_menu], :index)
+    ) %>
+  <% else %>
+    <%= drilldown_nav_new('New Menu', builder_route([site_menus], :new)) %>
+    <% site_menus.each do |menu| %>
+      <%= content_tag(
+        :li,
+        link_to(menu.title, builder_route([menu], :show))
+      ) %>
+    <% end %>
+    <%= drilldown_nav_back('Site Dashboard', builder_site_path(current_site)) %>
+  <% end %>
+<% end %>

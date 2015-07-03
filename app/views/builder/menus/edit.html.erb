@@ -1,9 +1,4 @@
-<%= builder_page_title(
-  menus_breadcrumbs,
-  :class => 'breadcrumbs no-border'
-) do %>
-  <%= render :partial => 'tabs' %>
-<% end %>
+<%= builder_page_title("Edit #{current_menu.title}") %>
 
 <section id="page-content" class="full-width">
   <%= render 'form' %>

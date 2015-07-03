@@ -26,6 +26,13 @@ module ActivitiesHelper
       .sort_by(&:created_at).reverse
   end
 
+  def menus_activities
+    @activities = site_base_activities
+      .where(:item_type => ['Menu', 'MenuItem'])
+      .includes(:item, :site, :user).limit(40).reject { |a| a.item.blank? }
+      .first(20).sort_by(&:created_at).reverse
+  end
+
   def users_activities
     @activities = Activity.where(:user_id => all_site_users.collect(&:id))
       .where(:item_type => 'User')
