@@ -14,28 +14,27 @@ $ topkit deploy site [NAME]
 Of course, you'll need to be sure the code you want to deploy has been pushed
 to your remote git repo.
 
-Set Primary Domain
+Working with Domains
 ----------
 
-You can set or change your primary domain at any point using the `set domain`
-action:
-
-```text
-$ topkit set domain [NAME] [DOMAIN]
-```
-
-The `[NAME]` here is the _site name_, while the `[DOMAIN]` is the domain you'd
-like to set.
-
-Add/Remove Secondary Domains
-----------
-
-You can add or remove secondary domains at any point:
+You can add or remove domains at any point:
 
 ```text
 $ topkit [add/remove] domain [NAME] [DOMAIN]
 ```
 
-Topkit Server knows these domains are secondary domains, so there's no need to
-distinguish. Just note that you can't remove a primary domain, you can only
-replace it.
+The `[NAME]` here is the _site name_, while the `[DOMAIN]` is the domain with
+which you'd like to work.
+
+If you'd like to set the domain to redirect to another then you can use the `redirect-to` option:
+
+```text
+$ topkit add domain [NAME] [DOMAIN] --redirect-to=[DOMAIN]
+```
+
+If you've already added the domain and want to redirect it, you can use the
+`set` action:
+
+```text
+$ topkit set domain [NAME] [DOMAIN] --redirect-to=[DOMAIN]
+```
