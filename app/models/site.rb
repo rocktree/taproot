@@ -2,16 +2,12 @@
 #
 # Table name: sites
 #
-#  id             :integer          not null, primary key
-#  title          :string(255)
-#  slug           :string(255)
-#  url            :string(255)
-#  created_at     :datetime
-#  updated_at     :datetime
-#  home_page_id   :integer
-#  git_url        :string(255)
-#  secondary_urls :text
-#  template_url   :string(255)
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  slug       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  git_url    :string(255)
 #
 
 require 'active_support/inflector'
@@ -20,13 +16,7 @@ class Site < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include Slug, ActivityLog
-
-  # ------------------------------------------ Attributes
-
-  serialize :crop_settings, Hash
-
-  attr_accessor :new_repo
+  include Slug
 
   # ------------------------------------------ Associations
 
@@ -42,6 +32,7 @@ class Site < ActiveRecord::Base
   has_many :menus, :dependent => :destroy
   has_many :menu_items, :through => :menus
   has_many :site_settings, :dependent => :destroy
+  has_many :domains, :dependent => :destroy
 
   belongs_to :home_page, :class_name => 'Page'
 
@@ -66,14 +57,6 @@ class Site < ActiveRecord::Base
 
   def remove_blank_image_croppings
     image_croppings.where("title = ''").destroy_all
-  end
-
-  after_save :reload_routes
-
-  def reload_routes
-    if secondary_urls_changed? || url_changed?
-      Rails.application.reload_routes!
-    end
   end
 
   after_create :create_default_items

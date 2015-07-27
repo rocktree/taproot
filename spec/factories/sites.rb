@@ -2,16 +2,12 @@
 #
 # Table name: sites
 #
-#  id             :integer          not null, primary key
-#  title          :string(255)
-#  slug           :string(255)
-#  url            :string(255)
-#  created_at     :datetime
-#  updated_at     :datetime
-#  home_page_id   :integer
-#  git_url        :string(255)
-#  secondary_urls :text
-#  template_url   :string(255)
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  slug       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  git_url    :string(255)
 #
 
 FactoryGirl.define do

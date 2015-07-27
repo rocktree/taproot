@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716172341) do
+ActiveRecord::Schema.define(version: 20150727175714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150716172341) do
     t.string   "item_path"
     t.integer  "site_id"
     t.integer  "user_id"
+    t.string   "action"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,6 +36,14 @@ ActiveRecord::Schema.define(version: 20150716172341) do
     t.text     "crop_data"
     t.string   "document_site"
     t.string   "document_name"
+  end
+
+  create_table "domains", force: true do |t|
+    t.string   "title"
+    t.integer  "site_id"
+    t.integer  "redirect_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "form_fields", force: true do |t|
@@ -165,16 +174,6 @@ ActiveRecord::Schema.define(version: 20150716172341) do
 
   add_index "pages", ["ancestry"], name: "index_pages_on_ancestry", using: :btree
 
-  create_table "reference_caches", force: true do |t|
-    t.string   "item_type"
-    t.integer  "item_id"
-    t.string   "site_title"
-    t.string   "site_path"
-    t.string   "item_path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "resource_association_fields", force: true do |t|
     t.integer  "resource_type_id"
     t.string   "title"
@@ -261,13 +260,9 @@ ActiveRecord::Schema.define(version: 20150716172341) do
   create_table "sites", force: true do |t|
     t.string   "title"
     t.string   "slug"
-    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "home_page_id"
     t.string   "git_url"
-    t.text     "secondary_urls"
-    t.string   "template_url"
   end
 
   create_table "template_descendants", force: true do |t|

@@ -8,6 +8,7 @@
 #  item_path  :string(255)
 #  site_id    :integer
 #  user_id    :integer
+#  action     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
