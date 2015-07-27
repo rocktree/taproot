@@ -1,4 +1,4 @@
-API Access
+API Authentication
 ==========
 
 Topkit Developer and Topkit Server communicate via Topkit CLI and Topkit API.
@@ -25,3 +25,6 @@ $ topkit remove key [NAME]
 > With these commands, it's best if you give each of your team members a unique
 > key/secret. That way you can get rid of just one pair if you need to remove
 > that person's access.
+
+When you set up a Topkit Developer instance, the CLI tool will ask you for you
+API key.
