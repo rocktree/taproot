@@ -12,10 +12,6 @@
 
 class FormFile < ActiveRecord::Base
 
-  # ------------------------------------------ Plugins
-
-  dragonfly_accessor :file
-
   # ------------------------------------------ Associations
 
   belongs_to :form_submission

@@ -17,8 +17,6 @@ class Document < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  dragonfly_accessor :document
-
   include ActivityLog
 
   # ------------------------------------------ Attributes

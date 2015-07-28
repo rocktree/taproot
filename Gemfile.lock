@@ -101,10 +101,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    dragonfly (1.0.7)
-      addressable (~> 2.3)
-      multi_json (~> 1.0)
-      rack
     eco (1.0.0)
       coffee-script
       eco-source
@@ -520,7 +516,6 @@ DEPENDENCIES
   compass-rails
   database_cleaner
   devise
-  dragonfly
   exception_notification
   factory_girl_rails
   faker
