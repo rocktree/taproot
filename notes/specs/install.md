@@ -1,6 +1,13 @@
 Installing Topkit
 ==========
 
+To get your server prepared, you can use a specific version of
+[Ripen](https://github.com/seancdavis/ripen), built for Topkit:
+
+```text
+$ bash <(curl -s https://raw.githubusercontent.com/topicdesign/topkit-cli/v1.0/bin/ripen)
+```
+
 Installing Topkit will be fairly straightforward when we have the `topkit` gem.
 So, install that first:
 
