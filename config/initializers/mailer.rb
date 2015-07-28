@@ -1,4 +1,4 @@
-ActionMailer::Base.default_url_options = { :host => SapwoodSetting.site.url }
+ActionMailer::Base.default_url_options = { :host => TopkitSetting.url }
 
 if Rails.env.development? || Rails.env.test?
   # use mailcatcher in development (http://mailcatcher.me/)
@@ -8,11 +8,11 @@ if Rails.env.development? || Rails.env.test?
   }
 else
   ActionMailer::Base.smtp_settings = {
-    :user_name => SapwoodSetting.mailer.user_name,
-    :password => SapwoodSetting.mailer.password,
-    :domain => SapwoodSetting.mailer.domain,
-    :address => SapwoodSetting.mailer.address,
-    :port => SapwoodSetting.mailer.port,
+    :user_name => TopkitSetting.mailer.user_name,
+    :password => TopkitSetting.mailer.password,
+    :domain => TopkitSetting.mailer.domain,
+    :address => TopkitSetting.mailer.address,
+    :port => TopkitSetting.mailer.port,
     :authentication => :plain,
     :enable_starttls_auto => true
   }
