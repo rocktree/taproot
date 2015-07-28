@@ -28,7 +28,6 @@ gem 'jcrop-rails-v2'
 
 # ------------------------------------------ Utilities
 
-gem 'cambium', :github => 'rocktree/cambium'
 gem 'fog'
 gem 'devise'
 gem 'ancestry'
@@ -39,7 +38,6 @@ gem 'kaminari'
 gem 'ruby-filemagic'
 gem 'redcarpet'
 gem 'pygments.rb'
-gem 'wysihtml5-rails'
 gem 'reverse_markdown'
 gem 'sidekiq'
 gem 'sitemap_generator'
