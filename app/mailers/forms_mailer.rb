@@ -1,7 +1,7 @@
 class FormsMailer < ActionMailer::Base
-  default :from => SapwoodSetting.mailer.default_from
+  default :from => TopkitSetting.mailer.default_from
 
-  if Rails.env.production? && SapwoodSetting.mailer.sendgrid.to_bool == true
+  if Rails.env.production? && TopkitSetting.mailer.sendgrid.to_bool == true
     include SendGrid
   end
 

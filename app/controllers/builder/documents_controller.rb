@@ -25,7 +25,7 @@ class Builder::DocumentsController < BuilderController
 
   def max_file_size
     respond_to do |format|
-      format.json { render :text => SapwoodSetting.dragonfly.max_file_size }
+      format.json { render :text => TopkitSetting.dragonfly.max_file_size }
     end
   end
 

@@ -3,7 +3,7 @@ module SitesHelper
   def current_site
     @current_site ||= begin
       if(
-        ['localhost',SapwoodSetting.site.url].include?(request.host) ||
+        ['localhost',TopkitSetting.site.url].include?(request.host) ||
         request.host =~ /^192\.168/ || request.host =~ /^10\.1/
       )
         p = params[:site_slug] || params[:slug]
@@ -37,7 +37,7 @@ module SitesHelper
   end
 
   def builder_html_title
-    @builder_html_title ||= SapwoodSetting.site.title
+    @builder_html_title ||= TopkitSetting.site.title
   end
 
   def my_sites_breadcrumbs
