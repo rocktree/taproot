@@ -7,12 +7,13 @@ Rails.application.routes.draw do
   # ------------------------------------------ API
 
   namespace :api do
-    namespace :v1 do
-      resources :forms, :only => [:create]
-      get 'database/dump' => 'database#dump', :as => :dump_db
+    namespace :v2 do
+      # resources :forms, :only => [:create]
+      # get 'database/dump' => 'database#dump', :as => :dump_db
+      # resources :sites
     end
   end
-  get 'api/*path' => 'api#missing', :as => :api_missing
+  get 'api/*path' => 'api/v2/base#missing', :as => :api_missing
 
   # ------------------------------------------ App Admin
 
