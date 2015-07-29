@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get 'authenticate' => 'base#test'
       # resources :forms, :only => [:create]
       # get 'database/dump' => 'database#dump', :as => :dump_db
-      # resources :sites
+      resources :users, :only => [:create]
     end
   end
   get 'api/*path' => 'api/v2/base#missing', :as => :api_missing
