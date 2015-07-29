@@ -7,6 +7,10 @@ class Api::V2::BaseController < ActionController::Base
     head :unauthorized
   end
 
+  def test
+    render :nothing => true
+  end
+
   private
 
     def ensure_json_request
