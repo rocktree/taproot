@@ -20,6 +20,7 @@
 #  updated_at             :datetime
 #  fb_access_token        :string(255)
 #  fb_token_expires       :datetime
+#  api_key                :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -45,11 +46,16 @@ class User < ActiveRecord::Base
   # ------------------------------------------ Validations
 
   validates :email, :presence => true
+  validates :api_key, :uniqueness => true
 
   # ------------------------------------------ Scopes
 
   scope :admins, -> { where(:admin => true) }
   scope :alpha, -> { all.to_a.sort_by(&:last_name) }
+
+  # ------------------------------------------ Callbacks
+
+  before_create :set_api_key
 
   # ------------------------------------------ Instance Methods
 
@@ -85,6 +91,10 @@ class User < ActiveRecord::Base
         :user => RequestStore.store[:sapwood],
         :action => self.new_record? ? 'created' : 'updated'
       )
+    end
+
+    def set_api_key
+      self.api_key = SecureRandom.hex(16)
     end
 
 end

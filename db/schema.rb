@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728204340) do
+ActiveRecord::Schema.define(version: 20150729140404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,13 +23,6 @@ ActiveRecord::Schema.define(version: 20150728204340) do
     t.integer  "site_id"
     t.integer  "user_id"
     t.string   "action"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "credentials", force: true do |t|
-    t.string   "key"
-    t.string   "secret"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -351,6 +344,7 @@ ActiveRecord::Schema.define(version: 20150728204340) do
     t.datetime "updated_at"
     t.string   "fb_access_token"
     t.datetime "fb_token_expires"
+    t.string   "api_key"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
