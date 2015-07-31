@@ -26,4 +26,5 @@ en:
     updated: "%{item} updated successfully!"
     deleted: "%{item} deleted successfully!"
   default_template: https://github.com/seancdavis/sapwood-default-template.git
-
+  api:
+    git_access_denied: Topkit Server does not have access to that repo. Please check the permissions and try again.

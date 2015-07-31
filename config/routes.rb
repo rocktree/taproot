@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'authenticate' => 'base#test'
       # resources :forms, :only => [:create]
       # get 'database/dump' => 'database#dump', :as => :dump_db
+      resources :sites, :only => [:create]
       resources :users, :only => [:create]
     end
   end
