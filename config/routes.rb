@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     namespace :v2 do
       get 'authenticate' => 'base#test'
       # resources :forms, :only => [:create]
-      # get 'database/dump' => 'database#dump', :as => :dump_db
       resources :sites, :only => [:create]
       resources :users, :only => [:create]
       post 'data/export' => 'data#export'
