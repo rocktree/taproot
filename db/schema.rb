@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729140404) do
+ActiveRecord::Schema.define(version: 20150803140824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,6 +263,7 @@ ActiveRecord::Schema.define(version: 20150729140404) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "git_url"
+    t.string   "uid"
   end
 
   create_table "template_descendants", force: true do |t|

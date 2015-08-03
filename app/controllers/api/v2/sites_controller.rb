@@ -8,8 +8,12 @@ class Api::V2::SitesController < Api::V2::BaseController
       system("git clone #{git_url} .topkit-import")
       config = YAML.load_file("#{Rails.root}/.topkit-import/.config")
       system("mv .topkit-import projects/#{config[:slug]}")
-      # TODO: symlink files
-      # TODO: Create site in database
+      system("topkit generate symlinks server")
+      @site = Site.create!(
+        :title => config['title'],
+        :uid => config['uid'],
+        :git_url => git_url
+      )
       render :json => config, :status => 200
     rescue Exception => e
       render :json => { 'ERROR' => e.message }, :status => 500
