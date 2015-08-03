@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       # get 'database/dump' => 'database#dump', :as => :dump_db
       resources :sites, :only => [:create]
       resources :users, :only => [:create]
+      post 'data/export' => 'data#export'
     end
   end
   get 'api/*path' => 'api/v2/base#missing', :as => :api_missing
