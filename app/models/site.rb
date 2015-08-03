@@ -29,15 +29,10 @@ class Site < ActiveRecord::Base
            :class_name => 'Page'
   has_many :forms, :dependent => :destroy
   has_many :documents, :dependent => :destroy
-  has_many :image_croppings, :dependent => :destroy
   has_many :menus, :dependent => :destroy
   has_many :menu_items, :through => :menus
   has_many :site_settings, :dependent => :destroy
   has_many :domains, :dependent => :destroy
-
-  belongs_to :home_page, :class_name => 'Page'
-
-  accepts_nested_attributes_for :image_croppings
 
   # ------------------------------------------ Scopes
 
@@ -52,30 +47,10 @@ class Site < ActiveRecord::Base
 
   validates_format_of :title, :with => /\A[A-Za-z][A-Za-z0-9\ ]+\z/
 
-  # ------------------------------------------ Callbacks
-
-  after_save :remove_blank_image_croppings
-
-  def remove_blank_image_croppings
-    image_croppings.where("title = ''").destroy_all
-  end
-
-  after_create :create_default_items
-
-  def create_default_items
-    template = Template.create!(:title => 'Home', :site => self)
-    home_page = Page.create(:title => 'Home', :template => template)
-    update_columns(:home_page_id => home_page.id)
-  end
-
   # ------------------------------------------ Instance Method
 
   def site
     self
-  end
-
-  def croppers
-    crop_settings
   end
 
   def files
