@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html class="public">
   <%= partial 'head' %>
-  <body class="sign-in">
+  <body <%#= library_attr %>>
 
     <%= partial 'status' %>
 
     <div id="container">
-      <%= content_tag(:div, yield, :id => 'content') %>
+      <%= content_tag(:header, render('header')) %>
+      <%= render :partial => 'nav' %>
+      <%= content_tag(:main, yield, :id => 'content') %>
     </div>
 
     <%= javascript_include_tag 'builder/application' %>

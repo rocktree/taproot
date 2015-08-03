@@ -17,7 +17,7 @@ module ActivityLog
       :item => self,
       :site => self.site,
       :item_path => builder_path_ref,
-      :user => RequestStore.store[:sapwood],
+      :user => RequestStore.store[:topkit],
       :action => self.new_record? ? 'created' : 'updated'
     )
     Activity.where(:item => self).update_all(:item_path => builder_path_ref)

@@ -1,23 +1,5 @@
 module SitesHelper
 
-  def current_site
-    @current_site ||= begin
-      if(
-        ['localhost',TopkitSetting.site.url].include?(request.host) ||
-        request.host =~ /^192\.168/ || request.host =~ /^10\.1/
-      )
-        p = params[:site_slug] || params[:slug]
-        if user_signed_in?
-          my_sites.select{ |s| s.slug == p }.first unless p.nil?
-        else
-          Site.find_by_slug(p) unless p.nil?
-        end
-      else
-        Site.find_by_url(request.host)
-      end
-    end
-  end
-
   def my_sites
     @my_sites ||= begin
       admin? ? Site.alpha : current_user.sites.alpha

@@ -17,12 +17,6 @@ Rails.application.routes.draw do
   end
   get 'api/*path' => 'api/v2/base#missing', :as => :api_missing
 
-  # ------------------------------------------ App Admin
-
-  namespace :admin do
-    get 'facebook/auth' => 'facebook#auth', :as => :facebook_auth
-  end
-
   # ------------------------------------------ Devise
 
   devise_for :users, :skip => [:sessions, :registrations]
@@ -34,113 +28,113 @@ Rails.application.routes.draw do
 
   # ------------------------------------------ Builder
 
-  # Dashboard Routes (helps keep new sites away from sites controller)
-  get 'sites' => 'builder/dashboard#index', :as => :builder_dashboard
-  get 'sites/new' => 'builder/dashboard#new', :as => :new_builder_site
-  post 'sites' => 'builder/dashboard#create', :as => :builder_sites
+  # # Dashboard Routes (helps keep new sites away from sites controller)
+  # get 'sites' => 'builder/dashboard#index', :as => :builder_dashboard
+  # get 'sites/new' => 'builder/dashboard#new', :as => :new_builder_site
+  # post 'sites' => 'builder/dashboard#create', :as => :builder_sites
 
-  namespace :builder, :path => '' do
+  # namespace :builder, :path => '' do
 
-    # Sites
-    resources :sites, :param => :slug, :except => [:index, :new, :create],
-              :path_names => { :edit => :settings } do
+  #   # Sites
+  #   resources :sites, :param => :slug, :except => [:index, :new, :create],
+  #             :path_names => { :edit => :settings } do
 
-      # Site Settings
-      get 'settings/croppers' => 'sites#croppers', :as => :cropper
-      patch 'settings/croppers' => 'sites#update_croppers',
-            :as => :update_croppers
-      resources :site_settings, :controller => 'sites/settings', :param => :slug
+  #     # Site Settings
+  #     get 'settings/croppers' => 'sites#croppers', :as => :cropper
+  #     patch 'settings/croppers' => 'sites#update_croppers',
+  #           :as => :update_croppers
+  #     resources :site_settings, :controller => 'sites/settings', :param => :slug
 
-      # Site Actions
-      post 'pull' => 'sites#pull', :as => :pull
-      post 'import' => 'sites#import', :as => :import
-      post 'backup' => 'sites#backup', :as => :backup
-      post 'symlink' => 'sites#symlink', :as => :symlink
+  #     # Site Actions
+  #     post 'pull' => 'sites#pull', :as => :pull
+  #     post 'import' => 'sites#import', :as => :import
+  #     post 'backup' => 'sites#backup', :as => :backup
+  #     post 'symlink' => 'sites#symlink', :as => :symlink
 
-      # Pages
-      resources :pages, :param => :slug do
-        resources :documents, :only => [:index, :create, :destroy],
-                  :controller => 'pages/documents', :path => :library, :param => :idx
-        resources :resource_types, :param => :slug, :path => :resources,
-                  :only => [] do
-          resources :resources, :except => [:show], :path => :associations,
-                    :controller => 'pages/resources'
-        end
-        get 'move' => 'pages#move', :as => :move
-        get 'settings/:slug' => 'pages#edit', :as => :settings
-        get 'help' => 'pages#help', :as => :help
-        post 'publish' => 'pages#publish', :as => :publish
-        post 'unpublish' => 'pages#unpublish', :as => :unpublish
-      end
+  #     # Pages
+  #     resources :pages, :param => :slug do
+  #       resources :documents, :only => [:index, :create, :destroy],
+  #                 :controller => 'pages/documents', :path => :library, :param => :idx
+  #       resources :resource_types, :param => :slug, :path => :resources,
+  #                 :only => [] do
+  #         resources :resources, :except => [:show], :path => :associations,
+  #                   :controller => 'pages/resources'
+  #       end
+  #       get 'move' => 'pages#move', :as => :move
+  #       get 'settings/:slug' => 'pages#edit', :as => :settings
+  #       get 'help' => 'pages#help', :as => :help
+  #       post 'publish' => 'pages#publish', :as => :publish
+  #       post 'unpublish' => 'pages#unpublish', :as => :unpublish
+  #     end
 
-      # Templates
-      resources :templates, :param => :slug, :path_names => {
-        :edit => :settings } do
-        resources :template_fields, :path => :fields,
-          :controller => 'templates/fields', :param => :slug do
-            post 'hide' => 'templates/fields#hide', :as => :hide
-            post 'show' => 'templates/fields#show', :as => :show
-        end
-        resources :template_groups, :path => :groups,
-          :controller => 'templates/groups', :param => :slug
-        resources :pages, :controller => 'templates/template_pages',
-          :param => :slug, :only => [:index]
-      end
+  #     # Templates
+  #     resources :templates, :param => :slug, :path_names => {
+  #       :edit => :settings } do
+  #       resources :template_fields, :path => :fields,
+  #         :controller => 'templates/fields', :param => :slug do
+  #           post 'hide' => 'templates/fields#hide', :as => :hide
+  #           post 'show' => 'templates/fields#show', :as => :show
+  #       end
+  #       resources :template_groups, :path => :groups,
+  #         :controller => 'templates/groups', :param => :slug
+  #       resources :pages, :controller => 'templates/template_pages',
+  #         :param => :slug, :only => [:index]
+  #     end
 
-      # Menus
-      resources :menus, :param => :slug do
-        resources :menu_items, :path => :items, :controller => 'menus/items',
-                  :param => :slug
-      end
+  #     # Menus
+  #     resources :menus, :param => :slug do
+  #       resources :menu_items, :path => :items, :controller => 'menus/items',
+  #                 :param => :slug
+  #     end
 
-      # Resources
-      resources :resource_types, :path => :resources,
-                :controller => :resources, :param => :slug, :path_names => {
-                :edit => :settings } do
-          resources :resources, :path => :items,
-                    :controller => 'resources/items', :param => :slug
-          resources :resource_fields, :path => :fields,
-                    :controller => 'resources/fields', :param => :slug do
-              post 'hide' => 'resources/fields#hide', :as => :hide
-              post 'show' => 'resources/fields#show', :as => :show
-          end
-          resources :resource_association_fields, :path => :association_fields,
-                    :controller => 'resources/association_fields', :param => :slug do
-              post 'hide' => 'resources/association_fields#hide', :as => :hide
-              post 'show' => 'resources/association_fields#show', :as => :show
-          end
-      end
+  #     # Resources
+  #     resources :resource_types, :path => :resources,
+  #               :controller => :resources, :param => :slug, :path_names => {
+  #               :edit => :settings } do
+  #         resources :resources, :path => :items,
+  #                   :controller => 'resources/items', :param => :slug
+  #         resources :resource_fields, :path => :fields,
+  #                   :controller => 'resources/fields', :param => :slug do
+  #             post 'hide' => 'resources/fields#hide', :as => :hide
+  #             post 'show' => 'resources/fields#show', :as => :show
+  #         end
+  #         resources :resource_association_fields, :path => :association_fields,
+  #                   :controller => 'resources/association_fields', :param => :slug do
+  #             post 'hide' => 'resources/association_fields#hide', :as => :hide
+  #             post 'show' => 'resources/association_fields#show', :as => :show
+  #         end
+  #     end
 
-      # Forms
-      resources :forms, :param => :slug do
-        resources :form_submissions, :path => :submissions, :param => :idx,
-          :controller => 'forms/submissions', :except => [:new, :create]
-        resources :form_fields, :path => :fields,
-          :controller => 'forms/fields', :param => :slug
-      end
+  #     # Forms
+  #     resources :forms, :param => :slug do
+  #       resources :form_submissions, :path => :submissions, :param => :idx,
+  #         :controller => 'forms/submissions', :except => [:new, :create]
+  #       resources :form_fields, :path => :fields,
+  #         :controller => 'forms/fields', :param => :slug
+  #     end
 
-      # Files
-      get 'library/max_file_size' => 'documents#max_file_size'
-      resources :documents, :path => :library, :param => :idx,
-        :except => [:show] do
-          get 'crop' => 'documents/croppings#edit', :as => :cropper
-          patch 'crop' => 'documents/croppings#update', :as => :crop
-      end
+  #     # Files
+  #     get 'library/max_file_size' => 'documents#max_file_size'
+  #     resources :documents, :path => :library, :param => :idx,
+  #       :except => [:show] do
+  #         get 'crop' => 'documents/croppings#edit', :as => :cropper
+  #         patch 'crop' => 'documents/croppings#update', :as => :crop
+  #     end
 
-      # Users
-      resources :users, :except => [:show]
-    end
-  end
+  #     # Users
+  #     resources :users, :except => [:show]
+  #   end
+  # end
 
   # ------------------------------------------ Viewer
 
-  scope 'preview' do
-    get '/' => 'previewer#dashboard', :as => :preview_dashboard
-    scope ':site_slug' do
-      get '/' => 'previewer#home', :as => :preview_home
-      get '/*page_path' => 'previewer#show', :as => :preview_page
-    end
-  end
+  # scope 'preview' do
+  #   get '/' => 'previewer#dashboard', :as => :preview_dashboard
+  #   scope ':site_slug' do
+  #     get '/' => 'previewer#home', :as => :preview_home
+  #     get '/*page_path' => 'previewer#show', :as => :preview_page
+  #   end
+  # end
 
   # ------------------------------------------ Domains
 
@@ -175,6 +169,6 @@ Rails.application.routes.draw do
 
   # ------------------------------------------ Home Page
 
-  root :to => 'builder#home'
+  root :to => 'editor/base#home'
 
 end

@@ -20,11 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  # App
+  app:
+    title: Topkit Server
+  # Notices
   notices:
     created: "%{item} created successfully!"
     updated: "%{item} updated successfully!"
     deleted: "%{item} deleted successfully!"
-  default_template: https://github.com/seancdavis/sapwood-default-template.git
+  # API
   api:
     git_access_denied: Topkit Server does not have access to that repo. Please check the permissions and try again.
