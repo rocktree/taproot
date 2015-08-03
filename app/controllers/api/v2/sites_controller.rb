@@ -7,7 +7,7 @@ class Api::V2::SitesController < Api::V2::BaseController
       system("rm -rf .topkit-import")
       system("git clone #{git_url} .topkit-import")
       config = YAML.load_file("#{Rails.root}/.topkit-import/.config")
-      system("mv .topkit-import projects/#{config[:slug]}")
+      system("mv .topkit-import projects/#{config['slug']}")
       system("topkit generate symlinks server")
       @site = Site.create!(
         :title => config['title'],
