@@ -144,34 +144,34 @@ Rails.application.routes.draw do
 
   # ------------------------------------------ Domains
 
-  if ActiveRecord::Base.connection.table_exists?('sites')
+  # if ActiveRecord::Base.connection.table_exists?('sites')
 
-    Site.all.each do |site|
-      unless site.url.nil?
-        constraints DomainConstraint.new(site.url) do
-          get(
-            '/' => 'viewer/pages#home',
-            :as => :"#{site.slug}_home"
-          )
-          get(
-            '/*page_path' => 'viewer/pages#show',
-            :as => :"#{site.slug}_page"
-          )
-        end
-        if site.respond_to?(:secondary_urls)
-          site.redirect_domains.each do |domain|
-            constraints DomainConstraint.new(domain) do
-              get '/' => redirect("http://#{site.url}")
-              get '/*page_path', :to => redirect { |params, request|
-                "http://#{site.url}/#{URI.encode(params[:page_path])}"
-              }
-            end
-          end
-        end
-      end
-    end
+  #   Site.all.each do |site|
+  #     unless site.url.nil?
+  #       constraints DomainConstraint.new(site.url) do
+  #         get(
+  #           '/' => 'viewer/pages#home',
+  #           :as => :"#{site.slug}_home"
+  #         )
+  #         get(
+  #           '/*page_path' => 'viewer/pages#show',
+  #           :as => :"#{site.slug}_page"
+  #         )
+  #       end
+  #       if site.respond_to?(:secondary_urls)
+  #         site.redirect_domains.each do |domain|
+  #           constraints DomainConstraint.new(domain) do
+  #             get '/' => redirect("http://#{site.url}")
+  #             get '/*page_path', :to => redirect { |params, request|
+  #               "http://#{site.url}/#{URI.encode(params[:page_path])}"
+  #             }
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
 
-  end
+  # end
 
   # ------------------------------------------ Home Page
 
