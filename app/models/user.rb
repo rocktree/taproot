@@ -59,8 +59,24 @@ class User < ActiveRecord::Base
 
   # ------------------------------------------ Instance Methods
 
+  def is_admin?
+    admin?
+  end
+
   def site_user?
     !admin?
+  end
+
+  def all_sites
+    @all_sites ||= admin? ? Site.alpha : sites.alpha
+  end
+
+  def first_site
+    @first_site ||= all_sites.first
+  end
+
+  def has_sites?
+    all_sites.size > 0
   end
 
   private

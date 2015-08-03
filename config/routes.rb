@@ -26,18 +26,20 @@ Rails.application.routes.draw do
     get '/logout' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  # ------------------------------------------ Builder
+  # ------------------------------------------ Editor
 
   # # Dashboard Routes (helps keep new sites away from sites controller)
   # get 'sites' => 'builder/dashboard#index', :as => :builder_dashboard
   # get 'sites/new' => 'builder/dashboard#new', :as => :new_builder_site
   # post 'sites' => 'builder/dashboard#create', :as => :builder_sites
 
-  # namespace :builder, :path => '' do
+  scope ':site_uid' do
+    get '/' => 'editor/base#home' # Redirects hanging URI segments
 
-  #   # Sites
-  #   resources :sites, :param => :slug, :except => [:index, :new, :create],
-  #             :path_names => { :edit => :settings } do
+    namespace :editor do
+      get '/' => 'base#home' # Redirects hanging URI segments
+
+      resources :pages
 
   #     # Site Settings
   #     get 'settings/croppers' => 'sites#croppers', :as => :cropper
@@ -124,7 +126,8 @@ Rails.application.routes.draw do
   #     # Users
   #     resources :users, :except => [:show]
   #   end
-  # end
+    end
+  end
 
   # ------------------------------------------ Viewer
 

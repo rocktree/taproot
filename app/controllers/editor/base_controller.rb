@@ -20,12 +20,11 @@ class Editor::BaseController < ActionController::Base
   before_filter :eager_load_services
 
   def home
-    raise all_sites.size.to_s
-    # if current_user.has_sites? || admin?
-    #   redirect_to(builder_dashboard_path)
-    # else
-    #   sign_out_and_redirect(current_user)
-    # end
+    if current_user.has_sites? || current_user.is_admin?
+      redirect_to(editor_pages_path(current_user.first_site))
+    else
+      sign_out_and_redirect(current_user)
+    end
   end
 
   private
@@ -40,7 +39,6 @@ class Editor::BaseController < ActionController::Base
 
     def eager_load_services
       @current_object = CurrentObject.new(request, params)
-      @collection = Collection.new(request, params)
     end
 
     def method_missing(method, *arguments, &block)
@@ -49,8 +47,6 @@ class Editor::BaseController < ActionController::Base
       rescue
         if method.to_s =~ /^current\_/
           @current_object.send(method.to_s.split('_')[1..-1].join('_'))
-        elsif @collection.methods.include?(method)
-          @collection.send(method.to_s)
         end
       end
     end
