@@ -80,8 +80,11 @@ end
 
 group :development, :test do
   gem 'annotate'
+  gem 'capybara'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'launchy'
   gem 'rspec-rails'
-  gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
