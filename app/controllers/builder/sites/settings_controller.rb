@@ -1,4 +1,4 @@
-class Builder::Sites::SettingsController < BuilderController
+class Builder::Sites::SettingsController < Editor::BaseController
 
   include SettingsHelper
 

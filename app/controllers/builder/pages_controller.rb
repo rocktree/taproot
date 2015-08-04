@@ -1,4 +1,4 @@
-class Builder::PagesController < BuilderController
+class Builder::PagesController < Editor::BaseController
 
   before_filter :verify_current_page, :except => [:index, :new, :create]
   before_filter :set_nav, :except => [:index]

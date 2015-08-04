@@ -1,4 +1,4 @@
-class Builder::Forms::FieldsController < BuilderController
+class Builder::Forms::FieldsController < Editor::BaseController
 
   before_filter :verify_admin
 

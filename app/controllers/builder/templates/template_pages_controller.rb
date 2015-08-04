@@ -1,4 +1,4 @@
-class Builder::Templates::TemplatePagesController < BuilderController
+class Builder::Templates::TemplatePagesController < Editor::BaseController
 
   before_filter :verify_admin
 

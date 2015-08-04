@@ -1,4 +1,4 @@
-class Builder::DocumentsController < BuilderController
+class Builder::DocumentsController < Editor::BaseController
 
   include DocumentsHelper
 

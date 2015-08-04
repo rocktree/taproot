@@ -1,4 +1,4 @@
-class Builder::Templates::GroupsController < BuilderController
+class Builder::Templates::GroupsController < Editor::BaseController
 
   before_filter :verify_current_template
   before_filter :verify_admin

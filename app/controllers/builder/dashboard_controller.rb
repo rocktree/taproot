@@ -1,4 +1,4 @@
-class Builder::DashboardController < BuilderController
+class Builder::DashboardController < Editor::BaseController
 
   before_filter :set_classes
 

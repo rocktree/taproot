@@ -1,4 +1,4 @@
-class Builder::ResourcesController < BuilderController
+class Builder::ResourcesController < Editor::BaseController
 
   before_filter :verify_current_resource_type, :except => [:index, :new, :create]
   before_filter :verify_admin

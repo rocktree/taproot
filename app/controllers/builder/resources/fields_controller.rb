@@ -1,4 +1,4 @@
-class Builder::Resources::FieldsController < BuilderController
+class Builder::Resources::FieldsController < Editor::BaseController
 
   before_filter :verify_admin
 

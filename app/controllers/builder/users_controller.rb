@@ -1,4 +1,4 @@
-class Builder::UsersController < BuilderController
+class Builder::UsersController < Editor::BaseController
 
   before_action :set_user, :except => [:index, :create]
   before_filter :verify_admin

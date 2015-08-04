@@ -1,4 +1,4 @@
-class Builder::Templates::FieldsController < BuilderController
+class Builder::Templates::FieldsController < Editor::BaseController
 
   before_filter :verify_current_template
   before_filter :verify_admin

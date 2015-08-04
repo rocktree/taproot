@@ -1,4 +1,4 @@
-class Builder::SitesController < BuilderController
+class Builder::SitesController < Editor::BaseController
 
   before_filter :set_layout_options
   before_filter :verify_admin, :except => [:index, :show]

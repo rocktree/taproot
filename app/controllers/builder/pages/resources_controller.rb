@@ -1,4 +1,4 @@
-class Builder::Pages::ResourcesController < BuilderController
+class Builder::Pages::ResourcesController < Editor::BaseController
 
   before_filter :verify_current_page
 

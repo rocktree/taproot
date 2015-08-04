@@ -1,4 +1,4 @@
-class Builder::FormsController < BuilderController
+class Builder::FormsController < Editor::BaseController
 
   before_filter :verify_admin, :except => [:index, :show]
 
