@@ -78,6 +78,10 @@ end
 
 # ------------------------------------------ Development/Test
 
+group :development do
+  gem 'guard-rspec', :require => false
+end
+
 group :development, :test do
   gem 'annotate'
   gem 'capybara'
