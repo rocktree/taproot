@@ -32,20 +32,37 @@ describe User, :type => :model do
     @admin_user = FactoryGirl.create(:admin_user)
   end
 
-  # ------------------------------------------ API
-
-  it 'has a 32-character API key' do
-    expect(@user.api_key.size).to eq(32)
+  context 'without a name' do
+    before(:all) { @user = FactoryGirl.create(:user, :name => nil) }
+    it 'returns an empty string for its first name' do
+      expect(@user.p.first_name).to eq('')
+    end
+    it 'returns an empty string for its last name' do
+      expect(@user.p.last_name).to eq('')
+    end
+    it 'returns the email address for its name' do
+      expect(@user.p.name).to eq(@user.email)
+    end
   end
 
-  # ------------------------------------------ Permissions
-
-  it 'is a site user if it is not an admin' do
-    expect(@user.site_user?).to eq(true)
+  context 'with a name' do
+    before(:all) { @user = FactoryGirl.create(:user, :name => 'John Smith') }
+    it 'has a first name' do
+      expect(@user.p.first_name).to eq('John')
+    end
+    it 'has a last name' do
+      expect(@user.p.last_name).to eq('Smith')
+    end
   end
 
-  it 'is not a site user if it is an admin' do
-    expect(@admin_user.site_user?).to eq(false)
+  context 'with three names' do
+    before(:all) { @user = FactoryGirl.create(:user, :name => 'John Louis Smith') }
+    it 'has a first name' do
+      expect(@user.p.first_name).to eq('John')
+    end
+    it 'has a last name' do
+      expect(@user.p.last_name).to eq('Smith')
+    end
   end
 
 end
