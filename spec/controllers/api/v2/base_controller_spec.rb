@@ -16,7 +16,6 @@ describe Api::V2::BaseController do
         expect(response.status).to eq(406)
       end
     end
-
     context 'with a valid API key' do
       it 'return 406' do
         @request.headers['X-Api-Key'] = @valid_api_key
@@ -35,7 +34,6 @@ describe Api::V2::BaseController do
         expect(response.status).to eq(401)
       end
     end
-
     context 'with a valid API key' do
       it 'return 200' do
         @request.headers['X-Api-Key'] = @valid_api_key
