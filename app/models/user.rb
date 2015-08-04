@@ -59,10 +59,6 @@ class User < ActiveRecord::Base
 
   # ------------------------------------------ Instance Methods
 
-  def is_admin?
-    admin?
-  end
-
   def site_user?
     !admin?
   end
