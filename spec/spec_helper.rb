@@ -94,7 +94,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  config.after(:suite) do
+  config.after(:each) do
     DatabaseCleaner.clean
   end
 end
