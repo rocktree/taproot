@@ -38,14 +38,54 @@ describe User, :type => :model do
     expect(@user.api_key.size).to eq(32)
   end
 
-  # ------------------------------------------ Permissions
+  # ------------------------------------------ Site User
 
-  it 'is a site user if it is not an admin' do
-    expect(@user.site_user?).to eq(true)
+  context 'without admin privileges' do
+    before :all do
+      FactoryGirl.create_list(:site, 5)
+      FactoryGirl.create_list(:site_user, 4, :user => @user)
+    end
+    it 'is a site user' do
+      expect(@user.site_user?).to eq(true)
+    end
+    it 'is only associated to their sites' do
+      expect(@user.sites.size).to eq(4)
+    end
+    it 'defaults to the first associated site' do
+      site = @user.site_user_sites.order(:title => :asc).first
+      expect(@user.first_site).to eq(site)
+    end
+    it 'has sites if it has been granted access' do
+      expect(@user.has_sites?).to eq(true)
+    end
+    it 'does not have sites, even when sites exist, if it has not been given access' do
+      expect(FactoryGirl.create(:user).has_sites?).to eq(false)
+    end
   end
 
-  it 'is not a site user if it is an admin' do
-    expect(@admin_user.site_user?).to eq(false)
+  # ------------------------------------------ Admin
+
+  context 'with admin privileges' do
+    before :all do
+      FactoryGirl.create_list(:site, 5)
+    end
+    it 'is not a site user' do
+      expect(@admin_user.site_user?).to eq(false)
+    end
+    it 'is associated to all sites' do
+      expect(@admin_user.sites.size).to eq(Site.all.size)
+    end
+    it 'defaults to the first site in the application' do
+      expect(@admin_user.first_site).to eq(Site.alpha.first)
+    end
+    it 'has sites as long as a site exists' do
+      expect(@admin_user.has_sites?).to eq(true)
+    end
+    it 'does not have sites only if no sites exist' do
+      Site.destroy_all
+      expect(@admin_user.has_sites?).to eq(false)
+      FactoryGirl.create_list(:site, 5)
+    end
   end
 
 end

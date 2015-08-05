@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   # ------------------------------------------ Associations
 
   has_many :site_users
-  has_many :sites, :through => :site_users
+  has_many :site_user_sites, :through => :site_users, :source => :site
   has_many :activities
 
   # ------------------------------------------ Validations
@@ -63,16 +63,16 @@ class User < ActiveRecord::Base
     !admin?
   end
 
-  def all_sites
-    @all_sites ||= admin? ? Site.alpha : sites.alpha
+  def sites
+    @sites ||= admin? ? Site.alpha : site_user_sites.alpha
   end
 
   def first_site
-    @first_site ||= all_sites.first
+    @first_site ||= sites.first
   end
 
   def has_sites?
-    all_sites.size > 0
+    sites.size > 0
   end
 
   private

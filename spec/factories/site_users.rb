@@ -12,10 +12,9 @@
 #
 
 FactoryGirl.define do
-  factory :site do
-    title { Faker::Lorem.words(4).join(' ') }
-    git_url { Faker::Internet.url }
-    uid { SecureRandom.hex(12) }
+  factory :site_user do
+    site
+    user
   end
 
 end
