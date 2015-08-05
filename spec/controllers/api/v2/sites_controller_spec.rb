@@ -4,7 +4,7 @@ require 'fileutils'
 describe Api::V2::SitesController do
 
   before :all do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     @valid_api_key = user.api_key
     @good_data = {
       :site => "{

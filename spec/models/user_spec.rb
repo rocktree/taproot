@@ -28,8 +28,8 @@ require 'rails_helper'
 describe User, :type => :model do
 
   before :all do
-    @user = FactoryGirl.create(:user)
-    @admin_user = FactoryGirl.create(:admin_user)
+    @user = create(:user)
+    @admin_user = create(:admin_user)
   end
 
   # ------------------------------------------ API
@@ -42,8 +42,8 @@ describe User, :type => :model do
 
   context 'without admin privileges' do
     before :all do
-      FactoryGirl.create_list(:site, 5)
-      FactoryGirl.create_list(:site_user, 4, :user => @user)
+      create_list(:site, 5)
+      create_list(:site_user, 4, :user => @user)
     end
     it 'is a site user' do
       expect(@user.site_user?).to eq(true)
@@ -59,7 +59,7 @@ describe User, :type => :model do
       expect(@user.has_sites?).to eq(true)
     end
     it 'does not have sites, even when sites exist, if it has not been given access' do
-      expect(FactoryGirl.create(:user).has_sites?).to eq(false)
+      expect(create(:user).has_sites?).to eq(false)
     end
   end
 
@@ -67,7 +67,7 @@ describe User, :type => :model do
 
   context 'with admin privileges' do
     before :all do
-      FactoryGirl.create_list(:site, 5)
+      create_list(:site, 5)
     end
     it 'is not a site user' do
       expect(@admin_user.site_user?).to eq(false)
@@ -84,7 +84,7 @@ describe User, :type => :model do
     it 'does not have sites only if no sites exist' do
       Site.destroy_all
       expect(@admin_user.has_sites?).to eq(false)
-      FactoryGirl.create_list(:site, 5)
+      create_list(:site, 5)
     end
   end
 

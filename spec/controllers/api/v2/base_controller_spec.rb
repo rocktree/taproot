@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Api::V2::BaseController do
 
   before :all do
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     @valid_api_key = user.api_key
   end
 

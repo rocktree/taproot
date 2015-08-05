@@ -20,7 +20,7 @@ class Editor::BaseController < ActionController::Base
   before_filter :eager_load_services
 
   def home
-    if current_user.has_sites? || current_user.is_admin?
+    if current_user.has_sites? || current_user.admin?
       redirect_to(editor_pages_path(current_user.first_site))
     else
       sign_out_and_redirect(current_user)

@@ -18,8 +18,8 @@ RSpec.describe FormSubmission, :type => :model do
 
   #   context 'with no notification_emails' do
   #     it 'sends no emails' do
-  #       form = FactoryGirl.create(:form, :notification_emails => nil)
-  #       form_submission = FactoryGirl.create(
+  #       form = create(:form, :notification_emails => nil)
+  #       form_submission = create(
   #         :form_submission,
   #         :form => form
   #       )
@@ -30,8 +30,8 @@ RSpec.describe FormSubmission, :type => :model do
   #   end
   #   context 'with one notification_email' do
   #     it 'sends one email' do
-  #       form = FactoryGirl.create(:form, :notification_emails => 'dinkus@me.org')
-  #       form_submission = FactoryGirl.create(
+  #       form = create(:form, :notification_emails => 'dinkus@me.org')
+  #       form_submission = create(
   #         :form_submission,
   #         :form => form
   #       )
@@ -41,10 +41,10 @@ RSpec.describe FormSubmission, :type => :model do
   #   end
   #   context 'with 2 notification_emails' do
   #     it 'sends two emails' do
-  #       form = FactoryGirl.create(
+  #       form = create(
   #         :form,
   #         :notification_emails => "dinkus@me.org\ndonkus@dingle.sexy")
-  #       form_submission = FactoryGirl.create(
+  #       form_submission = create(
   #         :form_submission,
   #         :form => form
   #       )
@@ -55,11 +55,11 @@ RSpec.describe FormSubmission, :type => :model do
   #   context 'with subject-specific notification_emails' do
 
   #     before :each do
-  #       @form = FactoryGirl.create(
+  #       @form = create(
   #         :form,
   #         :notification_emails => "dinkus@me.org|f|hello\ndonkus@dingle.sexy|f|goodbye"
   #       )
-  #       @form_submission = FactoryGirl.create(
+  #       @form_submission = create(
   #         :form_submission,
   #         :form => @form,
   #         :field_data => {'f' => 'hello'}

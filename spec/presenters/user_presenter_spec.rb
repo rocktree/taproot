@@ -28,12 +28,12 @@ require 'rails_helper'
 describe User, :type => :model do
 
   before :all do
-    @user = FactoryGirl.create(:user)
-    @admin_user = FactoryGirl.create(:admin_user)
+    @user = create(:user)
+    @admin_user = create(:admin_user)
   end
 
   context 'without a name' do
-    before(:all) { @user = FactoryGirl.create(:user, :name => nil) }
+    before(:all) { @user = create(:user, :name => nil) }
     it 'returns an empty string for its first name' do
       expect(@user.p.first_name).to eq('')
     end
@@ -46,7 +46,7 @@ describe User, :type => :model do
   end
 
   context 'with a name' do
-    before(:all) { @user = FactoryGirl.create(:user, :name => 'John Smith') }
+    before(:all) { @user = create(:user, :name => 'John Smith') }
     it 'has a first name' do
       expect(@user.p.first_name).to eq('John')
     end
@@ -56,7 +56,7 @@ describe User, :type => :model do
   end
 
   context 'with three names' do
-    before(:all) { @user = FactoryGirl.create(:user, :name => 'John Louis Smith') }
+    before(:all) { @user = create(:user, :name => 'John Louis Smith') }
     it 'has a first name' do
       expect(@user.p.first_name).to eq('John')
     end
