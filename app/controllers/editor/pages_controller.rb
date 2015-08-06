@@ -1,17 +1,17 @@
-class Builder::PagesController < Editor::BaseController
+class Editor::PagesController < Editor::BaseController
 
   before_filter :verify_current_page, :except => [:index, :new, :create]
   before_filter :set_nav, :except => [:index]
   before_filter :verify_admin, :only => [:destroy]
 
   def index
-    if params[:search] && params[:search][:q]
-      q = params[:search][:q]
-      @pages = current_site.pages.search_content(params[:search][:q]).to_a
-      @pages = Kaminari.paginate_array(@pages).page(params[:page]).per(10)
-    else
-      redirect_to builder_route([home_page], :edit)
-    end
+    # if params[:search] && params[:search][:q]
+    #   q = params[:search][:q]
+    #   @pages = current_site.pages.search_content(params[:search][:q]).to_a
+    #   @pages = Kaminari.paginate_array(@pages).page(params[:page]).per(10)
+    # else
+    #   redirect_to builder_route([home_page], :edit)
+    # end
   end
 
   def show

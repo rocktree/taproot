@@ -16,15 +16,19 @@ feature 'Authentication' do
   context 'Authenticated User' do
     context 'has no sites' do
       scenario 'is signed out of the application after they login' do
-        puts page.current_path
+        @user.site_users.destroy_all
         sign_in @user
-        puts page.current_path
-        # puts page.methods.collect(&:to_s).sort
+        expect(page.current_path).to eq('/login')
       end
     end
 
     context 'has at least one site' do
-      scenario 'User is redirected to first site when they login'
+      scenario 'User is redirected to first site when they login' do
+        create(:site_user, :user => @user)
+        sign_in @user
+        expected_path = "/#{@user.first_site.uid}/editor/pages"
+        expect(page.current_path).to eq(expected_path)
+      end
     end
   end
 

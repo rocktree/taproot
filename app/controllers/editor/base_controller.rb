@@ -15,7 +15,7 @@ class Editor::BaseController < ActionController::Base
   )
 
   before_filter :authenticate_user!
-  before_filter :current_site, :except => [:home]
+  # before_filter :current_site, :except => [:home]
   before_filter :request_store
   before_filter :eager_load_services
 
