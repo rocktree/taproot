@@ -20,16 +20,16 @@ feature 'Site Toggle' do
       @trigger = page.find('.site-toggle .dropdown-trigger')
       @trigger.click
     end
-    it 'has a list of sites in alphabetical order, minus the current site' do
+    scenario 'has a list of sites in alphabetical order, minus the current site' do
       titles = (@user.sites - [@site]).collect(&:title)
       content = []
       page.all('.site-toggle ul li a').each { |link| content << link.text }
       expect(content.sort).to eq(titles)
     end
-    it 'has a trigger with the name of the current site' do
+    scenario 'has a trigger with the name of the current site' do
       expect(@trigger.text).to eq(@site.title)
     end
-    it 'provides working links to other sites' do
+    scenario 'provides working links to other sites' do
       page.all('.site-toggle ul li a')[1].click
       expected_path = "/#{(@user.sites - [@site])[1].uid}/editor/pages"
       expect(page.current_path).to eq(expected_path)
@@ -42,10 +42,10 @@ feature 'Site Toggle' do
       @site = create(:site)
       create(:site_user, :site => @site, :user => @user)
     end
-    it 'is not a dropdown menu if there is only one site' do
+    scenario 'is not a dropdown menu if there is only one site' do
       expect(page.all('.site-toggle.dropdown').size).to eq(0)
     end
-    it 'does not have a dropdown trigger if there is only one site' do
+    scenario 'does not have a dropdown trigger if there is only one site' do
       expect(page.all('.site-toggle .dropdown-trigger').size).to eq(0)
     end
   end

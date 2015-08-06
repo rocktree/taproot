@@ -28,13 +28,6 @@
   <%# end %>
 </div>
 
-<div class="user">
-  <%#= page_search_field if current_site && current_site.id.present? %>
-  <%#= icon_to('dashboard', root_path) %>
-  <%#= icon_to('cogs', '#') %>
-  <%#= icon_to('exit', destroy_user_session_path) %>
-  <%#= link_to('#') { avatar(current_user, 84) } %>
-</div>
  -->
 
 <div class="site-toggle <%= 'dropdown' if current_user.has_multiple_sites? %>">
@@ -52,4 +45,12 @@
       <% end %>
     </ul>
   <% end %>
+</div>
+
+<div class="user">
+  <%#= page_search_field if current_site && current_site.id.present? %>
+  <%#= icon_to('dashboard', root_path) %>
+  <%#= icon_to('cogs', '#') %>
+  <%= icon_to 'exit', destroy_user_session_path, :id => 'sign-out' %>
+  <%= link_to('#') { avatar(current_user, 84) } %>
 </div>

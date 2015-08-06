@@ -23,11 +23,17 @@ feature 'Authentication' do
     end
 
     context 'has at least one site' do
-      scenario 'User is redirected to first site when they login' do
+      before :all do
         create(:site_user, :user => @user)
+      end
+      scenario 'User is redirected to first site when they login' do
         sign_in @user
         expected_path = "/#{@user.first_site.uid}/editor/pages"
         expect(page.current_path).to eq(expected_path)
+      end
+      scenario 'User can login via a link in the header' do
+        sign_in @user
+        sign_out
       end
     end
   end
