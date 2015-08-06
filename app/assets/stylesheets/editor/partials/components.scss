@@ -311,12 +311,11 @@ div.dropdown {
   ul {
     display: none;
     position: absolute;
+    top: 30px;
     min-width: 100%;
     @include clear-list;
-    background: $color-light;
+    background: #ffffff;
     border: 1px solid $color-grey-lightest;
-    border-radius: 3px;
-    box-shadow: 0px 0px 3px $color-light-darkest;
     z-index: 999;
     &.active {
       display: block;
@@ -324,14 +323,20 @@ div.dropdown {
     li {
       text-align: left;
       overflow: hidden;
+      &.h1 {
+        margin: 10px 15px 5px 15px;
+        font-size: 16px;
+        font-weight: 600;
+      }
       a {
         display: block;
         font-size: 14px;
-        padding: 5px 15px;
+        padding: 10px 15px;
         color: $color-grey-dark;
+        @include transition(background 0.25s linear);
         &:hover {
           color: $color-grey-dark;
-          background: $color-light-dark;
+          background: $color-light;
         }
       }
     }

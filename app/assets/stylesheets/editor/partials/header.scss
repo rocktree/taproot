@@ -33,82 +33,40 @@
   }
 
   div.site-toggle {
-    &.dropdown {
-      > a {
-        &:after {
-          content: "\e3b2";
-        }
-      }
-    }
+    position: absolute;
+    right: 100px;
+    top: 15px;
     > a {
-      &:after {
-        content: none;
+      margin: 0;
+      padding: 0px;
+      color: $color-dark-lightest;
+      background: transparent;
+    }
+    &.dropdown {
+      ul {
+        min-width: 220px;
       }
     }
   }
 
-//   .site-title {
-//     position: relative;
-//     display: inline-block;
-//     margin: 0 0 0 15px;
-//     h2 {
-//       display: inline-block;
-//       margin: 0;
-//       line-height: 18px;
-//       font-weight: 600;
-//       font-size: 18px;
-//       font-style: italic;
-//       a {
-//         display: inline-block;
-//         margin: 2px 0 0 0;
-//         font-weight: inherit;
-//         font-size: inherit;
-//         font-style: inherit;
-//         color: $color-light;
-//         &.site-nav-trigger {
-//           display: inline-block;
-//           margin-left: 8px;
-//           font-style: normal;
-//         }
-//       }
-//     }
-//     .site-nav {
-//       display: none;
-//       position: absolute;
-//       top: 43px;
-//       left: -19px;
-//       min-width: 200px;
-//       background: $color-light-dark;
-//       &.active {
-//         display: block;
-//       }
-//       ul {
-//         @include clear-list;
-//         li {
-//           display: block;
-//           a {
-//             display: block;
-//             padding: 8px 20px;
-//             line-height: 1.25em;
-//             @include transition-all;
-//             color: $color-dark;
-//             &:hover {
-//               background: $color-light-darker;
-//             }
-//             &:before {
-//               font-size: 14px;
-//               margin-right: 5px;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-
-//   .user {
-//     position: absolute;
-//     right: 0;
-//     top: 9px;
+  div.user {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    a {
+      margin-left: 5px;
+      color: $color-light;
+      &:active, &:focus {
+        border: none;
+        outline: none;
+      }
+      i {
+        color: $color-dark-lightest;
+      }
+    }
+    .avatar-container {
+      border-radius: 5px;
+    }
 //     margin: 0 15px 0 0;
 //     div.page-search-container {
 //       display: inline-block;
@@ -144,5 +102,5 @@
 //         color: $color-light;
 //       }
 //     }
-//   }
+  }
 }
