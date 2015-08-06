@@ -33,7 +33,8 @@ Rails.application.routes.draw do
   # get 'sites/new' => 'builder/dashboard#new', :as => :new_builder_site
   # post 'sites' => 'builder/dashboard#create', :as => :builder_sites
 
-  scope ':site_uid' do
+  # scope ':site_uid' do
+  resources :sites, :param => :uid, :path => '', :only => [:show] do
     get '/' => 'editor/base#home' # Redirects hanging URI segments
 
     namespace :editor do

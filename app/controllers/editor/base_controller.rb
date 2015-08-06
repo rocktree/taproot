@@ -1,7 +1,12 @@
-class Editor::BaseController < ActionController::Base
+class EditorController < ActionController::Base
+end
+
+class Editor::BaseController < EditorController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  helper_method :method_missing
 
   include(
     # ApplicationHelper,
@@ -15,13 +20,13 @@ class Editor::BaseController < ActionController::Base
   )
 
   before_filter :authenticate_user!
-  # before_filter :current_site, :except => [:home]
   before_filter :request_store
   before_filter :eager_load_services
 
   def home
     if current_user.has_sites? || current_user.admin?
-      redirect_to(editor_pages_path(current_user.first_site))
+      site = current_site.nil? ? current_user.first_site : current_site
+      redirect_to(site_editor_pages_path(site))
     else
       sign_out_and_redirect(current_user)
     end

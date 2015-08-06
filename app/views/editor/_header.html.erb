@@ -1,0 +1,55 @@
+<div class="logo">
+  <h1><%= link_to 'topkit', root_path %></h1>
+</div>
+
+<!-- <div class="site-title">
+  <%#= content_tag(:h2) do %>
+    <%#= current_view_title %>
+    <%#= link_to('', '#', :class => 'icon-arrow-down site-nav-trigger') if
+      current_site && current_site.id.present? %>
+  <%# end %>
+  <%# if current_site && current_site.id.present? %>
+    <div class="site-nav">
+      <ul>
+        <%# read_nav_config('builder_site_nav').each do |name, data| %>
+          <%# if (data['admin'].present? && data['admin'] == true && admin?) ||
+                data['admin'].blank? %>
+            <li>
+              <%#= link_to(
+                data['label'],
+                send(data['path'], current_site),
+                :class => "icon-#{data['icon']}"
+              ) %>
+            </li>
+          <%# end %>
+        <%# end %>
+      </ul>
+    </div>
+  <%# end %>
+</div>
+
+<div class="user">
+  <%#= page_search_field if current_site && current_site.id.present? %>
+  <%#= icon_to('dashboard', root_path) %>
+  <%#= icon_to('cogs', '#') %>
+  <%#= icon_to('exit', destroy_user_session_path) %>
+  <%#= link_to('#') { avatar(current_user, 84) } %>
+</div>
+ -->
+
+<div class="site-toggle <%= 'dropdown' if current_user.has_multiple_sites? %>">
+  <%= link_to(
+    current_site.title,
+    site_editor_path(current_site),
+    :class => (
+      current_user.has_multiple_sites? ? 'dropdown-trigger' : 'disabled'
+    )
+  ) %>
+  <% if current_user.has_multiple_sites? %>
+    <ul>
+      <% (current_user.sites - [current_site]).each do |site| %>
+        <%= content_tag(:li, link_to(site.title, site_editor_path(site))) %>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

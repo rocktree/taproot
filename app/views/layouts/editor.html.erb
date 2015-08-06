@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="public">
-  <%= partial 'head' %>
+  <%= partial 'application/head',
+              :locals => { :css_path => 'editor/application' } %>
   <body <%#= library_attr %>>
 
-    <%= partial 'status' %>
+    <%= partial 'application/status' %>
 
     <div id="container">
       <%= content_tag(:header, render('header')) %>

@@ -1,0 +1,59 @@
+// $sidebar-width: 250px;
+// $header-height: 62px;
+// $site-header-height: 108px;
+
+body {
+  #container {
+    > header {
+      // position: fixed;
+      // width: 100%;
+      // top: 0;
+      // left: 0;
+      // padding: 0;
+      // z-index: 9999;
+    }
+//     #content {
+//       position: relative;
+//       width: 100%;
+//       margin: 75px auto 25px auto;
+//       padding: 0 25px;
+//       font-size: 0;
+//     }
+//     aside {
+//       position: fixed;
+//       top: 0;
+//       width: 250px;
+//       height: 100%;
+//       padding-top: 62px;
+//       z-index: 999;
+//       &#current-nav {
+//         left: 0;
+//         background-color: $color-dark-light;
+//       }
+//       &#drilldown-nav {
+//         right: 0;
+//         background-color: $color-light-dark;
+//       }
+//     }
+//     #current-nav + #content {
+//       padding-left: 275px;
+//     }
+//     #drilldown-nav + #content {
+//       padding-right: 275px;
+//     }
+//     #content:nth-child(4) {
+//       padding: 0 275px;
+//     }
+  }
+}
+
+body.sign-in {
+  #container {
+    #content {
+      max-width: 400px;
+      margin: 25px auto;
+      padding: 25px;
+      border: 1px solid $color-grey;
+    }
+  }
+}

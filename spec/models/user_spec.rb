@@ -61,6 +61,14 @@ describe User, :type => :model do
     it 'does not have sites, even when sites exist, if it has not been given access' do
       expect(create(:user).has_sites?).to eq(false)
     end
+    it 'has multiple sites if it has been granted access to more than one site' do
+      expect(@user.has_multiple_sites?).to eq(true)
+    end
+    it 'does not have multiple sites if it does not have access to more than one site' do
+      user = create(:user)
+      create(:site_user, :user => user)
+      expect(user.has_multiple_sites?).to eq(false)
+    end
   end
 
   # ------------------------------------------ Admin
@@ -79,11 +87,22 @@ describe User, :type => :model do
       expect(@admin_user.first_site).to eq(Site.alpha.first)
     end
     it 'has sites as long as a site exists' do
+      create(:site)
       expect(@admin_user.has_sites?).to eq(true)
     end
     it 'does not have sites only if no sites exist' do
       Site.destroy_all
       expect(@admin_user.has_sites?).to eq(false)
+      create_list(:site, 5)
+    end
+    it 'has multiple sites if more than one site exist' do
+      create_list(:site, 2)
+      expect(@admin_user.has_multiple_sites?).to eq(true)
+    end
+    it 'does not have multiple sites if only one sites exists' do
+      Site.destroy_all
+      create(:site)
+      expect(@admin_user.has_multiple_sites?).to eq(false)
       create_list(:site, 5)
     end
   end

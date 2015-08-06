@@ -75,6 +75,10 @@ class User < ActiveRecord::Base
     sites.size > 0
   end
 
+  def has_multiple_sites?
+    sites.size > 1
+  end
+
   private
 
     def save_activity
