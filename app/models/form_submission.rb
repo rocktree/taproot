@@ -47,7 +47,7 @@ class FormSubmission < ActiveRecord::Base
     form.notification_emails.split("\n").collect(&:strip).each do |email|
       email_options = email.split('|')
       if email_options.size > 1
-        if self.field_data[email_options[1]] == email_options[2]
+        if self.field_data[email_options[1]].strip == email_options[2].strip
           emails << email_options[0]
         end
       else
