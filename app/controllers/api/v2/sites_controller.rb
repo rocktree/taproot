@@ -20,4 +20,14 @@ class Api::V2::SitesController < Api::V2::BaseController
     end
   end
 
+  def deploy
+    begin
+      site = eval(params['site'])
+      uid = site[:uid]
+      puts uid
+    rescue Exception => e
+      render :json => { 'ERROR' => e.message }, :status => 500
+    end
+  end
+
 end
