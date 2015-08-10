@@ -62,9 +62,14 @@ describe Api::V2::SitesController do
             :slug => 'hello-world-123',
             :git_url => 'git@github.com:topicdesign/topkit-test-template.git',
             :uid => @uid
-            # TODO: Add template JSON here
           ).first
           expect(site.id.present?).to eq(true)
+        end
+        it 'saves template config to the database' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
+          site = Site.find_by_uid(@uid)
+          expect(site.templates['home']['title']).to eq('Home')
         end
       end
       context 'with an empty git_url' do

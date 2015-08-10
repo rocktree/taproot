@@ -14,6 +14,7 @@ class Api::V2::SitesController < Api::V2::BaseController
         :uid => config['uid'],
         :git_url => git_url
       )
+      @site.update_config!
       render :json => config, :status => 200
     rescue Exception => e
       render :json => { 'ERROR' => e.message }, :status => 500
