@@ -15,11 +15,10 @@ describe Api::V2::SitesController do
     @missing_git_url = { :site => {} }
     @empty_data = {}
     @uid = '69b0386a13b44503881d516a2c19cc4a2bf48974d552a397'
-    @uid_data = {
-      :site => "{
-        :uid => #{@uid}
-      }"
-    }
+    @uid_data = { :site => "{ :uid => '#{@uid}' }" }
+    @wrong_uid = { :site => "{ :uid => '123' }" }
+    @empty_uid = { :site => "{ :uid => '' }" }
+    @missing_uid = { :site => "{}" }
   end
 
   before :each do
@@ -110,16 +109,42 @@ describe Api::V2::SitesController do
       context 'and a valid uid' do
         it 'will deploy a site that already exists' do
           @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
           post :deploy, @uid_data.merge(:format => 'json')
           expect(response.status).to eq(200)
         end
-        # TODO: Change the JSON for the template (need a different reference)?
-        it 'adds updated template config to the site in the database'
-        it 'returns 500 when the site files do not exist'
+        it 'adds updated template config to the site in the database' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
+          post :deploy, @uid_data.merge(:format => 'json')
+          site = Site.find_by_uid(@uid)
+          expect(site.templates['home']['title']).to eq('Home')
+        end
+        it 'returns 500 when the site files do not exist' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :deploy, @uid_data.merge(:format => 'json')
+          expect(response.status).to eq(500)
+        end
       end
       context 'and an invalid uid' do
-        it 'returns 500 when the uid is missing'
-        it 'returns 500 when the uid is not in the database'
+        it 'returns 500 when the uid is empty' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
+          post :deploy, @empty_uid.merge(:format => 'json')
+          expect(response.status).to eq(500)
+        end
+        it 'returns 500 when the uid is wrong' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
+          post :deploy, @wrong_uid.merge(:format => 'json')
+          expect(response.status).to eq(500)
+        end
+        it 'returns 500 when the uid is missing' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
+          post :deploy, @missing_uid.merge(:format => 'json')
+          expect(response.status).to eq(500)
+        end
       end
     end
   end
