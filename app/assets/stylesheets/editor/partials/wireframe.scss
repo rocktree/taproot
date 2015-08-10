@@ -5,6 +5,8 @@
 body {
   #container {
     > header {
+      position: relative;
+      z-index: 999;
       // position: fixed;
       // width: 100%;
       // top: 0;
@@ -19,13 +21,15 @@ body {
 //       padding: 0 25px;
 //       font-size: 0;
 //     }
-//     aside {
-//       position: fixed;
-//       top: 0;
-//       width: 250px;
-//       height: 100%;
-//       padding-top: 62px;
-//       z-index: 999;
+    aside#sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      padding-top: 62px;
+      z-index: 99;
+    }
 //       &#current-nav {
 //         left: 0;
 //         background-color: $color-dark-light;
@@ -34,7 +38,6 @@ body {
 //         right: 0;
 //         background-color: $color-light-dark;
 //       }
-//     }
 //     #current-nav + #content {
 //       padding-left: 275px;
 //     }

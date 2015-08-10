@@ -1,3 +1,16 @@
+<aside id="sidebar">
+  <div id="new-button-container">
+    <%= link_to 'New', '#', :id => 'new-button',
+                :class => 'new button-color-2' %>
+    <ul>
+      <li>
+        <%= link_to('Page', new_site_editor_page_path(current_site)) %>
+      </li>
+    </ul>
+  </div>
+  <nav></nav>
+</aside>
+
 <!-- <%#= drilldown_nav do %>
   <%#= drilldown_nav_new('New Site', new_builder_site_path) if admin? %>
   <%# my_sites.each do |site| %>

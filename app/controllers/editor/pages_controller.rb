@@ -34,9 +34,9 @@ class Editor::PagesController < Editor::BaseController
   end
 
   def new
-    redirect_to builder_site_path(current_site) unless params[:template]
-    @current_template = site_templates.find_by_slug(params[:template])
-    @current_page = Page.new
+    # redirect_to builder_site_path(current_site) unless params[:template]
+    # @current_template = site_templates.find_by_slug(params[:template])
+    # @current_page = Page.new
   end
 
   def create
