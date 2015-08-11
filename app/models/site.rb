@@ -27,8 +27,7 @@ class Site < ActiveRecord::Base
   has_many :users, :through => :site_users
   # has_many :templates, :dependent => :destroy
   has_many :resource_types, :dependent => :destroy
-  # has_many :webpages, :through => :templates, :dependent => :destroy,
-  #          :class_name => 'Page'
+  has_many :webpages, :dependent => :destroy, :class_name => 'Page'
   has_many :forms, :dependent => :destroy
   has_many :documents, :dependent => :destroy
   has_many :menus, :dependent => :destroy

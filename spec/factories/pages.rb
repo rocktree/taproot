@@ -8,23 +8,25 @@
 #  body       :text
 #  ancestry   :string(255)
 #  published  :boolean          default(FALSE)
-#  field_data :text
 #  created_at :datetime
 #  updated_at :datetime
 #  position   :integer          default(0)
 #  page_path  :string(255)
+#  site_id    :integer
+#  field_data :json
 #
 
 FactoryGirl.define do
   factory :page do
-    page_type_id 1
-title "MyString"
-slug "MyString"
-description "MyText"
-body "MyText"
-ancestry "MyString"
-published false
-field_data "MyText"
+    title { Faker::Lorem.words(4).join(' ') }
+    site
+
+    factory :published_page do
+      published true
+    end
+    factory :draft_page do
+      published false
+    end
   end
 
 end

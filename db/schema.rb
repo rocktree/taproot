@@ -158,11 +158,12 @@ ActiveRecord::Schema.define(version: 20150811152550) do
     t.text     "body"
     t.string   "ancestry"
     t.boolean  "published",  default: false
-    t.text     "field_data"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position",   default: 0
     t.string   "page_path"
+    t.integer  "site_id"
+    t.json     "field_data"
   end
 
   add_index "pages", ["ancestry"], name: "index_pages_on_ancestry", using: :btree
