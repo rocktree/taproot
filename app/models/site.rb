@@ -26,14 +26,14 @@ class Site < ActiveRecord::Base
   has_many :site_users
   has_many :users, :through => :site_users
   # has_many :templates, :dependent => :destroy
-  has_many :resource_types, :dependent => :destroy
+  # has_many :resource_types, :dependent => :destroy
   has_many :webpages, :dependent => :destroy, :class_name => 'Page'
-  has_many :forms, :dependent => :destroy
-  has_many :documents, :dependent => :destroy
-  has_many :menus, :dependent => :destroy
-  has_many :menu_items, :through => :menus
-  has_many :site_settings, :dependent => :destroy
-  has_many :domains, :dependent => :destroy
+  # has_many :forms, :dependent => :destroy
+  # has_many :documents, :dependent => :destroy
+  # has_many :menus, :dependent => :destroy
+  # has_many :menu_items, :through => :menus
+  # has_many :site_settings, :dependent => :destroy
+  # has_many :domains, :dependent => :destroy
 
   # ------------------------------------------ Scopes
 
@@ -50,28 +50,28 @@ class Site < ActiveRecord::Base
 
   # ------------------------------------------ Instance Method
 
+  def pages
+    @pages ||= Rails.env.production? ? webpages.published : webpages
+  end
+
   def to_param
     uid
   end
 
-  def site
-    self
-  end
+  # def files
+  #   documents
+  # end
 
-  def files
-    documents
-  end
+  # def redirect_domains
+  #   return [] if secondary_urls.blank?
+  #   secondary_urls.split("\n").collect(&:strip)
+  # end
 
-  def redirect_domains
-    return [] if secondary_urls.blank?
-    secondary_urls.split("\n").collect(&:strip)
-  end
-
-  def update_config!
-    config_dir = "#{Rails.root}/projects/#{slug}/config"
-    templates = YAML.load(File.read("#{config_dir}/templates.yml")).to_json
-    update_columns(:templates => templates)
-  end
+  # def update_config!
+  #   config_dir = "#{Rails.root}/projects/#{slug}/config"
+  #   templates = YAML.load(File.read("#{config_dir}/templates.yml")).to_json
+  #   update_columns(:templates => templates)
+  # end
 
   # def method_missing(method, *arguments, &block)
   #   begin
@@ -107,12 +107,8 @@ class Site < ActiveRecord::Base
   #   templates
   # end
 
-  def pages
-    Rails.env.production? ? webpages.published : webpages
-  end
-
-  def settings
-    site_settings
-  end
+  # def settings
+  #   site_settings
+  # end
 
 end
