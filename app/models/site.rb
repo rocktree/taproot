@@ -19,7 +19,7 @@ class Site < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include Slug
+  has_superslug
 
   # ------------------------------------------ Associations
 

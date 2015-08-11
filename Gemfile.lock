@@ -397,6 +397,8 @@ GEM
     sqlite3 (1.3.10)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
+    superslug (1.3.0)
+      rails (~> 4.1.0)
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -598,6 +600,7 @@ DEPENDENCIES
   sidekiq
   simple_form
   sitemap_generator
+  superslug (~> 1.3.0)
   uglifier
   unicorn-rails
   whenever
