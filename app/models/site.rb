@@ -57,6 +57,10 @@ class Site < ActiveRecord::Base
     uid
   end
 
+  def templates
+    Template.new(self)
+  end
+
   # def files
   #   documents
   # end
