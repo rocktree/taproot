@@ -15,7 +15,9 @@ class Resource < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include ResourceTypeSlug, ActivityLog
+  include ActivityLog
+
+  has_superslug :title, :slug, :context => :resource_type
 
   # ------------------------------------------ Attributes
 

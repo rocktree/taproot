@@ -24,7 +24,9 @@ class TemplateField < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include FieldSlug, ActivityLog
+  include ActivityLog
+
+  has_superslug :title, :slug, :context => :template
 
   # ------------------------------------------ Associations
 

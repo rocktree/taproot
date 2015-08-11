@@ -15,7 +15,7 @@ class TemplateGroup < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include TemplateSlug
+  has_superslug :title, :slug, :context => :template
 
   # ------------------------------------------ Associations
 

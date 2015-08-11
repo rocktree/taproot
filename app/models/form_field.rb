@@ -23,7 +23,9 @@ class FormField < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include FormSlug, ActivityLog
+  include ActivityLog
+
+  has_superslug :title, :slug, :context => :form
 
   # ------------------------------------------ Associations
 

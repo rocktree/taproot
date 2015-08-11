@@ -19,7 +19,9 @@ class ResourceType < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug, ActivityLog
+  include ActivityLog
+
+  has_superslug :title, :slug, :context => :site
 
   # ------------------------------------------ Associations
 

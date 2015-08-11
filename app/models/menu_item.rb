@@ -18,9 +18,11 @@ class MenuItem < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug, ActivityLog
+  include ActivityLog
 
   has_ancestry
+
+  has_superslug :title, :slug, :context => :site
 
   # ------------------------------------------ Attributes
 
