@@ -7,18 +7,18 @@ class CreateTemplateDescendants < ActiveRecord::Migration
       t.timestamps
     end
 
-    Template.serialize(:children, Array)
-    Template.all.each do |template|
-    template.children.reject(&:blank?).each do |child|
-        child_template = Template.find_by_slug(child.strip)
-        unless child_template.nil?
-          TemplateDescendant.create(
-            :parent_id => template.id,
-            :child_id => child_template.id
-          )
-        end
-      end
-    end
+    # Template.serialize(:children, Array)
+    # Template.all.each do |template|
+    # template.children.reject(&:blank?).each do |child|
+    #     child_template = Template.find_by_slug(child.strip)
+    #     unless child_template.nil?
+    #       TemplateDescendant.create(
+    #         :parent_id => template.id,
+    #         :child_id => child_template.id
+    #       )
+    #     end
+    #   end
+    # end
 
     # remove_column :templates, :children
   end

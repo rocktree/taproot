@@ -9,7 +9,6 @@
 #  updated_at :datetime
 #  git_url    :string(255)
 #  uid        :string(255)
-#  templates  :json
 #
 
 require 'active_support/inflector'

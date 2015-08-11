@@ -28,8 +28,8 @@ class ResourceType < ActiveRecord::Base
   belongs_to :site, :touch => true
   belongs_to :last_editor, :class_name => 'User'
 
-  has_many :template_resource_types
-  has_many :templates, :through => :template_resource_types
+  # has_many :template_resource_types
+  # has_many :templates, :through => :template_resource_types
 
   has_many :resources, :dependent => :destroy
   has_many :resource_fields, :dependent => :destroy

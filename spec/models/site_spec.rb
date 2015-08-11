@@ -1,19 +1,14 @@
 # == Schema Information
 #
-# Table name: pages
+# Table name: sites
 #
 #  id         :integer          not null, primary key
 #  title      :string(255)
 #  slug       :string(255)
-#  body       :text
-#  ancestry   :string(255)
-#  published  :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
-#  position   :integer          default(0)
-#  page_path  :string(255)
-#  site_id    :integer
-#  field_data :json
+#  git_url    :string(255)
+#  uid        :string(255)
 #
 
 require 'rails_helper'
