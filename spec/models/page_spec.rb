@@ -29,17 +29,11 @@ describe Page, :type => :model do
     it 'is a draft if it is not published' do
       expect(@draft_page.draft?).to eq(true)
     end
-    it 'has a draft status' do
-      expect(@draft_page.status).to eq('draft')
-    end
   end
 
   context 'Published page' do
     it 'is not a draft if it is published' do
       expect(@published_page.draft?).to eq(false)
-    end
-    it 'has a draft status' do
-      expect(@published_page.status).to eq('published')
     end
   end
 

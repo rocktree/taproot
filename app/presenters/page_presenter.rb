@@ -4,9 +4,9 @@ class PagePresenter
     @obj = obj
   end
 
-  # def name
-  #   @obj.name || @obj.email
-  # end
+  def status
+    @obj.published? ? 'published' : 'draft'
+  end
 
   # def first_name
   #   return '' if @obj.name.nil?
