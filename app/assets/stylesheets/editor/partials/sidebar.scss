@@ -2,15 +2,30 @@ aside#sidebar {
   background: $color-light-dark;
 
   #new-button-container {
-    text-align: center;
     #new-button {
-      padding: 10px 35px;
+      margin: 0 0 0 40px;
+      padding: 10px 50px;
       font-size: 13px;
       line-height: 13px;
       text-transform: uppercase;
+      border: 1px solid $color-2;
+      outline: 1px solid $color-2;
+      background: $color-2;
+      @include transition(none);
       &:hover {
         background: $color-2;
       }
+      &:before, &:after {
+        content: none;
+      }
+      &.active {
+        border: 1px solid $color-light;
+      }
+    }
+    ul {
+      top: 36px;
+      left: 38px;
+      min-width: 225px;
     }
   }
 }

@@ -4,6 +4,7 @@ class Editor::BaseController < EditorController
   protect_from_forgery with: :exception
 
   helper_method :all_sites,
+                :all_templates,
                 :current_site
 
   before_filter :authenticate_user!
@@ -26,6 +27,10 @@ class Editor::BaseController < EditorController
 
     def all_sites
       @all_sites ||= current_user.sites.alpha
+    end
+
+    def all_templates
+      @all_templates ||= current_site.templates.all
     end
 
     def current_site

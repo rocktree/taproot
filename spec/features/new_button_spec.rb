@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'New Button' do
+feature 'New button' do
 
   before :all do
     @user = create(:user, :password => 'password')
@@ -14,44 +14,35 @@ feature 'New Button' do
     create(:site_user, :site => @site, :user => @user)
   end
 
-  before :each do
-    sign_in @user
-    visit site_editor_path(@site)
+  describe 'dropdown menu', :js => true do
+    before :each do
+      sign_in @user
+      visit site_editor_path(@site)
+      @trigger = page.find('#new-button-container .dropdown-trigger')
+    end
+    scenario 'is not visible without clicking "New"' do
+      expect(page).to_not have_css('#new-button-container ul li a')
+    end
+    scenario 'is visible when clicking "New"' do
+      @trigger.click
+      expect(page).to have_css('#new-button-container ul li a')
+    end
+    scenario 'hides if "New" is clicked twice (toggled)' do
+      @trigger.click
+      @trigger.click
+      expect(page).to_not have_css('#new-button-container ul li a')
+    end
+    scenario 'has a new page link for each template' do
+      template_hrefs = @site.templates.all
+        .collect { |t| "#{@site.uid}/editor/pages/new?t=#{t.name}"}.sort
+      hrefs = []
+      @trigger.click
+      page.all('#new-button-container ul li a').each do |link|
+        href = link[:href].split('//').last.split('/')[1..-1].join('/')
+        hrefs << href
+      end
+      expect(hrefs.sort).to eq(template_hrefs)
+    end
   end
-
-  # describe 'Site dropdown menu', :js => true do
-  #   before :each do
-  #     @trigger = page.find('.site-toggle .dropdown-trigger')
-  #     @trigger.click
-  #   end
-  #   scenario 'has a list of sites in alphabetical order, minus the current site' do
-  #     titles = (@user.sites - [@site]).collect(&:title)
-  #     content = []
-  #     page.all('.site-toggle ul li a').each { |link| content << link.text }
-  #     expect(content.sort).to eq(titles)
-  #   end
-  #   scenario 'has a trigger with the name of the current site' do
-  #     expect(@trigger.text).to eq(@site.title)
-  #   end
-  #   scenario 'provides working links to other sites' do
-  #     page.all('.site-toggle ul li a')[1].click
-  #     expected_path = "/#{(@user.sites - [@site])[1].uid}/editor/pages"
-  #     expect(page.current_path).to eq(expected_path)
-  #   end
-  # end
-
-  # describe 'No dropdown menu (only one site)', :js => true do
-  #   before :all do
-  #     @user = create(:user, :password => 'password')
-  #     @site = create(:site)
-  #     create(:site_user, :site => @site, :user => @user)
-  #   end
-  #   scenario 'is not a dropdown menu if there is only one site' do
-  #     expect(page.all('.site-toggle.dropdown').size).to eq(0)
-  #   end
-  #   scenario 'does not have a dropdown trigger if there is only one site' do
-  #     expect(page.all('.site-toggle .dropdown-trigger').size).to eq(0)
-  #   end
-  # end
 
 end

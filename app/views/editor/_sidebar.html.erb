@@ -1,25 +1,15 @@
 <aside id="sidebar">
-  <div id="new-button-container">
+  <div id="new-button-container" class="dropdown">
     <%= link_to 'New', '#', :id => 'new-button',
-                :class => 'new button-color-2' %>
+                :class => 'new button-color-2 dropdown-trigger' %>
     <ul>
-      <li>
-        <%= link_to('Page', new_site_editor_page_path(current_site)) %>
-      </li>
+      <% all_templates.each do |t| %>
+        <li>
+          <%= link_to t.title,
+                      new_site_editor_page_path(current_site, :t => t.name) %>
+        </li>
+      <% end %>
     </ul>
   </div>
   <nav></nav>
 </aside>
-
-<!-- <%#= drilldown_nav do %>
-  <%#= drilldown_nav_new('New Site', new_builder_site_path) if admin? %>
-  <%# my_sites.each do |site| %>
-    <li>
-      <%#= link_to(builder_site_path(site)) do %>
-        <%#= content_tag(:span, site.title, :class => 'title') %>
-        <%#= content_tag(:span, site.slug, :class => 'slug') %>
-      <%# end %>
-    </li>
-  <%# end %>
-<%# end %>
- -->
