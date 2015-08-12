@@ -25,6 +25,7 @@ module App
     end
 
     config.autoload_paths += %W(#{config.root}/app/viewer_services)
+    config.autoload_paths += %W(#{config.root}/lib/utilities)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
