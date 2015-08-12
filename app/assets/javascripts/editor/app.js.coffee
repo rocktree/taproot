@@ -1,4 +1,5 @@
 window.App =
+  Components: {}
   Routers: {}
   Views: {}
 

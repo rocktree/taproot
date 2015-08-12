@@ -13,5 +13,6 @@
 //= require backbone
 //= require ./app
 //= require_tree ./templates
+//= require_tree ./components
 //= require_tree ./views
 //= require_tree ./routers
