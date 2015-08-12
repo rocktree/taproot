@@ -32,7 +32,6 @@ class Api::V2::SitesController < Api::V2::BaseController
       config = YAML.load_file("#{Rails.root}/projects/#{site.slug}/.config")
       render :json => config, :status => 200
     rescue Exception => e
-      puts e.message
       render :json => { 'ERROR' => e.message }, :status => 500
     end
   end

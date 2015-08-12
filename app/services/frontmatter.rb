@@ -9,9 +9,8 @@ class Frontmatter
       content = content.sub(yaml_regex, "")
       begin
         data = YAML.load($1)
-      rescue *YAML_ERRORS => e
-        logger.error "YAML Exception: #{e.message}"
-        return false
+      rescue Exception => e
+        raise "YAML Exception: #{e.message}"
       end
     else
       return [{}, content]
