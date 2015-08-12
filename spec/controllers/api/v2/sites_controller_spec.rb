@@ -24,6 +24,8 @@ describe Api::V2::SitesController do
   before :each do
     project_dir = "#{Rails.root}/projects/hello-world-123"
     FileUtils.rm_r(project_dir) if Dir.exists?(project_dir)
+    site = Site.find_by_uid(@uid)
+    site.destroy unless site.nil?
   end
 
   context 'When creating a site' do
@@ -64,12 +66,6 @@ describe Api::V2::SitesController do
             :uid => @uid
           ).first
           expect(site.id.present?).to eq(true)
-        end
-        it 'saves template config to the database' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          site = Site.find_by_uid(@uid)
-          expect(site.templates['home']['title']).to eq('Home')
         end
       end
       context 'with an empty git_url' do
@@ -117,13 +113,6 @@ describe Api::V2::SitesController do
           post :create, @good_data.merge(:format => 'json')
           post :deploy, @uid_data.merge(:format => 'json')
           expect(response.status).to eq(200)
-        end
-        it 'adds updated template config to the site in the database' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          post :deploy, @uid_data.merge(:format => 'json')
-          site = Site.find_by_uid(@uid)
-          expect(site.templates['home']['title']).to eq('Home')
         end
         it 'returns 500 when the site files do not exist' do
           @request.headers['X-Api-Key'] = @valid_api_key
