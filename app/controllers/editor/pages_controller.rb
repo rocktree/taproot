@@ -2,7 +2,6 @@ class Editor::PagesController < Editor::BaseController
 
   before_filter :verify_current_page, :except => [:index, :new, :create]
   before_filter :set_nav, :except => [:index]
-  before_filter :verify_admin, :only => [:destroy]
 
   def index
     # if params[:search] && params[:search][:q]

@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  name                   :string(255)
 #  settings               :text
-#  admin                  :boolean          default(FALSE)
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
@@ -38,7 +37,7 @@ class User < ActiveRecord::Base
   # ------------------------------------------ Associations
 
   has_many :site_users
-  has_many :site_user_sites, :through => :site_users, :source => :site
+  has_many :sites, :through => :site_users
   has_many :activities
 
   # ------------------------------------------ Validations
@@ -48,7 +47,6 @@ class User < ActiveRecord::Base
 
   # ------------------------------------------ Scopes
 
-  scope :admins, -> { where(:admin => true) }
   scope :alpha, -> { all.to_a.sort_by(&:last_name) }
 
   # ------------------------------------------ Callbacks
@@ -57,16 +55,8 @@ class User < ActiveRecord::Base
 
   # ------------------------------------------ Instance Methods
 
-  def site_user?
-    !admin?
-  end
-
-  def sites
-    @sites ||= admin? ? Site.alpha : site_user_sites.alpha
-  end
-
   def first_site
-    @first_site ||= sites.first
+    sites.alpha.first
   end
 
   def has_sites?

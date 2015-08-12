@@ -1,42 +1,15 @@
 class Builder::SitesController < Editor::BaseController
 
   before_filter :set_layout_options
-  before_filter :verify_admin, :except => [:index, :show]
 
   def index
     redirect_to builder_dashboard_path
-  end
-
-  def show
-  end
-
-  def edit
-    unless current_user.admin?
-      redirect_to(builder_site_path(current_site))
-    end
   end
 
   def update
     if current_site.update(site_params)
       redirect_to(
         route([current_site], :edit, 'builder'),
-        :notice => t('notices.updated', :item => "Site")
-      )
-    else
-      render('edit')
-    end
-  end
-
-  def croppers
-    unless current_user.admin?
-      redirect_to(builder_site_path(current_site))
-    end
-  end
-
-  def update_croppers
-    if current_site.update(site_params)
-      redirect_to(
-        builder_site_cropper_path(current_site),
         :notice => t('notices.updated', :item => "Site")
       )
     else
@@ -87,10 +60,6 @@ class Builder::SitesController < Editor::BaseController
   end
 
   private
-
-    def verify_admin
-      not_found unless current_user.admin?
-    end
 
     def site_params
       params.require(:site).permit(

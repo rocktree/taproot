@@ -5,7 +5,6 @@
 #  id         :integer          not null, primary key
 #  site_id    :integer
 #  user_id    :integer
-#  site_admin :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
 #

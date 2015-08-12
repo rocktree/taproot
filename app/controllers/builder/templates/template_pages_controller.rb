@@ -1,7 +1,5 @@
 class Builder::Templates::TemplatePagesController < Editor::BaseController
 
-  before_filter :verify_admin
-
   def index
     @pages = current_template_pages
     if params[:published]

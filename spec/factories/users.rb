@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  name                   :string(255)
 #  settings               :text
-#  admin                  :boolean          default(FALSE)
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
@@ -26,10 +25,5 @@ FactoryGirl.define do
     name { Faker::Name.name }
     email { Faker::Internet.email }
     password { Faker::Internet.password(8, 20) }
-    admin false
-
-    factory :admin_user do
-      admin true
-    end
   end
 end

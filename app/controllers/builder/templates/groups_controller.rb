@@ -1,7 +1,6 @@
 class Builder::Templates::GroupsController < Editor::BaseController
 
   before_filter :verify_current_template
-  before_filter :verify_admin
 
   def new
     @current_template_group = TemplateGroup.new

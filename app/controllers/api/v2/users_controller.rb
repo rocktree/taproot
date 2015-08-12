@@ -7,8 +7,7 @@ class Api::V2::UsersController < Api::V2::BaseController
         :name => user[:name],
         :email => user[:email],
         :password => user[:password],
-        :password_confirmation => user[:password_confirmation],
-        :admin => user[:admin],
+        :password_confirmation => user[:password_confirmation]
       )
       if @user.save
         render :json => @user, :status => 200

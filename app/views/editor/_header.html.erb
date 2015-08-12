@@ -13,7 +13,7 @@
   <% if current_user.has_multiple_sites? %>
     <ul>
       <li class="h1">My Sites</li>
-      <% (current_user.sites - [current_site]).each do |site| %>
+      <% (all_sites - [current_site]).each do |site| %>
         <%= content_tag(:li, link_to(site.title, site_editor_path(site))) %>
       <% end %>
     </ul>

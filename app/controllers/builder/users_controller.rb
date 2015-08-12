@@ -1,7 +1,6 @@
 class Builder::UsersController < Editor::BaseController
 
   before_action :set_user, :except => [:index, :create]
-  before_filter :verify_admin
 
   def index
   end
@@ -67,9 +66,6 @@ class Builder::UsersController < Editor::BaseController
         @user = User.new(params[:user] ? create_params : nil)
       else
         @user = User.find_by_id(params[:id])
-        unless @user.admin?
-          @user = current_site.users.find_by_id(params[:id])
-        end
       end
       not_found if @user.nil?
     end
@@ -79,8 +75,7 @@ class Builder::UsersController < Editor::BaseController
         :name,
         :email,
         :password,
-        :password_confirmation,
-        :admin
+        :password_confirmation
       )
     end
 

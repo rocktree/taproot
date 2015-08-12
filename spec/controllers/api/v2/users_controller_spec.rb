@@ -12,7 +12,6 @@ describe Api::V2::UsersController do
         :email => 'developers@topicdesign.com',
         :password => 'password',
         :password_confirmation => 'password',
-        :admin => true
       }"
     }
     @invalid_email = {
@@ -21,7 +20,6 @@ describe Api::V2::UsersController do
         :email => 'InvalidEmail',
         :password => 'password',
         :password_confirmation => 'password',
-        :admin => true
       }"
     }
     @unmatched_passwords = {
@@ -30,7 +28,6 @@ describe Api::V2::UsersController do
         :email => 'developers@topicdesign.com',
         :password => 'password123',
         :password_confirmation => 'password456',
-        :admin => true
       }"
     }
     @empty_user = { :user => "{}" }
@@ -70,7 +67,6 @@ describe Api::V2::UsersController do
         user = User.where(
           :name => 'Topic Design',
           :email => 'developers@topicdesign.com',
-          :admin => true
         ).first
         expect(user.id.present?).to eq(true)
       end

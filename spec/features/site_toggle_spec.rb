@@ -21,7 +21,7 @@ feature 'Site Toggle' do
       @trigger.click
     end
     scenario 'has a list of sites in alphabetical order, minus the current site' do
-      titles = (@user.sites - [@site]).collect(&:title)
+      titles = (@user.sites.alpha - [@site]).collect(&:title)
       content = []
       page.all('.site-toggle ul li a').each { |link| content << link.text }
       expect(content.sort).to eq(titles)
@@ -31,7 +31,7 @@ feature 'Site Toggle' do
     end
     scenario 'provides working links to other sites' do
       page.all('.site-toggle ul li a')[1].click
-      expected_path = "/#{(@user.sites - [@site])[1].uid}/editor/pages"
+      expected_path = "/#{(@user.sites.alpha - [@site])[1].uid}/editor/pages"
       expect(page.current_path).to eq(expected_path)
     end
   end
