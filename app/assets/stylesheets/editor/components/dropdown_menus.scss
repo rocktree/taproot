@@ -13,7 +13,7 @@ div.dropdown {
       background: $color-primary-dark;
     }
     &.active:after {
-      @include icon('\e3b0')
+      content: '\e3b0';
     }
   }
   ul {
