@@ -1,4 +1,4 @@
-class App.Components.DropdownMenu extends Backbone.View
+class App.Components.DropdownMenus extends Backbone.View
 
   el: 'body'
 

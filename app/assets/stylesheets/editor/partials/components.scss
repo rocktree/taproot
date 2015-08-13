@@ -107,9 +107,7 @@ a {
   &.user, &.star, &.view, &.not-complete, &.complete, &.menu, &.image,
   &.settings {
     &:before {
-      font-family: 'Icomoon-Ultimate';
-      font-size: 10px;
-      margin-right: 5px;
+      @include icon('\e000')
     }
     &.published, &.unlimited, &.complete {
       color: $color-success;
@@ -119,13 +117,6 @@ a {
     }
     &.draft, &.maxed-out, &.not-complete {
       color: $color-danger;
-    }
-  }
-  &.dropdown-trigger {
-    &:after {
-      font-family: 'Icomoon-Ultimate';
-      font-size: 10px;
-      margin-left: 5px;
     }
   }
   &.admin:before          { content: "\e18c"; }
@@ -172,8 +163,6 @@ a {
   &.user:before           { content: "\e185"; }
   &.view:before           { content: "\e2d9"; }
   &.visible:before        { content: "\e2d9"; }
-
-  &.dropdown-trigger:after { content: "\e3b2"; }
 
   &.button {
     @include btn($color-primary, $color-primary-lighter);
@@ -295,53 +284,6 @@ a {
 //     margin-right: 3px;
 //   }
 // }
-
-div.dropdown {
-  position: relative;
-  > a {
-    @include button;
-    margin: 0;
-    &:focus {
-      background: $color-primary;
-    }
-    &:hover, &.active {
-      background: $color-primary-dark;
-    }
-  }
-  ul {
-    display: none;
-    position: absolute;
-    top: 30px;
-    min-width: 100%;
-    @include clear-list;
-    background: #ffffff;
-    border: 1px solid $color-grey-lightest;
-    z-index: 999;
-    &.active {
-      display: block;
-    }
-    li {
-      text-align: left;
-      overflow: hidden;
-      &.h1 {
-        margin: 10px 15px 5px 15px;
-        font-size: 16px;
-        font-weight: 600;
-      }
-      a {
-        display: block;
-        font-size: 14px;
-        padding: 10px 15px;
-        color: $color-grey-dark;
-        @include transition(background 0.25s linear);
-        &:hover {
-          color: $color-grey-dark;
-          background: $color-light;
-        }
-      }
-    }
-  }
-}
 
 // .missing-content {
 //   text-align: center;

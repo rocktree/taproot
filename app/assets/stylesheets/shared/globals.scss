@@ -28,6 +28,13 @@
   }
 }
 
+@mixin icon($content) {
+  font-family: 'Icomoon-Ultimate';
+  font-size: 10px;
+  margin-left: 5px;
+  content: $content;
+}
+
 a {
   &:focus, &:active {
     outline: none;

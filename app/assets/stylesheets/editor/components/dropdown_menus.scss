@@ -1,0 +1,54 @@
+div.dropdown {
+  position: relative;
+  > a {
+    @include button;
+    margin: 0;
+    &:after {
+      @include icon('\e3b2');
+    }
+    &:focus {
+      background: $color-primary;
+    }
+    &:hover, &.active {
+      background: $color-primary-dark;
+    }
+    &.active:after {
+      @include icon('\e3b0')
+    }
+  }
+  ul {
+    display: none;
+    position: absolute;
+    top: 36px;
+    min-width: 220px;
+    @include clear-list;
+    background: #ffffff;
+    border: 1px solid $color-grey-lightest;
+    z-index: 999;
+    &.active {
+      display: block;
+    }
+    li {
+      text-align: left;
+      overflow: hidden;
+      &.h1 {
+        margin: 10px 15px 5px 15px;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      a {
+        display: block;
+        font-size: 14px;
+        padding: 10px 15px;
+        color: $color-grey-dark;
+        @include transition(background 0.25s linear);
+        &:hover {
+          color: $color-grey-dark;
+          background: $color-light;
+        }
+      }
+    }
+  }
+}

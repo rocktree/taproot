@@ -1,7 +1,7 @@
 class App.Routers.Router extends Backbone.Router
 
   initialize: ->
-    new App.Components.DropdownMenu
+    new App.Components.DropdownMenus
     # new App.Views.DefaultHelpers
   #   new App.Views.Header
   #   new App.Views.Shortcuts
