@@ -61,6 +61,50 @@ describe Api::V2::SitesController do
     end
   end
 
+  context "When getting a site's config" do
+    before(:all) do
+      Site.destroy_all
+      create_list(:site, 10)
+      @uid = Site.all.shuffle.first.uid
+    end
+    context 'with a missing API key' do
+      it 'returns 401' do
+        get :show, :format => 'json', :uid => @uid
+        expect(response.status).to eq(401)
+      end
+    end
+    context 'with an invalid API key' do
+      it 'returns 401' do
+        @request.headers['X-Api-Key'] = '123'
+        get :show, :format => 'json', :uid => @uid
+        expect(response.status).to eq(401)
+      end
+    end
+    context 'with a valid API key' do
+      context 'and an existing UID' do
+        before(:each) do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          get :show, :format => 'json', :uid => @uid
+        end
+        it 'returns 200' do
+          expect(response.status).to eq(200)
+        end
+        it 'returns the attributes of the site' do
+          @body = JSON.parse(response.body)
+          site = Site.find_by_uid(@body['uid'])
+          expect(@body['title']).to eq(site.title)
+        end
+      end
+      context 'and an incorrect UID' do
+        it 'returns 500' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          get :show, :format => 'json', :uid => '123'
+          expect(response.status).to eq(500)
+        end
+      end
+    end
+  end
+
   context 'When creating a site' do
     context 'with a missing API key' do
       it 'returns 401' do

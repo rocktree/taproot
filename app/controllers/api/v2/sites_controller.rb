@@ -9,6 +9,15 @@ class Api::V2::SitesController < Api::V2::BaseController
     end
   end
 
+  def show
+    begin
+      @site = Site.find_by_uid(params[:uid])
+      render :json => @site.config, :status => 200
+    rescue Exception => e
+      render :json => { 'ERROR' => e.message }, :status => 500
+    end
+  end
+
   def create
     begin
       site = eval(params['site'])

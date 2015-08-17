@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'authenticate' => 'base#test'
       # resources :forms, :only => [:create]
       get 'sites' => 'sites#index' # get all sites
+      get 'sites/:uid' => 'sites#show' # get config of a site
       post 'sites' => 'sites#create' # create a new site
       post 'sites/update/:uid' => 'sites#update' # update a site's config
       # post 'sites/deploy' => 'sites#deploy'
