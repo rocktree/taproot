@@ -9,13 +9,14 @@
 #  updated_at :datetime
 #  git_url    :string(255)
 #  uid        :string(255)
+#  config     :json
 #
 
 FactoryGirl.define do
   factory :site do
     title { Faker::Lorem.words(4).join(' ') }
-    git_url { Faker::Internet.url }
-    uid { SecureRandom.hex(12) }
+    # git_url { Faker::Internet.url }
+    # uid { SecureRandom.hex(12) }
   end
 
 end

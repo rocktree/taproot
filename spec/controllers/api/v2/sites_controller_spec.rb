@@ -6,25 +6,19 @@ describe Api::V2::SitesController do
   before :all do
     user = create(:user)
     @valid_api_key = user.api_key
+    @title = 'Hello World 123'
     @good_data = {
       :site => "{
-        :git_url => 'git@github.com:topicdesign/topkit-test-template.git'
+        :title => '#{@title}'
       }"
     }
-    @empty_git_url = { :site => { :git_url => '' } }
-    @missing_git_url = { :site => {} }
+    @empty_title = { :site => "{ :title => '' }" }
+    @missing_title = { :site => {} }
     @empty_data = {}
-    @uid = '69b0386a13b44503881d516a2c19cc4a2bf48974d552a397'
-    @uid_data = { :site => "{ :uid => '#{@uid}' }" }
-    @wrong_uid = { :site => "{ :uid => '123' }" }
-    @empty_uid = { :site => "{ :uid => '' }" }
-    @missing_uid = { :site => "{}" }
   end
 
   before :each do
-    project_dir = "#{Rails.root}/projects/hello-world-123"
-    FileUtils.rm_r(project_dir) if Dir.exists?(project_dir)
-    site = Site.find_by_uid(@uid)
+    site = Site.find_by_title(@title)
     site.destroy unless site.nil?
   end
 
@@ -43,104 +37,92 @@ describe Api::V2::SitesController do
       end
     end
     context 'with a valid API key' do
-      context 'and a valid git_url' do
-        it 'returns 200' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          expect(response.status).to eq(200)
-        end
-        it 'renames the project in the projects directory' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          expect(
-            Dir.exists?("#{Rails.root}/projects/hello-world-123")
-          ).to eq(true)
-        end
-        it 'creates a site in the database' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          site = Site.where(
-            :title => 'Hello World 123',
-            :slug => 'hello-world-123',
-            :git_url => 'git@github.com:topicdesign/topkit-test-template.git',
-            :uid => @uid
-          ).first
-          expect(site.id.present?).to eq(true)
-        end
-      end
-      context 'with an empty git_url' do
+      context 'and an empty title' do
         it 'returns 500' do
           @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @empty_git_url.merge(:format => 'json')
+          post :create, @empty_title.merge(:format => 'json')
           expect(response.status).to eq(500)
         end
       end
-      context 'with a missing git_url' do
+      context 'and a missing title' do
         it 'returns 500' do
           @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @missing_git_url.merge(:format => 'json')
+          post :create, @missing_title.merge(:format => 'json')
           expect(response.status).to eq(500)
         end
       end
-      context 'with empty data' do
+      context 'and missing data' do
         it 'returns 500' do
           @request.headers['X-Api-Key'] = @valid_api_key
           post :create, @empty_data.merge(:format => 'json')
           expect(response.status).to eq(500)
         end
       end
+      context 'and a title' do
+        it 'returns 200' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
+          expect(response.status).to eq(200)
+        end
+        it "returns the default config" do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :create, @good_data.merge(:format => 'json')
+          @site = Site.find_by_title(@title)
+          expect(JSON.parse(response.body)).to eq(@site.config)
+        end
+      end
     end
   end
 
-  context 'When deploying a site' do
-    context 'with a missing API key' do
-      it 'returns 401' do
-        post :deploy, :format => 'json'
-        expect(response.status).to eq(401)
-      end
-    end
-    context 'with an invalid API key' do
-      it 'returns 401' do
-        @request.headers['X-Api-Key'] = '123'
-        post :deploy, :format => 'json'
-        expect(response.status).to eq(401)
-      end
-    end
-    context 'with a valid API key' do
-      context 'and a valid uid' do
-        it 'will deploy a site that already exists' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          post :deploy, @uid_data.merge(:format => 'json')
-          expect(response.status).to eq(200)
-        end
-        it 'returns 500 when the site files do not exist' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :deploy, @uid_data.merge(:format => 'json')
-          expect(response.status).to eq(500)
-        end
-      end
-      context 'and an invalid uid' do
-        it 'returns 500 when the uid is empty' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          post :deploy, @empty_uid.merge(:format => 'json')
-          expect(response.status).to eq(500)
-        end
-        it 'returns 500 when the uid is wrong' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          post :deploy, @wrong_uid.merge(:format => 'json')
-          expect(response.status).to eq(500)
-        end
-        it 'returns 500 when the uid is missing' do
-          @request.headers['X-Api-Key'] = @valid_api_key
-          post :create, @good_data.merge(:format => 'json')
-          post :deploy, @missing_uid.merge(:format => 'json')
-          expect(response.status).to eq(500)
-        end
-      end
-    end
-  end
+  # context 'When deploying a site' do
+  #   context 'with a missing API key' do
+  #     it 'returns 401' do
+  #       post :deploy, :format => 'json'
+  #       expect(response.status).to eq(401)
+  #     end
+  #   end
+  #   context 'with an invalid API key' do
+  #     it 'returns 401' do
+  #       @request.headers['X-Api-Key'] = '123'
+  #       post :deploy, :format => 'json'
+  #       expect(response.status).to eq(401)
+  #     end
+  #   end
+  #   context 'with a valid API key' do
+  #     context 'and a valid uid' do
+  #       it 'will deploy a site that already exists' do
+  #         @request.headers['X-Api-Key'] = @valid_api_key
+  #         post :create, @good_data.merge(:format => 'json')
+  #         post :deploy, @uid_data.merge(:format => 'json')
+  #         expect(response.status).to eq(200)
+  #       end
+  #       it 'returns 500 when the site files do not exist' do
+  #         @request.headers['X-Api-Key'] = @valid_api_key
+  #         post :deploy, @uid_data.merge(:format => 'json')
+  #         expect(response.status).to eq(500)
+  #       end
+  #     end
+  #     context 'and an invalid uid' do
+  #       it 'returns 500 when the uid is empty' do
+  #         @request.headers['X-Api-Key'] = @valid_api_key
+  #         post :create, @good_data.merge(:format => 'json')
+  #         post :deploy, @empty_uid.merge(:format => 'json')
+  #         expect(response.status).to eq(500)
+  #       end
+  #       it 'returns 500 when the uid is wrong' do
+  #         @request.headers['X-Api-Key'] = @valid_api_key
+  #         post :create, @good_data.merge(:format => 'json')
+  #         post :deploy, @wrong_uid.merge(:format => 'json')
+  #         expect(response.status).to eq(500)
+  #       end
+  #       it 'returns 500 when the uid is missing' do
+  #         @request.headers['X-Api-Key'] = @valid_api_key
+  #         post :create, @good_data.merge(:format => 'json')
+  #         post :deploy, @missing_uid.merge(:format => 'json')
+  #         expect(response.status).to eq(500)
+  #       end
+  #     end
+  #   end
+  # end
 
 end
