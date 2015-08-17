@@ -16,7 +16,8 @@ Rails.application.routes.draw do
       post 'sites/update/:uid' => 'sites#update' # update a site's config
       post 'site_users' => 'site_users#create' # add a user to a site
       # post 'sites/deploy' => 'sites#deploy'
-      post 'users' => 'users#create'
+      get 'users' => 'users#index' # get all users
+      post 'users' => 'users#create' # get a single user
       post 'data/export' => 'data#export'
     end
   end

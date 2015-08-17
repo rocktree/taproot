@@ -24,7 +24,7 @@ describe Api::V2::SitesController do
     site.destroy unless site.nil?
   end
 
-  context 'When updating a site' do
+  context 'When listing all the sites' do
     before(:all) do
       Site.destroy_all
       create_list(:site, 10)
