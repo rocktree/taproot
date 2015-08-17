@@ -3,9 +3,15 @@ slug: hello-world-123
 templates:
   home:
     title: Home
-    order_by: title
-    order_in: asc
-    max_pages: 1
+    fields:
+      subtitle:
+        type: string
+        label: Subtitle
+      header_image:
+        type: string
+        label: Header Image
+  about:
+    title: About
     fields:
       subtitle:
         type: string

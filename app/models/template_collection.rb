@@ -2,6 +2,7 @@ class TemplateCollection
 
   def initialize(site)
     @site = site
+    @config = @site.config['templates']
   end
 
   def all
@@ -21,8 +22,8 @@ class TemplateCollection
     def templates
       @templates ||= begin
         templates = []
-        Dir.glob("#{templates_root}/*.html.*").each do |t|
-          templates << Template.new(t, @site)
+        @config.each do |name, data|
+          templates << Template.new(name, data, @site)
         end
         templates
       end

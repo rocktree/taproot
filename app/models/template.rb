@@ -1,17 +1,9 @@
 class Template
 
-  def initialize(file, site)
-    @file = file
-    @site = site
-    set_attrs
-  end
-
-  def name
-    @name ||= filename.split('.').first
-  end
-
-  def filename
-    @filename ||= @file.split('/').last
+  def initialize(name, data, site)
+    fields = data.select { |k,v| k == 'fields' }['fields']
+    @fields = TemplateFieldCollection.new(fields)
+    @attributes = data.reject { |k,v| k == 'fields' }.merge('name' => name)
   end
 
   def attributes
@@ -19,18 +11,10 @@ class Template
   end
 
   def fields
-    @fields ||= TemplateFieldCollection.new(frontmatter.first['fields'])
+    @fields
   end
 
   private
-
-    def set_attrs
-      @attributes ||= frontmatter.first.except('fields')
-    end
-
-    def frontmatter
-      @frontmatter ||= Frontmatter.parse(@file)
-    end
 
     def method_missing(method, *arguments, &block)
       begin

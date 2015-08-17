@@ -3,13 +3,9 @@ require 'rails_helper'
 describe TemplateCollection do
 
   before :all do
-    @site = Site.find_or_create_by(
-      :title => 'Hello World 123',
-      :slug => 'hello-world-123',
-      :git_url => 'git@github.com:topicdesign/topkit-test-template.git',
-      :uid => '69b0386a13b44503881d516a2c19cc4a2bf48974d552a397'
-    )
-    system("cd #{Rails.root}/projects && git clone #{@site.git_url} #{@site.slug}")
+    @site = Site.find_or_create_by(:title => 'Hello World 123')
+    config = YAML.load_file("#{Rails.root}/spec/support/config_01.yml")
+    @site.update_config(config)
   end
 
   it 'instantiates an object of the template class' do
