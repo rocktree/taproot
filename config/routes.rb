@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'authenticate' => 'base#test'
       # resources :forms, :only => [:create]
       post 'sites' => 'sites#create'
+      post 'sites/update' => 'sites#update'
       # post 'sites/deploy' => 'sites#deploy'
       post 'users' => 'users#create'
       post 'data/export' => 'data#export'

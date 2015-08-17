@@ -1,0 +1,12 @@
+title: Hello World 123
+slug: hello-world-123
+templates:
+  home:
+    title: Home
+    order_by: title
+    order_in: asc
+    max_pages: 1
+    fields:
+      subtitle:
+        type: string
+        label: Subtitle

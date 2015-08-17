@@ -75,9 +75,9 @@ class Site < ActiveRecord::Base
     uid
   end
 
-  # def templates
-  #   TemplateCollection.new(self)
-  # end
+  def templates
+    TemplateCollection.new(self)
+  end
 
   def update_config(attrs = {})
     attrs.each do |key, value|

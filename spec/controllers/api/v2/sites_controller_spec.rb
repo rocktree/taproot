@@ -15,6 +15,8 @@ describe Api::V2::SitesController do
     @empty_title = { :site => "{ :title => '' }" }
     @missing_title = { :site => {} }
     @empty_data = {}
+    @config_01 = YAML.load_file("#{Rails.root}/spec/support/config_01.yml")
+    @config_01_data = { :site => "#{@config_01}" }
   end
 
   before :each do
@@ -68,6 +70,50 @@ describe Api::V2::SitesController do
           @request.headers['X-Api-Key'] = @valid_api_key
           post :create, @good_data.merge(:format => 'json')
           @site = Site.find_by_title(@title)
+          expect(JSON.parse(response.body)).to eq(@site.config)
+        end
+      end
+    end
+  end
+
+  context 'When updating a site' do
+    before(:each) do
+      @site = create(:site, :title => 'Hello World 123')
+    end
+    after(:each) do
+      @site.destroy
+    end
+    context 'with a missing API key' do
+      it 'returns 401' do
+        post :update, :format => 'json'
+        expect(response.status).to eq(401)
+      end
+    end
+    context 'with an invalid API key' do
+      it 'returns 401' do
+        @request.headers['X-Api-Key'] = '123'
+        post :update, :format => 'json'
+        expect(response.status).to eq(401)
+      end
+    end
+    context 'with a valid API key' do
+      context 'and missing data' do
+        it 'returns 500' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :update, @empty_data.merge(:format => 'json')
+          expect(response.status).to eq(500)
+        end
+      end
+      context 'and good data' do
+        it 'returns 200' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :update, @config_01_data.merge(:format => 'json')
+          expect(response.status).to eq(200)
+        end
+        it 'returns the config' do
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :update, @config_01_data.merge(:format => 'json')
+          @site.reload
           expect(JSON.parse(response.body)).to eq(@site.config)
         end
       end
