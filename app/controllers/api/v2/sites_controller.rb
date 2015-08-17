@@ -1,5 +1,14 @@
 class Api::V2::SitesController < Api::V2::BaseController
 
+  def index
+    begin
+      @sites = Site.all
+      render :json => @sites, :status => 200
+    rescue Exception => e
+      render :json => { 'ERROR' => e.message }, :status => 500
+    end
+  end
+
   def create
     begin
       site = eval(params['site'])

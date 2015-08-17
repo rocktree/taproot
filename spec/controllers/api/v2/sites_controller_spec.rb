@@ -24,6 +24,43 @@ describe Api::V2::SitesController do
     site.destroy unless site.nil?
   end
 
+  context 'When updating a site' do
+    before(:all) do
+      Site.destroy_all
+      create_list(:site, 10)
+    end
+    context 'with a missing API key' do
+      it 'returns 401' do
+        get :index, :format => 'json'
+        expect(response.status).to eq(401)
+      end
+    end
+    context 'with an invalid API key' do
+      it 'returns 401' do
+        @request.headers['X-Api-Key'] = '123'
+        get :index, :format => 'json'
+        expect(response.status).to eq(401)
+      end
+    end
+    context 'with a valid API key' do
+      before(:each) do
+        @request.headers['X-Api-Key'] = @valid_api_key
+        get :index, :format => 'json'
+        @body = JSON.parse(response.body)
+      end
+      it 'returns 200' do
+        expect(response.status).to eq(200)
+      end
+      it 'returns 10 sites' do
+        expect(@body.size).to eq(10)
+      end
+      it 'returns attributes of each site' do
+        site = Site.find_by_uid(@body.first['uid'])
+        expect(@body.first['title']).to eq(site.title)
+      end
+    end
+  end
+
   context 'When creating a site' do
     context 'with a missing API key' do
       it 'returns 401' do
