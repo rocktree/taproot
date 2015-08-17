@@ -16,4 +16,8 @@ class SiteUser < ActiveRecord::Base
   belongs_to :site, :touch => true
   belongs_to :user, :touch => true
 
+  # ------------------------------------------ Validations
+
+  validates :site_id, :user_id, :presence => true
+
 end

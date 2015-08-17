@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get 'sites/:uid' => 'sites#show' # get config of a site
       post 'sites' => 'sites#create' # create a new site
       post 'sites/update/:uid' => 'sites#update' # update a site's config
+      post 'site_users' => 'site_users#create' # add a user to a site
       # post 'sites/deploy' => 'sites#deploy'
       post 'users' => 'users#create'
       post 'data/export' => 'data#export'
