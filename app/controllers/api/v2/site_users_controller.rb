@@ -6,7 +6,7 @@ class Api::V2::SiteUsersController < Api::V2::BaseController
       @site = Site.find_by_uid(p[:site])
       @user = User.find_by_email(p[:user])
       @site_user = SiteUser.create!(:site => @site, :user => @user)
-      response = { :site => @site.uid, :user => @user.email }
+      response = { :user => @user.email, :site => @site.uid }
       render :json => response, :status => 200
     rescue Exception => e
       puts e.message
