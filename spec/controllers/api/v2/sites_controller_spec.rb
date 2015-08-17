@@ -79,20 +79,21 @@ describe Api::V2::SitesController do
   context 'When updating a site' do
     before(:each) do
       @site = create(:site, :title => 'Hello World 123')
+      @uid = @site.uid
     end
     after(:each) do
       @site.destroy
     end
     context 'with a missing API key' do
       it 'returns 401' do
-        post :update, :format => 'json'
+        post :update, :format => 'json', :uid => @uid
         expect(response.status).to eq(401)
       end
     end
     context 'with an invalid API key' do
       it 'returns 401' do
         @request.headers['X-Api-Key'] = '123'
-        post :update, :format => 'json'
+        post :update, :format => 'json', :uid => @uid
         expect(response.status).to eq(401)
       end
     end
@@ -100,19 +101,19 @@ describe Api::V2::SitesController do
       context 'and missing data' do
         it 'returns 500' do
           @request.headers['X-Api-Key'] = @valid_api_key
-          post :update, @empty_data.merge(:format => 'json')
+          post :update, @empty_data.merge(:format => 'json', :uid => @uid)
           expect(response.status).to eq(500)
         end
       end
       context 'and good data' do
         it 'returns 200' do
           @request.headers['X-Api-Key'] = @valid_api_key
-          post :update, @config_01_data.merge(:format => 'json')
+          post :update, @config_01_data.merge(:format => 'json', :uid => @uid)
           expect(response.status).to eq(200)
         end
         it 'returns the config' do
           @request.headers['X-Api-Key'] = @valid_api_key
-          post :update, @config_01_data.merge(:format => 'json')
+          post :update, @config_01_data.merge(:format => 'json', :uid => @uid)
           @site.reload
           expect(JSON.parse(response.body)).to eq(@site.config)
         end
