@@ -32,7 +32,7 @@ class Api::V2::SitesController < Api::V2::BaseController
     begin
       config = eval(params['site'])
       @site = Site.find_by_uid(params[:uid])
-      @site.update_config(config[:config])
+      @site.update_config(config)
       render :json => @site.config, :status => 200
     rescue Exception => e
       render :json => { 'ERROR' => e.message }, :status => 500
