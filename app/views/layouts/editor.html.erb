@@ -9,7 +9,9 @@
     <div id="container">
       <%= content_tag(:header, render('header')) %>
       <%= render :partial => 'sidebar' %>
-      <%= content_tag(:main, yield, :id => 'content') %>
+      <div id="content-container">
+        <%= content_tag(:main, yield, :id => 'content') %>
+      </div>
     </div>
 
     <%= javascript_include_tag 'editor/application' %>

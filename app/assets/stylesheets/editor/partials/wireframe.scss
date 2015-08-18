@@ -1,26 +1,25 @@
-// $sidebar-width: 250px;
-// $header-height: 62px;
-// $site-header-height: 108px;
-
 body {
   #container {
+    min-height: 100%;
     > header {
       position: relative;
       z-index: 999;
-      // position: fixed;
-      // width: 100%;
-      // top: 0;
-      // left: 0;
-      // padding: 0;
-      // z-index: 9999;
     }
-//     #content {
-//       position: relative;
-//       width: 100%;
-//       margin: 75px auto 25px auto;
-//       padding: 0 25px;
-//       font-size: 0;
-//     }
+    #content-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 52px 0 0 250px;
+      main#content {
+        position: relative;
+        min-height: 100%;
+        border: 1px solid $color-light-darker;
+        border-right: none;
+        border-bottom: none;
+      }
+    }
     aside#sidebar {
       position: fixed;
       top: 0;
@@ -30,23 +29,6 @@ body {
       padding-top: 62px;
       z-index: 99;
     }
-//       &#current-nav {
-//         left: 0;
-//         background-color: $color-dark-light;
-//       }
-//       &#drilldown-nav {
-//         right: 0;
-//         background-color: $color-light-dark;
-//       }
-//     #current-nav + #content {
-//       padding-left: 275px;
-//     }
-//     #drilldown-nav + #content {
-//       padding-right: 275px;
-//     }
-//     #content:nth-child(4) {
-//       padding: 0 275px;
-//     }
   }
 }
 
