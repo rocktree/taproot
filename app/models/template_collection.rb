@@ -21,6 +21,7 @@ class TemplateCollection
 
     def templates
       @templates ||= begin
+        return [] if @config.nil?
         templates = []
         @config.each do |name, data|
           templates << Template.new(name, data, @site)

@@ -28,4 +28,9 @@ describe TemplateCollection do
     expect(@site.templates.find('missing-template')).to eq(nil)
   end
 
+  it 'returns an empty array for `all` if there are no templates' do
+    site = create(:site)
+    expect(site.templates.all).to eq([])
+  end
+
 end
