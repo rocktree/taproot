@@ -67,6 +67,13 @@ class User < ActiveRecord::Base
     sites.size > 1
   end
 
+  def as_json(options)
+    super(
+      :only => [:name, :email, :api_key],
+      :include => { :sites => { :only => [:title, :uid] } }
+    )
+  end
+
   private
 
     def save_activity
