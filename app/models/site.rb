@@ -85,7 +85,7 @@ class Site < ActiveRecord::Base
         update_columns(key.to_sym => value)
       end
     end
-    conf = self.config.merge(attrs)
+    conf = self.config.merge!(attrs)
     config_will_change!
     update_columns(:config => conf)
   end
