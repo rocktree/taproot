@@ -4,7 +4,9 @@ feature 'New button' do
 
   before :all do
     @user = create(:user, :password => 'password')
-    @site = Site.find_or_create_by(:title => 'Hello World 123')
+    @site = create(:site)
+    config = YAML.load_file("#{Rails.root}/spec/support/config_01.yml")
+    @site.update_config(config)
     create(:site_user, :site => @site, :user => @user)
   end
 
