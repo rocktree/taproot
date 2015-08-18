@@ -1,27 +1,30 @@
-<%= builder_page_title(current_page_breadcrumbs, :class => 'breadcrumbs') do %>
-  <%= page_search_field %>
-<% end %>
+<header class="page-header">
+  <h1>New Page</h1>
+</header>
+<%#= builder_page_title(current_page_breadcrumbs, :class => 'breadcrumbs') do %>
+  <%#= page_search_field %>
+<%# end %>
 
 <div id="page-content" class="full-width">
 
-  <%= em_p("First, fill in all the required fields, then you can move on to
+  <%#= em_p("First, fill in all the required fields, then you can move on to
   the optional ones.") %>
 
-  <%= simple_form_for [:builder, current_site, current_page] do |f| %>
+  <%#= simple_form_for [:builder, current_site, current_page] do |f| %>
 
-    <%= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
-      <% current_template.fields.each do |field| %>
-        <% if ['title'].include?(field.slug) %>
-          <%= f.input(
+    <%#= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
+      <%# current_template.fields.each do |field| %>
+        <%# if ['title'].include?(field.slug) %>
+          <%#= f.input(
             field.slug.to_sym,
             :label => field.label,
             :input_html => { :value => field.default_value }
           ) %>
-        <% elsif ['slug','position','description','show_in_nav']
+        <%# elsif ['slug','position','description','show_in_nav']
           .include?(field.slug) && field.required? %>
-          <%= f.input field.slug.to_sym, :label => field.label %>
-        <% elsif field.slug == 'body' && field.required? %>
-          <%= f.input(
+          <%#= f.input field.slug.to_sym, :label => field.label %>
+        <%# elsif field.slug == 'body' && field.required? %>
+          <%#= f.input(
             :body_md,
             :label => field.label,
             :input_html => {
@@ -31,10 +34,10 @@
               :class => 'markdown-editor'
             }
           ) %>
-        <% elsif field.required? %>
-          <% case field.data_type %>
-          <% when 'date' %>
-            <%= fd.input(
+        <%# elsif field.required? %>
+          <%# case field.data_type %>
+          <%# when 'date' %>
+            <%#= fd.input(
               :"#{field.slug}",
               :as => :string,
               :required => field.required,
@@ -44,8 +47,8 @@
                 :value => current_page.field_data[field.slug.to_sym]
               }
             ) %>
-          <% when 'markdown' %>
-            <%= fd.input(
+          <%# when 'markdown' %>
+            <%#= fd.input(
               :"markdown_#{field.slug}",
               :as => :text,
               :label => field.label,
@@ -57,8 +60,8 @@
                 :class => 'markdown-editor'
               }
             ) %>
-          <% when 'select' %>
-            <%= fd.input(
+          <%# when 'select' %>
+            <%#= fd.input(
               :"#{field.slug}",
               :as => :"#{field.data_type}",
               :collection => field.option_values,
@@ -67,8 +70,8 @@
               :selected => current_page.field_data[field.slug] ||
                 field.default_value,
             ) %>
-          <% when 'check_boxes', 'radio_buttons' %>
-            <%= fd.input(
+          <%# when 'check_boxes', 'radio_buttons' %>
+            <%#= fd.input(
               :"#{field.slug}",
               :as => :"#{field.data_type}",
               :collection => field.option_values,
@@ -77,9 +80,9 @@
               :checked => current_page.field_data[field.slug] ||
                 field.default_value
             ) %>
-          <% when 'image', 'file' %>
+          <%# when 'image', 'file' %>
             <div class="upload-field">
-              <%= fd.input(
+              <%#= fd.input(
                 :"rtfile_#{field.slug}",
                 :as => :hidden,
                 :required => field.required,
@@ -88,17 +91,17 @@
                   :value => current_page.field_data[field.slug]
                 }
               ) %>
-              <%= image_tag(
+              <%#= image_tag(
                 find_page_thumb(current_page.field_data[field.slug])
               ) unless current_page.field_data[field.slug].blank? %>
-              <%= link_to(
+              <%#= link_to(
                 "Add New #{field.title}",
                 builder_site_documents_path(current_site, :select => true),
                 :class => 'image-upload-trigger button'
               ) %>
             </div>
-          <% else %>
-            <%= fd.input(
+          <%# else %>
+            <%#= fd.input(
               :"#{field.slug}",
               :as => :"#{field.data_type}",
               :required => field.required,
@@ -108,21 +111,21 @@
                   field.default_value
               }
             ) %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
+          <%# end %>
+        <%# end %>
+      <%# end %>
+    <%# end %>
 
-    <%= redirect_field(f) %>
+    <%#= redirect_field(f) %>
 
-    <%= f.input :template_id, :as => :hidden, :wrapper => false,
+    <%#= f.input :template_id, :as => :hidden, :wrapper => false,
       :input_html => { :value => current_template.id } %>
-    <%= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => {
+    <%#= f.input :parent_id, :as => :hidden, :wrapper => false, :input_html => {
       :value => current_page_parent.id } unless current_page_parent.nil? %>
 
-    <%= f.submit "Save Page" %>
+    <%#= f.submit "Save Page" %>
 
-  <% end %>
+  <%# end %>
 
 
 </div>
