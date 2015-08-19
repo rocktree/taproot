@@ -2,7 +2,8 @@
 <html class="public">
   <%= partial 'application/head',
               :locals => { :css_path => 'editor/application' } %>
-  <body <%#= library_attr %>>
+  <body class="editor <%= controller_name %> <%= action_name %>"
+        <%#= library_attr %>>
 
     <%= partial 'application/status' %>
 
