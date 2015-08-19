@@ -3,7 +3,8 @@ class Editor::BaseController < EditorController
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :all_sites,
+  helper_method :all_pages,
+                :all_sites,
                 :all_templates,
                 :current_page,
                 :current_site,
@@ -27,6 +28,16 @@ class Editor::BaseController < EditorController
       RequestStore.store[:topkit] = current_user
     end
 
+    def not_found
+      ActionController::RoutingError.new('Page not found.')
+    end
+
+    # ------------------------------------------ Collections
+
+    def all_pages
+      @all_pages ||= current_site.pages
+    end
+
     def all_sites
       @all_sites ||= current_user.sites.alpha
     end
@@ -35,8 +46,13 @@ class Editor::BaseController < EditorController
       @all_templates ||= current_site.templates.all
     end
 
+    # ------------------------------------------ Objects
+
     def current_page
-      @current_page ||= nil
+      @current_page ||= begin
+        p = params[:page_slug] || params[:slug]
+        all_pages.select { |p| p.slug == p }.first
+      end
     end
 
     def current_site

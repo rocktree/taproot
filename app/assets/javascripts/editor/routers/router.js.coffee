@@ -1,7 +1,7 @@
 class App.Routers.Router extends Backbone.Router
 
   initialize: ->
-    new App.Components.DropdownMenus
+    @loadComponents()
     # new App.Views.DefaultHelpers
   #   new App.Views.Header
   #   new App.Views.Shortcuts
@@ -9,6 +9,10 @@ class App.Routers.Router extends Backbone.Router
   #   new App.Views.FieldForm if $('.field-data-type').length > 0
   #   new App.Views.ImageCropper if $('.image-crop-trigger').length > 0
   #   new App.Views.DataToggle if $('.data-trigger').length > 0
+
+  loadComponents: ->
+    new App.Components.DropdownMenus
+    new App.Components.Modals
 
   routes:
     '': 'home'

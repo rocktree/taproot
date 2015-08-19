@@ -1,0 +1,50 @@
+#tk-modal {
+  display: table;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: -9;
+  background: rgba($color-light-dark, 0.65);
+  @include transition(all 0.1s linear);
+  &.active {
+    opacity: 1;
+    z-index: 9999;
+    .modal-container {
+      .modal {
+        margin-top: 0;
+      }
+    }
+  }
+  .modal-container {
+    position: relative;
+    display: table-cell;
+    .modal {
+      position: relative;
+      width: 40%;
+      margin: -50px auto 0 auto;
+      padding: 15px;
+      border: 2px solid $color-dark-lightest;
+      background: #FFF;
+      @include transition(all 0.25s linear);
+      .close {
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        padding: 5px;
+        font-size: 14px;
+        line-height: 14px;
+        border-radius: 100%;
+        border: 1px solid $color-dark-lightest;
+        background: #FFF;
+        color: $color-dark-lightest;
+        i {
+          font-size: inherit;
+          line-height: inherit;
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,13 @@
       <% all_templates.each do |t| %>
         <li>
           <%= link_to t.title,
-                      new_site_editor_page_path(current_site, :t => t.name) %>
+                      new_site_editor_page_path(current_site, :t => t.name),
+                      :class => 'tk-modal-trigger',
+                      :data => {
+                        :modal_url => new_site_editor_page_path(
+                          current_site, :t => t.name
+                        )
+                      } %>
         </li>
       <% end %>
     </ul>

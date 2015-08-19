@@ -2,18 +2,19 @@
 #
 # Table name: pages
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  slug       :string(255)
-#  body       :text
-#  ancestry   :string(255)
-#  published  :boolean          default(FALSE)
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer          default(0)
-#  page_path  :string(255)
-#  site_id    :integer
-#  field_data :json
+#  id            :integer          not null, primary key
+#  title         :string(255)
+#  slug          :string(255)
+#  body          :text
+#  ancestry      :string(255)
+#  published     :boolean          default(FALSE)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  position      :integer          default(0)
+#  page_path     :string(255)
+#  site_id       :integer
+#  field_data    :json
+#  template_name :string(255)
 #
 
 require 'active_support/inflector'
@@ -58,7 +59,7 @@ class Page < ActiveRecord::Base
 
   # ------------------------------------------ Validations
 
-  validates :title, :site_id, :presence => true
+  validates :title, :template_name, :site_id, :presence => true
 
   # ------------------------------------------ Callbacks
 
@@ -75,6 +76,10 @@ class Page < ActiveRecord::Base
   end
 
   # ------------------------------------------ Instance Methods
+
+  def template
+    @template ||= site.templates.find(template_name)
+  end
 
   # def resource_type_methods
   #   resource_types.map { |rt| rt.slug.pluralize }

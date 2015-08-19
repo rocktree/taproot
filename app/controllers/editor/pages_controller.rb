@@ -1,6 +1,7 @@
 class Editor::PagesController < Editor::BaseController
 
   before_filter :verify_current_page, :except => [:index, :new, :create]
+  before_filter :verify_xhr, :only => [:new, :create]
 
   def index
     # if params[:search] && params[:search][:q]
@@ -36,40 +37,29 @@ class Editor::PagesController < Editor::BaseController
       @current_template = all_templates.select { |t| t.name == params[:t] }[0]
       if @current_template.blank?
         # template does not exist
-        redirect_to site_editor_pages_path(current_site)
+        render :nothing => true, :status => 500
+      else
+        @current_page = Page.new(:template_name => current_template.name)
+        render :layout => false
       end
     else
       # template is missing from the url params
-      redirect_to site_editor_pages_path(current_site)
+      render :nothing => true, :status => 500
     end
-    # @current_template = site_templates.find_by_slug(params[:template])
-    @current_page = Page.new
   end
 
-  # def create
-  #   process_files
-  #   @current_page = Page.new(create_params)
-  #   if current_page.save!
-  #     # save_files
-  #     redirect_to(
-  #       builder_route([current_page], :edit),
-  #       :notice => t(
-  #         'notices.created',
-  #         :item => controller_name.humanize.titleize
-  #       )
-  #     )
-  #   else
-  #     render('new')
-  #   end
-  # end
+  def create
+    @current_page = Page.new(create_params)
+    if current_page.save
+      path = edit_site_editor_page_path(current_site, current_page)
+      render :text => "tk-success:#{path}"
+    else
+      render 'new', :layout => false
+    end
+  end
 
-  # def edit
-  #   if current_template_group.nil?
-  #     redirect_to builder_site_page_settings_path(
-  #       current_site, current_page, current_template_groups.first
-  #     )
-  #   end
-  # end
+  def edit
+  end
 
   # def move
   # end
@@ -132,29 +122,11 @@ class Editor::PagesController < Editor::BaseController
 
   private
 
-    # def create_params
-    #   @current_template = current_site.templates.find_by_id(
-    #     params[:page][:template_id]
-    #   )
-    #   p = params.require(:page).permit(
-    #     :title,
-    #     :slug,
-    #     :description,
-    #     :body,
-    #     :body_md,
-    #     :published,
-    #     :position,
-    #     :parent_id,
-    #     :show_in_nav,
-    #     :template
-    #   ).merge(:template => current_template, :last_editor => current_user)
-    #   unless params[:page][:field_data].blank?
-    #     p = p.merge(
-    #       :field_data => params[:page][:field_data]
-    #     )
-    #   end
-    #   p
-    # end
+    def create_params
+      params.require(:page)
+            .permit(:title, :template_name)
+            .merge(:site => current_site)
+    end
 
     # def update_params
     #   p = params.require(:page).permit(
@@ -216,5 +188,13 @@ class Editor::PagesController < Editor::BaseController
     #     end
     #   end
     # end
+
+    def verify_current_page
+      not_found if current_page.nil?
+    end
+
+    def verify_xhr
+      redirect_to site_editor_pages_path(current_site) unless request.xhr?
+    end
 
 end

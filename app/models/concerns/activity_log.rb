@@ -16,29 +16,29 @@ module ActivityLog
     Activity.create(
       :item => self,
       :site => self.site,
-      :item_path => builder_path_ref,
+      :item_path => editor_path_ref,
       :user => RequestStore.store[:topkit],
       :action => self.new_record? ? 'created' : 'updated'
     )
-    Activity.where(:item => self).update_all(:item_path => builder_path_ref)
+    Activity.where(:item => self).update_all(:item_path => editor_path_ref)
   end
 
-  def builder_path_ref
+  def editor_path_ref
     case self.class.to_s
     when 'Site'
-      path = builder_site_path(self.site)
+      path = site_editor_path(self.site)
     when 'FormField', 'TemplateField'
       parent = self.class.to_s.tableize.split("_").first
-      path = send("builder_site_#{parent}_#{parent}_field_path",
+      path = send("site_editor_#{parent}_#{parent}_field_path",
                   self.site, self.send(parent), self)
     when 'Resource', 'ResourceField', 'ResourceAssociationField'
       path = send(
-        "builder_site_resource_type_#{self.class.table_name.singularize}_path",
+        "site_editor_resource_type_#{self.class.table_name.singularize}_path",
         self.site, self.resource_type, self)
     when 'MenuItem'
-      path = send("builder_site_menu_menu_item_path", self.site, menu, self)
+      path = send("site_editor_menu_menu_item_path", self.site, menu, self)
     else
-      path = send("builder_site_#{self.class.table_name.singularize}_path",
+      path = send("site_editor_#{self.class.table_name.singularize}_path",
                   self.site, self)
     end
   end
