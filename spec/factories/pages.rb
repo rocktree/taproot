@@ -20,6 +20,7 @@
 FactoryGirl.define do
   factory :page do
     title { Faker::Lorem.words(4).join(' ') }
+    template_name { Faker::Lorem.word }
     site
 
     factory :published_page do

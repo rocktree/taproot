@@ -22,8 +22,11 @@ require 'rails_helper'
 describe Page, :type => :model do
 
   before :all do
-    @published_page = create(:published_page)
-    @draft_page = create(:draft_page)
+    @site = create(:site)
+    config = YAML.load_file("#{Rails.root}/spec/support/config_01.yml")
+    @site.update_config(config)
+    @published_page = create(:published_page, :template_name => 'home')
+    @draft_page = create(:draft_page, :template_name => 'home')
   end
 
   context 'Unpublished page' do
