@@ -43,7 +43,7 @@ class Editor::PagesController < Editor::BaseController
       redirect_to site_editor_pages_path(current_site)
     end
     # @current_template = site_templates.find_by_slug(params[:template])
-    # @current_page = Page.new
+    @current_page = Page.new
   end
 
   # def create

@@ -31,19 +31,17 @@ feature 'Create New Page' do
       click_link('NEW')
       click_link('Home')
     end
-    # scenario 'has the "New Page" heading' do
-    #   expect(page).to have_content('New Page')
-    # end
-
     scenario 'shows the template name' do
-      expect(page).to have_content('Home')
+      expect(page).to have_content('Template: Home')
     end
-
-    scenario 'displays the page in draft mode'
-
-    scenario 'cam create a new page'
-
-    scenario 'requires a title to save the page'
+    scenario 'displays the page in draft mode' do
+      expect(page).to have_content('Status: Draft')
+    end
+    scenario 'can create a new page'
+    scenario 'requires a title to save the page' do
+      click_button 'Next'
+      expect(current_path).to eq(new_site_editor_page_path(@site))
+    end
   end
 
 end

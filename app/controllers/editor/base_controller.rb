@@ -5,6 +5,7 @@ class Editor::BaseController < EditorController
 
   helper_method :all_sites,
                 :all_templates,
+                :current_page,
                 :current_site,
                 :current_template
 
@@ -32,6 +33,10 @@ class Editor::BaseController < EditorController
 
     def all_templates
       @all_templates ||= current_site.templates.all
+    end
+
+    def current_page
+      @current_page ||= nil
     end
 
     def current_site

@@ -1,5 +1,8 @@
 <header class="page-header">
-  <h1>New Page</h1>
+  <%= simple_form_for current_page, :url => site_editor_pages_path do |f| %>
+    <%= f.input :title, :label => false, :placeholder => 'Title' %>
+    <%= f.submit "Next" %>
+  <% end %>
   <div class="labels">
     <span class="tk-label red template">
       <i class="icon-file"></i>
@@ -13,6 +16,8 @@
     </span>
   </div>
 </header>
+
+
 <%#= builder_page_title(current_page_breadcrumbs, :class => 'breadcrumbs') do %>
   <%#= page_search_field %>
 <%# end %>
