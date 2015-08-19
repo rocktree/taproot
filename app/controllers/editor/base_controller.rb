@@ -5,7 +5,8 @@ class Editor::BaseController < EditorController
 
   helper_method :all_sites,
                 :all_templates,
-                :current_site
+                :current_site,
+                :current_template
 
   before_filter :authenticate_user!
   before_filter :request_store
@@ -38,6 +39,10 @@ class Editor::BaseController < EditorController
         return nil unless params[:site_uid]
         all_sites.select { |s| s.uid == params[:site_uid] }.first
       end
+    end
+
+    def current_template
+      @current_template ||= current_page.template
     end
 
 end

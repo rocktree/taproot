@@ -31,11 +31,13 @@ feature 'Create New Page' do
       click_link('NEW')
       click_link('Home')
     end
-    scenario 'has the "New Page" heading' do
-      expect(page).to have_content('New Page')
-    end
+    # scenario 'has the "New Page" heading' do
+    #   expect(page).to have_content('New Page')
+    # end
 
-    scenario 'shows the template name'
+    scenario 'shows the template name' do
+      expect(page).to have_content('Home')
+    end
 
     scenario 'displays the page in draft mode'
 
