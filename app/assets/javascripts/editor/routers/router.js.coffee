@@ -2,7 +2,6 @@ class App.Routers.Router extends Backbone.Router
 
   initialize: ->
     @loadComponents()
-    # new App.Views.DefaultHelpers
   #   new App.Views.Header
   #   new App.Views.Shortcuts
   #   new App.Views.PickADate if $('.time-js').length > 0 || $('.date-js').length > 0
@@ -11,6 +10,7 @@ class App.Routers.Router extends Backbone.Router
   #   new App.Views.DataToggle if $('.data-trigger').length > 0
 
   loadComponents: ->
+    new App.Components.Helpers
     new App.Components.DropdownMenus
     new App.Components.Modals
 

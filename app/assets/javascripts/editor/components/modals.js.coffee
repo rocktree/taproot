@@ -19,6 +19,7 @@ class App.Components.Modals extends Backbone.View
   openModal: (content) ->
     @modal.find('.content').html(content)
     @modal.addClass('active')
+    @modal.find('form input:visible:first').focus()
     @modal.find('form').submit (e) =>
       e.preventDefault()
       url = @modal.find('form').attr('action')

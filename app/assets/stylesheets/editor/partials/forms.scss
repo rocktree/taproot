@@ -1,41 +1,43 @@
-// form {
-//   font-size: 0;
+form {
+  // font-size: 0;
 
-//   div.input {
-//     display: inline-block;
-//     width: 100%;
-//     margin: 10px 0;
-//     &.disabled {
-//       label, label > abbr {
-//         color: $color-light-darkest;
-//       }
-//     }
-//     label {
-//       text-transform: uppercase;
-//       color: $color-primary;
-//       font-size: 14px;
-//       font-weight: 400;
-//       abbr {
-//         border-bottom: none;
-//         color: $color-primary;
-//       }
-//     }
+  div.input {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0;
+    &.disabled {
+      label, label > abbr {
+        color: $color-light-darkest;
+      }
+    }
+    &.hidden {
+      display: none;
+    }
+    label {
+      text-transform: uppercase;
+      color: $color-primary;
+      font-size: 14px;
+      font-weight: 400;
+      abbr {
+        border-bottom: none;
+        color: $color-primary;
+      }
+    }
 //     textarea {
 //       height: 100px;
 //     }
-//     textarea, input, select {
-//       margin: 5px 0 0 0;
-//       padding: 10px;
-//       font-size: 14px;
-//       border-radius: 5px;
-//       color: $color-light-darkest;
-//       &.disabled {
-//         background: $color-light-dark;
-//       }
-//       &:focus {
-//         color: $color-primary;
-//       }
-//     }
+    textarea, input, select {
+      margin: 5px 0 0 0;
+      padding: 10px;
+      font-size: 14px;
+      color: $color-light-darkest;
+      &.disabled {
+        background: $color-light-dark;
+      }
+      &:focus {
+        color: $color-primary;
+      }
+    }
 //     input.boolean {
 //       margin: 0;
 //     }
@@ -85,7 +87,7 @@
 //         text-transform: uppercase;
 //       }
 //     }
-//   }
+  }
 
 //   span.error {
 //     display: block;
@@ -155,9 +157,9 @@
 //     color: $color-grey;
 //   }
 
-//   input[type=submit] {
-//     @include button($color-primary, $color-primary-lighter);
-//   }
+  input[type=submit] {
+    @include btn($color-primary, $color-primary-lighter);
+  }
 
 //   a.save, a.publish, a.draft, a.cancel, a.delete {
 //     @include button;
@@ -174,7 +176,7 @@
 //     float: right;
 //     @include button($color-grey, $color-grey-darker);
 //   }
-// }
+}
 
 // section#page-content.page.form {
 //   border: 1px solid $color-light-darker;

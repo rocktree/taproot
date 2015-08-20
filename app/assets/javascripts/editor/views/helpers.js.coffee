@@ -1,4 +1,4 @@
-class App.Views.DefaultHelpers extends Backbone.View
+class App.Components.Helpers extends Backbone.View
 
   el: 'body'
 
