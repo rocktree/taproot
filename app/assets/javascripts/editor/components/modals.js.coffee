@@ -22,6 +22,7 @@ class App.Components.Modals extends Backbone.View
     @modal.find('form input:visible:first').focus()
     @modal.find('form').submit (e) =>
       e.preventDefault()
+      loader = new App.Components.Loader
       url = @modal.find('form').attr('action')
       data = @modal.find('form').serialize()
       $.post url, data, (response) =>
@@ -29,6 +30,7 @@ class App.Components.Modals extends Backbone.View
           window.location.href = response.split(':')[1]
         else
           @modal.find('.content').html(response)
+          loader.close()
     @modal.find('a.close').click(@closeModal)
     $(document).keyup (e) =>
       @closeModal() if e.keyCode == 27
