@@ -1,0 +1,32 @@
+table {
+  border: none;
+  thead {
+    tr {
+      border-bottom: 1px solid $color-light-dark;
+      th {
+        padding: 10px 5px;
+        font-size: 18px;
+        line-height: 18px;
+        text-align: left;
+      }
+    }
+  }
+  tbody {
+    tr {
+      background: transparent;
+      border-bottom: 1px solid $color-light-dark;
+      &:nth-child(even) {
+        background: transparent;
+      }
+      td {
+        padding: 13px 10px;
+        font-size: 14px;
+        line-height: 14px;
+        span {
+          font-size: inherit;
+          line-height: inherit;
+        }
+      }
+    }
+  }
+}

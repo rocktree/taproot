@@ -40,7 +40,10 @@ Rails.application.routes.draw do
     namespace :editor do
       get '/' => 'base#home' # Redirects hanging URI segments
 
-      resources :pages, :param => :slug
+      resources :pages, :param => :slug do
+        post 'publish' => 'pages#publish', :as => :publish
+        post 'unpublish' => 'pages#unpublish', :as => :unpublish
+      end
 
   #     # Site Settings
   #     get 'settings/croppers' => 'sites#croppers', :as => :cropper

@@ -1,5 +1,17 @@
 <header class="page-header">
-  <h1>Site Pages</h1>
+  <nav class="breadcrumbs">
+    <ul>
+      <li>
+        <%= link_to 'All Pages', site_editor_pages_path(current_site) %>
+      </li>
+      <% current_page_ancestors.each do |page| %>
+        <li>
+          <%= link_to page.title, site_editor_page_path(current_site, page) %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+  <h1><%= current_page.title %></h1>
 </header>
 
 <section class="page-content">
@@ -12,8 +24,7 @@
       </tr>
     </thead>
     <tbody>
-      <% all_pages_tree.each do |node| %>
-        <% page = page_from_tree_node(node) %>
+      <% current_page_children.each do |page| %>
         <tr>
           <td class="status-icon"><%= page.p.status_icon %></td>
           <td>

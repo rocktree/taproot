@@ -4,16 +4,9 @@ class Editor::PagesController < Editor::BaseController
   before_filter :verify_xhr, :only => [:new, :create]
 
   def index
-    # if params[:search] && params[:search][:q]
-    #   q = params[:search][:q]
-    #   @pages = current_site.pages.search_content(params[:search][:q]).to_a
-    #   @pages = Kaminari.paginate_array(@pages).page(params[:page]).per(10)
-    # else
-    #   redirect_to builder_route([home_page], :edit)
-    # end
   end
 
-  # def show
+  def show
   #   if template_children.size > 0
   #     if params[:template].blank? || params[:published].blank?
   #       t = params[:template] || 'any'
@@ -27,10 +20,7 @@ class Editor::PagesController < Editor::BaseController
   #   else
   #     redirect_to builder_route([current_page], :edit)
   #   end
-  # end
-
-  # def help
-  # end
+  end
 
   def new
     if params[:t]
@@ -89,36 +79,36 @@ class Editor::PagesController < Editor::BaseController
   #   end
   # end
 
-  # def publish
-  #   current_page.update(:published => true)
-  #   redirect_to(redirect_route, :notice => 'Page published!')
-  # end
+  def publish
+    current_page.publish!
+    redirect_to(redirect_route, :notice => 'Page published!')
+  end
 
-  # def unpublish
-  #   current_page.update(:published => false)
-  #   redirect_to(redirect_route, :notice => 'Page unpublished!')
-  # end
+  def unpublish
+    current_page.unpublish!
+    redirect_to(redirect_route, :notice => 'Page unpublished!')
+  end
 
-  # def destroy
+  def destroy
   #   if current_page == home_page
   #     redirect_to builder_route([site_root_pages], :index),
   #                 :alert => 'You may not delete the home page'
   #   else
   #     current_template
-  #     parent_page = current_page.parent
-  #     current_page.destroy
-  #     if parent_page.nil?
+    parent_page = current_page.parent
+    current_page.destroy
+    if parent_page.nil?
+      path = site_editor_pages_path(current_site)
+    end
+
   #       path = builder_route([site_root_pages], :index)
   #     else
   #       path = builder_route([parent_page], :show)
   #     end
   #     current_template.save
-  #     redirect_to(
-  #       path,
-  #       :notice => t('notices.updated', :item => 'Page')
-  #     )
+    redirect_to(path, :notice => t('notices.deleted', :item => 'Page'))
   #   end
-  # end
+  end
 
   private
 

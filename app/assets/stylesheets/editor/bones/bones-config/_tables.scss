@@ -4,9 +4,9 @@
 $table-default-width: 100%;
 $table-default-border: 1px solid $color-light-darker;
 // headers
-$table-header-background: $color-primary;
-$table-header-color: $color-light;
-$table-header-fontWeight: 400;
+$table-header-background: transparent;
+$table-header-color: $color-dark;
+$table-header-fontWeight: 600;
 // cells
 $table-cell-padding: 5px 10px;
 $table-cell-altBackground: $color-light; // each even row will have this background

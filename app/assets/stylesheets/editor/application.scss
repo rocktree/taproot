@@ -27,6 +27,7 @@
 // @import 'partials/activities';
 // @import 'partials/content';
 @import 'partials/forms';
+@import 'partials/tables';
 // @import 'partials/uploader';
 // @import 'partials/images';
 // @import 'partials/filters';
@@ -40,4 +41,5 @@
 
 // ------------------------------------------ Views
 
+@import 'views/pages/index_show';
 @import 'views/pages/new';

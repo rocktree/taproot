@@ -6,9 +6,15 @@ class Editor::BaseController < EditorController
   helper_method :all_pages,
                 :all_sites,
                 :all_templates,
+                :all_pages_tree,
+                :page_from_tree_node,
+                :current_page_tree,
+                :current_page_children,
+                :current_page_ancestors,
                 :current_page,
                 :current_site,
-                :current_template
+                :current_template,
+                :redirect_route
 
   before_filter :authenticate_user!
   before_filter :request_store
@@ -24,9 +30,19 @@ class Editor::BaseController < EditorController
 
   private
 
+    # ------------------------------------------ Request
+
     def request_store
       RequestStore.store[:topkit] = current_user
     end
+
+    def redirect_route
+      return params[:redirect] if params[:redirect]
+      return request.referrer unless request.referrer.blank?
+      site_editor_pages_path(current_site)
+    end
+
+    # ------------------------------------------ Errors
 
     def not_found
       ActionController::RoutingError.new('Page not found.')
@@ -46,12 +62,36 @@ class Editor::BaseController < EditorController
       @all_templates ||= current_site.templates.all
     end
 
+    # ------------------------------------------ Page Trees
+
+    def all_pages_tree
+      @all_pages_tree ||= Page.arrange_serializable(:order => :position)
+    end
+
+    def page_from_tree_node(node)
+      all_pages.select { |p| p.slug == node.symbolize_keys[:slug] }.first
+    end
+
+    def current_page_tree
+      @current_page_tree ||= begin
+        current_page.subtree.arrange(:order => :position).values
+      end
+    end
+
+    def current_page_children
+      @current_page_children ||= current_page_tree.first.keys
+    end
+
+    def current_page_ancestors
+      @current_page_ancestors ||= current_page.ancestors
+    end
+
     # ------------------------------------------ Objects
 
     def current_page
       @current_page ||= begin
         p = params[:page_slug] || params[:slug]
-        all_pages.select { |p| p.slug == p }.first
+        all_pages.select { |page| page.slug == p }.first
       end
     end
 

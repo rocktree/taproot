@@ -98,86 +98,86 @@ p.note {
   }
 }
 
-a {
-  &.new, &.edit, &.back, &.delete, &.dont-delete, &.published, &.draft, &.crop,
-  &.download, &.code, &.database, &.link, &.build, &.preview, &.publish,
-  &.unpublish, &.template, &.all, &.help, &.pages, &.maxed-out, &.not-maxed,
-  &.unlimited, &.form, &.data-trigger, &.reorder, &.protected, &.unprotected,
-  &.hidden, &.hide, &.visible, &.show, &.half-width, &.media, &.move, &.admin,
-  &.user, &.star, &.view, &.not-complete, &.complete, &.menu, &.image,
-  &.settings {
-    &:before {
-      @include icon('\e000')
-    }
-    &.published, &.unlimited, &.complete {
-      color: $color-success;
-    }
-    &.not-maxed, &.protected {
-      color: $color-warning;
-    }
-    &.draft, &.maxed-out, &.not-complete {
-      color: $color-danger;
-    }
-  }
-  &.admin:before          { content: "\e18c"; }
-  &.all:before            { content: "\e0f9"; }
-  &.back:before           { content: "\e3b3"; }
-  &.build:before          { content: "\e1e8"; }
-  &.code:before           { content: "\e480"; }
-  &.crop:before           { content: "\e43c"; }
-  &.data-trigger:before   { content: "\e3b2"; }
-  &.database:before       { content: "\e13a"; }
-  &.delete:before         { content: "\e24f"; }
-  &.dont-delete:before    { content: "\e13b"; }
-  &.download:before       { content: "\e132"; }
-  &.draft:before          { content: "\e357"; }
-  &.edit:before           { content: "\e00f"; }
-  &.form:before           { content: "\e013"; }
-  &.half-width:before     { content: "\e43f"; }
-  &.help:before           { content: "\e359"; }
-  &.hidden:before         { content: "\e2da"; }
-  &.hide:before           { content: "\e2da"; }
-  &.image:before          { content: "\e02b"; }
-  &.link:before           { content: "\e2c9"; }
-  &.media:before          { content: "\e02b"; }
-  &.menu:before           { content: "\e2aa"; }
-  &.move:before           { content: "\e352"; }
-  &.new:before            { content: "\e35e"; }
-  &.pages:before          { content: "\e079"; }
-  &.preview:before        { content: "\e2d9"; }
-  &.protected:before      { content: "\e1d0"; }
-  &.publish:before,
-  &.complete:before,
-  &.not-maxed:before      { content: "\e367"; }
-  &.published:before      { content: "\e367"; }
-  &.reorder:before        { content: "\e425"; }
-  &.settings:before       { content: "\e1df"; }
-  &.show:before           { content: "\e2d9"; }
-  &.star:before           { content: "\e2fc"; }
-  &.template:before       { content: "\e097"; }
-  &.unlimited:before      { content: "\e439"; }
-  &.unprotected:before    { content: "\e1d4"; }
-  &.unpublish:before,
-  &.not-complete:before,
-  &.maxed-out:before      { content: "\e357"; }
-  &.user:before           { content: "\e185"; }
-  &.view:before           { content: "\e2d9"; }
-  &.visible:before        { content: "\e2d9"; }
+// a {
+//   &.new, &.edit, &.back, &.delete, &.dont-delete, &.published, &.draft, &.crop,
+//   &.download, &.code, &.database, &.link, &.build, &.preview, &.publish,
+//   &.unpublish, &.template, &.all, &.help, &.pages, &.maxed-out, &.not-maxed,
+//   &.unlimited, &.form, &.data-trigger, &.reorder, &.protected, &.unprotected,
+//   &.hidden, &.hide, &.visible, &.show, &.half-width, &.media, &.move, &.admin,
+//   &.user, &.star, &.view, &.not-complete, &.complete, &.menu, &.image,
+//   &.settings {
+//     &:before {
+//       @include icon('\e000')
+//     }
+//     &.published, &.unlimited, &.complete {
+//       color: $color-success;
+//     }
+//     &.not-maxed, &.protected {
+//       color: $color-warning;
+//     }
+//     &.draft, &.maxed-out, &.not-complete {
+//       color: $color-danger;
+//     }
+//   }
+//   &.admin:before          { content: "\e18c"; }
+//   &.all:before            { content: "\e0f9"; }
+//   &.back:before           { content: "\e3b3"; }
+//   &.build:before          { content: "\e1e8"; }
+//   &.code:before           { content: "\e480"; }
+//   &.crop:before           { content: "\e43c"; }
+//   &.data-trigger:before   { content: "\e3b2"; }
+//   &.database:before       { content: "\e13a"; }
+//   &.delete:before         { content: "\e24f"; }
+//   &.dont-delete:before    { content: "\e13b"; }
+//   &.download:before       { content: "\e132"; }
+//   &.draft:before          { content: "\e357"; }
+//   &.edit:before           { content: "\e00f"; }
+//   &.form:before           { content: "\e013"; }
+//   &.half-width:before     { content: "\e43f"; }
+//   &.help:before           { content: "\e359"; }
+//   &.hidden:before         { content: "\e2da"; }
+//   &.hide:before           { content: "\e2da"; }
+//   &.image:before          { content: "\e02b"; }
+//   &.link:before           { content: "\e2c9"; }
+//   &.media:before          { content: "\e02b"; }
+//   &.menu:before           { content: "\e2aa"; }
+//   &.move:before           { content: "\e352"; }
+//   &.new:before            { content: "\e35e"; }
+//   &.pages:before          { content: "\e079"; }
+//   &.preview:before        { content: "\e2d9"; }
+//   &.protected:before      { content: "\e1d0"; }
+//   &.publish:before,
+//   &.complete:before,
+//   &.not-maxed:before      { content: "\e367"; }
+//   &.published:before      { content: "\e367"; }
+//   &.reorder:before        { content: "\e425"; }
+//   &.settings:before       { content: "\e1df"; }
+//   &.show:before           { content: "\e2d9"; }
+//   &.star:before           { content: "\e2fc"; }
+//   &.template:before       { content: "\e097"; }
+//   &.unlimited:before      { content: "\e439"; }
+//   &.unprotected:before    { content: "\e1d4"; }
+//   &.unpublish:before,
+//   &.not-complete:before,
+//   &.maxed-out:before      { content: "\e357"; }
+//   &.user:before           { content: "\e185"; }
+//   &.view:before           { content: "\e2d9"; }
+//   &.visible:before        { content: "\e2d9"; }
 
-  &.button {
-    @include btn($color-primary, $color-primary-lighter);
-    margin: 5px 0 10px 0;
-    &.markdown, &.wysiwyg {
-      margin: 10px 10px 5px 0;
-      background: transparent;
-      border: 1px solid $color-1;
-      color: $color-1;
-    }
-  }
-  &.button-color-2 {
-    @include btn($color-2, $color-2-lighter);
-  }
-}
+//   &.button {
+//     @include btn($color-primary, $color-primary-lighter);
+//     margin: 5px 0 10px 0;
+//     &.markdown, &.wysiwyg {
+//       margin: 10px 10px 5px 0;
+//       background: transparent;
+//       border: 1px solid $color-1;
+//       color: $color-1;
+//     }
+//   }
+//   &.button-color-2 {
+//     @include btn($color-2, $color-2-lighter);
+//   }
+// }
 
 
 .ajax-page {
