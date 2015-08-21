@@ -4,16 +4,17 @@ class Editor::BaseController < EditorController
   protect_from_forgery with: :exception
 
   helper_method :all_pages,
+                :all_pages_tree,
                 :all_sites,
                 :all_templates,
-                :all_pages_tree,
-                :page_from_tree_node,
-                :current_page_tree,
-                :current_page_children,
-                :current_page_ancestors,
                 :current_page,
+                :current_page_ancestors,
+                :current_page_children,
+                :current_page_tree,
                 :current_site,
                 :current_template,
+                :draft_pages,
+                :page_from_tree_node,
                 :redirect_route
 
   before_filter :authenticate_user!
@@ -84,6 +85,10 @@ class Editor::BaseController < EditorController
 
     def current_page_ancestors
       @current_page_ancestors ||= current_page.ancestors
+    end
+
+    def draft_pages
+      @draft_pages ||= all_pages.reject(&:published?)
     end
 
     # ------------------------------------------ Objects

@@ -4,6 +4,7 @@ class Editor::PagesController < Editor::BaseController
   before_filter :verify_xhr, :only => [:new, :create]
 
   def index
+    render 'drafts' if params[:status] == 'draft'
   end
 
   def show

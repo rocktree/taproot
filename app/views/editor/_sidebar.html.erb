@@ -19,12 +19,12 @@
   </div>
   <nav>
     <ul>
-      <li class="<%= 'active' if controller_name == 'pages' %>">
+      <li class="<%= 'active' if controller_name == 'pages' && params[:status] != 'draft' %>">
         <%= link_to 'Pages', site_editor_pages_path(current_site),
                     :class => 'pages' %>
       </li>
-      <li>
-        <%= link_to 'Drafts', site_editor_pages_path(current_site),
+      <li class="<%= 'active' if params[:status] == 'draft' %>">
+        <%= link_to 'Drafts', site_editor_pages_path(current_site, :status => 'draft'),
                     :class => 'drafts' %>
       </li>
     </ul>
