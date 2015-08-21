@@ -3,9 +3,7 @@ div.dropdown {
   > a {
     @include button;
     margin: 0;
-    &:after {
-      @include icon('\e3b2');
-    }
+    @include icon-after($icon-down);
     &:focus {
       background: $color-primary;
     }
@@ -13,7 +11,7 @@ div.dropdown {
       background: $color-primary-dark;
     }
     &.active:after {
-      content: '\e3b0';
+      content: $icon-up;
     }
   }
   ul {

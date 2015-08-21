@@ -9,7 +9,33 @@
   font-style: normal;
 }
 
-.icon, [class^="icon-"], [class*=" icon-"] {
+$icon-edit: "\e913";
+$icon-draft: "\e914";
+$icon-image: "\e93c";
+$icon-media: "\e93e";
+$icon-page: "\e99d";
+$icon-pages: "\e99f";
+$icon-save: "\ea89";
+$icon-user: "\eaf4";
+$icon-settings: "\eb5c";
+$icon-delete: "\ebfb";
+$icon-form: "\ec4f";
+$icon-menu: "\ec69";
+$icon-link: "\ec98";
+$icon-close: "\ed69";
+$icon-checkmark: "\ed6c";
+$icon-checkmark-outline: "\ed6d";
+$icon-sign-out: "\ed74";
+$icon-up: "\edb4";
+$icon-up-thin: "\edb7";
+$icon-right: "\edb8";
+$icon-right-thin: "\edbb";
+$icon-down: "\edbc";
+$icon-down-thin: "\edbf";
+$icon-left: "\edc0";
+$icon-left-thin: "\edc3";
+
+@mixin icon($content: null) {
   font-family: 'Topkit';
   speak: none;
   font-style: normal;
@@ -17,6 +43,11 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+
+  // Custom Styles
+  @if $content != null {
+    content: $content;
+  }
 
   /* Enable Ligatures ================ */
   letter-spacing: 0;
@@ -30,6 +61,24 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+@mixin icon-before($content) {
+  &:before {
+    margin-left: 5px;
+    font-size: 10px;
+    @include icon($content);
+  }
+}
+@mixin icon-after($content) {
+  &:after {
+    margin-left: 5px;
+    font-size: 10px;
+    @include icon($content);
+  }
+}
+
+.icon, [class^="icon-"], [class*=" icon-"] {
+  @include icon;
 }
 
 .icon-edit:before {
@@ -76,6 +125,9 @@
 }
 .icon-checkmark-outline:before {
   content: "\ed6d";
+}
+.icon-close:before {
+  content: "\ed69";
 }
 .icon-sign-out:before {
   content: "\ed74";
