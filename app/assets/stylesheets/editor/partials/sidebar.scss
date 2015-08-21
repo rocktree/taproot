@@ -26,225 +26,44 @@ aside#sidebar {
       left: 38px;
     }
   }
+
+  > nav {
+    margin-top: 15px;
+    ul {
+      float: none;
+      li {
+        display: block;
+        &.active {
+          a, a:hover {
+            border-left-color: $color-secondary;
+            color: $color-secondary;
+            background: transparent;
+          }
+        }
+        a {
+          display: block;
+          margin: 0;
+          padding: 15px 15px;
+          border-bottom: none;
+          font-size: 16px;
+          line-height: 16px;
+          font-weight: 600;
+          border-left: 3px solid transparent;
+          color: $color-dark-lightest;
+          &:hover {
+            border-left-color: $color-dark-lightest;
+            background: $color-light;
+          }
+          &.pages { @include icon-before($icon-pages); }
+          &.drafts { @include icon-before($icon-draft); }
+          &:before {
+            display: inline-block !important;
+            font-size: 14px !important;
+            line-height: 16px !important;
+            margin-right: 7px !important;
+          }
+        }
+      }
+    }
+  }
 }
-// aside.sidebar {
-//   overflow-y: scroll;
-//   nav {
-//     padding-bottom: 50px;
-
-//     // ------------------------------- Left Icons
-
-//     &.left-icons {
-//       ul {
-//         li {
-//           a {
-//             &:before {
-//               margin-right: 8px;
-//               font-size: 14px;
-//               line-height: 14px;
-//             }
-//             &:after {
-//               margin-top: -10px;
-//               color: inherit;
-//             }
-//           }
-//         }
-//       }
-//     }
-
-//     // ------------------------------- Default
-
-//     ul {
-//       float: none;
-//       li {
-//         display: block;
-//         a {
-//           display: block;
-//           position: relative;
-//           margin: 0;
-//           padding: 15px 15px;
-//           font-size: 16px;
-//           line-height: 20px;
-//           color: $color-dark-lightest;
-//           border-bottom: none;
-//           &:hover {
-//             color: $color-dark-lightest;
-//             background-color: $color-light-darker;
-//           }
-//           &:after {
-//             font-family: 'Icomoon-Ultimate';
-//             content: "\e3b1";
-//             position: absolute;
-//             top: 50%;
-//             right: 10px;
-//             margin-top: -12px;
-//             color: $color-dark;
-//           }
-//           span {
-//             display: block;
-//             color: $color-dark;
-//             &.title {
-//               margin-bottom: 5px;
-//               font-size: 18px;
-//               line-height: 20px;
-//               font-weight: 600;
-//             }
-//             &.slug {
-//               color: darken($color-light-darkest, 15%);
-//               font-size: 14px;
-//               line-height: 18px;
-//             }
-//           }
-//         }
-
-//         // ------------------------------- New Button
-
-//         &.new-button {
-//           a {
-//             padding: 13px 15px;
-//             color: $color-light;
-//             background: $color-2;
-//             &:hover {
-//               background: $color-2;
-//             }
-//             &:before {
-//               font-size: 14px;
-//             }
-//             &:after {
-//               content: none;
-//             }
-//           }
-//           &:nth-child(2) {
-//             a {
-//               background: darken($color-2, 7%);
-//               &:hover { background: darken($color-2, 7%); }
-//             }
-//           }
-//           &:nth-child(3) {
-//             a {
-//               background: darken($color-2, 14%);
-//               &:hover { background: darken($color-2, 14%); }
-//             }
-//           }
-//           &:nth-child(3) {
-//             a {
-//               background: darken($color-2, 21%);
-//               &:hover { background: darken($color-2, 21%); }
-//             }
-//           }
-//         }
-
-//         // ------------------------------- Users
-
-//         &.user {
-//           a {
-//             div.avatar-container {
-//               border-radius: 3px;
-//               overflow: visible;
-//               width: 32px;
-//               height: 32px;
-//               margin-right: 5px;
-//               &:after {
-//                 width: 14px;
-//                 height: 14px;
-//                 line-height: 14px;
-//                 font-size: 10px;
-//               }
-//               img {
-//                 border-radius: 3px;
-//               }
-//             }
-//             span {
-//               display: inline-block;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-
-//   // ------------------------------- Back Button
-
-//   .back-button {
-//     position: fixed;
-//     z-index: 999;
-//     width: 250px;
-//     bottom: 0;
-//     padding: 15px 15px 15px 40px;
-//     font-size: 18px;
-//     line-height: 18px;
-//     background: $color-dark-lightest;
-//     color: $color-light;
-//     &:before {
-//       font-family: 'Icomoon-Ultimate';
-//       content: "\e3b3";
-//       position: absolute;
-//       top: 50%;
-//       left: 10px;
-//       margin: -8px 10px 0 0;
-//       // color: $color-dark;
-//     }
-
-//   }
-// }
-
-// aside#current-nav {
-//   padding: 15px 0;
-//   .nav-section {
-//     margin: 10px 0;
-//     padding: 15px 0;
-//     border-bottom: 1px solid $color-dark;
-//     &:last-child {
-//       border-bottom: none;
-//     }
-//     .title {
-//       margin: 0;
-//       text-align: center;
-//       font-size: 22px;
-//       line-height: 28px;
-//       color: $color-light;
-//       text-transform: uppercase;
-//     }
-//     ul {
-//       @include clear-list;
-//       margin-top: 10px;
-//       li {
-//         display: block;
-//         margin: 0;
-//         padding: 0;
-//         color: $color-light;
-//         font-size: 18px;
-//         font-weight: 400;
-//         line-height: 24px;
-//         a {
-//           display: block;
-//           padding: 10px 15px;
-//           color: inherit;
-//           font-size: inherit;
-//           font-weight: inherit;
-//           line-height: inherit;
-//           border-left: 3px solid transparent;
-//           @include transition-all;
-//           &:before {
-//             display: inline-block;
-//             margin-right: 8px;
-//             font-size: 85%;
-//             line-height: inherit;
-//             color: $color-dark-lightest;
-//           }
-//           &:hover {
-//             border-left-color: $color-primary;
-//             background: $color-dark;
-//           }
-//           &.delete:hover {
-//             border-left-color: $color-danger;
-//           }
-//           &.active {
-//             border-left-color: $color-primary;
-//             background: $color-dark;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }

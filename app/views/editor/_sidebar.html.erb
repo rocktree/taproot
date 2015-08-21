@@ -17,5 +17,16 @@
       <% end %>
     </ul>
   </div>
-  <nav></nav>
+  <nav>
+    <ul>
+      <li class="<%= 'active' if controller_name == 'pages' %>">
+        <%= link_to 'Pages', site_editor_pages_path(current_site),
+                    :class => 'pages' %>
+      </li>
+      <li>
+        <%= link_to 'Drafts', site_editor_pages_path(current_site),
+                    :class => 'drafts' %>
+      </li>
+    </ul>
+  </nav>
 </aside>
