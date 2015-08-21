@@ -29,18 +29,18 @@ aside#sidebar {
 
   > nav {
     margin-top: 15px;
-    ul {
+    > ul {
       float: none;
-      li {
+      > li {
         display: block;
         &.active {
-          a, a:hover {
+          > a, a:hover {
             border-left-color: $color-secondary;
             color: $color-secondary;
             background: transparent;
           }
         }
-        a {
+        > a {
           display: block;
           margin: 0;
           padding: 15px 15px;
