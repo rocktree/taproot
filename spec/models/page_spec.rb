@@ -33,11 +33,23 @@ describe Page, :type => :model do
     it 'is a draft if it is not published' do
       expect(@draft_page.draft?).to eq(true)
     end
+    it 'can be published' do
+      page = @draft_page.dup
+      page.save!
+      page.publish!
+      expect(page.published?).to eq(true)
+    end
   end
 
   context 'Published page' do
     it 'is not a draft if it is published' do
       expect(@published_page.draft?).to eq(false)
+    end
+    it 'can be unpublished' do
+      page = @published_page.dup
+      page.save!
+      page.unpublish!
+      expect(page.published?).to eq(false)
     end
   end
 

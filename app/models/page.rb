@@ -81,6 +81,14 @@ class Page < ActiveRecord::Base
     @template ||= site.templates.find(template_name)
   end
 
+  def publish!
+    update_columns(:published => true)
+  end
+
+  def unpublish!
+    update_columns(:published => false)
+  end
+
   # def resource_type_methods
   #   resource_types.map { |rt| rt.slug.pluralize }
   # end
