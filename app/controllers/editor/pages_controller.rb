@@ -8,19 +8,6 @@ class Editor::PagesController < Editor::BaseController
   end
 
   def show
-  #   if template_children.size > 0
-  #     if params[:template].blank? || params[:published].blank?
-  #       t = params[:template] || 'any'
-  #       p = params[:published] || 'all'
-  #       redirect_to(
-  #         builder_site_page_path(
-  #           current_site, current_page, :published => p, :template => t
-  #         )
-  #       )
-  #     end
-  #   else
-  #     redirect_to builder_route([current_page], :edit)
-  #   end
   end
 
   def new
@@ -60,14 +47,15 @@ class Editor::PagesController < Editor::BaseController
   def edit
   end
 
-  # def move
-  # end
-
   def update
     p = params[:page][:title] ? head_params : update_params
+    old_slug = current_page.slug
     if current_page.update(p)
-       redirect_to redirect_route,
-                   :notice => t('notices.updated', :item => 'Page')
+      current_page.reload
+      new_slug = current_page.slug
+      redirect_route.gsub!(/\/#{old_slug}/, "/#{new_slug}")
+      redirect_to redirect_route,
+                  :notice => t('notices.updated', :item => 'Page')
     else
       if params[:page][:title]
         redirect_to redirect_route, :alert => 'Could not save page.'
@@ -76,29 +64,6 @@ class Editor::PagesController < Editor::BaseController
       end
     end
   end
-  #   respond_to do |format|
-  #     format.html do
-  #       process_files
-  #       slug = current_page.slug
-  #       if current_page.update(update_params)
-  #         # save_files
-  #         route = redirect_route.gsub(/#{slug}/, current_page.slug)
-  #         redirect_to(route,
-  #           :notice => t(
-  #             'notices.updated',
-  #             :item => controller_name.humanize.titleize
-  #           )
-  #         )
-  #       else
-  #         render('edit')
-  #       end
-  #     end
-  #     format.json do
-  #       current_page.update!(update_params)
-  #       render :nothing => true
-  #     end
-  #   end
-  # end
 
   def publish
     current_page.publish!
@@ -111,24 +76,12 @@ class Editor::PagesController < Editor::BaseController
   end
 
   def destroy
-  #   if current_page == home_page
-  #     redirect_to builder_route([site_root_pages], :index),
-  #                 :alert => 'You may not delete the home page'
-  #   else
-  #     current_template
     parent_page = current_page.parent
     current_page.destroy
     if parent_page.nil?
       path = site_editor_pages_path(current_site)
     end
-
-  #       path = builder_route([site_root_pages], :index)
-  #     else
-  #       path = builder_route([parent_page], :show)
-  #     end
-  #     current_template.save
     redirect_to(path, :notice => t('notices.deleted', :item => 'Page'))
-  #   end
   end
 
   private
@@ -140,69 +93,8 @@ class Editor::PagesController < Editor::BaseController
     end
 
     def head_params
-      params.require(:page).permit(:title)
+      params.require(:page).permit(:title, :slug)
     end
-
-    # def update_params
-    #   p = params.require(:page).permit(
-    #     :title,
-    #     :slug,
-    #     :description,
-    #     :body,
-    #     :body_md,
-    #     :published,
-    #     :position,
-    #     :parent_id,
-    #     :template_id,
-    #     :show_in_nav,
-    #     :template
-    #   ).merge(:last_editor => current_user)
-    #   unless params[:page][:field_data].blank?
-    #     p = p.merge(
-    #       :field_data => current_page.field_data.merge(params[:page][:field_data])
-    #     )
-    #   end
-    #   p
-    # end
-
-    # def process_files
-    #   @files_to_save = {}
-    #   unless params[:page][:field_data].nil?
-    #     keys = params[:page][:field_data].keys
-    #     keys.each do |key|
-    #       value = nil
-    #       if key.starts_with?('rtfile_')
-    #         clean_key = key.gsub(/rtfile\_/, '')
-    #         value = params[:page][:field_data][key.to_sym]
-    #         params[:page][:field_data][clean_key.to_sym] = value
-    #         @files_to_save[clean_key] = value.to_i
-    #       end
-    #     end
-    #   end
-    # end
-
-    # def redirect_route
-    #   if params[:page]
-    #     params[:page][:redirect_route] || builder_site_pages(current_site)
-    #   else
-    #     params[:redirect_route] || builder_site_pages(current_site)
-    #   end
-    # end
-
-    # def builder_html_title
-    #   @builder_html_title ||= begin
-    #     case action_name
-    #     when 'help', 'edit', 'update'
-    #       "#{action_name.titleize} >> #{current_page.title}"
-    #     when 'index'
-    #       "#{current_site.title} Pages"
-    #     when 'new', 'create'
-    #       params[:template] ? "New #{params[:template].titleize}" : "New Page"
-    #     else
-    #       current_page.title
-    #     end
-    #   end
-    # end
 
     def verify_current_page
       not_found if current_page.nil?

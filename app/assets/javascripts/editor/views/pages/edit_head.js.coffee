@@ -1,4 +1,4 @@
-class App.Views.Pages.EditTitle extends Backbone.View
+class App.Views.Pages.EditHead extends Backbone.View
 
   el: 'body'
 
@@ -6,15 +6,13 @@ class App.Views.Pages.EditTitle extends Backbone.View
     'keyup .page-header h1': 'updateForm'
     'click .save-page': 'submitForm'
 
-  initialize: ->
-    console.log '123'
-
   updateForm: (e) ->
     if e.keyCode == 13
       @submitForm(e)
     else
       @showSaveButton()
-      $('#page_title').val($('.page-header h1').html())
+      $('#page_title').val($('.page-header h1 .title').html())
+      $('#page_slug').val($('.page-header h1 .slug').html())
 
   showSaveButton: ->
     $('.page-header a.save-page').addClass('active')

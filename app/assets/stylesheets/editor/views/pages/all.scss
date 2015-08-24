@@ -47,8 +47,25 @@ body.pages {
         }
       }
       h1 {
-        border: none;
-        outline: none;
+        span {
+          display: inline-block;
+          vertical-align: bottom;
+          border: none;
+          outline: none;
+          &.title {
+            margin-right: 5px;
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: inherit;
+          }
+          &.slug {
+            margin-bottom: 2px;
+            font-size: 16px;
+            line-height: 16px;
+            font-style: italic;
+            color: $color-dark-lightest;
+          }
+        }
       }
       form {
         display: none;
