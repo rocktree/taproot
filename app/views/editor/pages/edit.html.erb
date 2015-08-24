@@ -7,10 +7,28 @@
       :url => site_editor_page_path(current_site, current_page)
     ) do |f| %>
 
-    <%= f.simple_fields_for :field_data, OpenStruct.new(f.object.field_data) do |fd| %>
+    <%= f.simple_fields_for :field_data,
+                            OpenStruct.new(f.object.field_data) do |fd| %>
       <% current_template.fields.all.each_with_index do |field, idx| %>
         <% if field.name == 'body' %>
           <%= f.input :body, :label => field.label %>
+        <% elsif field.type == 'template' %>
+          <% template = current_site.templates.find(field.name) %>
+          <div class="block">
+            <h2><%= template.title %></h2>
+            <% pages_from_template(template).each do |page| %>
+              <div class="item">
+                <h3><%= page.title %></h3>
+                <%= simple_form_for(
+                  Page.new(:template_name => template.name),
+                  :url => site_editor_pages_path(current_site)
+                ) do |pf| %>
+                  <%= pf.input :title %>
+                  Hello
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% else %>
           <%= fd.input :"#{field.name}", :as => :"#{field.type}",
                        :required => field.required, :label => field.label %>

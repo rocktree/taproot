@@ -15,6 +15,7 @@ class Editor::BaseController < EditorController
                 :current_template,
                 :draft_pages,
                 :page_from_tree_node,
+                :pages_from_template,
                 :redirect_route
 
   before_filter :authenticate_user!
@@ -61,6 +62,10 @@ class Editor::BaseController < EditorController
 
     def all_templates
       @all_templates ||= current_site.templates.all
+    end
+
+    def pages_from_template(template)
+      all_pages.select { |p| p.template_name == template.name }
     end
 
     # ------------------------------------------ Page Trees
