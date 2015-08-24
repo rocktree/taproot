@@ -22,37 +22,7 @@
       <li class="<%= 'active' if controller_name == 'pages' && params[:status] != 'draft' %>">
         <%= link_to 'Pages', site_editor_pages_path(current_site),
                     :class => 'pages' %>
-        <ul>
-          <% all_pages_tree.each do |node| %>
-            <% page = page_from_tree_node(node) %>
-            <li>
-              <%= link_to page.title,
-                          site_editor_page_path(current_site, page) %>
-              <% if node['children'].size > 0 %>
-                <ul>
-                  <% node['children'].each do |node| %>
-                    <% page = page_from_tree_node(node) %>
-                      <li>
-                        <%= link_to page.title,
-                                    site_editor_page_path(current_site, page) %>
-                        <% if node['children'].size > 0 %>
-                          <ul>
-                            <% node['children'].each do |node| %>
-                              <% page = page_from_tree_node(node) %>
-                                <li>
-                                  <%= link_to page.title,
-                                              site_editor_page_path(current_site, page) %>
-                                </li>
-                            <% end %>
-                          </ul>
-                        <% end %>
-                      </li>
-                  <% end %>
-                </ul>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+        <%= pages_subnav %>
       </li>
       <li class="<%= 'active' if params[:status] == 'draft' %>">
         <%= link_to 'Drafts', site_editor_pages_path(current_site, :status => 'draft'),
