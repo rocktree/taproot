@@ -43,7 +43,7 @@ aside#sidebar {
         > a {
           display: block;
           margin: 0;
-          padding: 15px 15px;
+          padding: 15px 15px 15px 34px;
           border-bottom: none;
           font-size: 16px;
           line-height: 16px;
@@ -63,14 +63,18 @@ aside#sidebar {
             margin-right: 7px !important;
           }
           &#pages-subnav-trigger {
+            display: inline-block;
             float: left;
             padding: 0;
-            margin: 15px;
+            margin: 14px 5px 15px 15px;
             border: none;
             color: $color-dark-lighter;
             @include transition(none);
             &.active {
               @include transform(rotate(90deg));
+            }
+            & + a {
+              padding-left: 15px;
             }
             i {
               color: inherit;
