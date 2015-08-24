@@ -5,14 +5,15 @@
     <ul>
       <% all_templates.each do |t| %>
         <li>
-          <%= link_to t.title,
-                      new_site_editor_page_path(current_site, :t => t.name),
-                      :class => 'tk-modal-trigger',
-                      :data => {
-                        :modal_url => new_site_editor_page_path(
-                          current_site, :t => t.name
-                        )
-                      } %>
+          <% if current_page && current_page.id.present? %>
+            <% path = new_site_editor_page_path(
+              current_site, :t => t.name, :p => current_page.slug
+            ) %>
+          <% else %>
+            <% path = new_site_editor_page_path(current_site, :t => t.name) %>
+          <% end %>
+          <%= link_to t.title, path, :class => 'tk-modal-trigger',
+                      :data => { :modal_url => path } %>
         </li>
       <% end %>
     </ul>

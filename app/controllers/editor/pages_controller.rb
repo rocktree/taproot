@@ -31,6 +31,10 @@ class Editor::PagesController < Editor::BaseController
         render :nothing => true, :status => 500
       else
         @current_page = Page.new(:template_name => current_template.name)
+        if params[:p]
+          parent = current_site.webpages.find_by_slug(params[:p])
+          current_page.parent_id = parent.id unless parent.nil?
+        end
         render :layout => false
       end
     else
@@ -41,6 +45,10 @@ class Editor::PagesController < Editor::BaseController
 
   def create
     @current_page = Page.new(create_params)
+    if current_page.parent_id.present?
+      parent = current_site.webpages.find_by_id(current_page.parent_id)
+      current_page.parent_id = nil if parent.nil?
+    end
     if current_page.save
       path = edit_site_editor_page_path(current_site, current_page)
       render :text => "tk-success:#{path}"
@@ -115,7 +123,7 @@ class Editor::PagesController < Editor::BaseController
 
     def create_params
       params.require(:page)
-            .permit(:title, :template_name)
+            .permit(:title, :template_name, :parent_id)
             .merge(:site => current_site)
     end
 
