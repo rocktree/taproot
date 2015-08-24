@@ -31,6 +31,9 @@ class App.Components.Modals extends Backbone.View
         else
           @modal.find('.content').html(response)
           loader.close()
+      .fail () =>
+        alert "There was a problem with your request."
+        loader.close()
     @modal.find('a.close').click(@closeModal)
     $(document).keyup (e) =>
       @closeModal() if e.keyCode == 27
