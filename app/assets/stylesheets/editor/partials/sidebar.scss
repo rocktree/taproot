@@ -67,7 +67,7 @@ aside#sidebar {
             padding: 0;
             margin: 15px;
             border: none;
-            color: $color-dark;
+            color: $color-dark-lighter;
             @include transition(none);
             &.active {
               @include transform(rotate(90deg));
@@ -83,8 +83,9 @@ aside#sidebar {
           display: none;
           width: 100%;
           margin: 0 0 0 20px;
+          float: none;
           &.pages {
-            margin: 5px 20px 15px 10px;
+            margin: 3px 5px 0 15px;
           }
           &.active {
             display: block;
@@ -106,7 +107,7 @@ aside#sidebar {
                 padding: 0;
                 margin: 0 5px 0 10px;
                 border: none;
-                color: $color-dark;
+                color: $color-dark-lighter;
                 @include transition(none);
                 & + a {
                   margin-left: 0;
