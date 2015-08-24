@@ -285,13 +285,14 @@ p.note {
 //   }
 // }
 
-// .missing-content {
-//   text-align: center;
-//   font-size: 20px;
-//   color: $color-grey;
-//   font-weight: 400;
-//   font-style: italic;
-// }
+.missing-content {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 20px;
+  color: $color-grey;
+  font-weight: 400;
+  font-style: italic;
+}
 
 // nav.tabs {
 //   margin: 10px 0 0 0;

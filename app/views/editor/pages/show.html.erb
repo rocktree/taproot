@@ -1,47 +1,52 @@
 <%= render 'current_page_header' %>
 
 <section class="page-content">
-  <table class="pages">
-    <thead>
-      <tr>
-        <th class="status-icon"></th>
-        <th>Title</th>
-        <th>Last Modified</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% current_page_children.each do |page| %>
+  <% if current_page_children.size > 0 %>
+    <table class="pages">
+      <thead>
         <tr>
-          <td class="status-icon"><%= page.p.status_icon %></td>
-          <td>
-            <%= content_tag(:span, page.title, :class => 'title') %>
-            <div class="icons">
-              <%= icon_to 'right', site_editor_page_path(current_site, page),
-                          :class => 'right' %>
-              <%= icon_to 'edit',
-                          edit_site_editor_page_path(current_site, page),
-                          :class => 'edit' %>
-              <% if page.published? %>
-                <%= icon_to 'draft',
-                            site_editor_page_unpublish_path(
-                              current_site, page, :redirect => request.path
-                            ),
-                            :method => :post, :class => 'unpublish' %>
-              <% else %>
-                <%= icon_to 'publish',
-                            site_editor_page_publish_path(
-                              current_site, page, :redirect => request.path
-                            ),
-                            :method => :post, :class => 'publish' %>
-              <% end %>
-              <%= icon_to 'delete', site_editor_page_path(current_site, page),
-                          :method => :delete, :class => 'delete',
-                          :data => { :confirm => 'Are you sure?' } %>
-            </div>
-          </td>
-          <td><%= page.updated_at.pretty %></td>
+          <th class="status-icon"></th>
+          <th>Title</th>
+          <th>Last Modified</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% current_page_children.each do |page| %>
+          <tr>
+            <td class="status-icon"><%= page.p.status_icon %></td>
+            <td>
+              <%= content_tag(:span, page.title, :class => 'title') %>
+              <div class="icons">
+                <%= icon_to 'right', site_editor_page_path(current_site, page),
+                            :class => 'right' %>
+                <%= icon_to 'edit',
+                            edit_site_editor_page_path(current_site, page),
+                            :class => 'edit' %>
+                <% if page.published? %>
+                  <%= icon_to 'draft',
+                              site_editor_page_unpublish_path(
+                                current_site, page, :redirect => request.path
+                              ),
+                              :method => :post, :class => 'unpublish' %>
+                <% else %>
+                  <%= icon_to 'publish',
+                              site_editor_page_publish_path(
+                                current_site, page, :redirect => request.path
+                              ),
+                              :method => :post, :class => 'publish' %>
+                <% end %>
+                <%= icon_to 'delete', site_editor_page_path(current_site, page),
+                            :method => :delete, :class => 'delete',
+                            :data => { :confirm => 'Are you sure?' } %>
+              </div>
+            </td>
+            <td><%= page.updated_at.pretty %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="missing-content">There are no pages here. Use the NEW button to
+    create one.</p>
+  <% end %>
 </section>
