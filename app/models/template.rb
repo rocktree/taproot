@@ -14,6 +14,10 @@ class Template
     @fields
   end
 
+  def showable?
+    attributes[:show].nil? ? true : attributes[:show].to_bool
+  end
+
   private
 
     def method_missing(method, *arguments, &block)

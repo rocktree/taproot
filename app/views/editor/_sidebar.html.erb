@@ -3,7 +3,7 @@
     <%= link_to 'NEW', '#', :id => 'new-button',
                 :class => 'new button-color-2 dropdown-trigger' %>
     <ul>
-      <% all_templates.each do |t| %>
+      <% all_templates.select(&:showable?).each do |t| %>
         <li>
           <% if current_page && current_page.id.present? %>
             <% path = new_site_editor_page_path(

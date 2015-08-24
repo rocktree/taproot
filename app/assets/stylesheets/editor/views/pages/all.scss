@@ -96,5 +96,34 @@ body.pages {
         }
       }
     }
+    section.page-content {
+      position: relative;
+      form {
+        div.input {
+          padding: 10px 25px;
+          border-bottom: 1px solid $color-light-dark;
+          label {
+            color: $color-light-darkest;
+          }
+          input, textarea {
+            padding: 0;
+            font-size: 22px;
+            line-height: 28px;
+            color: $color-dark-light;
+            border: none;
+          }
+          textarea {
+            height: 150px;
+          }
+        }
+        input[type=submit] {
+          position: absolute;
+          top: 0;
+          right: 15px;
+          margin: 0;
+          padding: 10px 15px;
+        }
+      }
+    }
   }
 }

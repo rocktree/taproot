@@ -8,6 +8,14 @@ class TemplateField
     @attributes.symbolize_keys
   end
 
+  def required
+    attributes[:required] ? attributes[:required].to_bool : false
+  end
+
+  def label
+    attributes[:label] ? attributes[:label] : attributes[:name].titleize
+  end
+
   private
 
     def set_attrs(attrs)

@@ -17,6 +17,8 @@ describe Api::V2::SitesController do
     @empty_data = {}
     @config_01 = YAML.load_file("#{Rails.root}/spec/support/config_01.yml")
     @config_01_data = { :site => "#{@config_01}" }
+    @config_02 = YAML.load_file("#{Rails.root}/spec/support/config_02.yml")
+    @config_02_data = { :site => "#{@config_02}" }
   end
 
   before :each do
@@ -197,6 +199,14 @@ describe Api::V2::SitesController do
           post :update, @config_01_data.merge(:format => 'json', :uid => @uid)
           @site.reload
           expect(JSON.parse(response.body)).to eq(@site.config)
+        end
+        it 'will not change the uid' do
+          site = create(:site)
+          uid = site.uid
+          @request.headers['X-Api-Key'] = @valid_api_key
+          post :update, @config_02_data.merge(:format => 'json', :uid => uid)
+          site.reload
+          expect(site.uid).to eq(uid)
         end
       end
     end

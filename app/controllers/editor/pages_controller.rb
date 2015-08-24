@@ -96,6 +96,15 @@ class Editor::PagesController < Editor::BaseController
       params.require(:page).permit(:title, :slug)
     end
 
+    def update_params
+      p = params.require(:page).permit(:body)
+      fd = current_page.field_data || {}
+      unless params[:page][:field_data].blank?
+        p = p.merge(:field_data => fd.merge(params[:page][:field_data]))
+      end
+      p
+    end
+
     def verify_current_page
       not_found if current_page.nil?
     end
