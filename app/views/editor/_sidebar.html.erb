@@ -20,6 +20,8 @@
   <nav>
     <ul>
       <li class="<%= 'active' if controller_name == 'pages' && params[:status] != 'draft' %>">
+        <%= icon_to 'right', '#',
+                    :id => 'pages-subnav-trigger' if all_pages_tree.size > 0 %>
         <%= link_to 'Pages', site_editor_pages_path(current_site),
                     :class => 'pages' %>
         <%= pages_subnav %>

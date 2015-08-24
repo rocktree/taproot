@@ -13,6 +13,7 @@ class App.Routers.Router extends Backbone.Router
     new App.Components.Helpers
     new App.Components.DropdownMenus
     new App.Components.Modals
+    new App.Components.PagesSubnav
 
   routes:
     '': 'home'
