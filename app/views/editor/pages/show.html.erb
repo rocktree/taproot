@@ -1,18 +1,4 @@
-<header class="page-header">
-  <nav class="breadcrumbs">
-    <ul>
-      <li>
-        <%= link_to 'Site Pages', site_editor_pages_path(current_site) %>
-      </li>
-      <% current_page_ancestors.each do |page| %>
-        <li>
-          <%= link_to page.title, site_editor_page_path(current_site, page) %>
-        </li>
-      <% end %>
-    </ul>
-  </nav>
-  <h1><%= current_page.title %></h1>
-</header>
+<%= render 'current_page_header' %>
 
 <section class="page-content">
   <table class="pages">

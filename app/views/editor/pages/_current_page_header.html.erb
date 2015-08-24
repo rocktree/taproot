@@ -1,0 +1,61 @@
+<header class="page-header">
+  <nav class="breadcrumbs">
+    <ul>
+      <li>
+        <%= link_to 'Site Pages', site_editor_pages_path(current_site) %>
+      </li>
+      <% current_page_ancestors.each do |page| %>
+        <li>
+          <%= link_to page.title, site_editor_page_path(current_site, page) %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+  <div class="actions">
+    <%= icon_to 'edit', edit_site_editor_page_path(current_site, current_page) %>
+    <% if current_page.published? %>
+      <%= icon_to 'unpublish',
+                  site_editor_page_unpublish_path(current_site, current_page),
+                  :method => :post,
+                  :class => 'unpublish' %>
+    <% else %>
+      <%= icon_to 'publish',
+                  site_editor_page_publish_path(current_site, current_page),
+                  :method => :post,
+                  :class => 'publish' %>
+    <% end %>
+    <%= icon_to 'delete',
+                site_editor_page_path(current_site, current_page),
+                :method => :delete,
+                :class => 'delete',
+                :data => { :confirm => 'Are you sure?' } %>
+  </div>
+  <h1><%= current_page.title %></h1>
+  <div class="labels">
+    <span class="tk-label red template">
+      <i class="icon-file"></i>
+      <strong>Status:</strong>
+      <span>Draft</span>
+    </span>
+    <span class="tk-label template">
+      <i class="icon-file"></i>
+      <strong>Template:</strong>
+      <span><%= current_template.title %></span>
+    </span>
+  </div>
+</header>
+
+<nav class="page-tabs">
+  <ul>
+    <% {
+      :content => edit_site_editor_page_path(current_site, current_page),
+      :pages => site_editor_page_path(current_site, current_page),
+      :meta => edit_site_editor_page_path(current_site, current_page)
+      }.each do |name, path| %>
+      <li>
+        <%= link_to name.to_s.titleize, path,
+                    :class => ('active' if request.path == path) %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

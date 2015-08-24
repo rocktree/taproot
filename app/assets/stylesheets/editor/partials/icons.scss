@@ -84,7 +84,7 @@ $icon-left-thin: "\edc3";
 .icon-edit:before {
   content: "\e913";
 }
-.icon-draft:before {
+.icon-draft:before, .icon-unpublish:before {
   content: "\e914";
 }
 .icon-image:before {

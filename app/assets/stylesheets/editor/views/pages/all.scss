@@ -1,0 +1,64 @@
+body.pages {
+  main#content {
+    .page-header {
+      div.actions {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        a {
+          display: inline-block;
+          width: 35px;
+          height: 35px;
+          margin: 0 0 0 5px;
+          padding: 6px;
+          text-align: center;
+          background: white;
+          border-color: $color-light-darker;
+          &.publish {
+            background: $color-success;
+            border-color: $color-success;
+            i { color: white; }
+          }
+          &.unpublish {
+            background: $color-warning;
+            border-color: $color-warning;
+            i { color: white; }
+          }
+          &.delete {
+            background: $color-danger;
+            border-color: $color-danger;
+            i { color: white; }
+          }
+        }
+      }
+      div.labels {
+        margin-top: 15px;
+      }
+    }
+    nav.page-tabs {
+      margin: 10px 0;
+      border-bottom: 1px solid $color-light-dark;
+      ul {
+        li {
+          a {
+            margin: 0 10px;
+            padding: 8px;
+            font-size: 16px;
+            line-height: 16px;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: $color-light-darkest;
+            &:hover {
+              border-bottom-color: $color-dark-lightest;
+              color: $color-light-darkest;
+            }
+            &.active, &.active:hover {
+              border-bottom-color: $color-secondary;
+              color: $color-secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+}
