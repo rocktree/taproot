@@ -1,7 +1,9 @@
 window.App =
   Components: {}
   Routers: {}
-  Views: {}
+  Views: {
+    Pages: {}
+  }
 
 $ ->
   new App.Routers.Router

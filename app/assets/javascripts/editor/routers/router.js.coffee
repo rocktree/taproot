@@ -17,6 +17,10 @@ class App.Routers.Router extends Backbone.Router
 
   routes:
     '': 'home'
+    ':site_uid/editor/pages/:slug/*': 'withCurrentPage'
+
+  withCurrentPage: (site_uid, slug) ->
+    new App.Views.Pages.EditTitle
   #   # Pages
   #   'sites/:site_slug/pages?*filters': 'pages'
   #   'sites/:site_slug/pages/new': 'newPage'

@@ -14,6 +14,15 @@ body.pages {
           text-align: center;
           background: white;
           border-color: $color-light-darker;
+          &.save-page {
+            display: none;
+            background: $color-primary;
+            border-color: $color-primary;
+            &.active {
+              display: inline-block;
+            }
+            i { color: white; }
+          }
           &.publish {
             background: $color-success;
             border-color: $color-success;
@@ -36,6 +45,13 @@ body.pages {
         span.tk-label {
           margin-right: 5px;
         }
+      }
+      h1 {
+        border: none;
+        outline: none;
+      }
+      form {
+        display: none;
       }
     }
     nav.page-tabs {

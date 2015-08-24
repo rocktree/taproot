@@ -12,7 +12,8 @@
     </ul>
   </nav>
   <div class="actions">
-    <%= icon_to 'edit', edit_site_editor_page_path(current_site, current_page) %>
+    <%= icon_to 'save', '#', :class => 'save-page' %>
+    <%#= icon_to 'edit', edit_site_editor_page_path(current_site, current_page) %>
     <% if current_page.published? %>
       <%= icon_to 'unpublish',
                   site_editor_page_unpublish_path(current_site, current_page),
@@ -30,7 +31,13 @@
                 :class => 'delete',
                 :data => { :confirm => 'Are you sure?' } %>
   </div>
-  <h1><%= current_page.title %></h1>
+  <h1 contenteditable="true"><%= current_page.title %></h1>
+  <%= simple_form_for(
+    current_page,
+    :url => site_editor_page_path(current_site, current_page)
+  ) do |f| %>
+    <%= f.input :title %>
+  <% end %>
   <div class="labels">
     <span class="tk-label <%= current_page.status %> template">
       <i class="icon-file"></i>

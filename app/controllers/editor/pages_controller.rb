@@ -63,7 +63,19 @@ class Editor::PagesController < Editor::BaseController
   # def move
   # end
 
-  # def update
+  def update
+    p = params[:page][:title] ? head_params : update_params
+    if current_page.update(p)
+       redirect_to redirect_route,
+                   :notice => t('notices.updated', :item => 'Page')
+    else
+      if params[:page][:title]
+        redirect_to redirect_route, :alert => 'Could not save page.'
+      else
+        render 'edit'
+      end
+    end
+  end
   #   respond_to do |format|
   #     format.html do
   #       process_files
@@ -125,6 +137,10 @@ class Editor::PagesController < Editor::BaseController
       params.require(:page)
             .permit(:title, :template_name, :parent_id)
             .merge(:site => current_site)
+    end
+
+    def head_params
+      params.require(:page).permit(:title)
     end
 
     # def update_params
