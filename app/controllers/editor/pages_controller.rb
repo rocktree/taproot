@@ -84,6 +84,14 @@ class Editor::PagesController < Editor::BaseController
     redirect_to(path, :notice => t('notices.deleted', :item => 'Page'))
   end
 
+  def reorder
+    params[:reorder][:pages].split(',').each_with_index do |slug, idx|
+      page = all_pages.select { |p| p.slug == slug }.first
+      page.update_columns(:position => idx)
+    end
+    redirect_to redirect_route, :notice => 'Order saved!'
+  end
+
   private
 
     def create_params

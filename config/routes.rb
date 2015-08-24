@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     namespace :editor do
       get '/' => 'base#home' # Redirects hanging URI segments
 
+      post 'pages/reorder' => 'pages#reorder', :as => :reorder_pages
       resources :pages, :param => :slug do
         post 'publish' => 'pages#publish', :as => :publish
         post 'unpublish' => 'pages#unpublish', :as => :unpublish

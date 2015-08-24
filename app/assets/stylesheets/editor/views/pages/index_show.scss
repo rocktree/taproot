@@ -8,6 +8,21 @@ body.pages.index, body.pages.show {
       }
       tbody {
         tr {
+          &.ui-sortable-handle {
+            &:hover {
+              cursor: move;
+              cursor: -webkit-grab;
+            }
+          }
+          &.ui-sortable-helper {
+            cursor: -webkit-grabbing !important;
+            div.icons {
+              display: none;
+            }
+          }
+          &.sortable-placeholder {
+            background: $color-light;
+          }
           &:hover {
             td {
               div.icons {
@@ -62,6 +77,14 @@ body.pages.index, body.pages.show {
             }
           }
         }
+      }
+    }
+    form {
+      div, input, label {
+        display: none;
+      }
+      input[type=submit].active {
+        display: block;
       }
     }
   }

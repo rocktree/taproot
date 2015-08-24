@@ -4,6 +4,12 @@
 
 <section class="page-content">
   <% if all_pages_tree.size > 0 %>
+    <%= simple_form_for(
+      :reorder, :url => site_editor_reorder_pages_path(current_site)
+    ) do |f| %>
+      <%= f.input :pages %>
+      <%= f.submit "Save Order" %>
+    <% end %>
     <table class="pages">
       <thead>
         <tr>
@@ -15,7 +21,7 @@
       <tbody>
         <% all_pages_tree.each do |node| %>
           <% page = page_from_tree_node(node) %>
-          <tr>
+          <tr data-page="<%= page.slug %>">
             <td class="status-icon"><%= page.p.status_icon %></td>
             <td>
               <%= content_tag(:span, page.title, :class => 'title') %>

@@ -15,6 +15,7 @@ table {
     tr {
       background: transparent;
       border-bottom: 1px solid $color-light-dark;
+      @include transition(none);
       &:nth-child(even) {
         background: transparent;
       }
