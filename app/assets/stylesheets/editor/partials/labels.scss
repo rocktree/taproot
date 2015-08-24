@@ -4,10 +4,10 @@
   background: $color-light-darkest;
   color: $color-light;
   border-radius: 5px;
-  &.red {
+  &.draft {
     background: $color-danger;
   }
-  &.green {
+  &.published {
     background: $color-success;
   }
   span, strong, i {

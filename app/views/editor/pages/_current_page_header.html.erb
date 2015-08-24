@@ -32,10 +32,10 @@
   </div>
   <h1><%= current_page.title %></h1>
   <div class="labels">
-    <span class="tk-label red template">
+    <span class="tk-label <%= current_page.status %> template">
       <i class="icon-file"></i>
       <strong>Status:</strong>
-      <span>Draft</span>
+      <span><%= current_page.status.titleize %></span>
     </span>
     <span class="tk-label template">
       <i class="icon-file"></i>
