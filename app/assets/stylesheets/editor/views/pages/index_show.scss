@@ -23,6 +23,9 @@ body.pages.index, body.pages.show {
           &.sortable-placeholder {
             background: $color-light;
           }
+          &.drop-target {
+            background: $color-primary;
+          }
           &:hover {
             td {
               div.icons {
@@ -75,17 +78,15 @@ body.pages.index, body.pages.show {
                 }
               }
             }
+            form {
+              display: none;
+            }
           }
         }
       }
     }
     form {
-      div, input, label {
-        display: none;
-      }
-      input[type=submit].active {
-        display: block;
-      }
+      display: none;
     }
   }
 }

@@ -25,9 +25,16 @@
       <tbody>
         <% all_pages_tree.each do |node| %>
           <% page = page_from_tree_node(node) %>
-          <tr data-page="<%= page.slug %>">
+          <tr class="draggable" data-page="<%= page.slug %>"
+              data-page-id="<%= page.id %>">
             <td class="status-icon"><%= page.p.status_icon %></td>
             <td>
+              <%= simple_form_for(
+                page,
+                :url => site_editor_page_nest_path(current_site, page)
+              ) do |f| %>
+                <%= f.input :parent_id, :input_html => { :class => 'parent' } %>
+              <% end %>
               <%= content_tag(:span, page.title, :class => 'title') %>
               <div class="icons">
                 <%= icon_to 'right', site_editor_page_path(current_site, page),

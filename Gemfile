@@ -17,6 +17,7 @@ gem 'jquery-ui-rails'
 gem 'bones-rails'
 gem 'bourbon'
 gem 'backbone-on-rails'
+gem 'interact-rails'
 
 # ------------------------------------------ View Helpers
 

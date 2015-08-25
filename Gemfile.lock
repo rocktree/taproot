@@ -205,6 +205,8 @@ GEM
     httpclient (2.5.3.3)
     i18n (0.6.11)
     inflecto (0.0.2)
+    interact-rails (0.0.1)
+      railties
     ipaddress (0.8.0)
     jbuilder (2.2.3)
       activesupport (>= 3.0.0, < 5)
@@ -572,6 +574,7 @@ DEPENDENCIES
   guard-rspec
   hirb
   httpclient
+  interact-rails
   jbuilder
   jcrop-rails-v2
   jquery-fileupload-rails

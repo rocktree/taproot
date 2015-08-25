@@ -92,6 +92,15 @@ class Editor::PagesController < Editor::BaseController
     redirect_to redirect_route, :notice => 'Order saved!'
   end
 
+  def nest
+    if request.xhr?
+      current_page.update!(nest_params)
+      render :nothing => true
+    else
+      not_found
+    end
+  end
+
   private
 
     def create_params
@@ -111,6 +120,10 @@ class Editor::PagesController < Editor::BaseController
         p = p.merge(:field_data => fd.merge(params[:page][:field_data]))
       end
       p
+    end
+
+    def nest_params
+      params.require(:page).permit(:parent_id)
     end
 
     def verify_current_page
