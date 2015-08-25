@@ -31,9 +31,13 @@
                 :method => :delete,
                 :class => 'delete',
                 :data => { :confirm => 'Are you sure?' } %>
-    <%= icon_to 'save', '#', :class => 'save-order' %>
-    <%= icon_to 'reorder', '#', :class => 'reorder sort-mode' %>
-    <%= icon_to 'nest', '#', :class => 'nest sort-mode' %>
+    <% if current_page_children.size > 1 %>
+      <%= icon_to 'save', '#', :class => 'save-order' %>
+      <%= icon_to 'reorder', '#', :class => 'reorder sort-mode' %>
+    <% end %>
+    <% if current_page_children.size > 0 %>
+      <%= icon_to 'nest', '#', :class => 'nest sort-mode' %>
+    <% end %>
   </div>
   <h1>
     <span class="title"

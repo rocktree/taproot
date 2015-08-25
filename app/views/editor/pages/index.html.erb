@@ -1,9 +1,11 @@
 <header class="page-header">
-  <div class="actions">
-    <%= icon_to 'save', '#', :class => 'save-order' %>
-    <%= icon_to 'reorder', '#', :class => 'reorder sort-mode' %>
-    <%= icon_to 'nest', '#', :class => 'nest sort-mode' %>
-  </div>
+  <% if all_pages_tree.size > 1 %>
+    <div class="actions">
+      <%= icon_to 'save', '#', :class => 'save-order' %>
+      <%= icon_to 'reorder', '#', :class => 'reorder sort-mode' %>
+      <%= icon_to 'nest', '#', :class => 'nest sort-mode' %>
+    </div>
+  <% end %>
   <h1>Site Pages</h1>
 </header>
 
