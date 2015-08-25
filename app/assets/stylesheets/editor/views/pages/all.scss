@@ -13,8 +13,13 @@ body.pages {
           padding: 6px;
           text-align: center;
           background: white;
-          border-color: $color-light-darker;
-          &.save-page {
+          border: 1px solid $color-light-darker;
+          &.active {
+            // background: $color-primary;
+            border-color: $color-primary;
+            i { color: $color-primary; }
+          }
+          &.save-page, &.save-order {
             display: none;
             background: $color-primary;
             border-color: $color-primary;

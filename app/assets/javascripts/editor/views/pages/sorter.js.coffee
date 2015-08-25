@@ -1,12 +1,18 @@
 class App.Views.Pages.Sorter extends Backbone.View
 
   el: 'body'
+  s: $('table tbody')
+
+  events:
+    'click a.sort-mode': 'toggleSortMode'
+    'click a.save-order': 'submitForm'
 
   initialize: ->
     @initPageSort()
+    @s.sortable('disable')
 
   initPageSort: ->
-    sortable = $('table tbody').sortable
+    @s.sortable
       helper: fixHelper
       placeholder: 'sortable-placeholder'
       toArray:
@@ -22,3 +28,23 @@ class App.Views.Pages.Sorter extends Backbone.View
       return
     ui
 
+  submitForm: (e) ->
+    $('.simple_form.reorder').submit()
+
+  toggleSortMode: (e) ->
+    e.preventDefault()
+    if $(e.target).is('i')
+      a = $(e.target).parents('a').first()
+    else
+      a = $(e.target)
+    a.siblings('.save-order').addClass('active')
+    if a.hasClass('reorder')
+      if a.hasClass('active')
+        @s.sortable('disable')
+        a.removeClass('active')
+      else
+        @s.sortable('enable')
+        a.addClass('active')
+    else if a.hasClass('nest')
+      @s.sortable('disable')
+      a.siblings('.sort-mode.reorder').removeClass('active')

@@ -20,12 +20,14 @@ $icon-user: "\eaf4";
 $icon-settings: "\eb5c";
 $icon-delete: "\ebfb";
 $icon-form: "\ec4f";
+$icon-nest: "\ec62";
 $icon-menu: "\ec69";
 $icon-link: "\ec98";
 $icon-close: "\ed69";
 $icon-checkmark: "\ed6c";
 $icon-checkmark-outline: "\ed6d";
 $icon-sign-out: "\ed74";
+$icon-reorder: "\edac";
 $icon-up: "\edb4";
 $icon-up-thin: "\edb7";
 $icon-right: "\edb8";
@@ -81,78 +83,30 @@ $icon-left-thin: "\edc3";
   @include icon;
 }
 
-.icon-edit:before {
-  content: "\e913";
-}
-.icon-draft:before, .icon-unpublish:before {
-  content: "\e914";
-}
-.icon-image:before {
-  content: "\e93c";
-}
-.icon-media:before {
-  content: "\e93e";
-}
-.icon-page:before {
-  content: "\e99d";
-}
-.icon-pages:before {
-  content: "\e99f";
-}
-.icon-save:before {
-  content: "\ea89";
-}
-.icon-user:before {
-  content: "\eaf4";
-}
-.icon-settings:before {
-  content: "\eb5c";
-}
-.icon-delete:before {
-  content: "\ebfb";
-}
-.icon-form:before {
-  content: "\ec4f";
-}
-.icon-menu:before {
-  content: "\ec69";
-}
-.icon-link:before {
-  content: "\ec98";
-}
-.icon-checkmark:before, .icon-publish:before {
-  content: "\ed6c";
-}
-.icon-checkmark-outline:before {
-  content: "\ed6d";
-}
-.icon-close:before {
-  content: "\ed69";
-}
-.icon-sign-out:before {
-  content: "\ed74";
-}
-.icon-up:before {
-  content: "\edb4";
-}
-.icon-up-thin:before {
-  content: "\edb7";
-}
-.icon-right:before {
-  content: "\edb8";
-}
-.icon-right-thin:before {
-  content: "\edbb";
-}
-.icon-down:before {
-  content: "\edbc";
-}
-.icon-down-thin:before {
-  content: "\edbf";
-}
-.icon-left:before {
-  content: "\edc0";
-}
-.icon-left-thin:before {
-  content: "\edc3";
-}
+.icon-edit:before { content: $icon-edit; }
+.icon-draft:before, .icon-unpublish:before { content: $icon-draft; }
+.icon-image:before { content: $icon-image; }
+.icon-media:before { content: $icon-media; }
+.icon-page:before { content: $icon-page; }
+.icon-pages:before { content: $icon-pages; }
+.icon-save:before { content: $icon-save; }
+.icon-user:before { content: $icon-user; }
+.icon-settings:before { content: $icon-settings; }
+.icon-delete:before { content: $icon-delete; }
+.icon-form:before { content: $icon-form; }
+.icon-nest:before { content: $icon-nest; }
+.icon-menu:before { content: $icon-menu; }
+.icon-link:before { content: $icon-link; }
+.icon-checkmark:before, .icon-publish:before { content: $icon-checkmark; }
+.icon-checkmark-outline:before { content: $icon-checkmark-outline; }
+.icon-close:before { content: $icon-close; }
+.icon-sign-out:before { content: $icon-sign-out; }
+.icon-reorder:before { content: $icon-reorder; }
+.icon-up:before { content: $icon-up; }
+.icon-up-thin:before { content: $icon-up-thin; }
+.icon-right:before { content: $icon-right; }
+.icon-right-thin:before { content: $icon-right-thin; }
+.icon-down:before { content: $icon-down; }
+.icon-down-thin:before { content: $icon-down-thin; }
+.icon-left:before { content: $icon-left; }
+.icon-left-thin:before { content: $icon-left-thin; }

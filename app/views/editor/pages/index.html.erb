@@ -1,4 +1,9 @@
 <header class="page-header">
+  <div class="actions">
+    <%= icon_to 'save', '#', :class => 'save-order' %>
+    <%= icon_to 'reorder', '#', :class => 'reorder sort-mode' %>
+    <%= icon_to 'nest', '#', :class => 'nest sort-mode' %>
+  </div>
   <h1>Site Pages</h1>
 </header>
 
@@ -8,7 +13,6 @@
       :reorder, :url => site_editor_reorder_pages_path(current_site)
     ) do |f| %>
       <%= f.input :pages %>
-      <%= f.submit "Save Order" %>
     <% end %>
     <table class="pages">
       <thead>
