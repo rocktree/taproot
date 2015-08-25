@@ -71,7 +71,9 @@ class Editor::BaseController < EditorController
     # ------------------------------------------ Page Trees
 
     def all_pages_tree
-      @all_pages_tree ||= Page.arrange_serializable(:order => :position)
+      @all_pages_tree ||= begin
+        current_site.pages.arrange_serializable(:order => :position)
+      end
     end
 
     def page_from_tree_node(node)
