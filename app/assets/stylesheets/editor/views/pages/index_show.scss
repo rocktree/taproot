@@ -7,14 +7,20 @@ body.pages.index, body.pages.show {
         padding: 10px 0 10px 10px;
       }
       tbody {
-        tr {
-          &.ui-sortable-handle {
-            &:hover {
-              cursor: move;
-              cursor: -webkit-grab;
-            }
+        &.icon-lock {
+          tr:hover td div.icons {
+            margin-bottom: -80px;
           }
-          &.ui-sortable-helper {
+          tr.ui-sortable-handle:hover {
+            cursor: move;
+            cursor: -webkit-grab;
+          }
+        }
+        tr {
+          &.ui-sortable-handle:hover {
+            cursor: default;
+          }
+          &.ui-sortable-helper, &.dragging {
             cursor: -webkit-grabbing !important;
             div.icons {
               display: none;

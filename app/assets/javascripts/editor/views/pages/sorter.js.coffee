@@ -95,25 +95,32 @@ class App.Views.Pages.Sorter extends Backbone.View
       a = $(e.target).parents('a').first()
     else
       a = $(e.target)
+    tbody = $('table.pages tbody')
     # reorder click
     if a.hasClass('reorder')
       interact('.draggable').draggable(false)
+      tbody.removeClass('icon-lock')
       a.siblings('.sort-mode.nest').removeClass('active')
       if a.hasClass('active')
         @s.sortable('disable')
+        tbody.removeClass('icon-lock')
         a.removeClass('active')
       else
         @s.sortable('enable')
+        tbody.addClass('icon-lock')
         a.addClass('active')
     # nest click
     else if a.hasClass('nest')
       @s.sortable('disable')
+      tbody.removeClass('icon-lock')
       a.siblings('.sort-mode.reorder').removeClass('active')
       if a.hasClass('active')
         interact('.draggable').draggable(false)
+        tbody.removeClass('icon-lock')
         a.removeClass('active')
       else
         interact('.draggable').draggable(true)
+        tbody.addClass('icon-lock')
         a.addClass('active')
 
   submitForm: (e) ->
