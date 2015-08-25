@@ -18,6 +18,10 @@ body {
         border: 1px solid $color-light-darker;
         border-right: none;
         border-bottom: none;
+        section.page-content {
+          position: relative;
+          z-index: 9999;
+        }
       }
     }
     aside#sidebar {

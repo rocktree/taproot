@@ -20,6 +20,7 @@ class App.Views.Pages.Sorter extends Backbone.View
       toArray:
         attribute: "data-page"
       update: (e, ui) ->
+        $('.page-header').find('a.save-order').addClass('active')
         pages = $(this).sortable('toArray', { attribute: 'data-page' })
         $('input#reorder_pages').val(pages)
         $('.simple_form.reorder input[type=submit]').addClass('active')
@@ -41,6 +42,7 @@ class App.Views.Pages.Sorter extends Backbone.View
       # update the posiion attributes
       target.setAttribute 'data-x', x
       target.setAttribute 'data-y', y
+      $(target).addClass('dragging')
       return
 
     interact('.draggable').draggable
@@ -64,64 +66,28 @@ class App.Views.Pages.Sorter extends Backbone.View
         # update the posiion attributes
         target.setAttribute 'data-x', x
         target.setAttribute 'data-y', y
+        $(target).removeClass('dragging')
         return
-      #   textEl = event.target.querySelector('p')
-      #   textEl and (textEl.textContent = 'moved a distance of ' + (Math.sqrt(event.dx * event.dx + event.dy * event.dy) | 0) + 'px')
-      #   return
-    # this is used later in the resizing demo
-    # window.dragMoveListener = dragMoveListener
-    # d = interact('.draggable').draggable
-    #   inertia: true
-    #   restrict:
-    #     restriction: 'parent'
-    #     endOnly: true
-    #     elementRect:
-    #       top: 0
-    #       left: 0
-    #       bottom: 1
-    #       right: 1
 
-    interact('.draggable').dropzone
+    interact('.droppable').dropzone
       accept: '.draggable'
-      overlap: 0.5
-    #   ondropactivate: (event) ->
-    #     # add active dropzone feedback
-    #     event.target.classList.add 'drop-active'
-    #     return
+      overlap: 0.01
       ondragenter: (e) ->
-    #     draggableElement = event.relatedTarget
-    #     # feedback the possibility of a drop
         $(e.target).addClass('drop-target')
-    #     draggableElement.classList.add 'can-drop'
-    #     draggableElement.textContent = 'Dragged in'
-    #     return
       ondragleave: (e) ->
-    #     # remove the drop feedback style
         $(e.target).removeClass('drop-target')
-        # event.relatedTarget.classList.remove 'can-drop'
-    #     event.relatedTarget.textContent = 'Dragged out'
-    #     return
       ondrop: (e) ->
         $(e.target).removeClass('drop-target')
         id = $(e.target).data('page-id')
         $(e.relatedTarget).find('input.parent').val(id)
         loader = new App.Components.Loader
         form = $(e.relatedTarget).find('form')
-        $.post form.attr('action'), form.serialize()
+        $.post form.attr('action'), form.serialize(), (data) =>
+          loader.close()
         .success () =>
           $(e.relatedTarget).remove()
-          loader.close()
         .fail () =>
-          loader.close()
           alert "There was an error nesting this page."
-          # window.reload
-    #     event.relatedTarget.textContent = 'Dropped'
-    #     return
-    #   ondropdeactivate: (event) ->
-    #     # remove active dropzone feedback
-    #     event.target.classList.remove 'drop-active'
-    #     event.target.classList.remove 'drop-target'
-    #     return
 
   toggleSortMode: (e) ->
     e.preventDefault()
@@ -129,7 +95,6 @@ class App.Views.Pages.Sorter extends Backbone.View
       a = $(e.target).parents('a').first()
     else
       a = $(e.target)
-    a.siblings('.save-order').addClass('active')
     # reorder click
     if a.hasClass('reorder')
       interact('.draggable').draggable(false)

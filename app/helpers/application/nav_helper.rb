@@ -14,7 +14,8 @@ module Application
             o2 += link_to(
               page.title,
               site_editor_page_path(current_site, page),
-              :class => ('active' if params[:slug] == page.slug)
+              :class => "droppable #{('active' if params[:slug] == page.slug)}",
+              :data => { :page_id => page.id }
             )
             if node['children'].size > 0
               o2 += pages_subnav_loop(node['children'])
@@ -31,7 +32,8 @@ module Application
         o = ''
         node.each do |child_node|
           page = page_from_tree_node(child_node)
-          o += content_tag(:li) do
+          o += content_tag(:li, :class => 'droppable',
+                           :data => { :page_id => page.id } ) do
             o2 = ''
             if child_node['children'].size > 0
               o2 += icon_to 'right', '#', :class => 'pages-inlist-trigger'
@@ -39,7 +41,8 @@ module Application
             o2 += link_to(
               page.title,
               site_editor_page_path(current_site, page),
-              :class => ('active' if params[:slug] == page.slug)
+              :class => "droppable #{('active' if params[:slug] == page.slug)}",
+              :data => { :page_id => page.id }
             )
             if child_node['children'].size > 0
               o2 += pages_subnav_loop(child_node['children'])

@@ -2,6 +2,11 @@
 
 <section class="page-content">
   <% if current_page_children.size > 0 %>
+    <%= simple_form_for(
+      :reorder, :url => site_editor_reorder_pages_path(current_site)
+    ) do |f| %>
+      <%= f.input :pages %>
+    <% end %>
     <table class="pages">
       <thead>
         <tr>
@@ -12,9 +17,16 @@
       </thead>
       <tbody>
         <% current_page_children.each do |page| %>
-          <tr>
+          <tr class="draggable droppable" data-page="<%= page.slug %>"
+              data-page-id="<%= page.id %>">
             <td class="status-icon"><%= page.p.status_icon %></td>
             <td>
+              <%= simple_form_for(
+                page,
+                :url => site_editor_page_nest_path(current_site, page)
+              ) do |f| %>
+                <%= f.input :parent_id, :input_html => { :class => 'parent' } %>
+              <% end %>
               <%= content_tag(:span, page.title, :class => 'title') %>
               <div class="icons">
                 <%= icon_to 'right', site_editor_page_path(current_site, page),

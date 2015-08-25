@@ -15,11 +15,16 @@ body.pages {
           background: white;
           border: 1px solid $color-light-darker;
           &.active {
-            // background: $color-primary;
             border-color: $color-primary;
             i { color: $color-primary; }
           }
-          &.save-page, &.save-order {
+          &.save-order {
+            display: none;
+            &.active {
+              display: inline-block;
+            }
+          }
+          &.save-page {
             display: none;
             background: $color-primary;
             border-color: $color-primary;

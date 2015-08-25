@@ -26,6 +26,9 @@ body.pages.index, body.pages.show {
           &.drop-target {
             background: $color-primary;
           }
+          &.dragging {
+            background: rgba($color-light-dark, 0.65);
+          }
           &:hover {
             td {
               div.icons {
