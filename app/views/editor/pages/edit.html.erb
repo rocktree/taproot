@@ -31,8 +31,15 @@
             <% end %>
           </div>
         <% else %>
-          <%= fd.input :"#{field.name}", :as => :"#{field.type}",
-                       :required => field.required, :label => field.label %>
+          <% case field.type %>
+          <% when 'wysiwyg' %>
+            <%= fd.input :"#{field.name}", :as => :text,
+                         :required => field.required, :label => field.label,
+                         :input_html => { :class => 'editor' } %>
+          <% else %>
+            <%= fd.input :"#{field.name}", :as => :"#{field.type}",
+                         :required => field.required, :label => field.label %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
