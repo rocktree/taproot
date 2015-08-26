@@ -6,6 +6,7 @@ module Application
         o = ''
         all_pages_tree.each do |node|
           page = page_from_tree_node(node)
+          next if page.nil?
           o += content_tag(:li) do
             o2 = ''
             if node['children'].size > 0
@@ -32,6 +33,7 @@ module Application
         o = ''
         node.each do |child_node|
           page = page_from_tree_node(child_node)
+          next if page.nil?
           o += content_tag(:li, :class => 'droppable',
                            :data => { :page_id => page.id } ) do
             o2 = ''

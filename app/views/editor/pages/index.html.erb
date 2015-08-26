@@ -28,6 +28,7 @@
       <tbody>
         <% all_pages_tree.each do |node| %>
           <% page = page_from_tree_node(node) %>
+          <% next if page.nil? %>
           <tr class="draggable droppable" data-page="<%= page.slug %>"
               data-page-id="<%= page.id %>">
             <td class="status-icon"><%= page.p.status_icon %></td>

@@ -3,7 +3,9 @@ class Editor::BaseController < EditorController
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :all_pages,
+  helper_method :all_blocks,
+                :all_blocks_and_pages,
+                :all_pages,
                 :all_pages_tree,
                 :all_sites,
                 :all_templates,
@@ -52,8 +54,16 @@ class Editor::BaseController < EditorController
 
     # ------------------------------------------ Collections
 
+    def all_blocks_and_pages
+      @all_blocks_and_pages ||= all_blocks_and_pages ||= current_site.webpages
+    end
+
     def all_pages
-      @all_pages ||= current_site.pages
+      @all_pages ||= all_blocks_and_pages.select { |p| p.template.showable? }
+    end
+
+    def all_blocks
+      @all_blocks ||= all_blocks_and_pages.select { |p| p.template.block? }
     end
 
     def all_sites
@@ -65,14 +75,14 @@ class Editor::BaseController < EditorController
     end
 
     def pages_from_template(template)
-      all_pages.select { |p| p.template_name == template.name }
+      all_blocks_and_pages.select { |p| p.template_name == template.name }
     end
 
     # ------------------------------------------ Page Trees
 
     def all_pages_tree
       @all_pages_tree ||= begin
-        current_site.pages.arrange_serializable(:order => :position)
+        current_site.webpages.arrange_serializable(:order => :position)
       end
     end
 
