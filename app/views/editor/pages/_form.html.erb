@@ -1,0 +1,124 @@
+<%= simple_form_for(
+    current_page,
+    :url => site_editor_page_path(current_site, current_page)
+  ) do |f| %>
+
+  <%= f.simple_fields_for :field_data,
+                          OpenStruct.new(f.object.field_data) do |fd| %>
+    <% current_template.fields.all.each_with_index do |field, idx| %>
+      <% if field.name == 'body' %>
+        <%= f.input :body, :label => field.label,
+                    :input_html => { :class => 'editor' } %>
+      <% elsif field.type == 'block' %>
+        <% template = current_site.templates.find(field.name) %>
+        <div class="block">
+          <h2><%= template.title %></h2>
+          <% new_path = new_site_editor_page_path(current_site,
+                                                  :t => template.name) %>
+          <%= link_to "New #{template.title}", new_path,
+                      :id => 'new-block',
+                      :data => { :modal_url => new_path } %>
+          <% pages_from_template(template).each do |page| %>
+            <div class="item">
+              <h3><%= page.title %></h3>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <% case field.type %>
+        <% when 'wysiwyg' %>
+          <%= fd.input :"#{field.name}", :as => :text,
+                       :required => field.required, :label => field.label,
+                       :input_html => { :class => 'editor' } %>
+        <% else %>
+          <%= fd.input :"#{field.name}", :as => :"#{field.type}",
+                       :required => field.required, :label => field.label %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+
+<!--
+      <%# else %>
+        <%# case field.data_type %>
+        <%# when 'markdown' %>
+          <%#= fd.input(
+            :"markdown_#{field.slug}",
+            :as => :text,
+            :label => field.label,
+            :required => false,
+            :input_html => {
+              :value => current_page.send("markdown_#{field.slug}") || field.default_value
+            },
+            :wrapper_html => {
+              :class => 'markdown-editor'
+            }
+          ) %>
+        <%# when 'date' %>
+          <%#= fd.input(
+            :"#{field.slug}",
+            :as => :string,
+            :required => field.required,
+            :label => field.label,
+            :input_html => {
+              :class => 'date-js',
+              :value => current_page.field_data[field.slug.to_sym]
+            }
+          ) %>
+        <%# when 'select' %>
+          <%#= fd.input(
+            :"#{field.slug}",
+            :as => :"#{field.data_type}",
+            :collection => field.option_values,
+            :required => field.required,
+            :label => field.label,
+            :selected => current_page.field_data[field.slug],
+          ) %>
+        <%# when 'check_boxes', 'radio_buttons' %>
+          <%#= fd.input(
+            :"#{field.slug}",
+            :as => :"#{field.data_type}",
+            :collection => field.option_values,
+            :required => field.required,
+            :label => field.label,
+            :checked => current_page.field_data[field.slug] ||
+              field.default_value
+          ) %>
+        <%# when 'image', 'file' %>
+          <div class="upload-field">
+            <%#= fd.input(
+              :"rtfile_#{field.slug}",
+              :as => :hidden,
+              :required => field.required,
+              :label => field.label,
+              :input_html => {
+                :value => current_page.field_data[field.slug]
+              }
+            ) %>
+            <%#= image_tag(
+              find_page_thumb(current_page.field_data[field.slug])
+            ) unless current_page.field_data[field.slug].blank? %>
+            <%#= link_to(
+              "Add New #{field.title}",
+              builder_site_documents_path(current_site, :select => true),
+              :class => 'image-upload-trigger button'
+            ) %>
+            <%#= link_to(
+              "Remove #{field.title}",
+              '#',
+              :class => 'remove-file button'
+            ) unless current_page.field_data[field.slug].blank? %>
+          </div>
+        <%# else %>
+
+        <%# end %>
+      <%# end %>
+
+
+    <%# end %>
+  <%# end %> -->
+
+  <%= f.submit "Save" %>
+
+<% end %>

@@ -12,6 +12,9 @@ class App.Components.Modal extends Backbone.View
     @modal.addClass('active')
     @bindCloseEvents()
 
+  update: (content) ->
+    @modal.find('.content').html(content)
+
   find: (selector) ->
     @modal.find(selector)
 

@@ -1,11 +1,11 @@
 <header>
   <h1>
-    New Page
-    <span class="tk-label template">
+    New <%= current_template.title %>
+    <!-- <span class="tk-label template">
       <i class="icon-pages"></i>
       <strong>Template:</strong>
       <span><%= current_template.title %></span>
-    </span>
+    </span> -->
   </h1>
 </header>
 <%= simple_form_for current_page, :url => site_editor_pages_path do |f| %>

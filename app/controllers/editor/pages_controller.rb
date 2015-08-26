@@ -45,6 +45,7 @@ class Editor::PagesController < Editor::BaseController
   end
 
   def edit
+    render 'form', :layout => false if request.xhr?
   end
 
   def update
