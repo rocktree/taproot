@@ -29,4 +29,16 @@ describe Template do
     expect(@home.fields.class).to eq(TemplateFieldCollection)
   end
 
+  it 'is showable (not a block) if not specified' do
+    expect(@home.showable?).to eq(true)
+  end
+
+  it 'is showable (not a block) if specified' do
+    expect(@site.templates.find('about').showable?).to eq(true)
+  end
+
+  it 'is a block (not showable) if specified' do
+    expect(@site.templates.find('feature').block?).to eq(true)
+  end
+
 end

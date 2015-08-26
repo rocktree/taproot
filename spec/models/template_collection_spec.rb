@@ -13,7 +13,7 @@ describe TemplateCollection do
   end
 
   it 'loads all templates into a collection' do
-    expect(@site.templates.all.size).to eq(2)
+    expect(@site.templates.all.size).to eq(3)
   end
 
   it 'loads a collection of templates' do

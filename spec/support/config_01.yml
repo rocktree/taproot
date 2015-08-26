@@ -12,7 +12,10 @@ templates:
         label: Header Image
   about:
     title: About
+    block: false
     fields:
       subtitle:
         type: string
         label: Subtitle
+  feature:
+    block: true

@@ -14,8 +14,12 @@ class Template
     @fields
   end
 
+  def block?
+    attributes[:block].nil? ? false : attributes[:block].to_bool
+  end
+
   def showable?
-    attributes[:show].nil? ? true : attributes[:show].to_bool
+    !block?
   end
 
   private

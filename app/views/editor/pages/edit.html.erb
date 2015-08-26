@@ -13,14 +13,14 @@
         <% if field.name == 'body' %>
           <%= f.input :body, :label => field.label,
                       :input_html => { :class => 'editor' } %>
-        <% elsif field.type == 'template' %>
+        <% elsif field.type == 'block' %>
           <% template = current_site.templates.find(field.name) %>
           <div class="block">
             <h2><%= template.title %></h2>
             <% new_path = new_site_editor_page_path(current_site,
                                                     :t => template.name) %>
             <%= link_to "New #{template.title}", new_path,
-                        :class => 'tk-modal-trigger',
+                        :id => 'new-block',
                         :data => { :modal_url => new_path } %>
             <% pages_from_template(template).each do |page| %>
               <div class="item">

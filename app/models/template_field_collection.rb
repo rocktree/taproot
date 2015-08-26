@@ -17,6 +17,7 @@ class TemplateFieldCollection
     def create_fields(collection)
       @fields ||= begin
         fields = []
+        return fields if collection.nil?
         collection.each do |field, attrs|
           fields << TemplateField.new(attrs.merge(:name => field))
         end
