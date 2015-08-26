@@ -6,13 +6,14 @@ class App.Routers.Router extends Backbone.Router
   loadComponents: ->
     new App.Components.Helpers
     new App.Components.DropdownMenus
-    new App.Components.Modals
     new App.Components.PagesSubnav
     new App.Components.Editor
+    new App.Components.NewButton
 
   routes:
     ':site_uid/editor/pages': 'allPages'
     ':site_uid/editor/pages/:slug': 'pageChildren'
+    ':site_uid/editor/pages/:slug/edit': 'editPage'
     ':site_uid/editor/pages/:slug/*': 'withCurrentPage'
 
   allPages: ->
@@ -20,6 +21,9 @@ class App.Routers.Router extends Backbone.Router
 
   pageChildren: ->
     new App.Views.Pages.Sorter
+
+  editPage: ->
+    new App.Views.Pages.Blocks
 
   withCurrentPage: ->
     new App.Views.Pages.EditHead
