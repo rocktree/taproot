@@ -71,7 +71,7 @@
     <% {
       :content => edit_site_editor_page_path(current_site, current_page),
       :pages => site_editor_page_path(current_site, current_page),
-      :meta => edit_site_editor_page_path(current_site, current_page)
+      :meta => '#' #edit_site_editor_page_path(current_site, current_page)
       }.each do |name, path| %>
       <li>
         <%= link_to name.to_s.titleize, path,
