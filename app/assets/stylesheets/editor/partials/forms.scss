@@ -41,6 +41,32 @@ form {
     .trumbowyg-box {
       margin: 5px 0;
     }
+    .trumbowyg-modal-box {
+      height: 295px;
+      form {
+        input {
+          height: auto;
+          margin: 0 !important;
+          padding: 5px 10px !important;
+          font-size: 14px !important;
+          color: $color-light-darkest !important;
+          line-height: 25px !important;
+          border: 1px solid $color-light-dark !important;
+        }
+        label {
+          height: 42px;
+          margin-bottom: 5px;
+          .trumbowyg-input-infos span {
+            font-size: 14px;
+            border: none;
+          }
+        }
+        .trumbowyg-modal-button {
+          height: auto;
+          line-height: 16px;
+        }
+      }
+    }
 //     input.boolean {
 //       margin: 0;
 //     }
