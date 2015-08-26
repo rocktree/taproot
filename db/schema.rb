@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819191958) do
+ActiveRecord::Schema.define(version: 20150826151442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20150819191958) do
     t.integer  "site_id"
     t.integer  "user_id"
     t.string   "action"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blocks", force: true do |t|
+    t.integer  "parent_id"
+    t.integer  "page_id"
+    t.integer  "position",   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,14 +152,6 @@ ActiveRecord::Schema.define(version: 20150819191958) do
     t.datetime "updated_at"
   end
 
-  create_table "page_resources", force: true do |t|
-    t.integer  "page_id"
-    t.integer  "resource_id"
-    t.text     "field_data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "pages", force: true do |t|
     t.string   "title"
     t.string   "slug"
@@ -168,64 +168,6 @@ ActiveRecord::Schema.define(version: 20150819191958) do
   end
 
   add_index "pages", ["ancestry"], name: "index_pages_on_ancestry", using: :btree
-
-  create_table "resource_association_fields", force: true do |t|
-    t.integer  "resource_type_id"
-    t.string   "title"
-    t.string   "slug"
-    t.string   "data_type"
-    t.text     "options"
-    t.boolean  "required",         default: false
-    t.integer  "position",         default: 0
-    t.string   "label"
-    t.boolean  "protected",        default: false
-    t.string   "default_value"
-    t.boolean  "half_width",       default: false
-    t.boolean  "hidden",           default: false
-    t.boolean  "can_be_hidden",    default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "resource_fields", force: true do |t|
-    t.integer  "resource_type_id"
-    t.string   "title"
-    t.string   "slug"
-    t.string   "data_type"
-    t.text     "options"
-    t.boolean  "required",         default: false
-    t.integer  "position",         default: 0
-    t.string   "label"
-    t.boolean  "protected",        default: false
-    t.string   "default_value"
-    t.boolean  "half_width",       default: false
-    t.boolean  "hidden",           default: false
-    t.boolean  "can_be_hidden",    default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "resource_types", force: true do |t|
-    t.integer  "site_id"
-    t.string   "title"
-    t.string   "slug"
-    t.text     "description"
-    t.string   "order_method"
-    t.string   "order_direction"
-    t.integer  "last_editor_id"
-    t.boolean  "has_show_view",   default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "resources", force: true do |t|
-    t.string   "title"
-    t.string   "slug"
-    t.integer  "resource_type_id"
-    t.text     "field_data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "settings", force: true do |t|
     t.string   "title"

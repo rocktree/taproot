@@ -5,15 +5,15 @@ class ViewerController < ActionController::Base
 
   before_filter :verify_site
 
-  include(
-    ApplicationHelper, 
-    RoutingHelper,
-    ErrorsHelper,
-    UsersHelper,
-    SitesHelper,
-    PagesHelper,
-    TemplatesHelper
-  )
+  # include(
+  #   ApplicationHelper, 
+  #   RoutingHelper,
+  #   ErrorsHelper,
+  #   UsersHelper,
+  #   SitesHelper,
+  #   PagesHelper,
+  #   TemplatesHelper
+  # )
 
   private
 
