@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826193251) do
+ActiveRecord::Schema.define(version: 20150826204053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150826193251) do
   end
 
   create_table "blocks", force: true do |t|
-    t.integer  "parent_id"
+    t.integer  "block_id"
     t.integer  "page_id"
     t.integer  "position",   default: 0
     t.datetime "created_at"

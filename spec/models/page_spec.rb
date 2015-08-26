@@ -58,4 +58,37 @@ describe Page, :type => :model do
     it 'should retrieve a Template object via the `template` method'
   end
 
+  context 'With no blocks' do
+    let(:page) { create(:page, :template_name => 'home') }
+    it 'has an empty array for all blocks' do
+      expect(page.blocks).to eq([])
+    end
+    it 'has an empty array of a specific block' do
+      expect(page.blocks('something-fake')).to eq([])
+    end
+  end
+
+  context 'With blocks' do
+    before(:all) do
+      @page = create(:page, :template_name => 'home')
+      10.times do
+        page = create(:page, :template_name => 'home')
+        create(:block, :page => @page, :block => page)
+      end
+      5.times do
+        page = create(:page, :template_name => 'about')
+        create(:block, :page => @page, :block => page, :title => 'my-block')
+      end
+    end
+    it 'can fetch all blocks' do
+      expect(@page.blocks.size).to eq(15)
+    end
+    it 'has a subset of name-specific blocks' do
+      expect(@page.blocks('my-block').size).to eq(5)
+    end
+    it 'returns blocks as page objects' do
+      expect(@page.blocks.first.class).to eq(Page)
+    end
+  end
+
 end

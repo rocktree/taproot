@@ -45,6 +45,7 @@ Rails.application.routes.draw do
         post 'publish' => 'pages#publish', :as => :publish
         post 'unpublish' => 'pages#unpublish', :as => :unpublish
         patch 'nest' => 'pages#nest', :as => :nest
+        resources :blocks, :param => :slug
       end
 
   #     # Site Settings

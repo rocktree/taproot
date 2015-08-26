@@ -11,6 +11,7 @@ class Editor::BaseController < EditorController
                 :all_templates,
                 :current_page,
                 :current_page_ancestors,
+                :current_page_blocks,
                 :current_page_children,
                 :current_page_tree,
                 :current_site,
@@ -76,6 +77,10 @@ class Editor::BaseController < EditorController
 
     def pages_from_template(template)
       all_blocks_and_pages.select { |p| p.template_name == template.name }
+    end
+
+    def current_page_blocks(name)
+      current_page.blocks(name)
     end
 
     # ------------------------------------------ Page Trees

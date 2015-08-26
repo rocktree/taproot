@@ -41,6 +41,8 @@ class Page < ActiveRecord::Base
 
   belongs_to :site
 
+  has_many :page_blocks, :class_name => 'Block'
+
   # has_many :page_documents, :dependent => :destroy
   # has_many :documents, :through => :page_documents
   # has_many :page_resources, :dependent => :destroy
@@ -87,6 +89,11 @@ class Page < ActiveRecord::Base
 
   def unpublish!
     update_columns(:published => false)
+  end
+
+  def blocks(name = 'all')
+    return page_blocks.collect(&:page) if name == 'all'
+    page_blocks.where(:title => name).collect(&:page)
   end
 
   # def resource_type_methods

@@ -21,7 +21,7 @@
                         :data => { :modal_url => new_path } %>
           </h2>
           <ul>
-            <% pages_from_template(template).each do |page| %>
+            <% current_page_blocks(field.name).each do |page| %>
               <li class="item">
                 <% if pages_from_template(template).size > 1 %>
                   <span class="reorder"><%= icon_to 'reorder', '#' %></span>
