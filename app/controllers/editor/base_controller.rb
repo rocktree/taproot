@@ -113,7 +113,7 @@ class Editor::BaseController < EditorController
     def current_page
       @current_page ||= begin
         p = params[:page_slug] || params[:slug]
-        all_pages.select { |page| page.slug == p }.first
+        all_blocks_and_pages.select { |page| page.slug == p }.first
       end
     end
 

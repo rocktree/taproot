@@ -15,7 +15,7 @@
           <h2><%= template.title %></h2>
           <% new_path = new_site_editor_page_path(current_site,
                                                   :t => template.name) %>
-          <%= link_to "New #{template.title}", new_path,
+          <%= link_to "New #{template.title}", '#',
                       :id => 'new-block',
                       :data => { :modal_url => new_path } %>
           <% pages_from_template(template).each do |page| %>
