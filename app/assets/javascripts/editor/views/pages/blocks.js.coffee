@@ -3,18 +3,28 @@ class App.Views.Pages.Blocks extends Backbone.View
   el: 'div.block'
 
   events:
-    'click #new-block': 'openModal'
+    'click #new-block': 'newBlock'
+    'click a.edit': 'editBlock'
 
   initialize: ->
     @modal = new App.Components.Modal
 
-  openModal: (e) ->
+  newBlock: (e) ->
     e.preventDefault()
-    url = $(e.target).data('modal-url')
+    @openModal($(e.target), 'create')
+
+  editBlock: (e) ->
+    e.preventDefault()
+    @openModal($(e.target), 'update')
+
+  openModal: (target, action) ->
+    target = target.parents('a').first() unless target.is('a')
+    url = target.data('modal-url')
     $.get url, (content) =>
       @modal.open(content)
       @modal.find('input:visible:first').focus()
-      @formListener('create')
+      @formListener('create') if action == 'create'
+      @formListener('update') if action == 'update'
 
   formListener: (step) =>
     @modal.find('form').submit (e) =>

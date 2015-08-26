@@ -28,9 +28,9 @@
                 <% end %>
                 <span class="title"><%= page.title %></span>
                 <span class="icons">
-                  <%= icon_to 'edit',
-                              edit_site_editor_page_path(current_site, page),
-                              :class => 'edit' %>
+                  <% path = edit_site_editor_page_path(current_site, page) %>
+                  <%= icon_to 'edit', '#', :class => 'edit',
+                              :data => { :modal_url => path } %>
                   <%= icon_to 'delete', site_editor_page_path(current_site, page),
                               :method => :delete, :class => 'delete',
                               :data => { :confirm => 'Are you sure?' } %>
