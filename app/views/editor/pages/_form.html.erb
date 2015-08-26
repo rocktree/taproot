@@ -12,17 +12,32 @@
       <% elsif field.type == 'block' %>
         <% template = current_site.templates.find(field.name) %>
         <div class="block">
-          <h2><%= template.title %></h2>
-          <% new_path = new_site_editor_page_path(current_site,
-                                                  :t => template.name) %>
-          <%= link_to "New #{template.title}", '#',
-                      :id => 'new-block',
-                      :data => { :modal_url => new_path } %>
-          <% pages_from_template(template).each do |page| %>
-            <div class="item">
-              <h3><%= page.title %></h3>
-            </div>
-          <% end %>
+          <h2>
+            <span><%= template.title %></span>
+            <% new_path = new_site_editor_page_path(current_site,
+                                                    :t => template.name) %>
+            <%= link_to "New #{template.title}", '#',
+                        :id => 'new-block',
+                        :data => { :modal_url => new_path } %>
+          </h2>
+          <ul>
+            <% pages_from_template(template).each do |page| %>
+              <li class="item">
+                <% if pages_from_template(template).size > 1 %>
+                  <span class="reorder"><%= icon_to 'reorder', '#' %></span>
+                <% end %>
+                <span class="title"><%= page.title %></span>
+                <span class="icons">
+                  <%= icon_to 'edit',
+                              edit_site_editor_page_path(current_site, page),
+                              :class => 'edit' %>
+                  <%= icon_to 'delete', site_editor_page_path(current_site, page),
+                              :method => :delete, :class => 'delete',
+                              :data => { :confirm => 'Are you sure?' } %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
         </div>
       <% else %>
         <% case field.type %>

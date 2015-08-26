@@ -15,6 +15,7 @@ body {
       main#content {
         position: relative;
         min-height: 100%;
+        padding-bottom: 25px;
         border: 1px solid $color-light-darker;
         border-right: none;
         border-bottom: none;

@@ -1,0 +1,96 @@
+body.pages.edit {
+  main#content {
+    div.block {
+      padding: 10px 25px;
+      border-bottom: 1px solid $color-light-dark;
+      h2 {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.25em;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: $color-light-darkest;
+        span, a {
+          display: inline-block;
+          margin-right: 10px;
+          font-size: inherit;
+          line-height: inherit;
+        }
+        span {
+          color: inherit;
+        }
+        a {
+          @include icon-before($icon-checkmark);
+          text-transform: none;
+          &:before {
+            display: inline-block;
+            margin-right: 5px;
+          }
+        }
+      }
+      ul {
+        @include clear-list;
+        margin-top: 10px;
+        li {
+          padding: 10px 0;
+          line-height: 28px;
+          border-bottom: 1px solid $color-light-dark;
+          overflow: hidden;
+          &:hover .icons {
+            margin-bottom: 0;
+          }
+          .reorder {
+            a {
+              display: inline-block;
+              margin-right: 5px;
+              padding: 3px;
+              font-size: 13px;
+              line-height: 13px;
+              &:hover {
+                cursor: move;
+                cursor: -webkit-grab;
+              }
+              i { color: $color-light-darkest; }
+            }
+          }
+          .title {
+            display: inline-block;
+            margin-right: 5px;
+          }
+          .icons {
+            display: inline-block;
+            margin-left: 10px;
+            margin-bottom: -80px;
+            @include transition(margin 0.15s linear);
+            a {
+              display: inline-block;
+              margin-right: 5px;
+              padding: 3px;
+              font-size: 13px;
+              line-height: 13px;
+              text-align: center;
+              border: 2px solid $color-light-darkest;
+              border-radius: 100%;
+              color: $color-light-darkest;
+              @include transition(border 0.15s linear);
+              &:hover {
+                color: $color-dark-lightest;
+                border-color: $color-dark-lightest;
+                &.delete {
+                  color: $color-danger;
+                  border-color: $color-danger;
+                }
+              }
+              i {
+                font-size: inherit;
+                line-height: inherit;
+                color: inherit;
+                @include transition(color 0.15s linear);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
