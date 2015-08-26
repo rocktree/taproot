@@ -21,6 +21,7 @@
         <tr>
           <th class="status-icon"></th>
           <th>Title</th>
+          <th>Template</th>
           <th>Last Modified</th>
         </tr>
       </thead>
@@ -62,6 +63,7 @@
                             :data => { :confirm => 'Are you sure?' } %>
               </div>
             </td>
+            <td><%= page.template.title %></td>
             <td><%= page.updated_at.pretty %></td>
           </tr>
         <% end %>
