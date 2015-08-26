@@ -18,6 +18,7 @@ gem 'bones-rails'
 gem 'bourbon'
 gem 'backbone-on-rails'
 gem 'interact-rails'
+gem 'trumbowyg_rails'
 
 # ------------------------------------------ View Helpers
 

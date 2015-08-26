@@ -11,7 +11,8 @@
                             OpenStruct.new(f.object.field_data) do |fd| %>
       <% current_template.fields.all.each_with_index do |field, idx| %>
         <% if field.name == 'body' %>
-          <%= f.input :body, :label => field.label %>
+          <%= f.input :body, :label => field.label,
+                      :input_html => { :class => 'editor' } %>
         <% elsif field.type == 'template' %>
           <% template = current_site.templates.find(field.name) %>
           <div class="block">

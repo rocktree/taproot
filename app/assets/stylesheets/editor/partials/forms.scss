@@ -23,9 +23,6 @@ form {
         color: $color-primary;
       }
     }
-//     textarea {
-//       height: 100px;
-//     }
     textarea, input, select {
       margin: 5px 0 0 0;
       padding: 10px;
@@ -37,6 +34,12 @@ form {
       &:focus {
         color: $color-primary;
       }
+      &.editor {
+        display: none;
+      }
+    }
+    .trumbowyg-box {
+      margin: 5px 0;
     }
 //     input.boolean {
 //       margin: 0;

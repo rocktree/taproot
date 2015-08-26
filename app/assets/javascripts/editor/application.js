@@ -1,15 +1,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/sortable
+
 //= require interact
+
+//= require trumbowyg/trumbowyg
+
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-//= require editor
-//= require marked
+//= require jquery.Jcrop
+
 //= require pickadate/picker
 //= require pickadate/picker.date
 //= require pickadate/picker.time
-//= require jquery.Jcrop
+
 //= require underscore
 //= require backbone
 //= require ./app
