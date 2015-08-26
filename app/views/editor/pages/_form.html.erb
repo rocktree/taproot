@@ -10,10 +10,10 @@
         <%= f.input :body, :label => field.label,
                     :input_html => { :class => 'editor' } %>
       <% elsif field.type == 'block' %>
-        <% template = current_site.templates.find(field.name) %>
+        <% template = current_site.templates.find(field.template) %>
         <div class="block">
           <h2>
-            <span><%= template.title %></span>
+            <span><%= field.label %></span>
             <% new_path = new_site_editor_page_path(current_site,
                                                     :t => template.name) %>
             <%= link_to "New #{template.title}", '#',

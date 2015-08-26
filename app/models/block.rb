@@ -8,6 +8,7 @@
 #  position   :integer          default(0)
 #  created_at :datetime
 #  updated_at :datetime
+#  title      :string(255)
 #
 
 class Block < ActiveRecord::Base
