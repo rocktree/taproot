@@ -1,7 +1,3 @@
-<div class="logo">
-  <h1><%= link_to 'topkit', root_path %></h1>
-</div>
-
 <div class="site-toggle <%= 'dropdown' if current_user.has_multiple_sites? %>">
   <%= link_to(
     current_site.title,

@@ -2,8 +2,11 @@ body {
   #container {
     min-height: 100%;
     > header {
-      position: relative;
+      position: fixed;
+      width: 100%;
+      height: 52px;
       z-index: 999;
+      border-bottom: 1px solid $color-light-darker;
     }
     #content-container {
       position: absolute;
@@ -16,9 +19,7 @@ body {
         position: relative;
         min-height: 100%;
         padding-bottom: 25px;
-        border: 1px solid $color-light-darker;
-        border-right: none;
-        border-bottom: none;
+        border-left: 1px solid $color-light-darker;
         section.page-content {
           position: relative;
           z-index: 99;
@@ -31,8 +32,7 @@ body {
       left: 0;
       width: 250px;
       height: 100%;
-      padding-top: 62px;
-      z-index: 99;
+      z-index: 9999;
     }
   }
 }
