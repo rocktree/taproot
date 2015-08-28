@@ -32,11 +32,14 @@
                         :id => 'new-block',
                         :data => { :modal_url => new_path } %>
           </h2>
-          <ul>
+          <ul data-url="<%= site_editor_page_reorder_blocks_path(
+              current_site, current_page, field.name) %>">
             <% current_page_blocks(field.name).each do |page| %>
-              <li class="item" data-page="<%= page.slug %>">
+              <li class="item" data-page="<%= page.id %>">
                 <% if pages_from_template(template).size > 1 %>
-                  <span class="reorder"><%= icon_to 'reorder', '#' %></span>
+                  <span class="reorder">
+                    <%= icon_to 'reorder', '#', :class => 'handle' %>
+                  </span>
                 <% end %>
                 <span class="title"><%= page.title %></span>
                 <span class="icons">

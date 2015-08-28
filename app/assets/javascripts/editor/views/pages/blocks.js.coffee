@@ -8,6 +8,7 @@ class App.Views.Pages.Blocks extends Backbone.View
 
   initialize: ->
     @modal = new App.Components.Modal
+    @initSortable()
 
   existingBlock: (e) ->
     e.preventDefault()
@@ -47,5 +48,25 @@ class App.Views.Pages.Blocks extends Backbone.View
       @modal.find('.content').html(response)
       @loader.close()
 
-  # addSuccess: (response) =>
-  #   console.log response
+  initSortable: ->
+    for s in $('div.block ul')
+      $(s).sortable
+        handle: '.handle'
+        placeholder: 'sortable-placeholder'
+        toArray:
+          attribute: "data-page"
+        update: (e, ui) ->
+          url = $(this).data('url')
+          ids = $(this).sortable('toArray', { attribute: 'data-page' })
+          data =
+            blocks: ids
+          $.post url, data, (response) =>
+            return
+          .fail (response) ->
+            alert "Could not save block order"
+          .success (response) ->
+            $('body').prepend """
+              <p class="notice">Block order saved</p>
+            """
+
+

@@ -1,6 +1,6 @@
 class Editor::BlocksController < Editor::BaseController
 
-  before_filter :verify_xhr, :only => [:index]
+  before_filter :verify_xhr, :only => [:index, :reorder]
 
   def index
     @blocks = []
@@ -30,14 +30,20 @@ class Editor::BlocksController < Editor::BaseController
     redirect_to redirect_route, :notice => 'Block removed'
   end
 
+  def reorder
+    blocks = current_page.page_blocks.where(:title => params[:title])
+    params[:blocks].reject(&:blank?).each_with_index do |block_id, idx|
+      puts block_id
+      block = blocks.select { |b| b.block_id == block_id.to_i }.first
+      block.update_columns(:position => idx) unless block.nil?
+    end
+    render :nothing => 'true'
+  end
+
   private
 
     def create_params
       params.require(:block).permit(:title, :page_id, :block_id)
-    end
-
-    def update_params
-      params.require(:block).permit(:position)
     end
 
 end

@@ -45,6 +45,7 @@ Rails.application.routes.draw do
         post 'publish' => 'pages#publish', :as => :publish
         post 'unpublish' => 'pages#unpublish', :as => :unpublish
         patch 'nest' => 'pages#nest', :as => :nest
+        post 'blocks/reorder/:title' => 'blocks#reorder', :as => :reorder_blocks
         resources :blocks, :param => :slug
       end
 

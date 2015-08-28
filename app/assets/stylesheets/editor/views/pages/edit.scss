@@ -36,6 +36,7 @@ body.pages.edit {
           line-height: 28px;
           border-bottom: 1px solid $color-light-dark;
           overflow: hidden;
+          @include transition(none);
           &:hover .icons {
             margin-bottom: 0;
           }
