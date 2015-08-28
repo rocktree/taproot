@@ -88,6 +88,7 @@ class App.Views.Pages.Sorter extends Backbone.View
           $(e.relatedTarget).remove()
         .fail () =>
           alert "There was an error nesting this page."
+          loader.close()
 
   toggleSortMode: (e) ->
     e.preventDefault()
