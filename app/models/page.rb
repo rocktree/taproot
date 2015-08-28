@@ -92,8 +92,8 @@ class Page < ActiveRecord::Base
   end
 
   def blocks(name = 'all')
-    return page_blocks.collect(&:page) if name == 'all'
-    page_blocks.where(:title => name).collect(&:page)
+    return page_blocks.collect(&:block) if name == 'all'
+    page_blocks.where(:title => name).collect(&:block)
   end
 
   # def resource_type_methods

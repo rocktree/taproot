@@ -1,7 +1,9 @@
-<%= simple_form_for(
-    current_page,
-    :url => site_editor_page_path(current_site, current_page)
-  ) do |f| %>
+<% url = site_editor_page_path(current_site, current_page) %>
+<% if params[:redirect] %>
+  <% url = site_editor_page_path(current_site, current_page,
+                                 :redirect => params[:redirect]) %>
+<% end %>
+<%= simple_form_for(current_page, :url => url) do |f| %>
 
   <%= f.simple_fields_for :field_data,
                           OpenStruct.new(f.object.field_data) do |fd| %>
@@ -15,22 +17,29 @@
           <h2>
             <span><%= field.label %></span>
             <% new_path = new_site_editor_page_path(current_site,
-                                                    :t => template.name) %>
+                                                    :t => template.name,
+                                                    :create_block => true,
+                                                    :b => field.name,
+                                                    :bp => current_page.slug) %>
             <%= link_to "New #{template.title}", '#',
                         :id => 'new-block',
                         :data => { :modal_url => new_path } %>
           </h2>
           <ul>
             <% current_page_blocks(field.name).each do |page| %>
-              <li class="item">
+              <li class="item" data-page="<%= page.slug %>">
                 <% if pages_from_template(template).size > 1 %>
                   <span class="reorder"><%= icon_to 'reorder', '#' %></span>
                 <% end %>
                 <span class="title"><%= page.title %></span>
                 <span class="icons">
-                  <% path = edit_site_editor_page_path(current_site, page) %>
-                  <%= icon_to 'edit', '#', :class => 'edit',
-                              :data => { :modal_url => path } %>
+                  <%= icon_to 'edit',
+                              edit_site_editor_page_path(
+                                current_site,
+                                page,
+                                :redirect => request.path,
+                              ),
+                              :class => 'edit' %>
                   <%= icon_to 'delete', site_editor_page_path(current_site, page),
                               :method => :delete, :class => 'delete',
                               :data => { :confirm => 'Are you sure?' } %>

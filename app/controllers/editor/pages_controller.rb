@@ -37,7 +37,19 @@ class Editor::PagesController < Editor::BaseController
       current_page.parent_id = nil if parent.nil?
     end
     if current_page.save
-      path = edit_site_editor_page_path(current_site, current_page)
+      if params[:page][:create_block].to_bool == true
+        parent = find_page(params[:page][:block_page_slug])
+        Block.create!(
+          :block => current_page,
+          :page => parent,
+          :title => params[:page][:block_title]
+        )
+        redirect = edit_site_editor_page_path(current_site, parent)
+        path = edit_site_editor_page_path(current_site, current_page,
+                                          :redirect => redirect)
+      else
+        path = edit_site_editor_page_path(current_site, current_page)
+      end
       render :text => "tk-success:#{path}"
     else
       render 'new', :layout => false

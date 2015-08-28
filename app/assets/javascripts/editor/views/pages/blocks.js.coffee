@@ -4,7 +4,6 @@ class App.Views.Pages.Blocks extends Backbone.View
 
   events:
     'click #new-block': 'newBlock'
-    'click a.edit': 'editBlock'
 
   initialize: ->
     @modal = new App.Components.Modal
@@ -35,23 +34,29 @@ class App.Views.Pages.Blocks extends Backbone.View
       $.post(
         url, data
       ).success((response) =>
-        @createSuccess(response) if step == 'create'
-        @updateSuccess(response) if step == 'update'
+        @createSuccess(response) #if step == 'create'
+        # @updateSuccess(response) if step == 'update'
       ).fail () =>
         alert "There was a problem with your request."
         @loader.close()
 
   createSuccess: (response) =>
     if response.split(':')[0] == 'tk-success'
-      $.get response.split(':')[1], (html) =>
-        @modal.update(html)
-        @modal.find('input:visible:first').focus()
-        @loader.close()
-        @formListener('update')
+      window.location.href = response.split(':')[1]
+      # $.get response.split(':')[1], (html) =>
+      #   @modal.update(html)
+      #   @modal.find('input:visible:first').focus()
+      #   @formListener('update')
     else
       @modal.find('.content').html(response)
       @loader.close()
 
-  updateSuccess: (response) =>
-    # TODO: Add the page to the list of pages
-    @loader.close()
+  # updateSuccess: (response) =>
+  #   if response.split(':')[0] == 'tk-success'
+  #     $.get response.split(':')[1], (html) =>
+  #       console.log html
+  #     # TODO: Add the page to the list of pages
+  #     @modal.close()
+  #   else
+  #     @modal.find('.content').html(response)
+  #   @loader.close()

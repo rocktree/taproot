@@ -10,6 +10,14 @@
 </header>
 <%= simple_form_for current_page, :url => site_editor_pages_path do |f| %>
   <%= f.input :title %>
+  <% if params[:create_block].to_bool == true %>
+    <%= f.input :create_block, :as => :hidden,
+                :input_html => { :value => true } %>
+    <%= f.input :block_title, :as => :hidden,
+                :input_html => { :value => params[:b] } %>
+    <%= f.input :block_page_slug, :as => :hidden,
+                :input_html => { :value => params[:bp] } %>
+  <% end %>
   <%= f.input :template_name, :as => :hidden %>
   <%= f.input :parent_id, :as => :hidden %>
   <%= f.submit "Next" %>

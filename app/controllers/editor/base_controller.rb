@@ -17,6 +17,7 @@ class Editor::BaseController < EditorController
                 :current_site,
                 :current_template,
                 :draft_pages,
+                :find_page,
                 :page_from_tree_node,
                 :pages_from_template,
                 :redirect_route
@@ -120,6 +121,10 @@ class Editor::BaseController < EditorController
         p = params[:page_slug] || params[:slug]
         all_blocks_and_pages.select { |page| page.slug == p }.first
       end
+    end
+
+    def find_page(slug)
+      all_blocks_and_pages.select { |page| page.slug == slug }.first
     end
 
     def current_site
