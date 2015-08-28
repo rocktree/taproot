@@ -143,8 +143,4 @@ class Editor::PagesController < Editor::BaseController
       not_found if current_page.nil?
     end
 
-    def verify_xhr
-      redirect_to site_editor_pages_path(current_site) unless request.xhr?
-    end
-
 end

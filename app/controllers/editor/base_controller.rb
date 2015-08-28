@@ -9,6 +9,7 @@ class Editor::BaseController < EditorController
                 :all_pages_tree,
                 :all_sites,
                 :all_templates,
+                :current_block,
                 :current_page,
                 :current_page_ancestors,
                 :current_page_blocks,
@@ -46,6 +47,10 @@ class Editor::BaseController < EditorController
       return params[:redirect] if params[:redirect]
       return request.referrer unless request.referrer.blank?
       site_editor_pages_path(current_site)
+    end
+
+    def verify_xhr
+      redirect_to site_editor_pages_path(current_site) unless request.xhr?
     end
 
     # ------------------------------------------ Errors
@@ -115,6 +120,10 @@ class Editor::BaseController < EditorController
     end
 
     # ------------------------------------------ Objects
+
+    def current_block
+      @current_block
+    end
 
     def current_page
       @current_page ||= begin

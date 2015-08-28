@@ -16,12 +16,19 @@
         <div class="block">
           <h2>
             <span><%= field.label %></span>
+            <% path = site_editor_page_blocks_path(current_site, current_page,
+                                                   :b => field.name,
+                                                   :t => template.name,
+                                                   :redirect => request.path) %>
+            <%= link_to "Add Existing #{template.title}", '#',
+                        :id => 'existing-block',
+                        :data => { :modal_url => path } %>
             <% new_path = new_site_editor_page_path(current_site,
                                                     :t => template.name,
                                                     :create_block => true,
                                                     :b => field.name,
                                                     :bp => current_page.slug) %>
-            <%= link_to "New #{template.title}", '#',
+            <%= link_to "Create New #{template.title}", '#',
                         :id => 'new-block',
                         :data => { :modal_url => new_path } %>
           </h2>
