@@ -45,10 +45,12 @@
     <span class="slug"
           contenteditable="true"><%= current_page.slug %></span>
   </h1>
-  <%= simple_form_for(
-    current_page,
-    :url => site_editor_page_path(current_site, current_page)
-  ) do |f| %>
+  <% url = site_editor_page_path(current_site, current_page) %>
+  <% if params[:redirect] %>
+    <% url = site_editor_page_path(current_site, current_page,
+                                   :redirect => params[:redirect]) %>
+  <% end %>
+  <%= simple_form_for(current_page, :url => url) do |f| %>
     <%= f.input :title %>
     <%= f.input :slug %>
   <% end %>

@@ -40,9 +40,17 @@
                                 :redirect => request.path,
                               ),
                               :class => 'edit' %>
-                  <%= icon_to 'delete', site_editor_page_path(current_site, page),
-                              :method => :delete, :class => 'delete',
-                              :data => { :confirm => 'Are you sure?' } %>
+                  <%= icon_to(
+                    'delete',
+                    site_editor_page_block_path(
+                      current_site,
+                      current_page,
+                      page,
+                      :redirect => request.path
+                    ),
+                    :method => :delete, :class => 'delete',
+                    :data => { :confirm => 'Are you sure?' }
+                  ) %>
                 </span>
               </li>
             <% end %>
