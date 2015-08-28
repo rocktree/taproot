@@ -1,0 +1,17 @@
+<%= render 'current_page_header' %>
+
+<section class="page-content">
+  <%= simple_form_for(
+    current_page,
+    :url => site_editor_page_path(
+      current_site,
+      current_page,
+      :redirect => request.path
+    )
+  ) do |f| %>
+    <%= f.simple_fields_for :meta, OpenStruct.new(f.object.meta) do |m| %>
+      <%= m.input :description %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</section>

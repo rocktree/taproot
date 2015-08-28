@@ -15,6 +15,7 @@
 #  site_id       :integer
 #  field_data    :json
 #  template_name :string(255)
+#  meta          :json
 #
 
 FactoryGirl.define do

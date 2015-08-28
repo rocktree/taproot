@@ -60,6 +60,9 @@ class Editor::PagesController < Editor::BaseController
     render 'form', :layout => false if request.xhr?
   end
 
+  def meta
+  end
+
   def update
     p = params[:page][:title] ? head_params : update_params
     old_slug = current_page.slug
@@ -127,7 +130,7 @@ class Editor::PagesController < Editor::BaseController
     end
 
     def update_params
-      p = params.require(:page).permit(:body)
+      p = params.require(:page).permit(:body, :meta => [:description])
       fd = current_page.field_data || {}
       unless params[:page][:field_data].blank?
         p = p.merge(:field_data => fd.merge(params[:page][:field_data]))
