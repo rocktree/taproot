@@ -56,12 +56,12 @@
   <% end %>
   <div class="labels">
     <span class="tk-label <%= current_page.status %> template">
-      <i class="icon-file"></i>
+      <%= current_page.p.status_icon %>
       <strong>Status:</strong>
       <span><%= current_page.status.titleize %></span>
     </span>
     <span class="tk-label template">
-      <i class="icon-file"></i>
+      <i class="icon-page"></i>
       <strong>Template:</strong>
       <span><%= current_template.title %></span>
     </span>

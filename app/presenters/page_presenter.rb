@@ -10,9 +10,9 @@ class PagePresenter
 
   def status_icon
     if @obj.published?
-      "<i class=\"icon-checkmark color-success\"></i>".html_safe
+      "<i class=\"icon-publish\"></i>".html_safe
     else
-      "<i class=\"icon-draft color-dark-lightest\"></i>".html_safe
+      "<i class=\"icon-draft\"></i>".html_safe
     end
   end
 
