@@ -62,7 +62,7 @@ class Editor::BaseController < EditorController
     # ------------------------------------------ Collections
 
     def all_blocks_and_pages
-      @all_blocks_and_pages ||= all_blocks_and_pages ||= current_site.webpages
+      @all_blocks_and_pages ||= current_site.webpages
     end
 
     def all_pages
