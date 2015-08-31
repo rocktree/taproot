@@ -19,25 +19,10 @@ feature 'New button' do
     scenario 'is not visible without clicking "New"' do
       expect(page).to_not have_css('#new-button-container ul li a')
     end
-    scenario 'is visible when clicking "New"' do
-      @trigger.click
-      expect(page).to have_css('#new-button-container ul li a')
-    end
     scenario 'hides if "New" is clicked twice (toggled)' do
       @trigger.click
       @trigger.click
       expect(page).to_not have_css('#new-button-container ul li a')
-    end
-    scenario 'has a new page link for each template' do
-      template_hrefs = @site.templates.all
-        .collect { |t| "#{@site.uid}/editor/pages/new?t=#{t.name}"}.sort
-      hrefs = []
-      @trigger.click
-      page.all('#new-button-container ul li a').each do |link|
-        href = link[:href].split('//').last.split('/')[1..-1].join('/')
-        hrefs << href
-      end
-      expect(hrefs.sort).to eq(template_hrefs)
     end
   end
 

@@ -12,10 +12,29 @@ templates:
         label: Header Image
   about:
     title: About
-    block: false
     fields:
       subtitle:
         type: string
         label: Subtitle
+      cheese:
+        type: string
+        label: What is your definition of cheese?
+      body:
+        label: Body
+      textarea:
+        type: text
+        label: This is a regular textarea
+      wysiwyg:
+        type: wysiwyg
+        label: This is a wysiwyg editor
+      feature_slides:
+        type: block
+        template: feature
+        label: These are the feature slides
   feature:
+    title: Feature Slide
     block: true
+    fields:
+      test_field:
+        label: La-dee La-dee Dah
+        type: string

@@ -20,6 +20,26 @@ feature 'Create New Page' do
     end
   end
 
+  describe 'New Page Button', :js => true do
+    before :each do
+      sign_in @user
+      visit site_editor_path(@site)
+      click_link('NEW')
+    end
+    scenario 'has a new page link for each non-block template' do
+      template_hrefs = @site.templates.all
+        .reject { |t| t.block? }
+        .collect { |t| "#{@site.uid}/editor/pages/new?t=#{t.name}"}
+        .sort
+      hrefs = []
+      page.all('#new-button-container ul li a').each do |link|
+        href = link[:href].split('//').last.split('/')[1..-1].join('/')
+        hrefs << href
+      end
+      expect(hrefs.sort).to eq(template_hrefs)
+    end
+  end
+
   describe 'New Page Form', :js => true do
     before :each do
       sign_in @user
@@ -27,11 +47,8 @@ feature 'Create New Page' do
       click_link('NEW')
       click_link('Home')
     end
-    scenario 'shows a new page modal' do
-      expect(page).to have_content('New Page')
-    end
-    scenario 'shows the template name' do
-      expect(page).to have_content('Template: Home')
+    scenario 'shows a new page modal with the template name' do
+      expect(page).to have_content('New Home')
     end
     scenario 'redirects to edit form after creating page' do
       title = Faker::Lorem.words(5).join(' ')
