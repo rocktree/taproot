@@ -23,15 +23,14 @@ FactoryGirl.define do
     title { Faker::Lorem.words(4).join(' ') }
     template_name { Faker::Lorem.word }
     site
+    position nil
+    parent_id nil
 
     factory :published_page do
       published true
     end
     factory :draft_page do
       published false
-    end
-    factory :page_w_parent do
-      parent_id ''
     end
   end
 
