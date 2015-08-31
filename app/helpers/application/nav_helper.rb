@@ -4,13 +4,15 @@ module Application
     def pages_subnav
       content_tag(:ul, :class => 'pages') do
         o = ''
+        level = 1
         all_pages_tree.each do |node|
           page = page_from_tree_node(node)
           next if page.nil?
           o += content_tag(:li) do
             o2 = ''
             if node['children'].size > 0
-              o2 += icon_to 'right', '#', :class => 'pages-inlist-trigger'
+              o2 += icon_to 'right', '#',
+                            :class => "pages-inlist-trigger level-#{level}"
             end
             o2 += link_to(
               page.title,
@@ -19,7 +21,7 @@ module Application
               :data => { :page_id => page.id }
             )
             if node['children'].size > 0
-              o2 += pages_subnav_loop(node['children'])
+              o2 += pages_subnav_loop(node['children'], level + 1)
             end
             o2.html_safe
           end
@@ -28,7 +30,7 @@ module Application
       end
     end
 
-    def pages_subnav_loop(node)
+    def pages_subnav_loop(node, level)
       content_tag(:ul) do
         o = ''
         node.each do |child_node|
@@ -38,7 +40,8 @@ module Application
                            :data => { :page_id => page.id } ) do
             o2 = ''
             if child_node['children'].size > 0
-              o2 += icon_to 'right', '#', :class => 'pages-inlist-trigger'
+              o2 += icon_to 'right', '#',
+                            :class => "pages-inlist-trigger level-#{level}"
             end
             o2 += link_to(
               page.title,
@@ -47,7 +50,7 @@ module Application
               :data => { :page_id => page.id }
             )
             if child_node['children'].size > 0
-              o2 += pages_subnav_loop(child_node['children'])
+              o2 += pages_subnav_loop(child_node['children'], level + 1)
             end
             o2.html_safe
           end

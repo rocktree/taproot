@@ -30,6 +30,9 @@ FactoryGirl.define do
     factory :draft_page do
       published false
     end
+    factory :page_w_parent do
+      parent_id ''
+    end
   end
 
 end
