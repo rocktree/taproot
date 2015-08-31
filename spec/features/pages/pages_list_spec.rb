@@ -66,16 +66,6 @@ feature 'Pages List' do
       first('a.right').click
       expect(page).to have_content(@page_5.title)
     end
-
-    scenario 'not drill down to a pages children if it does not have any'
-    scenario 'show the appropriate title when viewing children'
-    scenario 'show the status of a published page'
-    scenario 'show the status of a draft page'
-    scenario 'launch the edit form'
-    scenario 'publish a page in draft mode'
-    scenario 'unpublish a published page'
-    scenario 'show the warning message before deleting a page'
-    scenario 'delete a page'
   end
 
 end
