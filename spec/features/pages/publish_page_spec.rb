@@ -58,7 +58,7 @@ feature 'Page' do
         expect(all('td.status-icon > .icon-draft').size).to eq(1)
       end
     end
-    scenario 'can be published from child pages list' do
+    scenario 'can be published from current page header' do
       # Drill down to child page
       within('table.pages') do
         first(:xpath, "//tr[@data-page-id='#{@parent_page.id}']").hover

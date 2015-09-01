@@ -96,6 +96,8 @@ class Editor::PagesController < Editor::BaseController
     current_page.destroy
     if parent_page.nil?
       path = site_editor_pages_path(current_site)
+    else
+      path = site_editor_page_path(current_site, parent_page)
     end
     redirect_to(path, :notice => t('notices.deleted', :item => 'Page'))
   end
