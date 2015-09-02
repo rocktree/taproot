@@ -17,21 +17,36 @@ feature 'Page' do
       sign_in @user
       visit site_editor_pages_path(@site)
     end
-    scenario 'does not show up when not in template fields' do
+    scenario 'appears when it is mentioned in template fields' do
       within('table.pages') do
         first(:xpath, "//tr[@data-page-id='#{@home.id}']").hover
         sleep 0.35
         first('a.edit').click
       end
       expect(page).to_not have_css('.page-content .page_body .trumbowyg')
-    end
-    scenario 'shows up when in a template field' do
+      within('#sidebar') { click_link('Pages') }
       within('table.pages') do
         first(:xpath, "//tr[@data-page-id='#{@about.id}']").hover
         sleep 0.35
         first('a.edit').click
       end
       expect(page).to have_css('.page-content .page_body .trumbowyg')
+    end
+    scenario 'saves content typed in it' do
+      within('table.pages') do
+        first(:xpath, "//tr[@data-page-id='#{@about.id}']").hover
+        sleep 0.35
+        first('a.edit').click
+      end
+      within('div.page_body') do
+        first('.trumbowyg-bold-button').click
+        first('div.trumbowyg-editor').set('Hello World')
+      end
+      within('.page-content') { click_button('Save') }
+      within('div.page_body') do
+        first('.trumbowyg-viewHTML-button').click
+        expect(page).to have_content('<b>Hello World<br></b>')
+      end
     end
   end
 
