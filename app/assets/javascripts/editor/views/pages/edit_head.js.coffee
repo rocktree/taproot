@@ -19,5 +19,8 @@ class App.Views.Pages.EditHead extends Backbone.View
 
   submitForm: (e) ->
     e.preventDefault()
-    new App.Components.Loader
-    $('.page-header form.edit_page').first().submit()
+    title = $('#page_title').val().replace(/\s/g, '')
+    title = title.replace(/\&nbsp\;/g, '')
+    unless title == ''
+      new App.Components.Loader
+      $('.page-header form.edit_page').first().submit()

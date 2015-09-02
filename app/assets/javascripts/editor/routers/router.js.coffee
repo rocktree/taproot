@@ -14,7 +14,7 @@ class App.Routers.Router extends Backbone.Router
     ':site_uid/editor/pages': 'allPages'
     ':site_uid/editor/pages/:slug': 'pageChildren'
     ':site_uid/editor/pages/:slug/edit': 'editPage'
-    ':site_uid/editor/pages/:slug/*': 'pageFallback'
+    ':site_uid/editor/pages/:slug/meta': 'editPageMeta'
 
   allPages: ->
     new App.Views.Pages.Sorter
@@ -27,5 +27,5 @@ class App.Routers.Router extends Backbone.Router
     new App.Views.Pages.Blocks
     new App.Views.Pages.EditHead
 
-  pageFallback: ->
+  editPageMeta: ->
     new App.Views.Pages.EditHead
