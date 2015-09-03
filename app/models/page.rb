@@ -64,6 +64,8 @@ class Page < ActiveRecord::Base
 
   validates :title, :template_name, :site_id, :presence => true
 
+  validate :template_presence
+
   # ------------------------------------------ Callbacks
 
   after_save :cache_page_path
@@ -150,5 +152,13 @@ class Page < ActiveRecord::Base
   def draft?
     !published?
   end
+
+  private
+
+    def template_presence
+      if site.templates.find(self.template_name).nil?
+        errors.add(:template, 'does not exist.')
+      end
+    end
 
 end

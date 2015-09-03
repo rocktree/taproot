@@ -12,7 +12,7 @@ describe Page, :type => :model do
       expect(@draft_page.p.status).to eq('draft')
     end
     it 'uses the correct status icon' do
-      exp_icon = "<i class=\"icon-draft color-dark-lightest\"></i>".html_safe
+      exp_icon = "<i class=\"icon-draft\"></i>".html_safe
       expect(@draft_page.p.status_icon).to eq(exp_icon)
     end
   end
@@ -22,7 +22,7 @@ describe Page, :type => :model do
       expect(@published_page.p.status).to eq('published')
     end
     it 'uses the correct status icon' do
-      exp_icon = "<i class=\"icon-checkmark color-success\"></i>".html_safe
+      exp_icon = "<i class=\"icon-publish\"></i>".html_safe
       expect(@published_page.p.status_icon).to eq(exp_icon)
     end
   end

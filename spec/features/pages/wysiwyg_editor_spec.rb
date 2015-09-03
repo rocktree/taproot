@@ -45,7 +45,7 @@ feature 'Page' do
       within('.page-content') { click_button('Save') }
       within('div.page_body') do
         first('.trumbowyg-viewHTML-button').click
-        expect(page).to have_content('<b>Hello World<br></b>')
+        expect(page).to have_content('Hello World<br>')
       end
     end
   end

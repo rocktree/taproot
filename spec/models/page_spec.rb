@@ -26,8 +26,10 @@ describe Page, :type => :model do
     @site = create(:site)
     config = YAML.load_file("#{Rails.root}/spec/support/config_01.yml")
     @site.update_config(config)
-    @published_page = create(:published_page, :template_name => 'home')
-    @draft_page = create(:draft_page, :template_name => 'home')
+    @published_page = create(:published_page, :site => @site,
+                             :template_name => 'home')
+    @draft_page = create(:draft_page, :site => @site,
+                         :template_name => 'home')
   end
 
   context 'Unpublished page' do
@@ -55,12 +57,17 @@ describe Page, :type => :model do
   end
 
   context 'Template' do
-    it 'should not be able to be saved without an existing template'
-    it 'should retrieve a Template object via the `template` method'
+    it 'should not be able to be saved without an existing template' do
+      page = build(:page, :site => @site, :template_name => 'i-dont-exist')
+      expect(page.valid?).to eq(false)
+    end
+    it 'should retrieve a Template object via the `template` method' do
+      expect(@published_page.template.class).to eq(Template)
+    end
   end
 
   context 'With no blocks' do
-    let(:page) { create(:page, :template_name => 'home') }
+    let(:page) { create(:page, :site => @site, :template_name => 'home') }
     it 'has an empty array for all blocks' do
       expect(page.blocks).to eq([])
     end
@@ -71,13 +78,13 @@ describe Page, :type => :model do
 
   context 'With blocks' do
     before(:all) do
-      @page = create(:page, :template_name => 'home')
+      @page = create(:page, :site => @site, :template_name => 'home')
       10.times do
-        page = create(:page, :template_name => 'home')
+        page = create(:page, :site => @site, :template_name => 'home')
         create(:block, :page => @page, :block => page)
       end
       5.times do
-        page = create(:page, :template_name => 'about')
+        page = create(:page, :site => @site, :template_name => 'about')
         create(:block, :page => @page, :block => page, :title => 'my-block')
       end
     end
