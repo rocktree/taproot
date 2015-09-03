@@ -19,6 +19,10 @@ templates:
       cheese:
         type: string
         label: What is your definition of cheese?
+      feature_slides:
+        type: block
+        template: feature
+        label: These are the feature slides
       body:
         label: Body
       textarea:
@@ -27,10 +31,6 @@ templates:
       wysiwyg:
         type: wysiwyg
         label: This is a wysiwyg editor
-      feature_slides:
-        type: block
-        template: feature
-        label: These are the feature slides
   feature:
     title: Feature Slide
     block: true
