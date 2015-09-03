@@ -9,33 +9,35 @@
   font-style: normal;
 }
 
-$icon-edit: "\e913";
+$icon-checkmark-outline: "\ed6d";
+$icon-checkmark: "\ed6c";
+$icon-close: "\ed69";
+$icon-delete: "\ebfb";
+$icon-down-thin: "\edbf";
+$icon-down: "\edbc";
 $icon-draft: "\e914";
+$icon-edit: "\e913";
+$icon-form: "\ec4f";
 $icon-image: "\e93c";
+$icon-left-thin: "\edc3";
+$icon-left: "\edc0";
+$icon-link: "\ec98";
 $icon-media: "\e93e";
+$icon-menu: "\ec69";
+$icon-nest: "\ec62";
+$icon-new-page: "\e9a1";
+$icon-new: "\ed58";
 $icon-page: "\e99d";
 $icon-pages: "\e99f";
-$icon-save: "\ea89";
-$icon-user: "\eaf4";
-$icon-settings: "\eb5c";
-$icon-delete: "\ebfb";
-$icon-form: "\ec4f";
-$icon-nest: "\ec62";
-$icon-menu: "\ec69";
-$icon-link: "\ec98";
-$icon-close: "\ed69";
-$icon-checkmark: "\ed6c";
-$icon-checkmark-outline: "\ed6d";
-$icon-sign-out: "\ed74";
 $icon-reorder: "\edac";
-$icon-up: "\edb4";
-$icon-up-thin: "\edb7";
-$icon-right: "\edb8";
 $icon-right-thin: "\edbb";
-$icon-down: "\edbc";
-$icon-down-thin: "\edbf";
-$icon-left: "\edc0";
-$icon-left-thin: "\edc3";
+$icon-right: "\edb8";
+$icon-save: "\ea89";
+$icon-settings: "\eb5c";
+$icon-sign-out: "\ed74";
+$icon-up-thin: "\edb7";
+$icon-up: "\edb4";
+$icon-user: "\eaf4";
 
 @mixin icon($content: null) {
   font-family: 'Topkit';
@@ -83,30 +85,32 @@ $icon-left-thin: "\edc3";
   @include icon;
 }
 
-.icon-edit:before { content: $icon-edit; }
+.icon-checkmark-outline:before { content: $icon-checkmark-outline; }
+.icon-checkmark:before, .icon-publish:before { content: $icon-checkmark; }
+.icon-close:before { content: $icon-close; }
+.icon-delete:before { content: $icon-delete; }
+.icon-down-thin:before { content: $icon-down-thin; }
+.icon-down:before { content: $icon-down; }
 .icon-draft:before, .icon-unpublish:before { content: $icon-draft; }
+.icon-edit:before { content: $icon-edit; }
+.icon-form:before { content: $icon-form; }
 .icon-image:before { content: $icon-image; }
+.icon-left-thin:before { content: $icon-left-thin; }
+.icon-left:before { content: $icon-left; }
+.icon-link:before { content: $icon-link; }
 .icon-media:before { content: $icon-media; }
+.icon-menu:before { content: $icon-menu; }
+.icon-nest:before { content: $icon-nest; }
+.icon-new-page:before { content: $icon-new-page; }
+.icon-new:before { content: $icon-new; }
 .icon-page:before { content: $icon-page; }
 .icon-pages:before { content: $icon-pages; }
-.icon-save:before { content: $icon-save; }
-.icon-user:before { content: $icon-user; }
-.icon-settings:before { content: $icon-settings; }
-.icon-delete:before { content: $icon-delete; }
-.icon-form:before { content: $icon-form; }
-.icon-nest:before { content: $icon-nest; }
-.icon-menu:before { content: $icon-menu; }
-.icon-link:before { content: $icon-link; }
-.icon-checkmark:before, .icon-publish:before { content: $icon-checkmark; }
-.icon-checkmark-outline:before { content: $icon-checkmark-outline; }
-.icon-close:before { content: $icon-close; }
-.icon-sign-out:before { content: $icon-sign-out; }
 .icon-reorder:before { content: $icon-reorder; }
-.icon-up:before { content: $icon-up; }
-.icon-up-thin:before { content: $icon-up-thin; }
-.icon-right:before { content: $icon-right; }
 .icon-right-thin:before { content: $icon-right-thin; }
-.icon-down:before { content: $icon-down; }
-.icon-down-thin:before { content: $icon-down-thin; }
-.icon-left:before { content: $icon-left; }
-.icon-left-thin:before { content: $icon-left-thin; }
+.icon-right:before { content: $icon-right; }
+.icon-save:before { content: $icon-save; }
+.icon-settings:before { content: $icon-settings; }
+.icon-sign-out:before { content: $icon-sign-out; }
+.icon-up-thin:before { content: $icon-up-thin; }
+.icon-up:before { content: $icon-up; }
+.icon-user:before { content: $icon-user; }

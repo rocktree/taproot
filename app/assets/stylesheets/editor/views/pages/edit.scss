@@ -20,8 +20,13 @@ body.pages.edit {
           color: inherit;
         }
         a {
-          @include icon-before($icon-checkmark);
           text-transform: none;
+          &#existing-block {
+            @include icon-before($icon-new-page);
+          }
+          &#new-block {
+            @include icon-before($icon-new);
+          }
           &:before {
             display: inline-block;
             margin-right: 5px;
