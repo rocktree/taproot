@@ -62,7 +62,25 @@
           }
         }
       }
+      ul {
+        @include clear-list;
+      }
       form {
+        &.new_block {
+          div.input {
+            display: none;
+          }
+          input[type=submit] {
+            display: block;
+            margin: 5px 0 5px 10px;
+            text-align: left;
+            color: $color-1;
+            background: transparent;
+            &:hover {
+              color: $color-1-dark;
+            }
+          }
+        }
         input[type=submit] {
           display: block;
           width: 100%;
