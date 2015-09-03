@@ -5,7 +5,6 @@
 #  id         :integer          not null, primary key
 #  site_id    :integer
 #  user_id    :integer
-#  site_admin :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -16,5 +15,9 @@ class SiteUser < ActiveRecord::Base
 
   belongs_to :site, :touch => true
   belongs_to :user, :touch => true
+
+  # ------------------------------------------ Validations
+
+  validates :site_id, :user_id, :presence => true
 
 end

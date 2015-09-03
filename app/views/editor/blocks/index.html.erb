@@ -1,0 +1,23 @@
+<header>
+  <h1>Add A <%= params[:b].humanize.titleize %> Block</h1>
+</header>
+
+<ul>
+  <% @blocks.each do |block| %>
+    <li>
+      <%= simple_form_for(
+        block,
+        :url => site_editor_page_blocks_path(
+          current_site,
+          current_page,
+          :redirect => params[:redirect]
+        )
+      ) do |f| %>
+        <%= f.input :title %>
+        <%= f.input :page_id %>
+        <%= f.input :block_id %>
+        <%= f.submit block.block.title %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

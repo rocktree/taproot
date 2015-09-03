@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html class="public">
+  <%= partial 'application/head',
+              :locals => { :css_path => 'editor/application' } %>
+  <body class="editor <%= controller_name %> <%= action_name %>"
+        <%#= library_attr %>>
+
+    <%= partial 'application/status' %>
+
+    <div id="container">
+      <%= content_tag(:header, render('header')) %>
+      <%= render :partial => 'sidebar' %>
+      <div id="content-container">
+        <%= content_tag(:main, yield, :id => 'content') %>
+      </div>
+    </div>
+
+    <%= javascript_include_tag 'editor/application' %>
+  </body>
+</html>

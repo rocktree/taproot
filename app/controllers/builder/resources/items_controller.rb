@@ -1,6 +1,4 @@
-class Builder::Resources::ItemsController < BuilderController
-
-  before_filter :verify_admin
+class Builder::Resources::ItemsController < Editor::BaseController
 
   def index
   end

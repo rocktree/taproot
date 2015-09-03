@@ -8,6 +8,12 @@ module DocumentsHelper
     site_documents
   end
 
+  def paginated_site_files
+    @paginated_site_files ||= begin
+      Kaminari.paginate_array(site_files).page(params[:page] || 1).per(20)
+    end
+  end
+
   def current_page_documents
     @current_page_documents ||= begin
       if current_page
@@ -57,6 +63,12 @@ module DocumentsHelper
 
   def site_image_croppings
     @site_image_croppings ||= current_site.image_croppings
+  end
+
+  def library_attr
+    if current_site && current_site.id.present?
+      "data-library=#{builder_site_documents_path(current_site, :link => true)}"
+    end
   end
 
 end

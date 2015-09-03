@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.0'
 gem 'unicorn-rails'
-gem 'mysql2'
 gem 'pg'
 
 # ------------------------------------------ Assets
@@ -18,6 +17,8 @@ gem 'jquery-ui-rails'
 gem 'bones-rails'
 gem 'bourbon'
 gem 'backbone-on-rails'
+gem 'interact-rails'
+gem 'trumbowyg_rails'
 
 # ------------------------------------------ View Helpers
 
@@ -29,19 +30,16 @@ gem 'jcrop-rails-v2'
 
 # ------------------------------------------ Utilities
 
-gem 'cambium', :github => 'rocktree/cambium'
 gem 'fog'
 gem 'devise'
 gem 'ancestry'
 gem 'rails-console-tweaks'
-gem 'dragonfly'
 gem 'koala'
 gem 'httpclient'
 gem 'kaminari'
 gem 'ruby-filemagic'
 gem 'redcarpet'
 gem 'pygments.rb'
-gem 'wysihtml5-rails'
 gem 'reverse_markdown'
 gem 'sidekiq'
 gem 'sitemap_generator'
@@ -50,6 +48,9 @@ gem 'active_record_query_trace'
 gem 'yaml_db'
 gem 'pg_search'
 gem 'geocoder'
+gem 'paper_trail'
+gem 'request_store'
+gem 'superslug', '~> 1.3.0'
 
 group :development do
   gem 'mailcatcher'
@@ -80,10 +81,17 @@ end
 
 # ------------------------------------------ Development/Test
 
+group :development do
+  gem 'guard-rspec', :require => false
+end
+
 group :development, :test do
   gem 'annotate'
+  gem 'capybara'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'launchy'
   gem 'rspec-rails'
-  gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end

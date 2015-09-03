@@ -3,6 +3,17 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+
+require 'ejs'
+require 'capybara/rspec'
+require 'capybara/rails'
+
+Capybara.register_driver :selenium do |app|
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  profile.native_events = true
+  Capybara::Selenium::Driver.new(app, :browser => :firefox, profile: profile)
+end
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -47,4 +58,7 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.include AuthenticationMacros
+  config.include WaitForAjax, :type => :feature
 end

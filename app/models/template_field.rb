@@ -1,76 +1,32 @@
-# == Schema Information
-#
-# Table name: template_fields
-#
-#  id                :integer          not null, primary key
-#  template_group_id :integer
-#  title             :string(255)
-#  slug              :string(255)
-#  data_type         :string(255)
-#  options           :text
-#  required          :boolean          default(FALSE)
-#  position          :integer          default(0)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  label             :string(255)
-#  protected         :boolean          default(FALSE)
-#  hidden            :boolean          default(FALSE)
-#  can_be_hidden     :boolean          default(TRUE)
-#  default_value     :string(255)
-#  half_width        :boolean          default(FALSE)
-#
+class TemplateField
 
-class TemplateField < ActiveRecord::Base
-
-  # ------------------------------------------ Plugins
-
-  include FieldSlug
-
-  # ------------------------------------------ Associations
-
-  belongs_to :template_group, :touch => true
-
-  has_one :template, :through => :template_group
-  has_one :site, :through => :page_type
-
-  # ------------------------------------------ Scopes
-
-  default_scope { order('position asc') }
-
-  scope :alpha, -> { reorder('title asc') }
-
-  # ------------------------------------------ Validations
-
-  validates :title, :template_group, :data_type, :presence => true
-  validate :required_and_hidden
-
-  # ------------------------------------------ Callbacks
-
-  before_save :verify_label
-
-  def verify_label
-    self.label = self.title if self.label.blank?
+  def initialize(attrs)
+    set_attrs(attrs)
   end
 
-  # ------------------------------------------ Instance Methods
-
-  def optional?
-    !required?
+  def attributes
+    @attributes.symbolize_keys
   end
 
-  def option_values
-    options.gsub(/\r/, '').split("\n") unless options.blank?
+  def required
+    attributes[:required] ? attributes[:required].to_bool : false
   end
 
-  def group
-    template_group
+  def label
+    attributes[:label] ? attributes[:label] : attributes[:name].titleize
   end
 
   private
 
-    def required_and_hidden
-      if required? && hidden?
-        errors.add(:hidden, "can't be required AND hidden")
+    def set_attrs(attrs)
+      @attributes ||= attrs.stringify_keys
+    end
+
+    def method_missing(method, *arguments, &block)
+      begin
+        @attributes[method.to_s] || super
+      rescue
+        super
       end
     end
 

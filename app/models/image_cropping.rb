@@ -16,7 +16,7 @@ class ImageCropping < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug
+  has_superslug :title, :slug, :context => :site
 
   # ------------------------------------------ Associations
 

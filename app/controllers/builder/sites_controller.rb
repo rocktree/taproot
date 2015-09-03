@@ -1,64 +1,15 @@
-class Builder::SitesController < BuilderController
+class Builder::SitesController < Editor::BaseController
 
   before_filter :set_layout_options
-  before_filter :verify_admin, :except => [:index, :show]
 
   def index
-    if !current_user.admin? && !has_multiple_sites?
-      redirect_to(builder_site_path(only_site))
-    end
-  end
-
-  def show
-    redirect_to builder_site_pages_path(current_site)
-  end
-
-  def new
-    @current_site = Site.new
-  end
-
-  def create
-    @current_site = Site.new(create_params)
-    if current_site.save
-      if params[:site][:new_repo].to_bool
-        create_sapwood_project
-      end
-      redirect_to(
-        route([current_site], :edit, 'builder'),
-        :notice => t('notices.created', :item => "Site")
-      )
-    else
-      render('new')
-    end
-  end
-
-  def edit
-    unless current_user.admin?
-      redirect_to(builder_site_path(current_site))
-    end
+    redirect_to builder_dashboard_path
   end
 
   def update
-    if current_site.update(update_params)
+    if current_site.update(site_params)
       redirect_to(
         route([current_site], :edit, 'builder'),
-        :notice => t('notices.updated', :item => "Site")
-      )
-    else
-      render('edit')
-    end
-  end
-
-  def croppers
-    unless current_user.admin?
-      redirect_to(builder_site_path(current_site))
-    end
-  end
-
-  def update_croppers
-    if current_site.update(update_params)
-      redirect_to(
-        builder_site_cropper_path(current_site),
         :notice => t('notices.updated', :item => "Site")
       )
     else
@@ -110,11 +61,7 @@ class Builder::SitesController < BuilderController
 
   private
 
-    def verify_admin
-      not_found unless current_user.admin?
-    end
-
-    def create_params
+    def site_params
       params.require(:site).permit(
         :title,
         :url,
@@ -132,20 +79,11 @@ class Builder::SitesController < BuilderController
       )
     end
 
-    def update_params
-      create_params
-    end
-
     def set_layout_options
       if ['index', 'new', 'create'].include?(action_name)
         @options['sidebar'] = false
         @options['body_classes'] += ' my-sites'
       end
-    end
-
-    def create_sapwood_project
-      sapwood = SapwoodProject.new(current_site)
-      sapwood.create_site
     end
 
     def builder_html_title

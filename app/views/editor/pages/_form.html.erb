@@ -1,0 +1,166 @@
+<% url = site_editor_page_path(current_site, current_page) %>
+<% if params[:redirect] %>
+  <% url = site_editor_page_path(current_site, current_page,
+                                 :redirect => params[:redirect]) %>
+<% end %>
+<%= simple_form_for(current_page, :url => url) do |f| %>
+
+  <%= f.simple_fields_for :field_data,
+                          OpenStruct.new(f.object.field_data) do |fd| %>
+    <% current_template.fields.all.each_with_index do |field, idx| %>
+      <% if field.name == 'body' %>
+        <%= f.input :body, :label => field.label,
+                    :input_html => { :class => 'editor' } %>
+      <% elsif field.type == 'block' %>
+        <% template = current_site.templates.find(field.template) %>
+        <div class="block">
+          <h2>
+            <span><%= field.label %></span>
+            <% path = site_editor_page_blocks_path(current_site, current_page,
+                                                   :b => field.name,
+                                                   :t => template.name,
+                                                   :redirect => request.path) %>
+            <%= link_to "Add Existing #{template.title}", '#',
+                        :id => 'existing-block',
+                        :data => { :modal_url => path } %>
+            <% new_path = new_site_editor_page_path(current_site,
+                                                    :t => template.name,
+                                                    :create_block => true,
+                                                    :b => field.name,
+                                                    :bp => current_page.slug) %>
+            <%= link_to "Create New #{template.title}", '#',
+                        :id => 'new-block',
+                        :data => { :modal_url => new_path } %>
+          </h2>
+          <ul data-url="<%= site_editor_page_reorder_blocks_path(
+              current_site, current_page, field.name) %>">
+            <% current_page_blocks(field.name).each do |page| %>
+              <li class="item" data-page="<%= page.id %>">
+                <% if pages_from_template(template).size > 1 %>
+                  <span class="reorder">
+                    <%= icon_to 'reorder', '#', :class => 'handle' %>
+                  </span>
+                <% end %>
+                <span class="title"><%= page.title %></span>
+                <span class="icons">
+                  <%= icon_to 'edit',
+                              edit_site_editor_page_path(
+                                current_site,
+                                page,
+                                :redirect => request.path,
+                              ),
+                              :class => 'edit' %>
+                  <%= icon_to(
+                    'delete',
+                    site_editor_page_block_path(
+                      current_site,
+                      current_page,
+                      page,
+                      :redirect => request.path
+                    ),
+                    :method => :delete, :class => 'delete',
+                    :data => { :confirm => 'Are you sure?' }
+                  ) %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <% case field.type %>
+        <% when 'wysiwyg' %>
+          <%= fd.input :"#{field.name}", :as => :text,
+                       :required => field.required, :label => field.label,
+                       :input_html => { :class => 'editor' } %>
+        <% else %>
+          <%= fd.input :"#{field.name}", :as => :"#{field.type}",
+                       :required => field.required, :label => field.label %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+
+<!--
+      <%# else %>
+        <%# case field.data_type %>
+        <%# when 'markdown' %>
+          <%#= fd.input(
+            :"markdown_#{field.slug}",
+            :as => :text,
+            :label => field.label,
+            :required => false,
+            :input_html => {
+              :value => current_page.send("markdown_#{field.slug}") || field.default_value
+            },
+            :wrapper_html => {
+              :class => 'markdown-editor'
+            }
+          ) %>
+        <%# when 'date' %>
+          <%#= fd.input(
+            :"#{field.slug}",
+            :as => :string,
+            :required => field.required,
+            :label => field.label,
+            :input_html => {
+              :class => 'date-js',
+              :value => current_page.field_data[field.slug.to_sym]
+            }
+          ) %>
+        <%# when 'select' %>
+          <%#= fd.input(
+            :"#{field.slug}",
+            :as => :"#{field.data_type}",
+            :collection => field.option_values,
+            :required => field.required,
+            :label => field.label,
+            :selected => current_page.field_data[field.slug],
+          ) %>
+        <%# when 'check_boxes', 'radio_buttons' %>
+          <%#= fd.input(
+            :"#{field.slug}",
+            :as => :"#{field.data_type}",
+            :collection => field.option_values,
+            :required => field.required,
+            :label => field.label,
+            :checked => current_page.field_data[field.slug] ||
+              field.default_value
+          ) %>
+        <%# when 'image', 'file' %>
+          <div class="upload-field">
+            <%#= fd.input(
+              :"rtfile_#{field.slug}",
+              :as => :hidden,
+              :required => field.required,
+              :label => field.label,
+              :input_html => {
+                :value => current_page.field_data[field.slug]
+              }
+            ) %>
+            <%#= image_tag(
+              find_page_thumb(current_page.field_data[field.slug])
+            ) unless current_page.field_data[field.slug].blank? %>
+            <%#= link_to(
+              "Add New #{field.title}",
+              builder_site_documents_path(current_site, :select => true),
+              :class => 'image-upload-trigger button'
+            ) %>
+            <%#= link_to(
+              "Remove #{field.title}",
+              '#',
+              :class => 'remove-file button'
+            ) unless current_page.field_data[field.slug].blank? %>
+          </div>
+        <%# else %>
+
+        <%# end %>
+      <%# end %>
+
+
+    <%# end %>
+  <%# end %> -->
+
+  <%= f.submit "Save" %>
+
+<% end %>

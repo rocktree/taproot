@@ -14,7 +14,9 @@ class Menu < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include SiteSlug
+  include ActivityLog
+
+  has_superslug :title, :slug, :context => :site
 
   # ------------------------------------------ Associations
 

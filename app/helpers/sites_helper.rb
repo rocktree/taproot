@@ -1,26 +1,8 @@
 module SitesHelper
 
-  def current_site
-    @current_site ||= begin
-      if(
-        ['localhost',SapwoodSetting.site.url].include?(request.host) ||
-        request.host =~ /^192\.168/ || request.host =~ /^10\.1/
-      )
-        p = params[:site_slug] || params[:slug]
-        if user_signed_in?
-          my_sites.select{ |s| s.slug == p }.first unless p.nil?
-        else
-          Site.find_by_slug(p) unless p.nil?
-        end
-      else
-        Site.find_by_url(request.host)
-      end
-    end
-  end
-
   def my_sites
     @my_sites ||= begin
-      admin? ? Site.last_updated : current_user.sites.last_updated
+      admin? ? Site.alpha : current_user.sites.alpha
     end
   end
 
@@ -37,7 +19,7 @@ module SitesHelper
   end
 
   def builder_html_title
-    @builder_html_title ||= SapwoodSetting.site.title
+    @builder_html_title ||= TopkitSetting.site.title
   end
 
   def my_sites_breadcrumbs

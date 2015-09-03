@@ -1,4 +1,4 @@
-class Builder::MenusController < BuilderController
+class Builder::MenusController < Editor::BaseController
 
   include MenusHelper
 

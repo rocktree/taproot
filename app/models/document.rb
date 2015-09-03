@@ -17,7 +17,7 @@ class Document < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  dragonfly_accessor :document
+  include ActivityLog
 
   # ------------------------------------------ Attributes
 
@@ -48,6 +48,10 @@ class Document < ActiveRecord::Base
 
   def to_param
     idx.to_s
+  end
+
+  def title
+    document.meta['name']
   end
 
   def create_idx

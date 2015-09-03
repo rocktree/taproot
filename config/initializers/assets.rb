@@ -1,3 +1,5 @@
-Rails.application.config.assets.precompile += %w( 
-  wysiwyg.css builder/wysihtml5.css modernizr.js
+Rails.application.config.assets.precompile += %w(
+  modernizr.js
+  trumbowyg/images/icons.png
+  trumbowyg/images/icons-2x.png
 )

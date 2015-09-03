@@ -1,6 +1,6 @@
 Rails.application.configure do
 
-  ActiveRecordQueryTrace.enabled = false
+  ActiveRecordQueryTrace.enabled = true
 
   # Settings specified here will take precedence over those in config/application.rb.
 

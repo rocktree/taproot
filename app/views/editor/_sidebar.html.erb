@@ -1,0 +1,39 @@
+<aside id="sidebar">
+  <div class="logo">
+    <h1><%= link_to 'topkit', root_path %></h1>
+  </div>
+  <div id="new-button-container" class="dropdown">
+    <%= link_to 'NEW', '#', :id => 'new-button',
+                :class => 'new button-color-2 dropdown-trigger' %>
+    <ul>
+      <% all_templates.select(&:showable?).each do |t| %>
+        <li>
+          <% if current_page && current_page.id.present? %>
+            <% path = new_site_editor_page_path(
+              current_site, :t => t.name, :p => current_page.slug
+            ) %>
+          <% else %>
+            <% path = new_site_editor_page_path(current_site, :t => t.name) %>
+          <% end %>
+          <%= link_to t.title, path, :class => 'tk-modal-trigger',
+                      :data => { :modal_url => path } %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <nav>
+    <ul>
+      <li class="<%= 'active' if controller_name == 'pages' && params[:status] != 'draft' %>">
+        <%= icon_to 'right', '#',
+                    :id => 'pages-subnav-trigger' if all_pages_tree.size > 0 %>
+        <%= link_to 'Pages', site_editor_pages_path(current_site),
+                    :class => 'pages' %>
+        <%= pages_subnav %>
+      </li>
+      <li class="<%= 'active' if params[:status] == 'draft' %>">
+        <%= link_to 'Drafts', site_editor_pages_path(current_site, :status => 'draft'),
+                    :class => 'drafts' %>
+      </li>
+    </ul>
+  </nav>
+</aside>

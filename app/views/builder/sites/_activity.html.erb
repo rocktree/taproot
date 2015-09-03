@@ -1,0 +1,11 @@
+<article class="activity site">
+  <%= avatar(activity.user, 84) %>
+  <span class="activity-content">
+    <%= activity_content(activity) %>
+  </span>
+  <div class="notes">
+    <span class="date">
+      <%= "#{time_ago_in_words(activity.created_at)} ago" %>
+    </span>
+  </div>
+</article>

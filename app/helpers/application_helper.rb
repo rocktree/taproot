@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def data
     @data ||= {
-      :title => current_site ? current_site.title : SapwoodSetting.site.title
+      :title => current_site ? current_site.title : TopkitSetting.site.title
     }
   end
 
@@ -12,6 +12,10 @@ module ApplicationHelper
 
   def setting(name)
     settings.select { |s| s.title == name }.first
+  end
+
+  def obj_exists?(obj)
+    obj && obj.id.present?
   end
 
 end

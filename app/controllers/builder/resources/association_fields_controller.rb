@@ -1,6 +1,4 @@
-class Builder::Resources::AssociationFieldsController < BuilderController
-
-  before_filter :verify_admin
+class Builder::Resources::AssociationFieldsController < Editor::BaseController
 
   def index
   end

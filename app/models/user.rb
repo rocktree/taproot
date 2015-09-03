@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  name                   :string(255)
 #  settings               :text
-#  admin                  :boolean          default(FALSE)
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
@@ -18,11 +17,14 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
-#  fb_access_token        :string(255)
-#  fb_token_expires       :datetime
+#  api_key                :string(255)
 #
 
 class User < ActiveRecord::Base
+
+  # ------------------------------------------ Plugins
+
+  include ActivityLog, Presenter
 
   # ------------------------------------------ Devise
 
@@ -36,34 +38,56 @@ class User < ActiveRecord::Base
 
   has_many :site_users
   has_many :sites, :through => :site_users
+  has_many :activities
 
   # ------------------------------------------ Validations
 
   validates :email, :presence => true
+  validates :api_key, :uniqueness => true
 
   # ------------------------------------------ Scopes
 
-  scope :admins, -> { where(:admin => true) }
   scope :alpha, -> { all.to_a.sort_by(&:last_name) }
+
+  # ------------------------------------------ Callbacks
+
+  before_create :set_api_key
 
   # ------------------------------------------ Instance Methods
 
-  def display_name
-    name || email
+  def first_site
+    sites.alpha.first
   end
 
-  def first_name
-    return email if name.nil?
-    name.split(' ').first
+  def has_sites?
+    sites.size > 0
   end
 
-  def last_name
-    return email if name.nil?
-    name.split(' ').last
+  def has_multiple_sites?
+    sites.size > 1
   end
 
-  def site_user?
-    !admin?
+  def as_json(options)
+    super(
+      :only => [:name, :email, :api_key],
+      :include => { :sites => { :only => [:title, :uid] } }
+    )
   end
+
+  private
+
+    def save_activity
+      Activity.create(
+        :item => self,
+        :site => nil,
+        :item_path => nil,
+        :user => RequestStore.store[:topkit],
+        :action => self.new_record? ? 'created' : 'updated'
+      )
+    end
+
+    def set_api_key
+      self.api_key = SecureRandom.hex(16)
+    end
 
 end

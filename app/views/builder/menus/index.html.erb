@@ -1,19 +1,6 @@
-<%= builder_page_title(menus_breadcrumbs, :class => 'breadcrumbs') do %>
-  <%= content_tag(
-    :div,
-    link_to(
-      'New Menu',
-      builder_route([site_menus], :new),
-      :class => 'new'
-    ),
-    :class => 'new-buttons dropdown'
-  ) %>
-<% end %>
+<%= builder_page_title('Menus') %>
 
-<section id="page-content" class="data-container">
-  <% if site_menus.size > 0 %>
-    <%= data_table(site_menus, 'menu') %>
-  <% else %>
-    <%= missing_content("No menus for this site. Maybe you should add one!") %>
-  <% end %>
+<section id="page-content" class="data-container with-sidebar">
+  <%= render_activities('menus', 'builder/sites/activity') %>
 </section>
+

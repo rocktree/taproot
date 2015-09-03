@@ -1,8 +1,14 @@
-class Builder::Sites::SettingsController < BuilderController
+class Builder::Sites::SettingsController < Editor::BaseController
 
   include SettingsHelper
 
   def index
+  end
+
+  def show
+    redirect_to(
+      edit_builder_site_site_setting_path(current_site, current_setting)
+    )
   end
 
   def new

@@ -1,4 +1,4 @@
-class Builder::Pages::DocumentsController < Builder::PagesController
+class Builder::Pages::DocumentsController < Editor::PagesController
 
   before_filter :verify_has_docs
 

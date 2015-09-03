@@ -2,134 +2,145 @@
 #
 # Table name: sites
 #
-#  id             :integer          not null, primary key
-#  title          :string(255)
-#  slug           :string(255)
-#  url            :string(255)
-#  description    :text
-#  created_at     :datetime
-#  updated_at     :datetime
-#  home_page_id   :integer
-#  git_url        :string(255)
-#  secondary_urls :text
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  slug       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  git_url    :string(255)
+#  uid        :string(255)
+#  config     :json
 #
 
 require 'active_support/inflector'
+require 'yaml'
 
 class Site < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include Slug
-
-  # ------------------------------------------ Attributes
-
-  serialize :crop_settings, Hash
-
-  attr_accessor :new_repo
+  has_superslug
 
   # ------------------------------------------ Associations
 
   has_many :site_users
   has_many :users, :through => :site_users
-  has_many :templates, :dependent => :destroy
-  has_many :resource_types, :dependent => :destroy
-  has_many :webpages, :through => :templates, :dependent => :destroy,
-           :class_name => 'Page'
-  has_many :forms, :dependent => :destroy
-  has_many :documents, :dependent => :destroy
-  has_many :image_croppings, :dependent => :destroy
-  has_many :menus, :dependent => :destroy
-  has_many :menu_items, :through => :menus
-  has_many :site_settings, :dependent => :destroy
-
-  belongs_to :home_page, :class_name => 'Page'
-
-  accepts_nested_attributes_for :image_croppings
+  # has_many :templates, :dependent => :destroy
+  # has_many :resource_types, :dependent => :destroy
+  has_many :webpages, :dependent => :destroy, :class_name => 'Page'
+  # has_many :forms, :dependent => :destroy
+  # has_many :documents, :dependent => :destroy
+  # has_many :menus, :dependent => :destroy
+  # has_many :menu_items, :through => :menus
+  # has_many :site_settings, :dependent => :destroy
+  # has_many :domains, :dependent => :destroy
 
   # ------------------------------------------ Scopes
 
+  scope :alpha, -> { order('title asc') }
   scope :last_updated, -> { order('updated_at desc') }
 
   # ------------------------------------------ Validations
 
-  validates :title, :git_url, :presence => true
+  validates :title, :presence => true
 
-  validates_uniqueness_of :title
+  validates_uniqueness_of :title, :uid
 
   validates_format_of :title, :with => /\A[A-Za-z][A-Za-z0-9\ ]+\z/
 
   # ------------------------------------------ Callbacks
 
-  after_save :remove_blank_image_croppings
+  before_create :generate_uid
 
-  def remove_blank_image_croppings
-    image_croppings.where("title = ''").destroy_all
+  def generate_uid
+    self.uid = SecureRandom.hex(9)
   end
 
-  after_save :reload_routes
+  after_create :generate_default_config
 
-  def reload_routes
-    if secondary_urls_changed? || url_changed?
-      Rails.application.reload_routes!
-    end
+  def generate_default_config
+    convert_title_to_slug # superslug runs this
+    config = { :title => title, :slug => slug, :uid => uid }
+    config_will_change!
+    update_columns(:config => config)
   end
 
   # ------------------------------------------ Instance Method
 
-  def croppers
-    crop_settings
+  def pages
+    @pages ||= Rails.env.production? ? webpages.published : webpages
   end
 
-  def files
-    documents
+  def to_param
+    uid
   end
 
-  def redirect_domains
-    return [] if secondary_urls.blank?
-    secondary_urls.split("\n").collect(&:strip)
+  def templates
+    TemplateCollection.new(self)
   end
 
-  def method_missing(method, *arguments, &block)
-    begin
-      super
-    rescue
-      # This enables us to call a template and will return
-      # all the pages for that template
-      template = templates.find_by_slug(method)
-      if template.nil?
-        singular_method = ActiveSupport::Inflector.singularize(method)
-        template = templates.find_by_slug(singular_method)
-      end
-      if template.nil?
-        super
-      else
-        template.pages
+  def update_config(attrs = {})
+    attrs.each do |key, value|
+      if ['title','slug','uid'].include?(key.to_s)
+        update_columns(key.to_sym => value)
       end
     end
+    conf = self.config.merge!(attrs)
+    config_will_change!
+    update_columns(:config => conf)
   end
 
-  def respond_to?(method, include_private = false)
-    template = templates.find_by_slug(method)
-    if template.nil?
-      singular_method = ActiveSupport::Inflector.singularize(method)
-      template = templates.find_by_slug(singular_method)
-    end
-    template.nil? ? super : true
-  end
+  # def files
+  #   documents
+  # end
+
+  # def redirect_domains
+  #   return [] if secondary_urls.blank?
+  #   secondary_urls.split("\n").collect(&:strip)
+  # end
+
+  # def update_config!
+  #   config_dir = "#{Rails.root}/projects/#{slug}/config"
+  #   templates = YAML.load(File.read("#{config_dir}/templates.yml")).to_json
+  #   update_columns(:templates => templates)
+  # end
+
+  # def method_missing(method, *arguments, &block)
+  #   begin
+  #     super
+  #   rescue
+  #     # This enables us to call a template and will return
+  #     # all the pages for that template
+  #     template = templates.find_by_slug(method)
+  #     if template.nil?
+  #       singular_method = ActiveSupport::Inflector.singularize(method)
+  #       template = templates.find_by_slug(singular_method)
+  #     end
+  #     if template.nil?
+  #       super
+  #     else
+  #       template.pages
+  #     end
+  #   end
+  # end
+
+  # def respond_to?(method, include_private = false)
+  #   template = templates.find_by_slug(method)
+  #   if template.nil?
+  #     singular_method = ActiveSupport::Inflector.singularize(method)
+  #     template = templates.find_by_slug(singular_method)
+  #   end
+  #   template.nil? ? super : true
+  # end
 
   # ------------------------------------------ Deprecated Methods
 
-  def page_types
-    templates
-  end
+  # def page_types
+  #   templates
+  # end
 
-  def pages
-    Rails.env.production? ? webpages.published : webpages
-  end
-
-  def settings
-    site_settings
-  end
+  # def settings
+  #   site_settings
+  # end
 
 end

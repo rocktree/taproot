@@ -2,24 +2,21 @@
 #
 # Table name: sites
 #
-#  id             :integer          not null, primary key
-#  title          :string(255)
-#  slug           :string(255)
-#  url            :string(255)
-#  description    :text
-#  created_at     :datetime
-#  updated_at     :datetime
-#  home_page_id   :integer
-#  git_url        :string(255)
-#  secondary_urls :text
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  slug       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  git_url    :string(255)
+#  uid        :string(255)
+#  config     :json
 #
 
 FactoryGirl.define do
   factory :site do
-    title { Faker::Lorem.word }
-    url { Faker::Internet.url }
-    description { Faker::Lorem.paragraph }
-    git_url { Faker::Internet.url }
+    title { Faker::Lorem.words(4).join(' ') }
+    # git_url { Faker::Internet.url }
+    # uid { SecureRandom.hex(12) }
   end
 
 end

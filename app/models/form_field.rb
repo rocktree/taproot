@@ -23,11 +23,15 @@ class FormField < ActiveRecord::Base
 
   # ------------------------------------------ Plugins
 
-  include FormSlug
+  include ActivityLog
+
+  has_superslug :title, :slug, :context => :form
 
   # ------------------------------------------ Associations
 
   belongs_to :form, :touch => true
+
+  has_one :site, :through => :form
 
   # ------------------------------------------ Scopes
 

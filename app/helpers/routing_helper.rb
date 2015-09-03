@@ -38,7 +38,7 @@ module RoutingHelper
 
   def viewer_home
     if(
-      request.host == SapwoodSetting.site.url ||
+      request.host == TopkitSetting.site.url ||
       request.host =~ /^192\.168/ || request.host =~ /^10\.1/
     )
       preview_home_path
@@ -49,7 +49,7 @@ module RoutingHelper
 
   def viewer_page(page_path)
     if(
-      request.host == SapwoodSetting.site.url ||
+      request.host == TopkitSetting.site.url ||
       request.host =~ /^192\.168/ || request.host =~ /^10\.1/
     )
       preview_page_path(:page_path => page_path).gsub(/\/+/, '/')

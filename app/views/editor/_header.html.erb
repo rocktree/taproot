@@ -1,0 +1,22 @@
+<div class="site-toggle <%= 'dropdown' if current_user.has_multiple_sites? %>">
+  <%= link_to(
+    current_site.title,
+    site_editor_path(current_site),
+    :class => (
+      current_user.has_multiple_sites? ? 'dropdown-trigger' : 'disabled'
+    )
+  ) %>
+  <% if current_user.has_multiple_sites? %>
+    <ul>
+      <li class="h1">My Sites</li>
+      <% (all_sites - [current_site]).each do |site| %>
+        <%= content_tag(:li, link_to(site.title, site_editor_path(site))) %>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<div class="user">
+  <%= link_to('#') { avatar(current_user, 84) } %>
+  <%= icon_to 'sign-out', destroy_user_session_path, :id => 'sign-out' %>
+</div>

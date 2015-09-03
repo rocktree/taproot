@@ -1,4 +1,4 @@
-class Builder::Forms::SubmissionsController < BuilderController
+class Builder::Forms::SubmissionsController < Editor::BaseController
 
   include FormsHelper
 

@@ -1,9 +1,0 @@
-<%= builder_page_title(my_sites_breadcrumbs, :class => 'breadcrumbs') do %>
-  <%= content_tag(
-    :div,
-    link_to('New Site',  new_builder_site_path, :class => 'new'),
-    :class => 'new-buttons dropdown'
-  ) if current_user.admin? %>
-<% end %>
-
-<%= content_tag(:section, data_table(my_sites, 'site'), :id => 'page-content') %>

@@ -60,3 +60,6 @@ db/data.yml
 /public/sitemaps/
 /public/Bing*
 /public/google*
+
+# Testing for site config
+config.yml

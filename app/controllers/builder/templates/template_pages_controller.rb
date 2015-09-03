@@ -1,6 +1,4 @@
-class Builder::Templates::TemplatePagesController < BuilderController
-
-  before_filter :verify_admin
+class Builder::Templates::TemplatePagesController < Editor::BaseController
 
   def index
     @pages = current_template_pages

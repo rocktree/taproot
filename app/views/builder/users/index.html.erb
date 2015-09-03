@@ -1,20 +1,5 @@
-<%= builder_page_title(users_breadcrumbs, :class => 'breadcrumbs') do %>
-  <%= content_tag(
-    :div,
-    link_to(
-      'New User',
-      builder_route([all_site_users], :new),
-      :class => 'new'
-    ),
-    :class => 'new-buttons dropdown'
-  ) %>
-<% end %>
+<%= builder_page_title('Users') %>
 
 <section id="page-content" class="data-container">
-  <%= render :partial => 'filters' %>
-  <% if @users.size > 0 %>
-    <%= data_table(@users, 'user') %>
-  <% else %>
-    <%= missing_content("No users match your criteria.") %>
-  <% end %>
+  <%= render_activities('users', 'builder/sites/activity') %>
 </section>

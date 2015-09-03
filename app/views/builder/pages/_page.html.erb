@@ -69,7 +69,7 @@
         :class => 'delete',
         :data => { :confirm => 'WARNING: This will destroy all pages and
           subpages. Are you sure you want to delete this page?' }
-      ) if current_user.admin? %>
+      ) if current_user.admin? && page != home_page %>
     </div>
   </div>
 </article>

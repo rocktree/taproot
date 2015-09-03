@@ -1,0 +1,84 @@
+<header class="page-header">
+  <nav class="breadcrumbs">
+    <ul>
+      <li>
+        <%= link_to 'Site Pages', site_editor_pages_path(current_site) %>
+      </li>
+      <% current_page_ancestors.each do |page| %>
+        <li>
+          <%= link_to page.title, site_editor_page_path(current_site, page) %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+  <div class="actions">
+    <%= icon_to 'save', '#', :class => 'save-page' %>
+    <%#= icon_to 'edit', edit_site_editor_page_path(current_site, current_page) %>
+    <%#= icon_to 'link', '#' %>
+    <% if current_page.published? %>
+      <%= icon_to 'unpublish',
+                  site_editor_page_unpublish_path(current_site, current_page),
+                  :method => :post,
+                  :class => 'unpublish' %>
+    <% else %>
+      <%= icon_to 'publish',
+                  site_editor_page_publish_path(current_site, current_page),
+                  :method => :post,
+                  :class => 'publish' %>
+    <% end %>
+    <%= icon_to 'delete',
+                site_editor_page_path(current_site, current_page),
+                :method => :delete,
+                :class => 'delete',
+                :data => { :confirm => 'Are you sure?' } %>
+    <% if current_page_children.size > 1 %>
+      <%= icon_to 'save', '#', :class => 'save-order' %>
+      <%= icon_to 'reorder', '#', :class => 'reorder sort-mode' %>
+    <% end %>
+    <% if current_page_children.size > 0 %>
+      <%= icon_to 'nest', '#', :class => 'nest sort-mode' %>
+    <% end %>
+  </div>
+  <h1>
+    <span class="title"
+          contenteditable="true"><%= current_page.title %></span>
+    <span class="slug"
+          contenteditable="true"><%= current_page.slug %></span>
+  </h1>
+  <% url = site_editor_page_path(current_site, current_page) %>
+  <% if params[:redirect] %>
+    <% url = site_editor_page_path(current_site, current_page,
+                                   :redirect => params[:redirect]) %>
+  <% end %>
+  <%= simple_form_for(current_page, :url => url) do |f| %>
+    <%= f.input :title %>
+    <%= f.input :slug %>
+  <% end %>
+  <div class="labels">
+    <span class="tk-label <%= current_page.status %> template">
+      <%= current_page.p.status_icon %>
+      <strong>Status:</strong>
+      <span><%= current_page.status.titleize %></span>
+    </span>
+    <span class="tk-label template">
+      <i class="icon-page"></i>
+      <strong>Template:</strong>
+      <span><%= current_template.title %></span>
+    </span>
+  </div>
+</header>
+
+<nav class="page-tabs">
+  <ul>
+    <% {
+      :content => edit_site_editor_page_path(current_site, current_page),
+      :pages => site_editor_page_path(current_site, current_page),
+      :meta => site_editor_page_meta_path(current_site, current_page)
+      }.each do |name, path| %>
+      <li>
+        <%= link_to name.to_s.titleize, path,
+                    :class => ('active' if request.path == path) %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

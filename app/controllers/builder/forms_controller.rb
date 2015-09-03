@@ -1,6 +1,4 @@
-class Builder::FormsController < BuilderController
-
-  before_filter :verify_admin, :except => [:index, :show]
+class Builder::FormsController < Editor::BaseController
 
   include FormsHelper
 

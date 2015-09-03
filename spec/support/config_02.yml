@@ -1,0 +1,19 @@
+title: Hello World 123
+slug: hello-world-123
+uid: 12kndsf92sdf9smslop
+templates:
+  home:
+    title: Home
+    fields:
+      subtitle:
+        type: string
+        label: Subtitle
+      header_image:
+        type: string
+        label: Header Image
+  about:
+    title: About
+    fields:
+      subtitle:
+        type: string
+        label: Subtitle
