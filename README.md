@@ -1,4 +1,4 @@
-topkit Server (Pre-Release)
+topkit Developer (Pre-Release)
 ==========
 
 topkit is a content organization system. It helps you easily organize content
